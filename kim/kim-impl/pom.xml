@@ -27,7 +27,7 @@
     <version>ua-release4-SNAPSHOT</version>
     
     <properties>
-+       <rice.parent.version>2.1.10</rice.parent.version>
+        <rice.parent.version>2.1.10</rice.parent.version>
     </properties>
    
     <name>Rice KIM Impl</name>
