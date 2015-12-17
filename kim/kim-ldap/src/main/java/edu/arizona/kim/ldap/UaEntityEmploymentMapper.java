@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.coreservice.api.parameter.Parameter;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.CodedAttribute;
@@ -82,12 +83,16 @@ public class UaEntityEmploymentMapper extends UaBaseMapper<List<EntityEmployment
 			employmentInfo.setEmployeeId(edsRecord.getEmplId());
 			employmentInfo.setActive(edsAff.isActive());
 			employmentInfo.setEmployeeStatus(CodedAttribute.Builder.create(edsAff.getStatusCode()));
-			employmentInfo.setPrimaryDepartmentCode(getConstants().getDefaultChartCode() + " " + edsAff.getDeptCode());
+			employmentInfo.setPrimaryDepartmentCode(getConstants().getDefaultChartCode() + "-" + edsAff.getDeptCode());
 			employmentInfo.setEmployeeType(CodedAttribute.Builder.create(edsAff.getEmployeeType()));
+
+			// UAF-1030 -- baseSalaryAmount should always show $0.00, and *not* mapped to the EDS value
+			employmentInfo.setBaseSalaryAmount(KualiDecimal.ZERO);
 
 			employments.add(employmentInfo);
 			affId++;
 		}
+
 
 		return employments;
 
