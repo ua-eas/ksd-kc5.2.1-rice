@@ -47,6 +47,7 @@ public class KualiHttpSessionListener implements HttpSessionListener {
      *
      *  @see javax.servlet.http.HttpSessionListener#sessionCreated(javax.servlet.http.HttpSessionEvent)
      */
+    @Override
     public void sessionCreated(HttpSessionEvent se) {
         // no operation required at this time
     }
@@ -58,18 +59,12 @@ public class KualiHttpSessionListener implements HttpSessionListener {
      * 
      * @see javax.servlet.http.HttpSessionListener#sessionDestroyed(javax.servlet.http.HttpSessionEvent)
      */
-    public void sessionDestroyed(HttpSessionEvent se) {
-        releaseLocks();
-    }
-
-    /**
-     * Remove any locks that the user has for this session
-     */
-    private void releaseLocks() {
-        String sessionId = GlobalVariables.getUserSession().getKualiSessionId();
+    @Override
+    public void sessionDestroyed(HttpSessionEvent sessionEvent) {
+        UserSession userSession = (UserSession) sessionEvent.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
+        String sessionId = userSession.getKualiSessionId();
         List<PessimisticLock> locks = KRADServiceLocatorWeb.getPessimisticLockService().getPessimisticLocksForSession(sessionId);
-        Person user = GlobalVariables.getUserSession().getPerson();
-
+        Person user = userSession.getActualPerson();
         KRADServiceLocatorWeb.getPessimisticLockService().releaseAllLocksForUser(locks, user);
     }
 
