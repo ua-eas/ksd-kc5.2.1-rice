@@ -24,7 +24,7 @@
     <version>2.1.10</version>
   </parent>
   <artifactId>rice-impl</artifactId>
-  <version>ua-release6-SNAPSHOT</version>
+  <version>ua-release6</version>
 
   <properties>
     <rice.parent.version>2.1.10</rice.parent.version>
