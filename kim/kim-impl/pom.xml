@@ -24,7 +24,7 @@
         <version>2.1.10</version>
     </parent>
     <artifactId>rice-kim-impl</artifactId>
-    <version>ua-release5</version>
+    <version>ua-release6</version>
     
     <properties>
         <rice.parent.version>2.1.10</rice.parent.version>
