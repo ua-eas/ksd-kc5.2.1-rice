@@ -20,7 +20,6 @@ import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.criteria.Predicate;
 import org.kuali.rice.core.api.criteria.PredicateUtils;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
-import org.kuali.rice.core.api.util.ClassLoaderUtils;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.core.web.format.BooleanFormatter;
@@ -32,8 +31,7 @@ import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.group.Group;
 import org.kuali.rice.kim.api.group.GroupQueryResults;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.principal.Principal;
-import org.kuali.rice.kim.api.identity.principal.PrincipalQueryResults;
+import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.api.type.KimAttributeField;
 import org.kuali.rice.kim.api.type.KimType;
@@ -57,7 +55,6 @@ import org.kuali.rice.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.krad.datadictionary.AttributeDefinition;
 import org.kuali.rice.krad.keyvalues.IndicatorValuesFinder;
 import org.kuali.rice.krad.keyvalues.KeyValuesFinder;
-import org.kuali.rice.krad.keyvalues.KimAttributeValuesFinder;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.ObjectUtils;
@@ -65,16 +62,7 @@ import org.kuali.rice.krad.util.UrlFactory;
 
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import static org.kuali.rice.core.api.criteria.PredicateFactory.*;
 
@@ -89,6 +77,7 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
 	private String typeId = "";
 	private List<KimAttributeField> attrDefinitions;
 	private final Map<String, String> groupTypeValuesCache = new HashMap<String, String>();
+    private PersonService personService;
 
     @Override
     public List<HtmlData> getCustomActionUrls(BusinessObject bo, List pkNames) {
@@ -143,14 +132,9 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
                 QueryByCriteria.Builder principalCriteria = QueryByCriteria.Builder.create();
                 Predicate principalPred = like("principalName", criteriaMap.get(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME));
                 principalCriteria.setPredicates(principalPred);
-                //String principalId = KimApiServiceLocator.getIdentityService()
-                //        .getPrincipalByPrincipalName(criteriaMap.get(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME)).getPrincipalId();
-                PrincipalQueryResults principals = KimApiServiceLocator.getIdentityService()
-                        .findPrincipals(principalCriteria.build());
-                List<String> principalIds = new ArrayList<String>();
-                for (Principal principal : principals.getResults()) {
-                    principalIds.add(principal.getPrincipalId());
-                }
+
+                List<String> principalIds = getPrincipalIds(criteriaMap.get(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME));
+
                 if (CollectionUtils.isNotEmpty(principalIds)) {
                     Timestamp currentTime = new Timestamp(Calendar.getInstance().getTimeInMillis());
                     predicates.add( and(
@@ -434,10 +418,10 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
             }
         }
         Collections.sort(options, new Comparator<KeyValue>() {
-           @Override
-           public int compare(KeyValue k1, KeyValue k2) {
-               return k1.getValue().compareTo(k2.getValue());
-           }
+            @Override
+            public int compare(KeyValue k1, KeyValue k2) {
+                return k1.getValue().compareTo(k2.getValue());
+            }
         });
 		return options;
 	}
@@ -541,6 +525,30 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
     public void performClear(LookupForm lookupForm) {
         super.performClear(lookupForm);
         this.attrRows = new ArrayList<Row>();
+    }
+
+    protected List<String> getPrincipalIds(String principalName) {
+
+        Map<String, String> personValues = new HashMap<String, String>();
+        personValues.put(KIMPropertyConstants.Person.PRINCIPAL_NAME, principalName);
+
+        PersonService personService = KimApiServiceLocator.getPersonService();
+        List<? extends Person> people = personService.findPeople(personValues);
+        List<String> principalIds = new ArrayList<String>();
+        if (people != null && !people.isEmpty()) {
+            for (Person person : people) {
+                principalIds.add(person.getPrincipalId());
+            }
+        }
+
+        return principalIds;
+    }
+
+    protected PersonService getPersonService() {
+        if ( this.personService == null ) {
+            this.personService = KimApiServiceLocator.getPersonService();
+        }
+        return this.personService;
     }
 
 }
