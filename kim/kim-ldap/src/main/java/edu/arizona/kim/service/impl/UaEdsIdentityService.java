@@ -7,15 +7,24 @@ package edu.arizona.kim.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.kuali.rice.core.api.criteria.QueryByCriteria;
+import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
+import org.kuali.rice.core.api.exception.RiceIllegalStateException;
 import org.kuali.rice.kim.api.identity.IdentityService;
+import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
+import org.kuali.rice.kim.api.identity.entity.EntityDefaultQueryResults;
+import org.kuali.rice.kim.api.identity.entity.EntityQueryResults;
 import org.kuali.rice.kim.api.identity.principal.EntityNamePrincipalName;
 import org.kuali.rice.kim.api.identity.principal.Principal;
+import org.kuali.rice.kim.api.identity.principal.PrincipalQueryResults;
 import org.kuali.rice.kim.api.identity.privacy.EntityPrivacyPreferences;
 import org.kuali.rice.kim.dao.LdapPrincipalDao;
 import org.kuali.rice.kim.service.LdapIdentityService;
 import org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl;
+
+import javax.jws.WebParam;
 
 /**
  * Implementation of {@link IdentityService} that communicates with and serves
@@ -26,6 +35,12 @@ import org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl;
  */
 public class UaEdsIdentityService extends LdapIdentityDelegateServiceImpl implements LdapIdentityService {
 	private LdapPrincipalDao principalDao;
+
+    private static final String UA_UNSUPPORTED_OPERATION_MSG =
+            "This method is not supported under the UA EDS MOD, "  +
+            "please see UAF-1902 for further information. " +
+            "The KimApiServiceLocator.getPersonService() call " +
+            "may be a viable alternative.";
 
 	/** Get a Principal object based on it's unique principal ID */
 	@Override
@@ -141,4 +156,45 @@ public class UaEdsIdentityService extends LdapIdentityDelegateServiceImpl implem
 	public LdapPrincipalDao getPrincipalDao() {
 		return principalDao;
 	}
+
+    @Override
+    public EntityAffiliation updateAffiliation(EntityAffiliation affiliation) throws RiceIllegalArgumentException, RiceIllegalStateException {
+		throw new UnsupportedOperationException(UA_UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public EntityDefault getEntityDefaultByEmployeeId(String employeeId) throws RiceIllegalArgumentException {
+        throw new UnsupportedOperationException(UA_UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public EntityDefaultQueryResults findEntityDefaults(QueryByCriteria queryByCriteria) throws RiceIllegalArgumentException {
+        throw new UnsupportedOperationException(UA_UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public Entity getEntityByEmployeeId(String employeeId) throws RiceIllegalArgumentException{
+        throw new UnsupportedOperationException(UA_UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public EntityQueryResults findEntities(QueryByCriteria queryByCriteria) throws RiceIllegalArgumentException {
+        throw new UnsupportedOperationException(UA_UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public List<Principal> getPrincipalsByEmployeeId(String employeeId) throws RiceIllegalArgumentException {
+        throw new UnsupportedOperationException(UA_UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public List<Principal> getPrincipalsByEntityId(String entityId) throws RiceIllegalArgumentException {
+        throw new UnsupportedOperationException(UA_UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public PrincipalQueryResults findPrincipals(@WebParam(name = "query") QueryByCriteria query) throws RiceIllegalArgumentException {
+        throw new UnsupportedOperationException(UA_UNSUPPORTED_OPERATION_MSG);
+    }
+
 }
