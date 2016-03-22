@@ -45,7 +45,18 @@ import org.kuali.rice.krad.service.BusinessObjectService;
 import java.util.*;
 
 /**
- * BURLAP: Add thorough descritpion of why this impl is necessary above what is present in rice already, also touch on EDS flavor of LDAP.
+ * This class is a simplified implementation of the IdentityService and
+ * LdapIdentityService interfaces. The vanilla IdentityService impls are more
+ * complex in their inheritance and composition. Alternatively, this class
+ * provides a clear and concise hierarchy which then serves to reduce bugs.
+ * This implementation also cuts out inheritance to classes that still contain
+ * termination points to KIM tables -- i.e., this class is gaurunteed to
+ * *always* fetch its entity records directly from the EDS implementation of LDAP.
+ *
+ * Any methods that do not line up with this LDAP paradigm, have all been implemented
+ * to throw an UnsupportedOperationException. This works since all of the screens
+ * in the UI that can mutate Person data, are all turned off here at the UA. In such
+ * a way, we ensure non-LDAP operations are never executed.
  */
 public class UaLdapIdentityServiceImpl implements LdapIdentityService {
 
@@ -434,320 +445,332 @@ public class UaLdapIdentityServiceImpl implements LdapIdentityService {
         }
     }
 
-    public LdapPrincipalDao getLdapPrincipalDao() {
+    private LdapPrincipalDao getLdapPrincipalDao() {
         return ldapPrincipalDao;
     }
 
 
+    // Note: This method name is wired in the spring file: KimEmbeddedSpringBeans.xml
     public void setLdapPrincipalDao(LdapPrincipalDao ldapPrincipalDao) {
         this.ldapPrincipalDao = ldapPrincipalDao;
     }
 
 
-    public BusinessObjectService getBusinessObjectService() {
+    private BusinessObjectService getBusinessObjectService() {
         return businessObjectService;
     }
 
 
+    // Note: This method name is wired in the spring file: KimEmbeddedSpringBeans.xml
     public void setBusinessObjectService(BusinessObjectService businessObjectService) {
         this.businessObjectService = businessObjectService;
     }
 
 
-/*
-    * BURLAP: ADD IN DOCUMENTATION -- Add bullet list for each reason, then refer to numbered reason on each method.
+    /*
+    * UAF-2303: Refactor EDS IdentityService kerfuffle
+    *
     * The following section of this class contains all of the overridden
-    * methods from the IdentityService interface. Rice was originally written
-    * without LDAP in mind at all[0], and since so few institutions had any
-    * requirement to use LDAP in their financials, IdentityService
+    * methods from the IdentityService interface that have no place in our LDAP
+    * system. Rice was originally written without LDAP in mind at all. Since so few
+    * institutions had any requirement to use LDAP in their financials, any later
+    * contribs were only half-baked into the identity core. This being the case,
+    * many methods try to access/mutate data in a non-LDAP way. We put the smack down
+    * on these methods, and have overridden them for any of the following reasons:
+    *
+    * REASONS:
+    * 1. Trying to mutate(or add) LDAP values (43 methods)
+    * 2. Return type is a table row object, i.e., *QueryResults (3 methods)
+    * 3. Special cases: are already deprecated in the other IdentityService
+    *    impls (2 methods)
     */
 
 
     @Override
     public EntityAddress addAddressToEntity(EntityAddress address) {
-        //BURLAP: Add ref to specific reason above for overide
-        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
-    }
-
-    @Override
-    public Principal getPrincipalByPrincipalNameAndPassword(String principalName, String password) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public Principal addPrincipalToEntity(Principal principal) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public Principal updatePrincipal(Principal principal) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public Principal inactivatePrincipal(String principalId) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public Principal inactivatePrincipalByName(String principalName) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityTypeContactInfo addEntityTypeContactInfoToEntity(EntityTypeContactInfo entityTypeContactInfo) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityTypeContactInfo updateEntityTypeContactInfo(EntityTypeContactInfo entityTypeContactInfo) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityTypeContactInfo inactivateEntityTypeContactInfo(String entityId, String entityTypeCode) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityAddress updateAddress(EntityAddress address) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityAddress inactivateAddress(String addressId) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityEmail addEmailToEntity(EntityEmail email) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityEmail updateEmail(EntityEmail email) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityEmail inactivateEmail(String emailId) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityPhone addPhoneToEntity(EntityPhone phone) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityPhone updatePhone(EntityPhone phone) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityPhone inactivatePhone(String phoneId) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityExternalIdentifier addExternalIdentifierToEntity(EntityExternalIdentifier externalId) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityExternalIdentifier updateExternalIdentifier(EntityExternalIdentifier externalId) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityAffiliation addAffiliationToEntity(EntityAffiliation affiliation) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityAffiliation updateAffiliation(EntityAffiliation affiliation) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityAffiliation inactivateAffiliation(String id) {
-        //BURLAP: Add ref to specific reason above for overide
-        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
-    }
-
-    @Override
-    public EntityPrivacyPreferences getEntityPrivacyPreferences(String entityId) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityPrivacyPreferences addPrivacyPreferencesToEntity(EntityPrivacyPreferences privacyPreferences) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityPrivacyPreferences updatePrivacyPreferences(EntityPrivacyPreferences privacyPreferences) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityCitizenship addCitizenshipToEntity(EntityCitizenship citizenship) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityCitizenship updateCitizenship(EntityCitizenship citizenship) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityCitizenship inactivateCitizenship(String id) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityEthnicity addEthnicityToEntity(EntityEthnicity ethnicity) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityEthnicity updateEthnicity(EntityEthnicity ethnicity) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityResidency addResidencyToEntity(EntityResidency residency) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityResidency updateResidency(EntityResidency residency) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityVisa addVisaToEntity(EntityVisa visa) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityVisa updateVisa(EntityVisa visa) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public Entity createEntity(Entity entity) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public Entity updateEntity(Entity entity) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public Entity inactivateEntity(String entityId) {
-        //BURLAP: Add ref to specific reason above for overide
-        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
-    }
-
-    @Override
-    public EntityDefaultQueryResults findEntityDefaults( QueryByCriteria queryByCriteria) {
-        //BURLAP: Add ref to specific reason above for overide
-        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
-    }
-
-    @Override
-    public EntityQueryResults findEntities(QueryByCriteria queryByCriteria) {
-        //BURLAP: Add ref to specific reason above for overide
-        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
-    }
-
-    @Override
-    public PrincipalQueryResults findPrincipals(QueryByCriteria query) throws RiceIllegalArgumentException {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityName addNameToEntity(EntityName name) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityName updateName(EntityName name) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityName inactivateName(String id) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityEmployment addEmploymentToEntity(EntityEmployment employment) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityEmployment updateEmployment(EntityEmployment employment) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityEmployment inactivateEmployment(String id) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityBioDemographics addBioDemographicsToEntity(EntityBioDemographics bioDemographics) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
     @Override
     public EntityBioDemographics updateBioDemographics(EntityBioDemographics bioDemographics) {
-        //BURLAP: Add ref to specific reason above for overide
+        // Reject for reason #1
+        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public EntityDefaultQueryResults findEntityDefaults( QueryByCriteria queryByCriteria) {
+        // Reject for reason #2
+        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public EntityQueryResults findEntities(QueryByCriteria queryByCriteria) {
+        // Reject for reason #2
+        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public PrincipalQueryResults findPrincipals(QueryByCriteria query) throws RiceIllegalArgumentException {
+        // Reject for reason #2
+        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public EntityPrivacyPreferences getEntityPrivacyPreferences(String entityId) {
+        // Reject for reason #3
+        throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
+    }
+
+    @Override
+    public Principal getPrincipalByPrincipalNameAndPassword(String principalName, String password) {
+        // Reject for reason #3
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
