@@ -70,7 +70,7 @@
     </bean>
 
     <bean id="personService" class="edu.arizona.kim.service.impl.UaPersonService">
-        <property name="ldapIdentityService" ref="kimIdentityDelegateService"/>
+        <property name="ldapIdentityService" ref="kimIdentityService"/>
         <property name="personEntityTypeCodes">
             <list>
                 <value>PERSON</value>

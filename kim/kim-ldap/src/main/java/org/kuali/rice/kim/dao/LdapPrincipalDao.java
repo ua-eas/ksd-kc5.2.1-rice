@@ -47,6 +47,16 @@ public interface LdapPrincipalDao {
      */
     Principal getPrincipalByName(String principalName);
 
+    Principal getPrincipalByEmployeeId(String principalName);
+
+    List<Principal> getPrincipalsByEmployeeId(String principalName);
+
+    List<Principal> getPrincipalsByPrincipalIds(List<String> principalIds);
+
+    Entity getEntityByEmployeeId(String employeeId);
+
+    EntityDefault getEntityDefaultByEmployeeId(String employeeId);
+
     <T> List<T> search(Class<T> type, Map<String, Object> criteria);
 
 	/** Find entity objects based on the given criteria. */
