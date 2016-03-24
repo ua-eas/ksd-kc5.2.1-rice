@@ -205,6 +205,7 @@
       <property name="ldapTemplate"     ref="ldapTemplate" />
       <property name="parameterService" ref="rice.kim.ldap.import.parameterService" />
       <property name="kimConstants"     ref="kimConstants" />
+      <property name="edsConstants"     ref="edsConstants" />
       <property name="contextMappers">
           <map>
 			<entry key="Principal" value-ref="ContextMapper-Principal" />

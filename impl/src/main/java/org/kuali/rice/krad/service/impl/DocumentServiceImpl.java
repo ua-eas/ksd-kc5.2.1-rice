@@ -25,6 +25,7 @@ import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.core.framework.persistence.jta.TransactionalNoValidationExceptionRollback;
 import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
@@ -68,6 +69,7 @@ import org.kuali.rice.krad.util.NoteType;
 import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.dao.OptimisticLockingFailureException;
+//import org.springframework.dao.OptimisticLockingFailureException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -714,7 +716,7 @@ public class DocumentServiceImpl implements DocumentService {
             LOG.debug("Retrieving doc id: " + documentHeaderId + " from workflow service.");
         }
 
-        Person person = getPersonService().getPersonByPrincipalName(KRADConstants.SYSTEM_USER);
+        Person person = getPersonService().getSystemUserPersonFromDb();
         workflowDocument = workflowDocumentService.loadWorkflowDocument(documentHeaderId, person);
 
         Class<? extends Document> documentClass = getDocumentClassByTypeName(workflowDocument.getDocumentTypeName());
@@ -859,7 +861,7 @@ public class DocumentServiceImpl implements DocumentService {
             }
             savedDocument = getDocumentDao().save(document);
         } catch (OptimisticLockingFailureException e) {
-            LOG.error("exception encountered on store of document " + e.getMessage());
+            LOG.error("exception encountered on store of document " + ((Exception)e).getMessage());
             throw e;
         }
 
@@ -1160,5 +1162,6 @@ public class DocumentServiceImpl implements DocumentService {
     public void setKualiConfigurationService(ConfigurationService kualiConfigurationService) {
         this.kualiConfigurationService = kualiConfigurationService;
     }
+
 
 }

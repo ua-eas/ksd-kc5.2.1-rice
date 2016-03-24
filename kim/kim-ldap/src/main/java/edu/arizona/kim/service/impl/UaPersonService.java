@@ -28,7 +28,7 @@ import org.kuali.rice.kim.impl.identity.PersonServiceImpl;
 import org.kuali.rice.kim.service.LdapIdentityService;
 
 // UAF-6.0 upgrade
-public class UaPersonService extends PersonServiceImpl implements PersonService {
+public class UaPersonService extends PersonServiceImpl {
 	private static Logger LOG = Logger.getLogger(UaPersonService.class);
 	private LdapIdentityService ldapIdentityService;
 
@@ -93,4 +93,5 @@ public class UaPersonService extends PersonServiceImpl implements PersonService 
 
 		return retval;
 	}
+
 }

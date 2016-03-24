@@ -23,6 +23,7 @@ import org.kuali.rice.core.api.criteria.CountFlag;
 import org.kuali.rice.core.api.criteria.Predicate;
 import org.kuali.rice.core.api.criteria.PredicateUtils;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
+import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
@@ -34,12 +35,16 @@ import org.kuali.rice.kim.api.identity.type.EntityTypeContactInfoDefault;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
+import org.kuali.rice.kim.impl.identity.entity.EntityBo;
+import org.kuali.rice.kim.impl.identity.principal.PrincipalBo;
 import org.kuali.rice.kns.service.BusinessObjectMetaDataService;
 import org.kuali.rice.kns.service.KNSServiceLocator;
 import org.kuali.rice.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.DataObjectRelationship;
 import org.kuali.rice.krad.lookup.CollectionIncomplete;
+import org.kuali.rice.krad.service.BusinessObjectService;
+import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.KRADPropertyConstants;
 import org.kuali.rice.krad.util.ObjectUtils;
@@ -80,6 +85,7 @@ public class PersonServiceImpl implements PersonService {
 	private RoleService roleService;
 	private BusinessObjectMetaDataService businessObjectMetaDataService;
 	private MaintenanceDocumentDictionaryService maintenanceDocumentDictionaryService;
+	private BusinessObjectService businessObjectService;
 
 	protected List<String> personEntityTypeCodes = new ArrayList<String>( 4 );
 	// String that can be passed to the lookup framework to create an type = X OR type = Y criteria
@@ -858,4 +864,57 @@ public class PersonServiceImpl implements PersonService {
 		}
 		return maintenanceDocumentDictionaryService;
 	}
+
+
+	/*
+	 * A Hack to get around the hardcoded system user "kr" in various services. Such system
+	 * users are the *only* ones that live in KIM tables, since they very well can't live in a
+	 * production LDAP system.
+	 *
+	 * The top level table these live in, is the KRIM_PRNCPL_T and the related KRIM_ENTITY_*_T
+	 * tables. Currently, there are only three users: {"kr", "kfs", "admin"}. KRADConstants
+	 * says "kr" is to be used, and following all references to KRADConstants.SYSTEM_USER seems
+	 * to prove it out too, so this is the system Person that this method returns.
+	 */
+	@Override
+	public Person getSystemUserPersonFromDb() {
+		Principal principal = getSystemUserPrincipalFromDb();
+		EntityDefault  entityDefault = getSystemUserEntityDefaultFromDb(principal.getEntityId());
+		return new PersonImpl(principal, entityDefault, KimConstants.EntityTypes.SYSTEM);
+	}
+
+
+	private Principal getSystemUserPrincipalFromDb() {
+		Map<String,Object> criteria = new HashMap<String,Object>();
+		String key = KIMPropertyConstants.Principal.PRINCIPAL_NAME;
+		String value = KRADConstants.SYSTEM_USER;
+		criteria.put(key, value);
+
+		PrincipalBo principalBo;
+		try {
+			// This should ALWAYS be present, if not, we absolutely want an exception to be thrown immediately
+			principalBo = getBusinessObjectService().findMatching(PrincipalBo.class, criteria).iterator().next();
+		} catch(Exception e){
+			throw new RuntimeException("Could not load system user from KRIM_PRNCPL_T: " + KRADConstants.SYSTEM_USER);
+		}
+
+		return PrincipalBo.to(principalBo);
+	}
+
+
+	private EntityDefault getSystemUserEntityDefaultFromDb(String entityId){
+		Map<String, String> criteria = new HashMap<String, String>();
+		criteria.put(KimConstants.PrimaryKeyConstants.ID, entityId);
+		EntityBo entityBo = getBusinessObjectService().findByPrimaryKey(EntityBo.class, criteria);
+		return EntityBo.toDefault(entityBo);
+	}
+
+
+	private BusinessObjectService getBusinessObjectService() {
+		if (this.businessObjectService == null) {
+			this.businessObjectService = KRADServiceLocator.getBusinessObjectService();
+		}
+		return this.businessObjectService;
+	}
+
 }

@@ -317,7 +317,7 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
             return null;
         }
 
-        Map<String, Object> criteria = new HashMap();
+        Map<String, Object> criteria = new HashMap<String, Object>();
         String key = getLdapAttribute(getEdsConstants().getEmplIdContextKey());
         criteria.put(key, employeeId);
 

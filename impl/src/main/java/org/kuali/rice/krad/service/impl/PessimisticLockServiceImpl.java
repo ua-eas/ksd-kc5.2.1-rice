@@ -24,7 +24,6 @@ import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.permission.PermissionService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kns.authorization.AuthorizationConstants;
-import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.document.authorization.PessimisticLock;
 import org.kuali.rice.krad.exception.AuthorizationException;
@@ -290,8 +289,7 @@ public class PessimisticLockServiceImpl implements PessimisticLockService {
      * @return a valid {@link Person} object
      */
     protected Person getWorkflowPessimisticLockOwnerUser() {
-        String networkId = KRADConstants.SYSTEM_USER;
-        return getPersonService().getPersonByPrincipalName(networkId);
+        return getPersonService().getSystemUserPersonFromDb();
     }
 
     /**
@@ -518,8 +516,6 @@ public class PessimisticLockServiceImpl implements PessimisticLockService {
         }
 		return permissionService;
 	}
-
-
 
 }
 
