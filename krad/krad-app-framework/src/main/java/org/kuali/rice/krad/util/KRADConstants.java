@@ -49,7 +49,9 @@ public final class KRADConstants {
 
     public static final String KR_MODULE_NAME = "kr";
 
-    // special user used in the post-processor
+    // Very special user used in the post-processor and several services. Note, this
+    // user must exist in the KIM Principal and Entity tables, or else many mechanisms
+    // will break.
     public static final String SYSTEM_USER = "kr";
 
     public static final String KRAD_URL_KEY = "krad.url";
