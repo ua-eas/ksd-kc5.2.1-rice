@@ -25,12 +25,29 @@
   </parent>
   <artifactId>rice-kim-api</artifactId>
   <name>Rice KIM API</name>
+  <version>ua-release8-SNAPSHOT</version>
+
+  <properties>
+    <svc.group.name>GroupService</svc.group.name>
+    <svc.group.wsdl>${wsdl.dir}/${svc.group.name}.wsdl</svc.group.wsdl>
+    <svc.permission.name>PermissionService</svc.permission.name>
+    <svc.permission.wsdl>${wsdl.dir}/${svc.permission.name}.wsdl</svc.permission.wsdl>
+    <svc.responsibility.name>ResponsibilityService</svc.responsibility.name>
+    <svc.responsibility.wsdl>${wsdl.dir}/${svc.responsibility.name}.wsdl</svc.responsibility.wsdl>
+    <svc.role.name>RoleService</svc.role.name>
+    <svc.role.wsdl>${wsdl.dir}/${svc.role.name}.wsdl</svc.role.wsdl>
+    <svc.kti.name>KimTypeInfoService</svc.kti.name>
+    <svc.kti.wsdl>${wsdl.dir}/${svc.kti.name}.wsdl</svc.kti.wsdl>
+    <svc.identity.name>IdentityService</svc.identity.name>
+    <svc.identity.wsdl>${wsdl.dir}/${svc.identity.name}.wsdl</svc.identity.wsdl>
+    <rice.parent.version>2.1.10</rice.parent.version>
+  </properties>
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-core-api</artifactId>
-      <version>${project.version}</version>
+      <version>${parent.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-collections</groupId>
@@ -50,20 +67,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <properties>
-    <svc.group.name>GroupService</svc.group.name>
-    <svc.group.wsdl>${wsdl.dir}/${svc.group.name}.wsdl</svc.group.wsdl>
-    <svc.permission.name>PermissionService</svc.permission.name>
-    <svc.permission.wsdl>${wsdl.dir}/${svc.permission.name}.wsdl</svc.permission.wsdl>
-    <svc.responsibility.name>ResponsibilityService</svc.responsibility.name>
-    <svc.responsibility.wsdl>${wsdl.dir}/${svc.responsibility.name}.wsdl</svc.responsibility.wsdl>
-    <svc.role.name>RoleService</svc.role.name>
-    <svc.role.wsdl>${wsdl.dir}/${svc.role.name}.wsdl</svc.role.wsdl>
-    <svc.kti.name>KimTypeInfoService</svc.kti.name>
-    <svc.kti.wsdl>${wsdl.dir}/${svc.kti.name}.wsdl</svc.kti.wsdl>
-    <svc.identity.name>IdentityService</svc.identity.name>
-    <svc.identity.wsdl>${wsdl.dir}/${svc.identity.name}.wsdl</svc.identity.wsdl>
-  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -185,6 +189,35 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <classifier>ua-ksd</classifier>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+
+  <distributionManagement>
+    <repository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
 </project>
