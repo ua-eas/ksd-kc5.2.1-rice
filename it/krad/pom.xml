@@ -93,7 +93,7 @@
 
     <dependency>
       <groupId>org.kuali.rice</groupId>
-      <version>${project.version}</version>
+      <version>ua-release8-SNAPSHOT</version>
       <artifactId>rice-krad-app-framework</artifactId>
       <scope>test</scope>
       <type>test-jar</type>

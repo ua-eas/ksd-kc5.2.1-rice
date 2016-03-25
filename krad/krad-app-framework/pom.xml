@@ -32,8 +32,8 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-kim-api</artifactId>
-             <version>${project.version}</version>
-        </dependency>
+            <version>ua-release8-SNAPSHOT</version>
+      </dependency>
       <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-kew-api</artifactId>
