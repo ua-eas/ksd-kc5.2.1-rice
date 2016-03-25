@@ -24,58 +24,52 @@
         <version>2.1.10</version>
     </parent>
     <artifactId>rice-kim-impl</artifactId>
-    <version>ua-release7</version>
-    
-    <properties>
-        <rice.parent.version>2.1.10</rice.parent.version>
-    </properties>
-   
     <name>Rice KIM Impl</name>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-kim-api</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-kim-framework</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-krad-app-framework</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-krad-web-framework</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.version}</version>
         </dependency>
          <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-kns</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-core-framework</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-core-impl</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-core-service-framework</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>rice-core-service-impl</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -92,38 +86,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <executions>
-            <execution>
-              <phase>package</phase>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-              <configuration>
-                <classifier>ua-ksd</classifier>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </build>
-
-    <distributionManagement>
-      <repository>
-        <id>deployment</id>
-        <name>Internal Releases</name>
-        <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
-      </repository>
-      <snapshotRepository>
-        <id>deployment</id>
-        <name>Internal Releases</name>
-        <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
-      </snapshotRepository>
-    </distributionManagement>
-
 </project>

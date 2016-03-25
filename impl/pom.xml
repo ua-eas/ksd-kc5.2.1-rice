@@ -24,11 +24,6 @@
     <version>2.1.10</version>
   </parent>
   <artifactId>rice-impl</artifactId>
-  <version>ua-release7</version>
-
-  <properties>
-    <rice.parent.version>2.1.10</rice.parent.version>
-  </properties>
 
   <build>
     <resources>
@@ -47,140 +42,124 @@
         </excludes>
       </resource>
     </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <classifier>ua-ksd</classifier>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
+
   </build>
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-core-api</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-kew-api</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-ken-api</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-kew-impl</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-kim-impl</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-core-framework</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-core-impl</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-core-service-impl</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-core-service-web</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-core-web</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-ksb-client-impl</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-ksb-server-impl</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-location-api</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-location-framework</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-location-impl</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-location-web</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-ksb-api</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
 
     <!-- Optional dependency on KRMS api, only needed if wanting to execute KRMS engine from workflow -->
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-krms-api</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
       <optional>true</optional>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-edl-framework</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-krad-app-framework</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-krad-web-framework</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>rice-kns</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -495,17 +474,4 @@
     </dependency>
 
   </dependencies>
-
-  <distributionManagement>
-    <repository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
-    </repository>
-    <snapshotRepository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
 </project>
