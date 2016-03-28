@@ -40,6 +40,7 @@
     <svc.kti.wsdl>${wsdl.dir}/${svc.kti.name}.wsdl</svc.kti.wsdl>
     <svc.identity.name>IdentityService</svc.identity.name>
     <svc.identity.wsdl>${wsdl.dir}/${svc.identity.name}.wsdl</svc.identity.wsdl>
+    <rice.parent.version>2.1.10</rice.parent.version>
   </properties>
 
   <dependencies>
