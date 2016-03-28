@@ -25,7 +25,6 @@
     <version>2.1.10</version>
   </parent>
   <artifactId>rice-krad</artifactId>
-  <version>ua-release8-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
     <module>krad-app-framework</module>
