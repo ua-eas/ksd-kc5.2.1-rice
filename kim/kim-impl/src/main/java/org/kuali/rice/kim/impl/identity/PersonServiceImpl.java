@@ -191,6 +191,10 @@ public class PersonServiceImpl implements PersonService {
 	public Person getPersonByPrincipalName(String principalName) {
 		if ( StringUtils.isBlank(principalName) ) {
 			return null;
+		} else if(principalName.equals(KRADConstants.SYSTEM_USER)){
+			// UserSession uses KRADConstants.SYSTEM_USER principalName to initiate
+			// userless sessions, this won't be in LDAP, so create and return it here.
+			return getSystemUserPersonFromDb();
 		}
 
 		// get the corresponding principal

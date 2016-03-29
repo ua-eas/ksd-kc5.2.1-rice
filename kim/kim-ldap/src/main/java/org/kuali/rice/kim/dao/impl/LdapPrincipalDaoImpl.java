@@ -111,7 +111,7 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         }
 
         Map<String, Object> criteria = new HashMap();
-        String key = getLdapAttribute(getEdsConstants().getEmplIdContextKey());
+        String key = getEdsConstants().getEmplIdContextKey();
         criteria.put(key, employeeId);
         List<Principal> results = search(Principal.class, criteria);
 
@@ -264,7 +264,7 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
 
     public EntityDefault getEntityDefaultByEmployeeId(String employeeId) {
         Map<String, Object> criteria = new HashMap();
-        String key = getLdapAttribute(getEdsConstants().getEmplIdContextKey());
+        String key = getEdsConstants().getEmplIdContextKey();
         criteria.put(key, employeeId);
 
         List<EntityDefault> results = search(EntityDefault.class, criteria);
@@ -289,7 +289,7 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
 
     public Entity getEntityByEmployeeId(String employeeId) {
         Map<String, Object> criteria = new HashMap();
-        String key = getLdapAttribute(getEdsConstants().getEmplIdContextKey());
+        String key = getEdsConstants().getEmplIdContextKey();
         criteria.put(key, employeeId);
 
         List<Entity> results = search(Entity.class, criteria);
@@ -318,7 +318,7 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         }
 
         Map<String, Object> criteria = new HashMap<String, Object>();
-        String key = getLdapAttribute(getEdsConstants().getEmplIdContextKey());
+        String key = getEdsConstants().getEmplIdContextKey();
         criteria.put(key, employeeId);
 
         return  search(Principal.class, criteria);
@@ -474,6 +474,12 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         return kimConstants;
     }
 
+
+    /*
+     * Note: When pulling a constant from this EDS class, there is no need to use the
+     *       getLdapAttribute(...) method for conversion, since UaEdsConstants already
+     *       has the correct mappings configured via spring, not parms.
+     */
     public UaEdsConstants getEdsConstants() {
         return edsConstants;
     }
