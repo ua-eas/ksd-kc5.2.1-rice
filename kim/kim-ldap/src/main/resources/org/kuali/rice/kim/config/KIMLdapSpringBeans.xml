@@ -32,11 +32,6 @@
         <property name="authenticationSource" ref="authenticationSource" />
     </bean>
 
-    <bean id="kimPlatformAwareDao" abstract="true" class="org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb">
-        <property name="jcdAlias" value="kimDataSource" />
-        <property name="dbPlatform" ref="dbPlatform" />
-    </bean>
-
     <bean id="authenticationSource"
       class="org.springframework.ldap.authentication.DefaultValuesAuthenticationSourceDecorator">
       <property name="target" ref="springSecurityAuthenticationSource" />
@@ -210,6 +205,7 @@
       <property name="ldapTemplate"     ref="ldapTemplate" />
       <property name="parameterService" ref="rice.kim.ldap.import.parameterService" />
       <property name="kimConstants"     ref="kimConstants" />
+      <property name="edsConstants"     ref="edsConstants" />
       <property name="contextMappers">
           <map>
 			<entry key="Principal" value-ref="ContextMapper-Principal" />
@@ -228,23 +224,5 @@
         </map>
       </property>
     </bean>
-    
-     <bean id="rice.kim.import.businessObjectService"
-        class="org.kuali.rice.krad.config.GlobalResourceLoaderServiceFactoryBean"
-        p:serviceName="businessObjectService"/>
-
-     <bean id="rice.kim.import.criteriaLookupService"
-        class="org.kuali.rice.krad.config.GlobalResourceLoaderServiceFactoryBean"
-        p:serviceName="criteriaLookupService"/>
-
-    <bean id="kimIdentityDelegateService" class="edu.arizona.kim.service.impl.UaEdsIdentityService"
-    	p:businessObjectService-ref="rice.kim.import.businessObjectService"
-        p:criteriaLookupService-ref="rice.kim.import.criteriaLookupService">
-      <property name="principalDao" ref="ldapPrincipalDao" />
-    </bean>
-
-    <bean id="kimUiDocumentService" class="org.kuali.rice.kim.service.impl.LdapUiDocumentServiceImpl" />
-
-
 
 </beans>

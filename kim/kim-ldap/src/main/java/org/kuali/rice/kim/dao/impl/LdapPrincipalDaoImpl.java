@@ -24,6 +24,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.naming.NameClassPair;
 import javax.naming.directory.SearchControls;
+
+import edu.arizona.kim.eds.UaEdsConstants;
 import org.apache.commons.lang.StringUtils;
 import static org.kuali.rice.core.util.BufferedLogger.debug;
 import static org.kuali.rice.core.util.BufferedLogger.info;
@@ -57,6 +59,7 @@ import org.springframework.ldap.filter.OrFilter;
  */
 public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
     protected Constants kimConstants;
+    protected UaEdsConstants edsConstants;
     protected LdapTemplate template;
     protected ParameterService parameterService;
 
@@ -99,6 +102,23 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
             return results.get(0);
         }
         
+        return null;
+    }
+
+    public Principal getPrincipalByEmployeeId(String employeeId) {
+        if (StringUtils.isBlank(employeeId)) {
+            return null;
+        }
+
+        Map<String, Object> criteria = new HashMap();
+        String key = getEdsConstants().getEmplIdContextKey();
+        criteria.put(key, employeeId);
+        List<Principal> results = search(Principal.class, criteria);
+
+        if (results.size() > 0) {
+            return results.get(0);
+        }
+
         return null;
     }
 
@@ -242,6 +262,19 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         return null;
     }
 
+    public EntityDefault getEntityDefaultByEmployeeId(String employeeId) {
+        Map<String, Object> criteria = new HashMap();
+        String key = getEdsConstants().getEmplIdContextKey();
+        criteria.put(key, employeeId);
+
+        List<EntityDefault> results = search(EntityDefault.class, criteria);
+        if (results.size() > 0) {
+            return results.get(0);
+        }
+
+        return null;
+    }
+
 	public Entity getEntityByPrincipalName(String principalName) {
         Map<String, Object> criteria = new HashMap();
         criteria.put(getKimConstants().getKimLdapNameProperty(), principalName);
@@ -254,13 +287,47 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         return null;
     }
 
-	public List<EntityDefault> lookupEntityDefault(Map<String,String> searchCriteria, boolean unbounded) {
-        List<EntityDefault> results = new ArrayList();
-        Map<String, Object> criteria = getLdapLookupCriteria(searchCriteria);
-        
-        results = search(EntityDefault.class, criteria);
+    public Entity getEntityByEmployeeId(String employeeId) {
+        Map<String, Object> criteria = new HashMap();
+        String key = getEdsConstants().getEmplIdContextKey();
+        criteria.put(key, employeeId);
 
-        return results;
+        List<Entity> results = search(Entity.class, criteria);
+        if (results.size() > 0) {
+            return results.get(0);
+        }
+
+        return null;
+    }
+
+    public List<Principal> getPrincipalsByPrincipalIds(List<String> principalIds) {
+        if (principalIds == null) {
+            return null;
+        }
+
+        Map<String, Object> criteria = new HashMap();
+        String key = getLdapAttribute(getKimConstants().getKimLdapIdProperty());
+        criteria.put(key, principalIds);
+        return search(Principal.class, criteria);
+    }
+
+
+    public List<Principal> getPrincipalsByEmployeeId(String employeeId) {
+        if (StringUtils.isBlank(employeeId)) {
+            return null;
+        }
+
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        String key = getEdsConstants().getEmplIdContextKey();
+        criteria.put(key, employeeId);
+
+        return  search(Principal.class, criteria);
+    }
+
+
+	public List<EntityDefault> lookupEntityDefault(Map<String,String> searchCriteria, boolean unbounded) {
+        Map<String, Object> criteria = getLdapLookupCriteria(searchCriteria);
+        return search(EntityDefault.class, criteria);
     }
 
 	public List<String> lookupEntityIds(Map<String,String> searchCriteria) {
@@ -281,7 +348,6 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
      */
     protected Map<String, Object> getLdapLookupCriteria(Map<String, String> searchCriteria) {
         Map<String, Object> criteria = new HashMap();
-        boolean hasTaxId = false;
         
         for (Map.Entry<String, String> criteriaEntry : searchCriteria.entrySet()) {
             debug(String.format("Searching with criteria %s = %s", criteriaEntry.getKey(), criteriaEntry.getValue()));
@@ -311,10 +377,7 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
                 else if (criteriaEntry.getKey().equalsIgnoreCase(getKimConstants().getExternalIdProperty())) {
                     criteria.put(getKimConstants().getKimLdapIdProperty(), value);
                 }
-                else if (criteriaEntry.getKey().equalsIgnoreCase(getKimConstants().getExternalIdTypeProperty()) 
-                         && value.toString().equals(getKimConstants().getTaxExternalIdTypeCode())) {
-                    hasTaxId = true;
-                }
+
             }
         }
         return criteria;
@@ -409,6 +472,20 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
 
     public Constants getKimConstants() {
         return kimConstants;
+    }
+
+
+    /*
+     * Note: When pulling a constant from this EDS class, there is no need to use the
+     *       getLdapAttribute(...) method for conversion, since UaEdsConstants already
+     *       has the correct mappings configured via spring, not parms.
+     */
+    public UaEdsConstants getEdsConstants() {
+        return edsConstants;
+    }
+
+    public void setEdsConstants(UaEdsConstants edsConstants) {
+        this.edsConstants = edsConstants;
     }
 
     public ParameterService getParameterService() {
