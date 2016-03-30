@@ -21,7 +21,7 @@
   <parent>
     <artifactId>rice-it</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>ua-rel1</version>
+    <version>ua-release2-SNAPSHOT</version>
   </parent>
   <artifactId>rice-it-remote</artifactId>
   <name>Rice Integration Test Remote</name>

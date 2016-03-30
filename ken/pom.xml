@@ -20,10 +20,10 @@
   <parent>
     <artifactId>rice</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>ua-rel1</version>
+    <version>ua-release2-SNAPSHOT</version>
   </parent>
   <artifactId>rice-ken</artifactId>
-  <version>ua-rel1</version>
+  <version>ua-release2-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Rice KEN</name>
   <modules>
