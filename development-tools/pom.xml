@@ -28,7 +28,7 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice</artifactId>
-    <version>ua-release2</version>
+    <version>ua-release3-SNAPSHOT</version>
   </parent>
   <artifactId>rice-development-tools</artifactId>
   <profiles>
