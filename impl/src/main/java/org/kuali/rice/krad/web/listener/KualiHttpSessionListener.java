@@ -15,20 +15,17 @@
  */
 package org.kuali.rice.krad.web.listener;
 
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
-
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.kew.api.exception.WorkflowException;
+import org.apache.log4j.Logger;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.UserSession;
-import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.document.authorization.PessimisticLock;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.ObjectUtils;
 
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 import java.util.List;
 
 /**
@@ -39,6 +36,8 @@ import java.util.List;
  *
  */
 public class KualiHttpSessionListener implements HttpSessionListener {
+
+    private static final Logger LOG = Logger.getLogger(KualiHttpSessionListener.class);
 
     /**
      *  HttpSession hook for additional setup method when sessions are created
@@ -53,7 +52,11 @@ public class KualiHttpSessionListener implements HttpSessionListener {
     }
 
     /**
-     * HttpSession hook for additional cleanup when sessions are destroyed
+     * HttpSession hook for additional cleanup when sessions are destroyed.
+     *
+     * UAF-2097: Ensure already destroyed sessions can't cause STE's to fill up logs during
+     *           session clearing for memory events. This means return immediately when we see
+     *           that we don't have enough info to clear doc locks.
      *
      * @param se - the HttpSessionEvent containing the session
      * 
@@ -62,10 +65,34 @@ public class KualiHttpSessionListener implements HttpSessionListener {
     @Override
     public void sessionDestroyed(HttpSessionEvent sessionEvent) {
         UserSession userSession = (UserSession) sessionEvent.getSession().getAttribute(KRADConstants.USER_SESSION_KEY);
+        if(ObjectUtils.isNull(userSession)){
+            LOG.warn("UserSession already cleared, could not release any open document locks!");
+            return;
+        }
+
         String sessionId = userSession.getKualiSessionId();
+        if(StringUtils.isBlank(sessionId)){
+            LOG.warn("Could not realease document locks for because sessionId is null!");
+            return;
+        }
+
         List<PessimisticLock> locks = KRADServiceLocatorWeb.getPessimisticLockService().getPessimisticLocksForSession(sessionId);
+        if(ObjectUtils.isNull(locks) || locks.size() <  1){
+            // Don't make more work if we don't need to, but not necessarily a warn event since the user
+            // might not have any doc locks out
+            return;
+        }
+
         Person user = userSession.getActualPerson();
+        if(ObjectUtils.isNull(user)){
+            // Really paranoid about nulls causing stack traces that fill up logs
+            LOG.warn("Person object returned null for sessionId: " + sessionId);
+            return;
+        }
+
+        // Ok, clear out any document locks
         KRADServiceLocatorWeb.getPessimisticLockService().releaseAllLocksForUser(locks, user);
+
     }
 
 }

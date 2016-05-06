@@ -771,7 +771,7 @@
   </class-descriptor>
 
   <!-- PersonDocument -->
-  <class-descriptor class="org.kuali.rice.kim.document.IdentityManagementPersonDocument" table="KRIM_PERSON_DOCUMENT_T">
+  <class-descriptor class="edu.arizona.kim.document.UaIdentityManagementPersonDocument" table="KRIM_PERSON_DOCUMENT_T">
 	<field-descriptor name="documentNumber" column="FDOC_NBR" jdbc-type="VARCHAR" primarykey="true"  />
     <field-descriptor name="entityId" column="entity_id" jdbc-type="VARCHAR" autoincrement="true" sequence-name="KRIM_ENTITY_ID_S" />
     <field-descriptor name="principalId" column="prncpl_id" jdbc-type="VARCHAR"  autoincrement="true" sequence-name="KRIM_PRNCPL_ID_S"/>
