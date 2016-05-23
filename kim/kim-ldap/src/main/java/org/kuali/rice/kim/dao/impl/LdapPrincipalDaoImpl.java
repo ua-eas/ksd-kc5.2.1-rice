@@ -306,7 +306,7 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         }
 
         Map<String, Object> criteria = new HashMap();
-        String key = getLdapAttribute(getKimConstants().getKimLdapIdProperty());
+        String key = getKimConstants().getKimLdapIdProperty();
         criteria.put(key, principalIds);
         return search(Principal.class, criteria);
     }
