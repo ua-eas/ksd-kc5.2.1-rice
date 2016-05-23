@@ -80,8 +80,8 @@ public class IdentityManagementGroupDocument extends IdentityManagementTypeAttri
 	@Type(type="yes_no")
 	@Column(name="ACTV_IND")
 	protected boolean active = true;
-
-	@Transient
+	@Type(type="yes_no")
+	@Column(name="EDIT_FLAG")
 	protected boolean editing;
 
 	@OneToMany(targetEntity = GroupDocumentMember.class, fetch = FetchType.EAGER, cascade=CascadeType.ALL)

@@ -17,6 +17,7 @@ package org.kuali.rice.kim.bo.ui;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 import org.kuali.rice.kim.api.KimConstants;
 
 import javax.persistence.Column;
@@ -56,6 +57,9 @@ public class GroupDocumentMember extends KimDocumentBoActiveToFromBase {
 	protected String memberName;
 	@Transient
 	protected String memberNamespaceCode;
+	@Type(type="yes_no")
+	@Column(name="EDIT_FLAG")
+	protected boolean edit;
 	
 	protected String memberFullName;
 
@@ -147,5 +151,15 @@ public class GroupDocumentMember extends KimDocumentBoActiveToFromBase {
 	 */
 	public void setMemberFullName(String memberFullName) {
 		this.memberFullName = memberFullName;
+	}
+
+	@Override
+	public boolean isEdit() {
+		return edit;
+	}
+
+	@Override
+	public void setEdit(boolean edit) {
+		this.edit = edit;
 	}
 }

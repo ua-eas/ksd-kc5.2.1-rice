@@ -40,7 +40,7 @@
             <c:set var="attrReadOnly" value="${(readOnly || (attrDefinition.unique && KualiForm.document.editing))}"/>
             <td align="left" valign="middle">
               <div align="center">
-                <c:if test="${not empty document.qualifiers[statusQualifier.index]}">
+                <c:if test="${not empty KualiForm.document.qualifiers[statusQualifier.index]}">
                   <kul:htmlControlAttribute property="document.qualifiers[${statusQualifier.index}].attrVal"
                                             attributeEntry="${attrEntry}" readOnly="${attrReadOnly}"/>
                 </c:if>
