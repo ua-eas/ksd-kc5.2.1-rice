@@ -21,7 +21,6 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.cache.CacheKeyUtils;
-import org.kuali.rice.core.api.criteria.CriteriaLookupService;
 import org.kuali.rice.core.api.criteria.GenericQueryResults;
 import org.kuali.rice.core.api.criteria.LookupCustomizer;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
@@ -56,7 +55,7 @@ import org.kuali.rice.kim.impl.common.delegate.DelegateMemberAttributeDataBo;
 import org.kuali.rice.kim.impl.common.delegate.DelegateMemberBo;
 import org.kuali.rice.kim.impl.common.delegate.DelegateTypeBo;
 import org.kuali.rice.kim.impl.services.KimImplServiceLocator;
-import org.kuali.rice.krad.service.BusinessObjectService;
+
 import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -82,6 +81,8 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
     private static final Logger LOG = Logger.getLogger(RoleServiceImpl.class);
 
     private static final Map<String, RoleDaoAction> memberTypeToRoleDaoActionMap = populateMemberTypeToRoleDaoActionMap();
+
+    private static final String ROLE_MEMBER_ID_WILDCARD = "*";
 
     private static Map<String, RoleDaoAction> populateMemberTypeToRoleDaoActionMap() {
         Map<String, RoleDaoAction> map = new HashMap<String, RoleDaoAction>();
@@ -1512,8 +1513,10 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
                         continue; // no match - skip to next record
                     }
                     // check if a role member ID is present on the delegateBo record
-                    // if so, check that the original role member would match the given qualifiers
-                    if (StringUtils.isNotBlank(delegateMemberBo.getRoleMemberId())) {
+                    // if so, check that the original role member would match the given qualifiers,
+                    // skip when role is supplied as wildcard
+                    String roleMemberId = delegateMemberBo.getRoleMemberId();
+                    if (StringUtils.isNotBlank(roleMemberId) && !roleMemberId.equals(ROLE_MEMBER_ID_WILDCARD)) {
                         RoleMemberBo rm = getRoleMemberBo(delegateMemberBo.getRoleMemberId());
                         if (rm != null) {
                             // check that the original role member's is active and that their
