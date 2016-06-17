@@ -25,6 +25,7 @@ import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.group.Group;
+import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.role.Role;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
@@ -218,7 +219,7 @@ public class IdentityManagementGroupDocumentAction extends IdentityManagementDoc
         }
         
         //See if possible to grab details for Principal
-        if (StringUtils.isEmpty(newMember.getMemberId()) 
+        if (StringUtils.isEmpty(newMember.getMemberId())
         		&& StringUtils.isNotEmpty(newMember.getMemberName())
         		&& StringUtils.equals(newMember.getMemberTypeCode(), KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE.getCode())) {
         	Principal principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(newMember.getMemberName());
@@ -228,6 +229,14 @@ public class IdentityManagementGroupDocumentAction extends IdentityManagementDoc
         }
         if(checkKimDocumentGroupMember(newMember) && 
         		KRADServiceLocatorWeb.getKualiRuleService().applyRules(new AddGroupMemberEvent("", groupDocumentForm.getGroupDocument(), newMember))){
+
+			// Set member's fullname if possible
+			Entity entity = KimApiServiceLocator.getIdentityService().getEntityByPrincipalName(newMember.getMemberName());
+			if(entity != null) {
+				String fullName = entity.getDefaultName().getFirstName() + " " + entity.getDefaultName().getLastName();
+				newMember.setMemberFullName(fullName);
+			}
+
         	newMember.setDocumentNumber(groupDocumentForm.getDocument().getDocumentNumber());
         	groupDocumentForm.getGroupDocument().addMember(newMember);
 	        groupDocumentForm.setMember(groupDocumentForm.getGroupDocument().getBlankMember());
