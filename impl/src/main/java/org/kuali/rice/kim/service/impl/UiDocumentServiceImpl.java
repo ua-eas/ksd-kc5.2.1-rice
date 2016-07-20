@@ -847,12 +847,11 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 
 	public boolean canModifyEntity( String currentUserPrincipalId, String toModifyPrincipalId ){
 		return (StringUtils.isNotBlank(currentUserPrincipalId) && StringUtils.isNotBlank(toModifyPrincipalId) &&
-				currentUserPrincipalId.equals(toModifyPrincipalId)) ||
 				getPermissionService().isAuthorized(
 						currentUserPrincipalId,
 						KimConstants.NAMESPACE_CODE,
 						KimConstants.PermissionNames.MODIFY_ENTITY,
-						Collections.singletonMap(KimConstants.AttributeConstants.PRINCIPAL_ID, currentUserPrincipalId));
+						Collections.singletonMap(KimConstants.AttributeConstants.PRINCIPAL_ID, currentUserPrincipalId)));
 	}
 
 	public boolean canOverrideEntityPrivacyPreferences( String currentUserPrincipalId, String toModifyPrincipalId ){
