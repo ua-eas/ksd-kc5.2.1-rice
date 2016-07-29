@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice</artifactId>
-    <version>ua-release5-SNAPSHOT</version>
+    <version>ua-release4</version>
   </parent>
   <artifactId>rice-serviceregistry</artifactId>
 	<packaging>war</packaging>
