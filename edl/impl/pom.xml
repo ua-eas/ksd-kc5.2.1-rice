@@ -20,7 +20,7 @@
   <parent>
     <artifactId>rice-edl</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>ua-release4-SNAPSHOT</version>
+    <version>ua-release4</version>
   </parent>
   <artifactId>rice-edl-impl</artifactId>
   <name>Rice EDL Impl</name>
