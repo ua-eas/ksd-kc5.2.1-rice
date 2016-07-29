@@ -893,8 +893,6 @@
             <masterBranchName>rice-2.1-ua-master</masterBranchName>
           </flowInitContext>
           <allowSnapshots>true</allowSnapshots>
-          <defaultOriginUrl>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</defaultOriginUrl>
-          <enableSshAgent>true</enableSshAgent>
         </configuration>
       </plugin>
       <plugin>
