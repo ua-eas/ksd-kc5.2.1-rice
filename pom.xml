@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Rice</name>
   <inceptionYear>2005</inceptionYear>
-  <version>ua-release3</version>
+  <version>ua-release4</version>
   <description>
     The Kuali Rice effort provides an enterprise class middleware suite of integrated products that allows
     both Kuali and non-Kuali applications
@@ -893,8 +893,6 @@
             <masterBranchName>rice-2.1-ua-master</masterBranchName>
           </flowInitContext>
           <allowSnapshots>true</allowSnapshots>
-          <defaultOriginUrl>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</defaultOriginUrl>
-          <enableSshAgent>true</enableSshAgent>
         </configuration>
       </plugin>
       <plugin>
