@@ -18,6 +18,7 @@ package org.kuali.rice.kim.api.identity;
 import java.util.List;
 import java.util.Map;
 
+import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
@@ -110,4 +111,8 @@ public interface PersonService {
 	 * to prove it out too, so this is the system Person that this method returns.
      */
     Person getSystemUserPersonFromDb();
+
+	// Same as above, but simpler object for exposure
+	Principal getSystemUserPrincipalFromDb();
+
 }
