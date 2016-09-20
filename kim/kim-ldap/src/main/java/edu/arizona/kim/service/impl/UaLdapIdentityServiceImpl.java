@@ -1,5 +1,12 @@
 package edu.arizona.kim.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
@@ -27,6 +34,7 @@ import org.kuali.rice.kim.api.identity.privacy.EntityPrivacyPreferences;
 import org.kuali.rice.kim.api.identity.residency.EntityResidency;
 import org.kuali.rice.kim.api.identity.type.EntityTypeContactInfo;
 import org.kuali.rice.kim.api.identity.visa.EntityVisa;
+import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.dao.LdapPrincipalDao;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
 import org.kuali.rice.kim.impl.identity.EntityTypeBo;
@@ -41,8 +49,7 @@ import org.kuali.rice.kim.impl.identity.name.EntityNameTypeBo;
 import org.kuali.rice.kim.impl.identity.phone.EntityPhoneTypeBo;
 import org.kuali.rice.kim.service.LdapIdentityService;
 import org.kuali.rice.krad.service.BusinessObjectService;
-
-import java.util.*;
+import org.kuali.rice.krad.util.KRADConstants;
 
 /**
  * This class is a simplified implementation of the IdentityService and
@@ -387,6 +394,12 @@ public class UaLdapIdentityServiceImpl implements LdapIdentityService {
 
     @Override
     public Principal getPrincipal(String principalId) {
+
+        // Need to account for system user, since this can't be an LDAP call
+        if (StringUtils.isNotBlank(principalId) && principalId.equals(KRADConstants.SYSTEM_USER_PRINCIPAL_ID)) {
+            return KimApiServiceLocator.getPersonService().getSystemUserPrincipalFromDb();
+        }
+
         return getLdapPrincipalDao().getPrincipal(principalId);
     }
 

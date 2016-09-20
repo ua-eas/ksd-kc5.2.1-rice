@@ -15,6 +15,17 @@
  */
 package org.kuali.rice.kim.impl.identity;
 
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -48,17 +59,6 @@ import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.KRADPropertyConstants;
 import org.kuali.rice.krad.util.ObjectUtils;
-
-import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * This is a description of what this class does - kellerj don't forget to fill this in. 
@@ -888,7 +888,9 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 
-	private Principal getSystemUserPrincipalFromDb() {
+	// See getSystemUserPersonFromDb() above
+	@Override
+	public Principal getSystemUserPrincipalFromDb() {
 		Map<String,Object> criteria = new HashMap<String,Object>();
 		String key = KIMPropertyConstants.Principal.PRINCIPAL_NAME;
 		String value = KRADConstants.SYSTEM_USER;

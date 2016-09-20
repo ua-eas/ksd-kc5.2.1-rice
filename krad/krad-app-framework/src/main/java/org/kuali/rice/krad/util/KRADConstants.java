@@ -52,7 +52,9 @@ public final class KRADConstants {
     // Very special user used in the post-processor and several services. Note, this
     // user must exist in the KIM Principal and Entity tables, or else many mechanisms
     // will break.
+    // Relates to: select * from krim_prncpl_t where prncpl_nm = 'kr'
     public static final String SYSTEM_USER = "kr";
+    public static final String SYSTEM_USER_PRINCIPAL_ID = "1";
 
     public static final String KRAD_URL_KEY = "krad.url";
     public static final String KRAD_INQUIRY_URL_KEY = "krad.inquiry.url";
