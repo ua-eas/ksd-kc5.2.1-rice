@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.kuali.rice</groupId>
         <artifactId>rice</artifactId>
-        <version>ua-release5-SNAPSHOT</version>
+        <version>ua-release6-SNAPSHOT</version>
     </parent>
     <artifactId>rice-core-service</artifactId>
     <packaging>pom</packaging>
