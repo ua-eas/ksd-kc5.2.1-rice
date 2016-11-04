@@ -22,7 +22,7 @@
     <parent>
         <artifactId>rice-krad</artifactId>
         <groupId>org.kuali.rice</groupId>
-        <version>ua-release6-SNAPSHOT</version>
+        <version>ua-release7-SNAPSHOT</version>
     </parent>
     <artifactId>rice-krad-web-framework</artifactId>
 
