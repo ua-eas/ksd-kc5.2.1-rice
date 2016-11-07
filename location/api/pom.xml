@@ -21,7 +21,7 @@
   <parent>
     <artifactId>rice-location</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>ua-release7-SNAPSHOT</version>
+    <version>ua-release6</version>
   </parent>
   <artifactId>rice-location-api</artifactId>
   <name>Rice Location API</name>
