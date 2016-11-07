@@ -21,7 +21,7 @@
     <parent>
         <artifactId>rice-kim</artifactId>
         <groupId>org.kuali.rice</groupId>
-        <version>ua-release6</version>
+        <version>ua-release7-SNAPSHOT</version>
     </parent>
     <artifactId>rice-kim-impl</artifactId>
 
