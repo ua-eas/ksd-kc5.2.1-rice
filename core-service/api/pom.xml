@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice-core-service</artifactId>
-    <version>ua-release5</version>
+    <version>ua-release6</version>
   </parent>
 
   <dependencies>
