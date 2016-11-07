@@ -22,7 +22,7 @@
     <parent>
         <artifactId>rice</artifactId>
         <groupId>org.kuali.rice</groupId>
-        <version>ua-release6-SNAPSHOT</version>
+        <version>ua-release6</version>
     </parent>
     <artifactId>rice-kim</artifactId>
 
