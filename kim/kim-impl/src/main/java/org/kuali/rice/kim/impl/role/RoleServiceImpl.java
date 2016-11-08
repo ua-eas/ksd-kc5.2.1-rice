@@ -984,7 +984,11 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
     protected List<RoleMembership.Builder> applyDelegationsToRoleMembers(List<RoleMembership> roleMemberships,
             Collection<DelegateTypeBo> delegations, Map<String, String> qualification) {
         MultiValueMap<String, String> roleIdToRoleMembershipIds = new LinkedMultiValueMap<String, String>();
-        Map<String, RoleMembership.Builder> roleMembershipIdToBuilder = new HashMap<String, RoleMembership.Builder>();
+    	/* Modified the roleMembershipIdToBuilders map to be multi-valued so
+    	 * role members that have multiple nested members (e.g. roles/groups)
+    	 * will properly resolve the delegations 
+    	 */
+        MultiValueMap<String, RoleMembership.Builder> roleMembershipIdToBuilders = new LinkedMultiValueMap<String, RoleMembership.Builder>();
         List<RoleMembership.Builder> roleMembershipBuilders = new ArrayList<RoleMembership.Builder>();
         // to make our algorithm less painful, let's do some indexing and load the given list of RoleMemberships into
         // builders
@@ -992,7 +996,7 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
             roleIdToRoleMembershipIds.add(roleMembership.getRoleId(), roleMembership.getId());
             RoleMembership.Builder builder = RoleMembership.Builder.create(roleMembership);
             roleMembershipBuilders.add(builder);
-            roleMembershipIdToBuilder.put(roleMembership.getId(), builder);
+            roleMembershipIdToBuilders.add(roleMembership.getId(), builder);
         }
         for (DelegateTypeBo delegation : delegations) {
             // determine the candidate role memberships where this delegation can be mapped
@@ -1008,14 +1012,18 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
                         if (StringUtils.isBlank(delegationMember.getRoleMemberId())) {
                             RoleTypeService roleTypeService = getRoleTypeService(delegation.getRoleId());
                             for (String roleMembershipId : candidateRoleMembershipIds) {
-                                RoleMembership.Builder roleMembershipBuilder = roleMembershipIdToBuilder.get(roleMembershipId);
-                                if (roleTypeService == null || roleTypeService.doesRoleQualifierMatchQualification(roleMembershipBuilder.getQualifier(), delegationMember.getQualifier())) {
-                                    linkDelegateToRoleMembership(delegation, delegateMemberBuilder, roleMembershipBuilder);
+                                for(RoleMembership.Builder roleMembershipBuilder : roleMembershipIdToBuilders.get(roleMembershipId)) {
+                                	if (roleTypeService == null || roleTypeService.doesRoleQualifierMatchQualification(roleMembershipBuilder.getQualifier(), delegationMember.getQualifier())) {
+                                		linkDelegateToRoleMembership(delegation, delegateMemberBuilder, roleMembershipBuilder);
+                                	}
                                 }
                             }
                         } else if (candidateRoleMembershipIds.contains(delegationMember.getRoleMemberId())) {
-                            RoleMembership.Builder roleMembershipBuilder = roleMembershipIdToBuilder.get(delegationMember.getRoleMemberId());
-                            linkDelegateToRoleMembership(delegation, delegateMemberBuilder, roleMembershipBuilder);
+                            for(RoleMembership.Builder roleMembershipBuilder : roleMembershipIdToBuilders.get(delegationMember.getRoleMemberId())) {
+                            	if(roleMembershipBuilder.getRoleId().equals(delegation.getRoleId())) {
+                            		linkDelegateToRoleMembership(delegation, delegateMemberBuilder, roleMembershipBuilder);
+                            	}
+                            }
                         }
                     }
                 }
