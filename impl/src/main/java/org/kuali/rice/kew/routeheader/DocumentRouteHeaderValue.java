@@ -213,6 +213,8 @@ public class DocumentRouteHeaderValue extends PersistableBusinessObjectBase impl
     private boolean routingReport = false;
     @Transient
     private List<ActionRequestValue> simulatedActionRequests;
+    @Transient
+    private List<ActionTakenValue> actionsTaken = new ArrayList<ActionTakenValue>();
 
     private static final boolean FINAL_STATE = true;
     protected static final HashMap<String,String> legalActions;
@@ -344,7 +346,10 @@ public class DocumentRouteHeaderValue extends PersistableBusinessObjectBase impl
     }
 
     public List<ActionTakenValue> getActionsTaken() {
-       return (List<ActionTakenValue>) KEWServiceLocator.getActionTakenService().findByDocumentIdIgnoreCurrentInd(documentId);
+    	if(actionsTaken == null || actionsTaken.isEmpty()) {
+    		actionsTaken = (List<ActionTakenValue>) KEWServiceLocator.getActionTakenService().findByDocumentIdIgnoreCurrentInd(documentId);
+    	}
+    	return actionsTaken;
     }
 
     public List<ActionRequestValue> getActionRequests() {
