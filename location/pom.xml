@@ -21,7 +21,7 @@
     <parent>
         <artifactId>rice</artifactId>
         <groupId>org.kuali.rice</groupId>
-        <version>ua-release7-SNAPSHOT</version>
+        <version>ua-release7</version>
     </parent>
     <artifactId>rice-location</artifactId>
     <name>Rice Location</name>
