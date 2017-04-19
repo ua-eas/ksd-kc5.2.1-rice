@@ -44,8 +44,13 @@
       <property name="defaultPassword" value="${rice.ldap.password}" />
     </bean>
 
+    <!-- bean id="springSecurityAuthenticationSource"
+      class="org.springframework.security.ldap.authentication.SpringSecurityAuthenticationSource" /-->
+
+	<!-- UA CHANGES -->
     <bean id="springSecurityAuthenticationSource"
-      class="org.springframework.security.ldap.authentication.SpringSecurityAuthenticationSource" />
+      class="edu.arizona.kim.ldap.authentication.UaKualiAuthenticationSource" />
+	<!-- end -->
 
     <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
         <constructor-arg ref="contextSource" />

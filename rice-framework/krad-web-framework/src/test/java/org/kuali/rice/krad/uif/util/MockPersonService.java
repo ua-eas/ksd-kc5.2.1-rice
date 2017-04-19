@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
+import org.kuali.rice.kim.api.identity.principal.Principal;
 
 /**
  * Mock person service implementation.
@@ -83,6 +84,16 @@ class MockPersonService implements PersonService {
     @Override
     public Person updatePersonIfNecessary(String sourcePrincipalId, Person currentPerson) {
         return null;
+    }
+    
+    @Override
+    public Person getSystemUserPersonFromDb() {
+    	return null;
+    }
+
+    @Override
+   	public Principal getSystemUserPrincipalFromDb() {
+    	return null;
     }
 }
 

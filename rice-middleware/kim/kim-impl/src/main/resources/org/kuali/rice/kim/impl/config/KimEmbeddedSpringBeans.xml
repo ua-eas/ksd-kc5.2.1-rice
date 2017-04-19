@@ -28,6 +28,7 @@
   <import resource="classpath:org/kuali/rice/krad/config/KRADDependentModuleCommonImports.xml" />
   <import resource="classpath:org/kuali/rice/kim/impl/config/_KimCommonSpringBeans.xml"/>
   <import resource="classpath:org/kuali/rice/kim/impl/config/_KimJpaSpringBeans.xml"/>
+  <import resource="classpath:org/kuali/rice/kim/config/KIMLdapSpringBeans.xml"/>
 
     <!-- Forwards cache evictions to the kewCacheDistributionQueue on the standalone server, this allows the standalone
        server to handle distribution of cache flush messages -->
@@ -59,9 +60,18 @@
         p:kualiConfigurationService-ref="configurationService"
         p:transactionManager-ref="transactionManager"/>
 
-  <bean id="kimIdentityService" class="org.kuali.rice.kim.impl.identity.IdentityCurrentAndArchivedServiceImpl">
+  <!-- bean id="kimIdentityService" class="org.kuali.rice.kim.impl.identity.IdentityCurrentAndArchivedServiceImpl">
     <constructor-arg ref="kimIdentityDelegateService"/>
     <constructor-arg ref="kimIdentityArchiveService"/>
+  </bean-->
+  
+  <!--
+       	UA changes Identity Service
+  -->
+  <bean id="kimIdentityService"
+        class="edu.arizona.kim.service.impl.UaLdapIdentityServiceImpl"
+        p:businessObjectService-ref="rice.kim.import.businessObjectService"
+        p:ldapPrincipalDao-ref="ldapPrincipalDao">
   </bean>
 
   <!--
@@ -87,11 +97,18 @@
         Permission Service
   -->
 
-  <bean id="kimPermissionService" class="org.kuali.rice.kim.impl.permission.PermissionServiceImpl"
+  <!-- bean id="kimPermissionService" class="org.kuali.rice.kim.impl.permission.PermissionServiceImpl"
         p:dataObjectService-ref="dataObjectService"
         p:kimTypeInfoService-ref="kimTypeInfoService"
         p:roleService-ref="kimRoleService"
-        p:cacheManager-ref="kimLocalCacheManager"/>
+        p:cacheManager-ref="kimLocalCacheManager"/-->
+  <!-- UA override kimPermissionService bean definition -->
+  <bean id="kimPermissionService" class="edu.arizona.rice.kim.impl.permission.UaPermissionServiceImpl"
+       p:dataObjectService-ref="dataObjectService"
+       p:kimTypeInfoService-ref="kimTypeInfoService"
+       p:roleService-ref="kimRoleService"
+       p:cacheManager-ref="kimLocalCacheManager"
+       p:identityService-ref="kimIdentityService"/>
 
   <!--
         Responsibility Service

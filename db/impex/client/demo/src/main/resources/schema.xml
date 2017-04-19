@@ -563,6 +563,7 @@
         <column default="Y" name="EXP_TXBL" size="1" type="VARCHAR"/>
         <foreign-key foreignTable="TRVL_AUTH_DOC_T" name="TRVL_EXP_ITEM_FK1">
             <reference foreign="TRVL_AUTH_DOC_ID" local="TRVL_AUTH_DOC_ID"/>
+        </foreign-key>
         <unique name="TRVL_EXP_ITEM_TC1">
             <unique-column name="OBJ_ID"/>
         </unique>

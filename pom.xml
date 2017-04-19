@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Rice</name>
   <inceptionYear>2005</inceptionYear>
-  <version>ua-2.5.19</version>
+  <version>2.5.19</version>
   <description>
     The Kuali Rice effort provides an enterprise class middleware suite of integrated products that allows
     both Kuali and non-Kuali applications
@@ -293,17 +293,27 @@
 
     <!-- set the kuali site url for publishing the documentation -->
     <kuali.site.publish.url>s3://site.origin.kuali.org/rice/${project.version}</kuali.site.publish.url>
-
+	<cas-client-core.version>3.2.1</cas-client-core.version>
   </properties>
 
   <!-- duplicating distributionManagement from parent pom because site plugin doesn't properly allow overriding for the site url -->
   <distributionManagement>
-    <downloadUrl>${kuali.site.download.url}</downloadUrl>
+    <!--downloadUrl>${kuali.site.download.url}</downloadUrl>
     <site>
       <id>${kuali.site.server.id}</id>
       <name>Kuali Maven Site</name>
       <url>${kuali.site.publish.url}</url>
     </site>
+    <repository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
     <repository>
       <id>${kuali.repo.release.id}</id>
       <name>${kuali.repo.release.name}</name>
@@ -313,45 +323,20 @@
       <id>${kuali.repo.snapshot.id}</id>
       <name>${kuali.repo.snapshot.name}</name>
       <url>${kuali.repo.snapshot.url}</url>
+    </snapshotRepository-->
+    <repository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
   <profiles>
-    <!-- Setup the dependency tree needed by the deploy logic -->
-    <profile>
-      <id>kdo</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.kuali.maven.plugins</groupId>
-            <artifactId>spring-maven-plugin</artifactId>
-            <dependencies>
-              <dependency>
-                <groupId>org.kuali.rice</groupId>
-                <artifactId>rice-impex-master</artifactId>
-                <classifier>sql</classifier>
-                <version>${project.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.kuali.common</groupId>
-                <artifactId>kuali-jdbc</artifactId>
-                <version>${kuali-jdbc.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.kuali.common</groupId>
-                <artifactId>kuali-util</artifactId>
-                <version>${kuali-util.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.kuali.common</groupId>
-                <artifactId>kuali-deploy</artifactId>
-                <version>${kuali-deploy.version}</version>
-              </dependency>
-            </dependencies>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
     <!-- Optimize the nightly build -->
     <profile>
       <id>nightly</id>
@@ -2236,6 +2221,19 @@
         <version>${jpa.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.jasig.cas.client</groupId>
+        <artifactId>cas-client-core</artifactId>
+        <version>${cas-client-core.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>commons-logging</artifactId>
+            <groupId>commons-logging</groupId>
+          </exclusion>
+        </exclusions>
+        <scope>runtime</scope>
+      </dependency>
+      
       <dependency>
         <groupId>org.javassist</groupId>
         <artifactId>javassist</artifactId>

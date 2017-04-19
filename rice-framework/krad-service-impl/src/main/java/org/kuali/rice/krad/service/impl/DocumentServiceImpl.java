@@ -736,7 +736,9 @@ public class DocumentServiceImpl implements DocumentService {
             LOG.debug("Retrieving doc id: " + documentHeaderId + " from workflow service.");
         }
 
-        Person person = getPersonService().getPersonByPrincipalName(KRADConstants.SYSTEM_USER);
+        // UA7.0 Upgrade
+        //Person person = getPersonService().getPersonByPrincipalName(KRADConstants.SYSTEM_USER);
+        Person person = getPersonService().getSystemUserPersonFromDb();
         workflowDocument = workflowDocumentService.loadWorkflowDocument(documentHeaderId, person);
 
         Class<? extends Document> documentClass = getDocumentClassByTypeName(workflowDocument.getDocumentTypeName());
