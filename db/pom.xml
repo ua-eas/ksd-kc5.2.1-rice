@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2016 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -22,13 +22,15 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice</artifactId>
-    <version>ua-release8-SNAPSHOT</version>
+    <version>ua-2.5.19</version>
   </parent>
   <artifactId>rice-db</artifactId>
   <packaging>pom</packaging>
   <modules>
+    <module>config</module>
     <module>sql</module>
     <module>impex</module>
+    <module>xml</module>
   </modules>
   <repositories>
     <repository>
@@ -45,9 +47,6 @@
   </repositories>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
-    <gmaven.stubs.phase>none</gmaven.stubs.phase>
-    <gmaven.compile.phase>none</gmaven.compile.phase>
-    <gmaven.test.compile.phase>none</gmaven.test.compile.phase>
     <maven.test.skip>true</maven.test.skip>
     <enforcer.phase>none</enforcer.phase>
     <failsafe.phase>none</failsafe.phase>

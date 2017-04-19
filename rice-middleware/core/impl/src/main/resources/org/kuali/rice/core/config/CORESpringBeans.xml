@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2016 The Kuali Foundation
+
+    Licensed under the Educational Community License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.opensource.org/licenses/ecl2.php
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+  <bean id="jtaConfigurer" class="org.kuali.rice.core.framework.persistence.jta.JtaConfigurer"/>
+
+  <import resource="classpath:org/kuali/rice/core/CommonSpringBeans.xml"/>
+
+  <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+    <property name="interceptorNames">
+      <list>
+        <idref bean="matchAllTxInterceptor"/>
+      </list>
+    </property>
+    <property name="beanNames">
+      <list>
+        <idref local="xmlDigesterService"/>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="cacheManagerRegistry" class="org.kuali.rice.core.impl.cache.CacheManagerRegistryImpl"/>
+
+  <bean id="globalCacheManager" class="org.kuali.rice.core.impl.cache.GlobalCacheManager">
+    <property name="cacheManagerRegistry" ref="cacheManagerRegistry"/>
+  </bean>
+
+  <!-- Mail Sender Factory -->
+  <bean id="mailSender" class="org.kuali.rice.core.mail.MailSenderFactoryBean"/>
+
+  <!-- Mailer -->
+  <bean id="mailer" class="org.kuali.rice.core.mail.MailerImpl">
+    <property name="mailSender" ref="mailSender"/>
+  </bean>
+
+  <bean id="dateTimeService" class="org.kuali.rice.core.impl.datetime.DateTimeServiceImpl"/>
+
+  <bean id="xmlImpexRegistry" class="org.kuali.rice.core.impl.impex.xml.XmlImpexRegistryImpl"/>
+
+  <bean id="xmlIngesterService" class="org.kuali.rice.core.impl.impex.xml.XmlIngesterServiceImpl">
+    <property name="xmlDigesterService" ref="xmlDigesterService"/>
+    <property name="validate">
+      <value>true</value>
+    </property>
+    <property name="xmlImpexRegistry" ref="xmlImpexRegistry"/>
+  </bean>
+
+  <bean id="xmlDigesterService" class="org.kuali.rice.core.impl.impex.xml.XmlDigesterServiceImpl"/>
+
+  <bean id="xmlExporterService" class="org.kuali.rice.core.impl.impex.xml.XmlExporterServiceImpl">
+    <property name="xmlImpexRegistry" ref="xmlImpexRegistry"/>
+  </bean>
+
+  <bean id="kualiConfigurationService" class="org.kuali.rice.core.impl.services.ConfigurationServiceImpl"/>
+
+</beans>

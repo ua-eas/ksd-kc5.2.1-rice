@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2016 The Kuali Foundation
+
+    Licensed under the Educational Community License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.opensource.org/licenses/ecl2.php
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+  <import resource="classpath:org/kuali/rice/core/CommonSpringBeans.xml"/>
+
+  <import resource="classpath:org/kuali/rice/krad/uif/PropertyEditors.xml"/>
+
+  <bean id="dateTimeService" class="org.kuali.rice.core.framework.resourceloader.GlobalResourceLoaderServiceFactoryBean">
+    <property name="serviceName" value="dateTimeService"/>
+  </bean>
+
+  <!-- we define a kradApplicationModuleConfiguration-parentBean which allows for extension with KNS config
+       when KNS is enabled and the KNSSpringBeans.xml is loaded -->
+  <bean id="kradApplicationModuleConfiguration" parent="kradApplicationModuleConfiguration-parentBean"/>
+
+  <bean id="kradApplicationModuleConfiguration-parentBean" class="org.kuali.rice.krad.bo.ModuleConfiguration"
+        abstract="true">
+    <property name="namespaceCode" value="KR-NS"/>
+    <property name="dataSourceName" value="kradApplicationDataSource"/>
+    <property name="initializeDataDictionary" value="true"/>
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    <property name="dataDictionaryPackages">
+      <list>
+        <value>classpath:org/kuali/rice/krad/datadictionary/AdHocRoutePerson.xml</value>
+        <value>classpath:org/kuali/rice/krad/datadictionary/AdHocRouteWorkgroup.xml</value>
+        <value>classpath:org/kuali/rice/krad/datadictionary/Attachment.xml</value>
+        <value>classpath:org/kuali/rice/krad/datadictionary/AttributeReference.xml</value>
+        <value>classpath:org/kuali/rice/krad/datadictionary/DataDictionaryBaseTypes.xml</value>
+        <value>classpath:org/kuali/rice/krad/datadictionary/DocumentHeader.xml</value>
+        <value>classpath:org/kuali/rice/krad/datadictionary/Note.xml</value>
+        <value>classpath:org/kuali/rice/krad/datadictionary/NoteType.xml</value>
+        <value>classpath:org/kuali/rice/krad/datadictionary/PessimisticLock.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/PropertyEditors.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifActionDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifViewPageDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifHeaderFooterDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifGroupDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifLayoutManagerDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifMaintenanceDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifDocumentDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifInquiryDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifLookupDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifIncidentReportDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifFieldDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifControlDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifWidgetDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifConfigurationDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifRiceDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifElementDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifInitiateDocumentInfoDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifMenuDefinitions.xml</value>
+        <value>classpath:org/kuali/rice/krad/uif/UifDialogDefinitions.xml</value>
+        <!-- DummyLogin -->
+        <value>classpath:org/kuali/rice/krad/login/DummyLoginView.xml</value>
+      </list>
+    </property>
+    <property name="packagePrefixes">
+      <list>
+        <value>org.kuali.rice.krad.</value>
+      </list>
+    </property>
+    <property name="providers">
+      <list>
+        <ref bean="jpaPersistenceProvider"/>
+        <ref bean="metadataProvider"/>
+      </list>
+    </property>
+  </bean>
+
+  <bean class="org.kuali.rice.core.framework.util.spring.NamedOrderedListBean">
+    <property name="name" value="scriptConfigurationFilePaths"/>
+    <property name="listItem" value="classpath:org/kuali/rice/krad/dwr-core.xml"/>
+  </bean>
+
+  <bean id="dataDictionaryService" parent="dataDictionaryService-parentBean"/>
+  <bean id="dataDictionaryService-parentBean" abstract="true"
+        class="org.kuali.rice.krad.service.impl.DataDictionaryServiceImpl" scope="singleton">
+    <property name="kualiConfigurationService" ref="kualiConfigurationService"/>
+    <property name="kualiModuleService" ref="kualiModuleService"/>
+    <property name="propertyEditorMap">
+      <map>
+        <entry key="org.kuali.rice.core.api.util.type.KualiDecimal" value="currencyEditor" />
+        <entry key="org.kuali.rice.core.api.util.type.KualiInteger" value="intCurrencyEditor" />
+        <entry key="org.kuali.rice.core.api.util.type.KualiPercent" value="percentEditor" />
+        <entry key="java.sql.Time" value="timeEditor" />
+        <entry key="java.sql.Date" value="dateEditor" />
+        <entry key="java.util.Date" value="dateEditor" />
+        <entry key="java.util.Calendar" value="calendarEditor" />
+        <entry key="java.sql.Timestamp" value="timestampEditor" />
+        <entry key="org.joda.time.DateTime" value="dateTimeEditor" />
+        <entry key="boolean" value="booleanEditor" />
+        <entry key="java.lang.Boolean" value="booleanEditor" />
+        <entry key="java.math.BigDecimal" value="decimalEditor" />
+        <entry key="org.kuali.rice.core.api.util.type.AbstractKualiDecimal" value="decimalEditor" />
+        <entry key="java.lang.String" value="stringEditor" />
+        <entry key="[Ljava.lang.String;" value="stringArrayEditor" />
+        <entry key="[B" value="byteArrayEditor" />
+      </map>
+    </property>
+  </bean>
+
+  <bean id="kualiModuleService" class="org.kuali.rice.krad.service.impl.KualiModuleServiceImpl"/>
+
+  <bean id="kualiConfigurationService"
+        class="org.kuali.rice.core.framework.resourceloader.GlobalResourceLoaderServiceFactoryBean">
+    <property name="serviceName" value="kualiConfigurationService" />
+  </bean>
+
+  <bean id="mailer" class="org.kuali.rice.core.framework.resourceloader.GlobalResourceLoaderServiceFactoryBean">
+    <property name="serviceName" value="mailer"/>
+  </bean>
+
+  <bean id="mailService" class="org.kuali.rice.krad.service.impl.MailServiceImpl">
+    <property name="mailer" ref="mailer"/>
+    <property name="batchMailingList" value="${mailing.list.batch}"/>
+    <property name="nonProductionNotificationMailingList" value="${nonproduction.notification.mailing.list}" />
+    <property name="realNotificationsEnabled" value="${real.notifications.enabled}" />
+  </bean>
+
+  <bean id="kradExceptionIncidentService" class="org.kuali.rice.krad.service.impl.KualiExceptionIncidentServiceImpl">
+    <property name="mailer" ref="mailer"/>
+    <property name="messageTemplate">
+      <bean class="org.kuali.rice.core.api.mail.MailMessage">
+        <!-- The property place holder below must be specified in          -->
+        <!-- common-config-default.xml or any other KNS configuration file -->
+        <property name="fromAddress">
+          <value>${kr.incident.mailing.list}</value>
+        </property>
+      </bean>
+    </property>
+    <property name="incidentMailingList" value="${kr.incident.mailing.list}"/>
+  </bean>
+
+  <bean id="kradFeedbackService" class="org.kuali.rice.krad.service.impl.KualiFeedbackServiceImpl">
+    <property name="mailer" ref="mailer" />
+    <property name="messageTemplate">
+      <bean class="org.kuali.rice.core.api.mail.MailMessage">
+        <property name="fromAddress">
+          <value>${kr.feedback.mailing.list}</value>
+        </property>
+      </bean>
+    </property>
+  </bean>
+
+  <!--KULRICE-12304: Wired up the new MaintainableXMLConversionService  -->
+
+  <bean id="kradMaintainableXMLConversionService" class="org.kuali.rice.krad.service.impl.MaintainableXMLConversionServiceImpl" />
+  <bean id="xmlObjectSerializerService" class="org.kuali.rice.krad.service.impl.XmlObjectSerializerServiceImpl"
+        p:legacyDataAdapter-ref="legacyDataAdapter"/>
+
+  <bean id="xmlObjectSerializerIgnoreMissingFieldsService" class="org.kuali.rice.krad.service.impl.XmlObjectSerializerIgnoreMissingFieldsServiceImpl"
+        p:legacyDataAdapter-ref="legacyDataAdapter"/>
+
+  <bean id="dataObjectSerializerService"
+        class="org.kuali.rice.krad.service.impl.DataObjectSerializerServiceImpl">
+    <property name="legacyDataAdapter" ref="legacyDataAdapter"/>
+    <property name="xmlObjectSerializerService" ref="xmlObjectSerializerService"/>
+  </bean>
+
+  <bean id="documentHeaderService" class="org.kuali.rice.krad.service.impl.DocumentHeaderServiceImpl">
+  	<property name="dataObjectService" ref="dataObjectService" />
+  </bean>
+
+  <bean id="documentService" class="org.kuali.rice.krad.service.impl.DocumentServiceImpl">
+  	<property name="documentHeaderService" ref="documentHeaderService" />
+  	<property name="documentAdHocService" ref="documentAdHocService" />
+  	<property name="documentDictionaryService" ref="documentDictionaryService" />
+    <property name="legacyDataAdapter" ref="legacyDataAdapter"/>
+    <property name="dateTimeService" ref="dateTimeService"/>
+    <property name="workflowDocumentService" ref="workflowDocumentService"/>
+    <property name="noteService" ref="noteService"/>
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    <property name="kualiConfigurationService" ref="kualiConfigurationService"/>
+  </bean>
+
+  <bean id="kualiRuleService" class="org.kuali.rice.krad.service.impl.KualiRuleServiceImpl">
+    <property name="documentDictionaryService" ref="documentDictionaryService"/>
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+  </bean>
+
+  <bean id="documentDictionaryService" class="org.kuali.rice.krad.service.impl.DocumentDictionaryServiceImpl">
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+  </bean>
+
+  <bean id="lookupService" class="org.kuali.rice.krad.service.impl.LookupServiceImpl">
+    <property name="legacyDataAdapter" ref="legacyDataAdapter"/>
+    <property name="kualiConfigurationService" ref="kualiConfigurationService"/>
+  </bean>
+
+  <bean id="workflowDocumentService" class="org.kuali.rice.krad.workflow.service.impl.WorkflowDocumentServiceImpl"
+        p:dataObjectService-ref="dataObjectService" />
+
+  <bean id="maintenanceDocumentService" class="org.kuali.rice.krad.service.impl.MaintenanceDocumentServiceImpl"
+        p:legacyDataAdapter-ref="legacyDataAdapter"
+        p:dataObjectService-ref="dataObjectService"
+        p:dataObjectAuthorizationService-ref="dataObjectAuthorizationService"
+        p:documentDictionaryService-ref="documentDictionaryService"
+        p:documentService-ref="documentService" />
+
+  <bean id="noteService" class="org.kuali.rice.krad.service.impl.NoteServiceImpl"
+        p:dataObjectService-ref="dataObjectService"
+        p:attachmentService-ref="attachmentService" />
+
+  <bean id="attachmentService" class="org.kuali.rice.krad.service.impl.AttachmentServiceImpl"
+        p:dataObjectService-ref="dataObjectService"
+        p:kualiConfigurationService-ref="kualiConfigurationService" />
+
+  <bean id="dictionaryValidationDefinitionConstraintResolver"
+        class="org.kuali.rice.krad.datadictionary.validation.constraint.resolver.DefinitionConstraintResolver"/>
+
+  <bean id="dictionaryValidationCaseConstraintResolver"
+        class="org.kuali.rice.krad.datadictionary.validation.constraint.resolver.CaseConstraintResolver"/>
+
+  <bean id="dictionaryValidationSimpleConstraintResolver"
+    		class="org.kuali.rice.krad.datadictionary.validation.constraint.resolver.SimpleConstraintResolver"/>
+
+  <bean id="dictionaryValidationValidCharactersConstraintResolver"
+        class="org.kuali.rice.krad.datadictionary.validation.constraint.resolver.ValidCharactersConstraintResolver"/>
+
+  <bean id="dictionaryValidationPrerequisiteConstraintsResolver"
+        class="org.kuali.rice.krad.datadictionary.validation.constraint.resolver.PrerequisiteConstraintsResolver"/>
+
+  <bean id="dictionaryValidationMustOccurConstraintsResolver"
+        class="org.kuali.rice.krad.datadictionary.validation.constraint.resolver.MustOccurConstraintsResolver"/>
+
+  <bean id="mandatoryElementConstraintProcessor"
+        class="org.kuali.rice.krad.datadictionary.validation.processor.MandatoryElementConstraintProcessor"
+        abstract="true">
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    <property name="dateTimeService" ref="dateTimeService"/>
+  </bean>
+
+  <bean id="viewValidationService" class="org.kuali.rice.krad.service.impl.ViewValidationServiceImpl">
+    <property name="dictionaryValidationService" ref="dictionaryValidationService"/>
+  </bean>
+
+  <bean id="dictionaryValidationService" class="org.kuali.rice.krad.service.impl.DictionaryValidationServiceImpl">
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    <property name="documentDictionaryService" ref="documentDictionaryService"/>
+    <!-- Collection constraint processors are classes that determine if a feature of a collection of objects satisfies some constraint -->
+    <property name="collectionConstraintProcessors">
+      <list>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.CollectionSizeConstraintProcessor"/>
+      </list>
+    </property>
+    <!-- Element constraint processors are classes that determine if a passed value is valid for a specific constraint at the individual object or object attribute level
+     The order matters here because case adds additional constraints to the queue for other processors to pick up-->
+    <property name="elementConstraintProcessors">
+      <list>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.CaseConstraintProcessor"
+              parent="mandatoryElementConstraintProcessor"/>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.SimpleConstraintProcessor"
+              parent="mandatoryElementConstraintProcessor"/>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.ExistenceConstraintProcessor"/>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.DataTypeConstraintProcessor"
+              parent="mandatoryElementConstraintProcessor"/>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.RangeConstraintProcessor"
+              parent="mandatoryElementConstraintProcessor"/>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.LengthConstraintProcessor"
+              parent="mandatoryElementConstraintProcessor"/>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.ValidCharactersConstraintProcessor"
+              parent="mandatoryElementConstraintProcessor"/>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.PrerequisiteConstraintProcessor"
+              parent="mandatoryElementConstraintProcessor"/>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.processor.MustOccurConstraintProcessor"
+              parent="mandatoryElementConstraintProcessor"/>
+      </list>
+    </property>
+    <!-- Constraint providers are classes that map specific constraint types to a constraint resolver, which takes a constrainable definition -->
+    <property name="constraintProviders">
+      <list>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.constraint.provider.AttributeDefinitionConstraintProvider">
+          <!--
+                          individual constraint resolvers can be injected as a map keyed by constraint type as string, or the default
+                          resolvers can be instantiated into the map by adding 'init-method="init"' to the bean declaration above
+                      -->
+          <property name="resolverMap">
+            <map>
+              <entry key="org.kuali.rice.krad.datadictionary.validation.constraint.SimpleConstraint">
+                <ref bean="dictionaryValidationSimpleConstraintResolver"/>
+              </entry>
+              <entry key="org.kuali.rice.krad.datadictionary.validation.constraint.CaseConstraint">
+                <ref bean="dictionaryValidationCaseConstraintResolver"/>
+              </entry>
+              <entry key="org.kuali.rice.krad.datadictionary.validation.constraint.ValidCharactersConstraint">
+                <ref bean="dictionaryValidationValidCharactersConstraintResolver"/>
+              </entry>
+              <entry key="org.kuali.rice.krad.datadictionary.validation.constraint.PrerequisiteConstraint">
+                <ref bean="dictionaryValidationPrerequisiteConstraintsResolver"/>
+              </entry>
+              <entry key="org.kuali.rice.krad.datadictionary.validation.constraint.MustOccurConstraint">
+                <ref bean="dictionaryValidationMustOccurConstraintsResolver"/>
+              </entry>
+              <entry key="org.kuali.rice.krad.datadictionary.validation.constraint.CollectionSizeConstraint">
+                <ref bean="dictionaryValidationDefinitionConstraintResolver"/>
+              </entry>
+            </map>
+          </property>
+        </bean>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.constraint.provider.ComplexAttributeDefinitionConstraintProvider"/>
+        <bean class="org.kuali.rice.krad.datadictionary.validation.constraint.provider.DataObjectEntryConstraintProvider">
+          <!--
+                          individual constraint resolvers can be injected as a map keyed by constraint type as string, or the default
+                          resolvers can be instantiated into the map by adding 'init-method="init"' to the bean declaration above
+                      -->
+          <property name="resolverMap">
+            <map>
+              <entry key="org.kuali.rice.krad.datadictionary.validation.constraint.MustOccurConstraint">
+                <ref bean="dictionaryValidationMustOccurConstraintsResolver"/>
+              </entry>
+            </map>
+          </property>
+        </bean>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="encryptionService" class="org.kuali.rice.core.impl.encryption.EncryptionServiceImpl">
+    <property name="secretKey">
+      <bean class="org.kuali.rice.core.impl.config.property.ConfigPropertyFactoryBean">
+        <property name="name" value="encryption.key"/>
+      </bean>
+    </property>
+  </bean>
+
+  <bean id="postProcessorService" class="org.kuali.rice.krad.service.impl.PostProcessorServiceImpl">
+    <property name="documentService" ref="documentService"/>
+  </bean>
+
+  <bean id="pessimisticLockService" class="org.kuali.rice.krad.service.impl.PessimisticLockServiceImpl"
+        p:dataObjectService-ref="dataObjectService"
+        p:dataDictionaryService-ref="dataDictionaryService" />
+
+
+  <!-- Since these beans are not a singletons, Spring does not inject their static
+        members until the first one is created. This bean causes one to be created.
+    -->
+  <bean id="springStatefulStaticInitializer" class="java.util.ArrayList">
+    <constructor-arg>
+      <list>
+        <ref bean="kualiLookupable"/>
+      </list>
+    </constructor-arg>
+  </bean>
+
+  <bean id="documentAdHocService" class="org.kuali.rice.krad.service.impl.DocumentAdHocServiceImpl"
+  		p:dataObjectService-ref="dataObjectService" />
+
+  <bean id="inactivationBlockingDetectionService"
+        class="org.kuali.rice.krad.service.impl.InactivationBlockingDetectionServiceImpl"
+        p:legacyDataAdapter-ref="legacyDataAdapter">
+    <property name="dataObjectService" ref="dataObjectService"/>
+  </bean>
+
+  <bean id="inactivationBlockingDisplayService"
+        class="org.kuali.rice.krad.service.impl.InactivationBlockingDisplayServiceImpl"
+        p:legacyDataAdapter-ref="legacyDataAdapter">
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+  </bean>
+
+  <bean id="documentSerializerService" class="org.kuali.rice.krad.service.impl.DocumentSerializerServiceImpl">
+    <property name="legacyDataAdapter" ref="legacyDataAdapter"/>
+    <property name="xmlObjectSerializerService" ref="xmlObjectSerializerService"/>
+  </bean>
+
+  <bean id="kradApplicationModule" class="org.kuali.rice.krad.service.impl.KRADModuleService">
+    <property name="moduleConfiguration" ref="kradApplicationModuleConfiguration"/>
+    <property name="kualiModuleService" ref="kualiModuleService"/>
+    <property name="businessObjects">
+      <list>
+        <value>org.kuali.rice.krad.maintenance.MaintenanceDocumentBase</value>
+        <value>org.kuali.rice.krad.bo.DocumentAttachment</value>
+        <value>org.kuali.rice.krad.maintenance.MaintenanceLock</value>
+        <value>org.kuali.rice.krad.bo.DocumentHeader</value>
+        <value>org.kuali.rice.krad.document.authorization.PessimisticLock</value>
+        <value>org.kuali.rice.krad.bo.Note</value>
+        <value>org.kuali.rice.krad.bo.NoteType</value>
+        <value>org.kuali.rice.krad.bo.Attachment</value>
+        <value>org.kuali.rice.krad.bo.AdHocRouteRecipient</value>
+        <value>org.kuali.rice.krad.bo.AdHocRoutePerson</value>
+        <value>org.kuali.rice.krad.bo.AdHocRouteWorkgroup</value>
+        <value>org.kuali.rice.krad.bo.SessionDocument</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="documentTypePermissionTypeService"
+        class="org.kuali.rice.krad.kim.DocumentTypePermissionTypeServiceImpl"/>
+
+  <bean id="documentTypeAndAttachmentTypePermissionTypeService"
+        class="org.kuali.rice.krad.kim.DocumentTypeAndAttachmentTypePermissionTypeService"/>
+
+  <bean id="documentTypeAndRelationshipToNoteAuthorPermissionTypeService"
+        class="org.kuali.rice.krad.kim.DocumentTypeAndRelationshipToNoteAuthorPermissionTypeService"/>
+
+  <bean id="documentTypeAndNodeOrStatePermissionTypeService"
+        class="org.kuali.rice.krad.kim.DocumentTypeAndNodeOrStatePermissionTypeServiceImpl"/>
+
+  <bean id="namespacePermissionTypeService" class="org.kuali.rice.krad.kim.NamespacePermissionTypeServiceImpl"/>
+
+  <bean id="documentTypeAndNodeAndRouteStatusPermissionTypeService"
+        class="org.kuali.rice.krad.kim.DocumentTypeAndNodeAndRouteStatusPermissionTypeServiceImpl"/>
+
+  <bean id="namespaceOrComponentPermissionTypeService"
+        class="org.kuali.rice.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl">
+    <property name="exactMatchStringAttributeName" value="componentName"/>
+    <property name="namespaceRequiredOnStoredMap" value="false"/>
+  </bean>
+
+  <bean id="parameterPermissionTypeService" class="org.kuali.rice.krad.kim.ParameterPermissionTypeServiceImpl">
+    <property name="exactMatchStringAttributeName" value="componentName"/>
+    <property name="namespaceRequiredOnStoredMap" value="false"/>
+  </bean>
+
+  <bean id="batchFeedOrJobPermissionTypeService"
+        class="org.kuali.rice.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl">
+    <property name="exactMatchStringAttributeName" value="beanName"/>
+    <property name="namespaceRequiredOnStoredMap" value="false"/>
+  </bean>
+
+  <bean id="actionRequestTypePermissionTypeService"
+        class="org.kuali.rice.krad.kim.ActionRequestTypePermissionTypeServiceImpl"/>
+
+  <bean id="namespaceOrActionPermissionTypeService"
+        class="org.kuali.rice.krad.kim.NamespaceWildcardAllowedAndOrStringExactMatchPermissionTypeServiceImpl">
+    <property name="exactMatchStringAttributeName" value="actionClass"/>
+    <property name="namespaceRequiredOnStoredMap" value="false"/>
+  </bean>
+
+  <bean id="documentTypeAndEditModePermissionTypeService"
+        class="org.kuali.rice.krad.kim.DocumentTypeAndEditModePermissionTypeServiceImpl"/>
+
+  <bean id="documentTypeAndNodeAndFieldsPermissionTypeService"
+        class="org.kuali.rice.krad.kim.DocumentTypeAndNodeAndFieldsPermissionTypeServiceImpl"/>
+
+  <bean id="documentTypeAndExistingRecordsOnlyPermissionTypeService"
+        class="org.kuali.rice.krad.kim.DocumentTypeAndExistingRecordsOnlyPermissionTypeServiceImpl"/>
+
+  <bean id="viewPermissionTypeService" class="org.kuali.rice.krad.kim.ViewPermissionTypeServiceImpl"/>
+
+  <bean id="viewEditModePermissionTypeService"
+        class="org.kuali.rice.krad.kim.ViewEditModePermissionTypeServiceImpl"/>
+
+  <bean id="viewFieldPermissionTypeService"
+        class="org.kuali.rice.krad.kim.ViewFieldPermissionTypeServiceImpl"/>
+
+  <bean id="viewGroupPermissionTypeService"
+        class="org.kuali.rice.krad.kim.ViewGroupPermissionTypeServiceImpl"/>
+
+  <bean id="viewWidgetPermissionTypeService"
+        class="org.kuali.rice.krad.kim.ViewWidgetPermissionTypeServiceImpl"/>
+
+  <bean id="viewActionPermissionTypeService"
+        class="org.kuali.rice.krad.kim.ViewActionPermissionTypeServiceImpl"/>
+
+  <bean id="viewLineFieldPermissionTypeService"
+        class="org.kuali.rice.krad.kim.ViewLineFieldPermissionTypeServiceImpl"/>
+
+  <bean id="viewLineActionPermissionTypeService"
+        class="org.kuali.rice.krad.kim.ViewLineActionPermissionTypeServiceImpl"/>
+
+  <bean id="dataObjectAuthorizationService"
+        class="org.kuali.rice.krad.service.impl.DataObjectAuthorizationServiceImpl"/>
+
+  <bean id="inactivateableFromToService" class="org.kuali.rice.krad.service.impl.InactivateableFromToServiceImpl">
+    <property name="dateTimeService" ref="dateTimeService"/>
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    <property name="lookupService" ref="lookupService"/>
+  </bean>
+
+  <bean id="KRADConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+    <property name="constantClass" value="org.kuali.rice.krad.util.KRADConstants"/>
+  </bean>
+
+  <bean id="RiceConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+    <property name="constantClass" value="org.kuali.rice.core.api.util.RiceConstants"/>
+  </bean>
+
+  <bean id="KRADPropertyConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+    <property name="constantClass" value="org.kuali.rice.krad.util.KRADPropertyConstants"/>
+  </bean>
+
+  <bean id="UifConstants" class="org.kuali.rice.core.api.util.collect.ConstantsMap">
+    <property name="constantClass" value="org.kuali.rice.krad.uif.UifConstants"/>
+  </bean>
+
+  <bean id="ConfigProperties" class="org.kuali.rice.core.api.util.collect.PropertiesMap">
+    <property name="properties" value="#{kualiConfigurationService.allProperties}"/>
+  </bean>
+
+  <bean class="org.springframework.web.context.support.ServletContextAttributeExporter">
+    <property name="attributes">
+      <map>
+        <entry key="KRADConstants" value-ref="KRADConstants"/>
+        <entry key="Constants" value-ref="KRADConstants"/>
+        <entry key="RiceConstants" value-ref="RiceConstants"/>
+        <entry key="PropertyConstants" value-ref="KRADPropertyConstants"/>
+        <entry key="ConfigProperties" value-ref="ConfigProperties"/>
+        <entry key="UifConstants" value-ref="UifConstants"/>
+      </map>
+    </property>
+  </bean>
+
+  <bean id="viewService" class="org.kuali.rice.krad.uif.service.impl.ViewServiceImpl">
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    <property name="viewTypeServices">
+      <list>
+        <ref bean="inquiryViewTypeService"/>
+        <ref bean="lookupViewTypeService"/>
+        <ref bean="maintenanceViewTypeService"/>
+        <ref bean="transactionalViewTypeService"/>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="inquiryViewTypeService" class="org.kuali.rice.krad.uif.service.impl.InquiryViewTypeServiceImpl"/>
+
+  <bean id="lookupViewTypeService" class="org.kuali.rice.krad.uif.service.impl.LookupViewTypeServiceImpl"/>
+
+  <bean id="maintenanceViewTypeService" class="org.kuali.rice.krad.uif.service.impl.MaintenanceViewTypeServiceImpl">
+    <property name="documentService" ref="documentService"/>
+    <property name="documentDictionaryService" ref="documentDictionaryService"/>
+  </bean>
+
+  <bean id="transactionalViewTypeService" class="org.kuali.rice.krad.uif.service.impl.TransactionalViewTypeServiceImpl">
+    <property name="documentService" ref="documentService"/>
+    <property name="documentDictionaryService" ref="documentDictionaryService"/>
+  </bean>
+
+  <bean id="viewDictionaryService" class="org.kuali.rice.krad.uif.service.impl.ViewDictionaryServiceImpl">
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+  </bean>
+
+  <bean id="viewLifecyclePhaseBuilder" class="org.kuali.rice.krad.uif.lifecycle.ViewLifecyclePhaseBuilderBase"/>
+
+  <bean id="uifDefaultingService" class="org.kuali.rice.krad.uif.service.impl.UifDefaultingServiceImpl">
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    <property name="dataObjectService" ref="dataObjectService" />
+  </bean>
+
+  <bean id="attributeQueryService" class="org.kuali.rice.krad.uif.service.impl.AttributeQueryServiceImpl">
+    <property name="lookupService" ref="lookupService"/>
+  </bean>
+
+  <bean id="dataDictionaryRemoteFieldService"
+        class="org.kuali.rice.krad.service.impl.DataDictionaryRemoteFieldServiceImpl" lazy-init="true"/>
+
+  <bean id="controllerService" class="org.kuali.rice.krad.web.service.impl.ControllerServiceImpl">
+    <property name="modelAndViewService" ref="modelAndViewService"/>
+    <property name="navigationControllerService" ref="navigationControllerService"/>
+  </bean>
+
+  <bean id="navigationControllerService" class="org.kuali.rice.krad.web.service.impl.NavigationControllerServiceImpl">
+    <property name="modelAndViewService" ref="modelAndViewService"/>
+  </bean>
+
+  <bean id="collectionControllerService" class="org.kuali.rice.krad.web.service.impl.CollectionControllerServiceImpl">
+    <property name="modelAndViewService" ref="modelAndViewService"/>
+  </bean>
+
+  <bean id="refreshControllerService" class="org.kuali.rice.krad.web.service.impl.RefreshControllerServiceImpl">
+    <property name="modelAndViewService" ref="modelAndViewService"/>
+  </bean>
+
+  <bean id="saveControllerService" class="org.kuali.rice.krad.web.service.impl.SaveControllerServiceImpl">
+    <property name="modelAndViewService" ref="modelAndViewService"/>
+  </bean>
+
+  <bean id="queryControllerService" class="org.kuali.rice.krad.web.service.impl.QueryControllerServiceImpl">
+    <property name="modelAndViewService" ref="modelAndViewService"/>
+    <property name="attributeQueryService" ref="attributeQueryService"/>
+  </bean>
+
+  <bean id="fileControllerService" class="org.kuali.rice.krad.web.service.impl.FileControllerServiceImpl">
+    <property name="modelAndViewService" ref="modelAndViewService"/>
+    <property name="collectionControllerService" ref="collectionControllerService"/>
+  </bean>
+
+  <bean id="modelAndViewService" class="org.kuali.rice.krad.web.service.impl.ModelAndViewServiceImpl">
+    <property name="viewService" ref="viewService"/>
+    <property name="viewValidationService" ref="viewValidationService"/>
+  </bean>
+
+  <bean id="lookupControllerService" class="org.kuali.rice.krad.lookup.LookupControllerServiceImpl"
+        parent="controllerService"/>
+
+  <bean id="lookupCollectionControllerService" class="org.kuali.rice.krad.lookup.LookupCollectionControllerServiceImpl">
+    <property name="modelAndViewService" ref="modelAndViewService"/>
+  </bean>
+
+  <bean id="inquiryControllerService" class="org.kuali.rice.krad.inquiry.InquiryControllerServiceImpl"
+        parent="controllerService"/>
+
+  <bean id="rice.krad.import.parameterService" class="org.kuali.rice.core.api.resourceloader.LazyResourceFactoryBean"
+            p:serviceName="parameterService"
+            p:objectType="org.kuali.rice.coreservice.framework.parameter.ParameterService"/>
+
+  <bean id="documentControllerService" class="org.kuali.rice.krad.document.DocumentControllerServiceImpl"
+        parent="controllerService">
+    <property name="legacyDataAdapter" ref="legacyDataAdapter"/>
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    <property name="documentService" ref="documentService"/>
+    <property name="documentDictionaryService" ref="documentDictionaryService"/>
+    <property name="attachmentService" ref="attachmentService"/>
+    <property name="noteService" ref="noteService"/>
+    <property name="navigationControllerService" ref="navigationControllerService"/>
+    <property name="configurationService" ref="kualiConfigurationService"/>
+    <property name="collectionControllerService" ref="collectionControllerService"/>
+    <property name="parameterService" ref="rice.krad.import.parameterService"/>
+  </bean>
+
+  <bean id="maintenanceDocumentControllerService"
+        class="org.kuali.rice.krad.maintenance.MaintenanceDocumentControllerServiceImpl"
+        parent="documentControllerService">
+    <property name="maintenanceDocumentService" ref="maintenanceDocumentService"/>
+  </bean>
+
+  <bean id="transactionalDocumentControllerService"
+        class="org.kuali.rice.krad.document.TransactionalDocumentControllerServiceImpl"
+        parent="documentControllerService"/>
+
+  <bean id="dataDictionaryComponentPublisherService" class="org.kuali.rice.krad.service.impl.DataDictionaryComponentPublisherServiceImpl">
+    <property name="dataDictionaryService" ref="dataDictionaryService"/>
+    <property name="kualiModuleService" ref="kualiModuleService"/>
+    <!--<property name="componentService" ref="rice.krad.import.componentService"/>-->
+    <property name="applicationId" value="${application.id}"/>
+  </bean>
+
+  <bean id="messageService" class="org.kuali.rice.krad.messages.MessageServiceImpl">
+    <property name="messageProviders">
+      <list>
+        <ref bean="resourceMessageProvider"/>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="databaseMessageProvider" class="org.kuali.rice.krad.messages.providers.DatabaseMessageProvider"
+        p:lookupService-ref="lookupService"/>
+
+  <bean id="resourceMessageProvider" class="org.kuali.rice.krad.messages.providers.ResourceMessageProvider"/>
+
+  <!-- Ensures legacy framework services cannot be called if legacy framework is disabled -->
+  <bean class="org.springframework.aop.support.DefaultPointcutAdvisor">
+    <property name="pointcut">
+      <bean class="org.springframework.aop.support.annotation.AnnotationMatchingPointcut"
+            c:classAnnotationType="org.kuali.rice.krad.util.LegacyDataFramework" c:checkInherited="true"/>
+    </property>
+    <property name="advice">
+      <bean class="org.kuali.rice.krad.util.LegacyDetectionAdvice"/>
+    </property>
+  </bean>
+
+  <bean id="lookupCriteriaGenerator" class="org.kuali.rice.krad.service.impl.LookupCriteriaGeneratorImpl"
+        p:dateTimeService-ref="dateTimeService"
+        p:dataDictionaryService-ref="dataDictionaryService"
+        p:dbPlatform-ref="dbPlatform"
+        p:dataObjectService-ref="dataObjectService"/>
+
+  <!-- Legacy Data Adapter Beans -->
+
+  <bean id="knsLegacyDataAdapter" class="org.kuali.rice.core.api.resourceloader.LazyResourceFactoryBean"
+        p:serviceName="knsLegacyDataAdapter"
+        p:objectType="org.kuali.rice.krad.service.LegacyDataAdapter"/>
+
+  <bean id="legacyDataAdapter" class="org.kuali.rice.krad.service.impl.LegacyDataAdapterImpl"
+        p:kradLegacyDataAdapter-ref="kradLegacyDataAdapter"
+        p:knsLegacyDataAdapter-ref="knsLegacyDataAdapter"/>
+
+  <bean id="kradLegacyDataAdapter" class="org.kuali.rice.krad.service.impl.KRADLegacyDataAdapterImpl"
+        p:dataObjectService-ref="dataObjectService"
+        p:lookupCriteriaGenerator-ref="lookupCriteriaGenerator"
+        p:kualiModuleService-ref="kualiModuleService"
+        p:dataDictionaryService-ref="dataDictionaryService"
+        p:kualiConfigurationService-ref="kualiConfigurationService"
+        p:viewDictionaryService-ref="viewDictionaryService"/>
+
+  <bean id="legacyAppFrameworkAdapter"
+        class="org.kuali.rice.krad.service.impl.LegacyAppFrameworkAdapterServiceImpl"
+        p:legacyDataAdapter-ref="legacyDataAdapter" />
+
+  <bean id="expressionEvaluatorFactory" class="org.kuali.rice.krad.uif.view.DefaultExpressionEvaluatorFactory" />
+
+  <bean id="csrfService" class="org.kuali.rice.krad.service.impl.CsrfServiceImpl"
+        p:configurationService-ref="kualiConfigurationService"
+        p:parameterService-ref="rice.krad.import.parameterService"/>
+
+  <import resource="KRADSpringBeans-data.xml"/>
+  <import resource="KRADSpringBeans-jpa.xml"/>
+
+</beans>

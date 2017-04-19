@@ -1,0 +1,168 @@
+<!--
+
+    Copyright 2005-2016 The Kuali Foundation
+
+    Licensed under the Educational Community License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.opensource.org/licenses/ecl2.php
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+  <bean id="Uif-KimPersonControl" parent="Uif-KimPersonControl-parentBean"/>
+  <bean id="Uif-KimPersonControl-parentBean" abstract="true" class="org.kuali.rice.krad.uif.control.UserControl"
+        scope="prototype"
+        parent="Uif-SmallTextControl">
+    <property name="cssClasses">
+      <list>
+        <value>uif-kimPersonControl</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="Uif-KimGroupControl" parent="Uif-KimGroupControl-parentBean"/>
+  <bean id="Uif-KimGroupControl-parentBean" abstract="true" class="org.kuali.rice.krad.uif.control.GroupControl"
+        scope="prototype"
+        parent="Uif-SmallTextControl">
+    <property name="cssClasses">
+      <list>
+        <value>uif-kimGroupControl</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="Uif-RicePortalParentLocation" parent="Uif-RicePortalParentLocation-parentBean"/>
+  <bean id="Uif-RicePortalParentLocation-parentBean" parent="Uif-ParentLocation">
+    <property name="parentViewLabel" value="Home"/>
+    <property name="parentViewUrl.href" value="@{#ConfigProperties['application.url']}/portal.do"/>
+  </bean>
+
+  <bean id="Uif-MaintenanceLocationSuggestField" parent="Uif-InputField" p:label="Navigate to"
+        p:propertyName="extensionData['NAV_SUGGEST']">
+    <property name="bindingInfo.bindingPath" value="extensionData['NAV_SUGGEST']"/>
+    <property name="suggest">
+      <bean parent="Uif-LocationSuggest" p:render="true"
+            p:baseUrl="@{#ConfigProperties['krad.url']}/maintenance"
+            p:suggestQuery.dataObjectClassName="@{#form.dataObjectClassName}">
+        <property name="objectIdPropertyName" value="@{#getDataObjectKey(#form.dataObjectClassName)}"/>
+        <property name="additionalRequestParameters">
+          <map>
+            <entry key="methodToCall" value="maintenanceEdit"/>
+            <entry key="dataObjectClassName" value="@{#form.dataObjectClassName}"/>
+          </map>
+        </property>
+      </bean>
+    </property>
+  </bean>
+
+  <bean id="Uif-InquiryLocationSuggestField" parent="Uif-InputField" p:label="Navigate to"
+          p:propertyName="extensionData['NAV_SUGGEST']">
+      <property name="bindingInfo.bindingPath" value="extensionData['NAV_SUGGEST']"/>
+      <property name="suggest">
+        <bean parent="Uif-LocationSuggest" p:render="true"
+              p:baseUrl="@{#ConfigProperties['krad.url']}/inquiry"
+              p:suggestQuery.dataObjectClassName="@{#form.dataObjectClassName}">
+          <property name="objectIdPropertyName" value="@{#getDataObjectKey(#form.dataObjectClassName)}"/>
+          <property name="additionalRequestParameters">
+            <map>
+              <entry key="methodToCall" value="start"/>
+              <entry key="dataObjectClassName" value="@{#form.dataObjectClassName}"/>
+            </map>
+          </property>
+        </bean>
+      </property>
+    </bean>
+
+  <bean id="ActionListView" parent="Uif-IframeView" p:location.baseUrl="@{#ConfigProperties['application.url']}"
+        p:location.controllerMapping="/kew/ActionList.do">
+    <property name="applicationHeader">
+      <bean parent="Uif-ApplicationHeaderBase"/>
+    </property>
+  </bean>
+
+  <bean id="DocSearchView" parent="Uif-IframeView" p:location.baseUrl="@{#ConfigProperties['application.url']}"
+        p:location.controllerMapping="/kew/DocumentSearch.do">
+    <property name="applicationHeader">
+      <bean parent="Uif-ApplicationHeaderBase"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-UserLinkField" parent="Uif-UserLinkField-parentBean"/>
+  <bean id="Uif-UserLinkField-parentBean" abstract="true"
+        class="org.kuali.rice.krad.uif.field.UserLinkField">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/kimLinkField.ftl"/>
+    <property name="templateName" value="uif_kimLinkField"/>
+    <property name="dataObjectClassName" value="org.kuali.rice.kim.impl.identity.PersonImpl"/>
+    <property name="baseInquiryUrl" value="@{#ConfigProperties['krad.url']}/inquiry"/>
+    <property name="additionalInquiryParameters">
+      <map>
+        <entry key="flow" value="start"/>
+        <entry key="renderedInDialog" value="true"/>
+      </map>
+    </property>
+    <property name="principalId" value=""/>
+    <property name="principalName" value=""/>
+    <property name="disableLink" value="false"/>
+    <property name="link">
+      <bean parent="Uif-Link" p:openInDialog="true"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-GroupLinkField" parent="Uif-GroupLinkField-parentBean"/>
+  <bean id="Uif-GroupLinkField-parentBean" abstract="true"
+        class="org.kuali.rice.krad.uif.field.GroupLinkField">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/kimLinkField.ftl"/>
+    <property name="templateName" value="uif_kimLinkField"/>
+    <property name="dataObjectClassName" value="org.kuali.rice.kim.impl.group.GroupBo"/>
+    <property name="baseInquiryUrl" value="@{#ConfigProperties['krad.url']}/inquiry"/>
+    <property name="additionalInquiryParameters">
+      <map>
+        <entry key="flow" value="start"/>
+        <entry key="renderedInDialog" value="true"/>
+      </map>
+    </property>
+    <property name="groupId" value=""/>
+    <property name="groupNamespaceCode" value=""/>
+    <property name="groupName" value=""/>
+    <property name="namespaceInLinkText" value="true"/>
+    <property name="disableLink" value="false"/>
+    <property name="link">
+      <bean parent="Uif-Link" p:openInDialog="true"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-RoleLinkField" parent="Uif-RoleLinkField-parentBean"/>
+  <bean id="Uif-RoleLinkField-parentBean" abstract="true"
+        class="org.kuali.rice.krad.uif.field.RoleLinkField">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/kimLinkField.ftl"/>
+    <property name="templateName" value="uif_kimLinkField"/>
+    <property name="dataObjectClassName" value="org.kuali.rice.kim.impl.role.RoleBo"/>
+    <property name="baseInquiryUrl" value="@{#ConfigProperties['krad.url']}/inquiry"/>
+    <property name="additionalInquiryParameters">
+      <map>
+        <entry key="flow" value="start"/>
+        <entry key="renderedInDialog" value="true"/>
+      </map>
+    </property>
+    <property name="roleId" value=""/>
+    <property name="roleNamespaceCode" value=""/>
+    <property name="roleName" value=""/>
+    <property name="namespaceInLinkText" value="true"/>
+    <property name="disableLink" value="false"/>
+    <property name="link">
+      <bean parent="Uif-Link" p:openInDialog="true"/>
+    </property>
+  </bean>
+
+</beans>

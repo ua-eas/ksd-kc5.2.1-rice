@@ -1,5 +1,5 @@
 ====
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2016 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 ====
 
 /****************************************************************************************/
-/*    Copyright 2005-2012 The Kuali Foundation
+/*    Copyright 2005-2014 The Kuali Foundation
 /*
 /*    Licensed under the Educational Community License, Version 2.0 (the "License");
 /*    you may not use this file except in compliance with the License.
@@ -73,4 +73,4 @@ If you are upgrading an embedded MySql database:
 /******************************************************/
 
     1. Are you upgrading from 1.0.3?  If so, read the following:
-       https://svn.kuali.org/repos/rice/branches/rice-2.1/scripts/upgrades/1.0.3 to 2.0.0/final/README.TXT
+       https://github.com/kuali/rice/blob/rice-2.1/scripts/upgrades/1.0.3%20to%202.0.0/final/README.TXT

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2016 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 		           classpathref="maven-ant-tasks.classpath" />
 		<property file="${user.home}/kuali-build.properties" />
 		<artifact:pom id="maven.project" file="pom.xml" />
-		<artifact:pom id="rice-web" file="web/pom.xml" />
+		<artifact:pom id="rice-web" file="rice-middleware/web/pom.xml" />
 		<property name="rice.environment" value="dev"/>
 		<property name="rice.app.code" value="kr"/>
 		<echo>The Kuali Rice version is ${maven.project.version}</echo>
@@ -533,7 +533,7 @@ in order to package the various Rice datasets.
 			addproperty="project.new.version"/>
 		<echo>Re-versioning POM files to version '${project.new.version}'</echo>
 		<replaceregexp match="\b${maven.project.version}\b" replace="${project.new.version}" byline="true" flags="g">
-			<fileset dir="." includes="**/pom.xml, **/*.groovy,.project"/>
+			<fileset dir="." includes="**/pom.xml, **/*.groovy,.project,scripts/launch/*.launch"/>
 		</replaceregexp>
 	</target>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2016 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,20 +17,26 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <name>Rice Impex Client</name>
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice-impex</artifactId>
-    <version>ua-release8-SNAPSHOT</version>
+    <version>ua-2.5.19</version>
   </parent>
+
   <artifactId>rice-impex-client</artifactId>
   <packaging>pom</packaging>
+
+  <name>Rice Impex Client</name>
+
   <modules>
     <module>demo</module>
     <module>bootstrap</module>
   </modules>
+
   <profiles>
+    <!-- Exports a database to the impex format on disk -->
     <profile>
       <id>export</id>
       <build>
@@ -48,6 +54,8 @@
         </plugins>
       </build>
     </profile>
+
+    <!-- Commits the generated XML to version control -->
     <profile>
       <id>commit</id>
       <properties>

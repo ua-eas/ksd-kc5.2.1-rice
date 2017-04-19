@@ -20,8 +20,8 @@
   <info>
     <title> Introduction to Kuali Rice ${project.version}  </title>
     <legalnotice><para>Some of the documentation in this guide has not been updated to reflect changes for
-      ${project.version}. If you find a problem, please <link xlink:href="UG.html#reporting_rice_jira">report
-        in Jira</link> and set the component to Documentation. Indicate the guide and
+      ${project.version}. If you find a problem, please <link xlink:href="http://site.kuali.org/rice/${project.version}/reference/html/Intro_To_Rice.html#reporting_rice_jira">report
+        it in Jira</link> and set the component to Documentation. Indicate the guide and
       section that has the problem in the Jira. Thanks for your help in improving the
       documentation!</para></legalnotice>
   </info>
@@ -29,6 +29,10 @@
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Intro_To_Rice/intro.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Intro_To_Rice/software_architecture.xml"/>
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Intro_To_Rice/technical_overview.xml"/>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Intro_To_Rice/UG_Global.xml" />
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Intro_To_Rice/UG_FeaturesGuide.xml" />
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Intro_To_Rice/TRG_Global.xml" />
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Intro_To_Rice/UG_LOCATION.xml" />
 
   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../common/glossary.xml"/>
 

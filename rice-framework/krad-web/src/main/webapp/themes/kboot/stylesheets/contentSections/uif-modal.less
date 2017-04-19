@@ -1,0 +1,62 @@
+/***** Lightbox customization ******************************************************************/
+
+.uif-lightbox {
+  max-width: 800px;
+}
+
+.overlay-fixed {
+  opacity: 0.4 !important;
+}
+
+#fancybox-wrap {
+  box-sizing: content-box;
+}
+
+#fancybox-outer  .uif-header .uif-headerText   {
+  background: @gray-lighter;
+  padding: 12px;
+  margin: 0px;
+  font-size: 24px;
+}
+
+.uif-lightbox  .uif-viewHeader   {
+  background: @gray-lighter;
+  margin-bottom: 20px;
+}
+
+.uif-lightbox .uif-footer {
+  background: @gray-lighter;
+  margin-bottom: 0px;
+  padding-top: 6px
+}
+
+.uif-lightbox .uif-viewHeader .uif-headerText-span {
+  font-size: 24px;
+  padding-top: 0px;
+}
+
+#fancybox-outer .uif-cssGridGroup, #fancybox-outer .uif-tableCollectionSection {
+  padding: 15px
+}
+
+#fancybox-outer .uif-footer {
+  margin-bottom: 0px
+}
+
+.modal-header, .modal-footer {
+  background: @gray-lighter
+}
+
+.modal-footer {
+  margin-top: 0;
+}
+
+.modal-body:after {
+  content: "\00a0";
+}
+
+@media (min-width: 768px) {
+  .modal-sm {
+    margin: auto;
+  }
+}

@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2016 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ in configuration files outside of the project.
   <param name="application.id">${artifactId}</param>
   <param name="app.context.name">${artifactId}</param>
 
-  <param name="filter.login.class">org.kuali.rice.kew.web.DummyLoginFilter</param>
+  <param name="filter.login.class">org.kuali.rice.krad.web.filter.DummyLoginFilter</param>
   <param name="filtermapping.login.1">/*</param>
 
   <param name="dev.mode">true</param>
@@ -67,5 +67,5 @@ in configuration files outside of the project.
   <param name="config.location">classpath:META-INF/common-config-defaults.xml</param>
   <param name="config.location">classpath:META-INF/common-config-locations.xml</param>
   <param name="config.location">${alt.config.location}</param>
-  <param name="version">${artifactId} :: ${project.version} :: ${kuali.build.timestamp}</param>
+  <param name="version">${artifactId} :: ${project.version} :: Rice ${rice.version}</param>
 </config>

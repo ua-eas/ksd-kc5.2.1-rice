@@ -74,7 +74,7 @@
             the appendix for examples of hardware and software configurations of Kuali Rice
             servers.</para>
     </section>
-    <section>
+    <section xml:id="install_db">
         <title>Installing and Configuring the Database Management System</title>
         <para>Kuali Rice was developed using two relational database management systems: <emphasis
                 role="bold">MySQL</emphasis> and <emphasis role="bold">Oracle</emphasis>. The
@@ -115,7 +115,7 @@
             <title>Locations for Database Software</title>
             <para>Below are locations from which Oracle and MySQL could be downloaded at the time of
                 release of Rice ${project.version}.</para>
-            <table frame="none">
+            <table frame="none" tabstyle="striped">
                 <title>Locations for Database Software</title>
                 <tgroup cols="2">
                     <colspec colname="c1" colnum="1" colwidth="1.0*"/>
@@ -159,7 +159,7 @@
                 </tgroup>
             </table>
         </section>
-        <section>
+        <section xml:id="mysql_db_prep">
             <title>MySQL Database Preparation</title>
             <para>Kuali Rice supports both MySQL and Oracle databases. However, MySQL is easier to
                 install than Oracle and uses less machine resources so many developers prefer to use
@@ -191,7 +191,7 @@
                     >http://dev.mysql.com/doc/refman/5.1/en/option-files.html</link></para>
                 <para>Once you have located this file, please add the following options, paying
                     special attention to the line that needs to be commented out:</para>
-                <programlisting>[mysqld]
+                <programlisting linenumbering = "numbered">[mysqld]
 transaction-isolation=READ-COMMITTED
 max_connections=1000 <co xml:id="max_connections-co" linkends="max_connections"/>
 ...
@@ -263,7 +263,7 @@ mysql> </programlisting>
                     installation scripts are running.</para>
             </section>
         </section>    
-        <section>
+        <section xml:id="oracle_db_prep">
             <title>Oracle Database Preparation</title>
             <section>
                 <title>Installation</title>
@@ -300,7 +300,7 @@ mysql> </programlisting>
                     When this Installation Guide refers to the Oracle database host server, it will
                     be referred to in the examples as koracle.</para>
                 <para>Now edit the hosts file and add this:</para>
-                <programlisting>&lt;ip address of mysql server&gt; koracle</programlisting>
+                <programlisting linenumbering = "numbered">&lt;ip address of mysql server&gt; koracle</programlisting>
             </section>
             <section>
                 <title>Verification</title>
@@ -334,18 +334,18 @@ mysql> </programlisting>
                         <listitem>
                             <para>You should see output similar to this if the jar gets installed
                                 correctly. </para>
-                            <programlisting>[INFO] Installing ojdbc14.jar to /.m2/repository/com/oracle/ojdbc14/10.2.0.3.0/ojdbc14-10.2.0.3.0.jar</programlisting>
+                            <programlisting linenumbering = "numbered">[INFO] Installing ojdbc14.jar to /.m2/repository/com/oracle/ojdbc14/10.2.0.3.0/ojdbc14-10.2.0.3.0.jar</programlisting>
                         </listitem>
                     </orderedlist></para>
             </section>
         </section>
-        <section>
+        <section xml:id="sql_client_sw">
             <title>Suggested SQL Client Software</title>
             <para>To examine and test your database setup, SQL client software is useful. Any SQL client
                 software that will connect to a MySQL or Oracle database will work. Two tools used by
                 the development team are the <emphasis role="bold">mysql</emphasis> command-line client
                 and SQuirrel SQL.</para>
-            <section>
+            <section xml:id="mysql_client_sw">
                 <title>mysql client software</title>
                 <para>The <emphasis role="bold">mysql</emphasis> command-line client only works with MySQL
                     and is usually installed with the MySQL Server software. An example of connection to
@@ -387,25 +387,25 @@ Database changed</programlisting>
                     <title>With Oracle</title>
                     <para>Connecting to an Oracle database would have a JDBC URL like the following:
                         <emphasis role="bold">jdbc:oracle:thin:@localhost:1521:XE</emphasis>.</para>
-                    <para>The Rice SQL files use slash ‘/‘ as the statement delimiter. You may have to
+                    <para>The Rice SQL files use slash '/' as the statement delimiter. You may have to
                         configure your SQL client appropriately so it can run the Rice SQL. In SQuirreL, you
                         do this in Session->Session Properties->SQL->Statement Separator.</para>
                 </section>
             </section>
         </section>
     </section> 
-    <section>
+    <section xml:id="install_sw">
         <title>Install and Configure Required Software</title>
         <section>
             <title>Overview</title>
             <para>Kuali Rice requires the following software to be setup and configured:<itemizedlist>
                 <listitem>
-                    <para>Sun Microsystems Java Development Kit (JDK 1.6.x)</para>
+                    <para>Sun Microsystems Java Development Kit (JDK 1.6.x or 1.7.x)</para>
                     <warning>
                         <para>You must use a JDK and not a Java runtime environment (JRE); the JDK
-                            you use must be version 1.6.x. Additionally, Rice has not been tested on
-                            JDKs other than Sun. So alternative implementations like OpenJDK should
-                            be used at your own risk.</para>
+                                you use must be version 1.6.x or 1.7.x. Additionally, Rice has not
+                                been tested on JDKs other than Sun. So alternative implementations
+                                like OpenJDK should be used at your own risk.</para>
                     </warning>
                 </listitem>
                 <listitem>
@@ -425,7 +425,7 @@ Database changed</programlisting>
                     <programlisting>M2_HOME=/usr/local/maven
 MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=768m"
 GROOVY_HOME=/usr/local/groovy
-JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home
+JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.7/Home
 CATALINA_HOME=/usr/local/tomcat
 MYSQL_HOME=/usr/local/mysql
     
@@ -496,16 +496,16 @@ export PATH ANT_HOME ANT_OPTS M2_HOME MAVEN_OPTS GROOVY_HOME JAVA_HOME CATALINA_
                        variable changes to be effective.</para></note>
                 </section>
         </section> 
-       <section>
+       <section xml:id="Java_SDK">
             <title>Java SDK</title>
             <section>
                 <title>Installation</title>
-                <para>You should download and install the latest version of JDK 6. If you are on
-                    Windows, you can download it from the following URL: <link
+                <para>You should download and install the latest version of JDK 6 or JDK 7. If you
+                    are on Windows, you can download it from the following URL: <link
                         xlink:href="http://www.oracle.com/technetwork/java/javase/downloads/index.html"
                         >http://www.oracle.com/technetwork/java/javase/downloads/index.html</link>.</para>
-                <para>If you are on a Mac, then Java 6 should already be installed if you are up to date
-                    with the latest updates from Apple.</para>
+                <para>If you are on a Mac, then Java 6 or Java 7 should already be installed if you
+                    are up to date with the latest updates from Apple.</para>
             </section>
             <section>
                 <title>Configuration</title>
@@ -525,9 +525,9 @@ export PATH ANT_HOME ANT_OPTS M2_HOME MAVEN_OPTS GROOVY_HOME JAVA_HOME CATALINA_
                     prompt and type the following:</para>
                 <programlisting>java -version</programlisting>
                 <para>You should see output similar to the following:</para>
-                <programlisting>java version "1.6.0_26"
-Java(TM) SE Runtime Environment (build 1.6.0_26-b03-383-11A511)
-Java HotSpot(TM) 64-Bit Server VM (build 20.1-b02-383, mixed mode)</programlisting>
+                <programlisting>java version "1.7.0_10"
+Java(TM) SE Runtime Environment (build 1.7.0_10-b18)
+Java HotSpot(TM) Client VM (build 23.6-b04, mixed mode)</programlisting>
                 <para>If you receive an error indicating that the "java" command could not be found,
                     please ensure that the java command is on your machine's <emphasis role="bold"
                         >PATH</emphasis> environment variable.</para>
@@ -541,7 +541,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.1-b02-383, mixed mode)</programlisti
             </section>
         </section>
         <!-- TODO: Determine if we need to add a section for ant or if we're done here -->
-        <section>
+        <section xml:id="Maven">
             <title>Maven</title>
             <para>Maven is the primary build tool used by the Kuali Rice project. Maven is based on a
                 project object model (POM) that defines various standards and conventions surrounding
@@ -588,7 +588,7 @@ OS name: "mac os x", version: "10.7.2", arch: "x86_64", family: "mac"</programli
                             >PATH</emphasis> environment variable.</para>
             </section>
         </section>
-        <section>
+        <section xml:id="Apache_Tomcat">
             <title>Install and Setup Apache Tomcat</title>
             <para>Kuali Rice ${project.version} supports the following Tomcat versions:<itemizedlist>
                     <listitem>
@@ -603,7 +603,7 @@ OS name: "mac os x", version: "10.7.2", arch: "x86_64", family: "mac"</programli
             <para>Other servlet containers can be used with Kuali Rice, but this guide will focus on
                 Tomcat.</para>
         </section>
-        <section>
+        <section xml:id="Rice_SW">
             <title>Install Rice software from distribution</title>
             <para>The quickest way to get Rice installed on a standalone server is to download the
                     <emphasis role="bold">Standalone Server</emphasis> distribution from the <link
@@ -611,45 +611,110 @@ OS name: "mac os x", version: "10.7.2", arch: "x86_64", family: "mac"</programli
                 downloaded, decompress the software.</para>
         </section>
     </section>    
-    <section>
+    <section xml:id="Rice_DB">
         <title>Building the Rice Database</title>
         <section>
             <title>Load Impex Data with Maven</title>
             <orderedlist>
                 <listitem>
-                    <para>Change to the directory <emphasis role="bold">db/demo</emphasis> located
+                    <para>Change to the directory <emphasis role="bold">db/impex</emphasis> located
                         where you decompressed the software.</para>
                 </listitem>
                 <listitem>
+                    <para>Decide which type of server you want to install.
+                        <itemizedlist>
+                            <listitem>If you want to install a full Rice development environment, change
+                                to the directory <emphasis role="bold">master</emphasis>.  This will
+                                create a database named <emphasis role="bold">RICE</emphasis> by default.
+                                This is the recommended way to get started developing with Rice.
+                            </listitem>
+                            <listitem>If you want a production standalone Rice install, change to the
+                                directory <emphasis role="bold">server/bootstrap</emphasis>.  This will
+                                create a database named <emphasis role="bold">RICESERVERBOOTSTRAP</emphasis>
+                                by default.
+                            </listitem>
+                            <listitem>If you want to install some demonstration data on top of the production
+                                standalone Rice install, change to the directory <emphasis role="bold">server/demo</emphasis>.
+                                This will create a database named <emphasis role="bold">RICESERVERDEMO</emphasis>
+                                by default.
+                            </listitem>
+                            <listitem>
+                                The <emphasis role="bold">client</emphasis> folder is for client applications
+                                that connect to Rice separately and is not needed at this stage.
+                            </listitem>
+                        </itemizedlist>
+                        <note>Selecting to install the master or demo databases is for testing only.  There
+                            is no easy way to remove this data once it is in your database.  Only select these
+                            options if you are in a development or testing environment.</note>
+                    </para>
+                </listitem>
+                <listitem>
                     <para>Verify that Maven can connect to your database instance.</para>
-                    <para><emphasis role="bold">Running Locally:</emphasis><itemizedlist>
+                    <para>
+                        <emphasis role="bold">Running Locally:</emphasis>
+                        <itemizedlist>
                             <listitem>
                                 <para>MySQL</para>
                                 <programlisting>mvn validate -Pdb,mysql -Dimpex.dba.password=[dbapassword]</programlisting>
-                                <note><para>If the 'root' user does not have a password (which is the default on a new MySQL install),
-                                        drop the '-Dimpex.dba.password' parameter from all MySQL
-                                        commands or use 'NONE' for the password: </para>
-                                    <para><programlisting>mvn validate -Pdb,mysql</programlisting>or 
-                                        <programlisting>mvn validate -Pdb,mysql -Dimpex.dba.password=NONE</programlisting></para></note>
                             </listitem>
                             <listitem>
                                 <para>Oracle</para>
                                 <programlisting>mvn validate -Pdb,oracle -Dimpex.dba.password=[dbapassword]</programlisting>
                             </listitem>
-                        </itemizedlist></para>
-                    <para><emphasis role="bold">Connecting to a remote database:</emphasis><itemizedlist>
-                        <listitem>
-                            <para>MySQL</para>
-                            <programlisting>mvn validate -Pdb,mysql -Dimpex.dba.url=jdbc:mysql://[your-mysql-instance]/ -Dimpex.dba.password=[dbapassword]</programlisting>
-                        </listitem>
-                        <listitem>
-                            <para>Oracle</para>
-                            <programlisting>mvn validate -Pdb,oracle -Dimpex.url=jdbc:oracle:thin:@[your-oracle-server]:1521:XE -Dimpex.dba.password=[dbapassword]</programlisting>
-                        </listitem>
-                    </itemizedlist></para>
+                        </itemizedlist>
+                    </para>
+                    <para>
+                        <emphasis role="bold">Connecting to a remote database:</emphasis>
+                        <itemizedlist>
+                            <listitem>
+                                <para>MySQL</para>
+                                <programlisting>mvn validate -Pdb,mysql -Dimpex.dba.url=jdbc:mysql://[your-mysql-instance]/ -Dimpex.dba.password=[dbapassword]</programlisting>
+                            </listitem>
+                            <listitem>
+                                <para>Oracle</para>
+                                <programlisting>mvn validate -Pdb,oracle -Dimpex.url=jdbc:oracle:thin:@[your-oracle-server]:1521:XE -Dimpex.dba.password=[dbapassword]</programlisting>
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                    <note>
+                        <para>Some setup may be necessary if the setup for connecting as an administrator to your
+                          database differs from the base install.  For example, if the username to connect to
+                          the database engine (often known as the 'admin' or 'root' user) is different in your
+                          setup, then you may have to add the following parameter:
+                          <programlisting>-Dimpex.dba.username=[dbaUsername]</programlisting>
+                          If for MySQL the 'root' user does not have a password (which is the default on a new
+                          install), you can either remove the parameter altogether:
+                          <programlisting>mvn validate -Pdb,mysql</programlisting>
+                          or specify 'NONE':
+                          <programlisting>mvn validate -Pdb,mysql -Dimpex.dba.password=NONE</programlisting>
+                        </para>
+                    </note>
                 </listitem>
                 <listitem>
-                    <para>Load the data set. </para>
+                    <para>Review the options for creating your database.  The commands in the next step
+                        will verify the connection and create a new user and schema based on the default name.
+                        So, if you choose to install inside the <emphasis role="bold">master</emphasis>
+                        directory, it will create a user and schema named <emphasis role="bold">RICE</emphasis>.
+                        If you wish to change this, you can add one or more of these options to the following
+                        commands.
+                        <itemizedlist>
+                            <listitem>
+                                <emphasis role="bold">-Dimpex.username=[username]</emphasis>: Controls the user
+                                name that is created to access the schema.
+                            </listitem>
+                            <listitem>
+                                <emphasis role="bold">-Dimpex.password=[password]</emphasis>: Controls the password
+                                for the user that is created to access the schema.
+                            </listitem>
+                            <listitem>
+                                <emphasis role="bold">-Dimpex.database=[database]</emphasis>: (MySQL only) Controls
+                                the schema name that is created.
+                            </listitem>
+                        </itemizedlist>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>Load the data set.</para>
                     <para><emphasis role="bold">Running Locally:</emphasis><itemizedlist>
                         <listitem>
                             <para>MySQL</para>
@@ -678,7 +743,7 @@ OS name: "mac os x", version: "10.7.2", arch: "x86_64", family: "mac"</programli
                 </listitem>
                 <listitem>
                     <para>You should get the following message at the end of the process.</para>
-                    <programlisting>[INFO] ------------------------------------------------------------------------
+                    <programlisting linenumbering = "numbered">[INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------ </programlisting>
                 </listitem>
@@ -692,7 +757,7 @@ OS name: "mac os x", version: "10.7.2", arch: "x86_64", family: "mac"</programli
                 oracle).</para>
         </section>
     </section>    
-    <section>
+    <section xml:id="Rice_Config">
         <title>Configure Rice</title>
         <section>
             <title>Deploying the WAR file</title>
@@ -758,28 +823,27 @@ OS name: "mac os x", version: "10.7.2", arch: "x86_64", family: "mac"</programli
                     </orderedlist>
                 </para>
                 <para>An example <emphasis role="bold">rice-config.xml</emphasis> file is included
-                            in the server distribution under <emphasis role="bold"
-                                >config/web/src/main/config/example-config</emphasis>.</para>
-                <para>For MySQL, just modify the following database parameters in the <emphasis
-                                role="bold">rice-config.xml</emphasis> file. The values should
-                            conform to the values you will use with the ImpEx tool via the <emphasis
-                                role="bold">impex-build.properties</emphasis> file. ImpEx is set up
-                    in the <link linkend="database_setup">Installing and
-                        Configuring the Database Management System</link> section of this guide. </para>
-                    <para>
-                        <programlisting>datasource.url=jdbc:mysql://localhost:3306/rice
+                    in the server distribution under
+                    <emphasis role="bold">config/web/src/main/config/example-config</emphasis>.
+                </para>
+                <para>Modify the following database parameters in the
+                    <emphasis role="bold">rice-config.xml</emphasis> file.  The values should conform
+                    to the values you selected in the
+                    <link linkend="Rice_DB">Building the Rice Database</link> section of this guide.
+                </para>
+                <para>
+                    <programlisting>datasource.url=jdbc:mysql://localhost:3306/rice
 datasource.username=rice
-datasource.password=kualirice
+datasource.password=rice
 datasource.url=jdbc:mysql://remoteMySQLServerComputerName:3306/rice
 datasource.username=rice
-datasource.password=kualirice</programlisting>
+datasource.password=rice</programlisting>
                     </para>
                     <para>If you are using Oracle, the JDBC URL will have this
                         general form:</para>
                     <para>
                         <programlisting>datasource.url=jdbc:oracle:thin:@remoteMySQLServerComputerName:1521:ORACLE_SID</programlisting>
                     </para>
-                    <note><para>Additional configuration parameters are described in the <link linkend="database_setup">Parameters</link> section of this guide.</para></note>
                 </listitem>
                 <listitem>
                     <para>At this point, you are ready to try to bring up the Tomcat
@@ -823,7 +887,7 @@ tail -n 500 -f catalina.out</programlisting>
                     <para>Make sure the <emphasis role="bold">application.url</emphasis> and
                         database user name and password are set correctly.</para>
                 </warning>  
-                <table frame="none">
+                <table frame="none" tabstyle="striped">
                     <title>Core </title>
                     <tgroup cols="3">
                         <colspec colname="c1" colnum="1" colwidth="1.0*"/>
@@ -916,7 +980,7 @@ tail -n 500 -f catalina.out</programlisting>
                     &lt;webappcontext> with a unique suffix of your choosing. Specify the context
                     name of the web application server as the value of this parameter.</para><para>By default context.names.app is set to app.context.name. This allows bundled mode usage
                     without additional configuration. With standalone mode, the server that hosts
-                    the portal also doesn’t need any additional configurations thanks to
+                    the portal also doesn't need any additional configurations thanks to
                     context.names.app.</para><para>
                          
                              <emphasis role="bold">Example:</emphasis> KFS is used with a standalone Rice server.</para><para>
@@ -942,7 +1006,7 @@ tail -n 500 -f catalina.out</programlisting>
                              <emphasis role="bold">Example:</emphasis> KFS is used with bundled Rice server.
                          No additional configuration is needed.
                  </para></note>
-            <table frame="none">
+            <table frame="none" tabstyle="striped">
                 <title>Database</title>
                 <tgroup cols="3">
                     <colspec colname="c1" colnum="1" colwidth="1.2*"/>
@@ -967,13 +1031,13 @@ tail -n 500 -f catalina.out</programlisting>
                                 <entry>
                                     <itemizedlist>
                                         <listitem>
-                                          <para>org.kuali.rice.core.database.platform.DerbyPlatform</para>
+                                            <para>org.kuali.rice.core.framework.persistence.platform.DerbyPlatform</para>
                                         </listitem>
                                         <listitem>
-                                          <para>org.kuali.rice.core.database.platform.OraclePlatform</para>
+                                            <para>org.kuali.rice.core.framework.persistence.platform.OraclePlatform</para>
                                         </listitem>
                                         <listitem>
-                                          <para>org.kuali.rice.core.database.platform.MySQLPlatform
+                                            <para>org.kuali.rice.core.framework.persistence.platform.MySQLDatabasePlatform
                                           </para>
                                         </listitem>
                                     </itemizedlist>
@@ -1044,7 +1108,7 @@ tail -n 500 -f catalina.out</programlisting>
                         </tbody>
                     </tgroup>
                 </table>
-                <table frame="none">
+                <table frame="none" tabstyle="striped">
                     <title>KSB</title>
                     <tgroup cols="3">
                         <colspec colname="c1" colnum="1" colwidth="1.0*"/>
@@ -1082,7 +1146,7 @@ tail -n 500 -f catalina.out</programlisting>
                         </tbody>
                     </tgroup>
                 </table> 
-                <table frame="none">
+                <table frame="none" tabstyle="striped">
                     <title>KEN</title>
                     <tgroup cols="3">
                         <colspec colname="c1" colnum="1" colwidth="1.0*"/>
@@ -1105,7 +1169,7 @@ tail -n 500 -f catalina.out</programlisting>
                         </tbody>
                     </tgroup>
                 </table> 
-                <table frame="none">
+                <table frame="none" tabstyle="striped">
                     <title>KEW</title>
                     <tgroup cols="3">
                         <colspec colname="c1" colnum="1" colwidth="1.0*"/>
@@ -1159,9 +1223,8 @@ tail -n 500 -f catalina.out</programlisting>
                         directory. </para>
                 </listitem>
                 <listitem>
-                    <para>You can generate the keystore yourself. Please refer to the <link xlink:href="TRG.html#security_and_keystores">Security and Keystores</link> 
-                        section in the <link xlink:href="TRG.html#TRG_KSB">KSB chapter</link> of the <link xlink:href="TRG.html">Technical Reference Guide</link> for the
-                        steps to accomplish this.</para>
+                    <para>You can generate the keystore yourself. Please refer to the <link xlink:href="http://site.kuali.org/rice/${project.version}/reference/html/KSB_Guide.html#security_and_keystores">Security and Keystores</link> 
+                        section in the KSB Guide for the steps to accomplish this.</para>
                 </listitem>
             </orderedlist></para>
         </section>
@@ -1169,7 +1232,7 @@ tail -n 500 -f catalina.out</programlisting>
             <title>Configure KSB to use the keystore</title>
             <para>You must have these params in the xml config to allow KSB to use the keystore:</para>
             <para>
-                <programlisting>&lt;param name="keystore.file">/usr/local/rice/rice.keystore&lt;/param>
+                <programlisting linenumbering = "numbered">&lt;param name="keystore.file">/usr/local/rice/rice.keystore&lt;/param>
 &lt;param name="keystore.alias">rice&lt;/param>
 &lt;param name="keystore.password">r1c3pw&lt;/param>            </programlisting>
             </para>    

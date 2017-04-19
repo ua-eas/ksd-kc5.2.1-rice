@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2016 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,17 +17,21 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <name>Rice Impex Server Demo</name>
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice-impex-server</artifactId>
-    <version>ua-release8-SNAPSHOT</version>
+    <version>ua-2.5.19</version>
   </parent>
+
   <artifactId>rice-impex-server-demo</artifactId>
+
+  <name>Rice Impex Server Demo</name>
+
   <properties>
-    <impex.username>RICESERVERDEMO</impex.username>
-    <impex.password>RICESERVERDEMO</impex.password>
-    <impex.database>RICESERVERDEMO</impex.database>
+    <impex.username>RICESRVRDEMO</impex.username>
+    <impex.password>${impex.username}</impex.password>
+    <impex.database>${impex.username}</impex.database>
   </properties>
 </project>

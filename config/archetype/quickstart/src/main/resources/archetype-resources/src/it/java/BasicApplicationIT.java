@@ -1,5 +1,5 @@
-/*
- * Copyright 2006-2012 The Kuali Foundation
+/**
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ${package};
 
 import java.net.URL;
@@ -36,10 +35,20 @@ import static org.junit.Assert.*;
 public class BasicApplicationIT {
     @Test
     public void testBasicApplicationStartup() throws Exception {
-        URL url = new URL("http://localhost:" + getPort() + "/${artifactId}");
+        final String artifactId = "${artifactId}";
+        URL url = new URL("http://localhost:" + getPort() + "/" + artifactId + "/");
+        HttpURLConnection.setFollowRedirects(false);
+
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        assertEquals(200, connection.getResponseCode());
+        assertEquals(url.toString(), 302, connection.getResponseCode());
+
+        String redirectUrl = connection.getHeaderField("Location");
+        assertNotNull("Invalid response from " + artifactId + " application: "
+                + connection.getResponseCode() , redirectUrl);
+
+        boolean validRedirection = redirectUrl.endsWith(artifactId + "/portal.do");
+        assertTrue("Invalid response from " + artifactId + " application: " + redirectUrl, validRedirection);
     }
 
     private String getPort() {
@@ -47,6 +56,7 @@ public class BasicApplicationIT {
         if (port == null || port.trim().equals("")) {
             port = "8080";
         }
+
         return port;
     }
 }

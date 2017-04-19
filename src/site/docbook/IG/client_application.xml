@@ -25,7 +25,7 @@
 
     <para>The essential tools for developing a project are documented in the next section.</para>
 
-    <section>
+    <section xml:id="dev_tools">
         <title>Development Tools</title>
 
         <section>
@@ -33,10 +33,10 @@
             <para>This is the tool you will use to developer the source code and resources for your
                 project. It can be a simple text editor if you want, however it is recommended to
                 use one of the Java IDE tools available. Of these Eclipse, Intellij, and NetBeans
-                are the most popular in today’s market. Any of these will be fine for developing a
+                are the most popular in today's market. Any of these will be fine for developing a
                 Rice project. However, as we will learn about next, Rice provides its own tooling to
                 help getting started with Eclipse. Eclipse is chosen due to its high use and that it
-                is a free open source tool. The latest release is ‘Indigo’ and can be downloaded
+                is a free open source tool. The latest release is 'Indigo' and can be downloaded
                 here: </para>
 
             <para>
@@ -52,7 +52,7 @@
                 application data. Rice itself will use the database for supporting the various Rice modules
                 (workflow, identity management, and so on). With each Rice distribution datasets are
                 provided that can be used to create the initial database schema. You can choose to load the
-                ‘bootstrap’ dataset, which provides the baseline data needed to run Rice, or the ‘demo’
+                'bootstrap' dataset, which provides the baseline data needed to run Rice, or the 'demo'
                 dataset which adds additional demo data (such as example KIM data and workflow doc types). 
                 Although it is possible to provide a shared database for development, it is recommended for
                 productivity reasons for each developer to have a local database installed. Both MySql and
@@ -97,7 +97,7 @@
             <para>These supported databases can be downloaded with the following URLs.</para>
 
             <para>
-                <table frame="none">
+                <table frame="none" tabstyle="striped">
                     <title>Locations for Database Software</title>
                     <tgroup cols="2">
                         <colspec colname="c1" colnum="1" colwidth="1.0*"/>
@@ -152,18 +152,18 @@
                 and then creates the resulting database in either Oracle or MySQL. To use this tool we
                 simply provide configuration about the location of the source dataset, along with
                 connectivity information for our target database. This is done by creating a properties file
-                named ‘impex-build.properties’ in the user home directory. Once the configuration is
+                named 'impex-build.properties' in the user home directory. Once the configuration is
                 complete, we can invoke the tool using ant or maven and our database will be
                 created.</para>
         </section>
 
         <section>
             <title>JDK</title>
-            <para>In order to support compilation of the application source
-                code a JDK must be installed (Note this must be the JDK and not a Java Runtime Environment –
-                JRE). Rice requires a JDK version of 1.6.x. Additionally, Rice has only been tested with the
-                Sun JDK implementation. Therefore use of other implementations such as OpenJDK may have
-                problems.</para>
+            <para>In order to support compilation of the application source code a JDK must be
+        installed (Note this must be the JDK and not a Java Runtime Environment – JRE). Rice
+        requires a JDK version of 1.6.x or 1.7.x. Additionally, Rice has only been tested with the
+        Sun JDK implementation. Therefore use of other implementations such as OpenJDK may have
+        problems.</para>
 
             <para>For machines running Windows, JDK 6 can be downloaded at the
                 following URL:</para>
@@ -187,9 +187,9 @@
 
             <programlisting>java -version</programlisting>
             <para>You should see output similar to the following:</para>
-            <programlisting>java version "1.6.0_26"
-Java(TM) SE Runtime Environment (build 1.6.0_26-b03-383-11A511)
-Java HotSpot(TM) 64-Bit Server VM (build 20.1-b02-383, mixed mode)</programlisting>
+            <programlisting>java version "1.7.0_10"
+Java(TM) SE Runtime Environment (build 1.7.0_10-b18)
+Java HotSpot(TM) Client VM (build 23.6-b04, mixed mode)</programlisting>
             <para>If you receive an error indicating that the "java" command could not be found,
                 please ensure that the java command is on your machine's <emphasis role="bold"
                     >PATH</emphasis> environment variable.</para>
@@ -266,16 +266,21 @@ OS name: "mac os x", version: "10.7.2", arch: "x86_64", family: "mac"</programli
         </section>
     </section>
 
-    <section><title>New Project Setup</title>
+    <section xml:id="new_project"><title>New Project Setup</title>
       <para>
         The org.kuali.rice:rice-archetype-quickstart:${project.version} Maven Archetype is used to build the rice
         application skeleton. Eclipse and Maven are required and the database needs to be setup.
       </para>
       <para>
+        Note: Due to Maven Central's archetype index policy, there could be a slight delay from when rice officially
+        releases and the availability of the archetype.
+        See <link xlink:href="https://docs.sonatype.org/display/Repository/Central+Repository+FAQ">https://docs.sonatype.org/display/Repository/Central+Repository+FAQ</link>
+      </para>
+      <para>
         Below are the instruction for Maven CLI, Eclipse, and Intellij.
       </para>
 
-      <section><title>Maven CLI</title>
+      <section xml:id="Maven_CLI"><title>Maven CLI</title>
         <procedure>
           <step>
             <para>
@@ -284,12 +289,12 @@ OS name: "mac os x", version: "10.7.2", arch: "x86_64", family: "mac"</programli
               <itemizedlist>
                 <listitem>
                   <para>Interactive mode:</para>
-                  <programlisting>
+                  <programlisting linenumbering = "numbered">
 C:\project> mvn archetype:generate -DarchetypeGroupId=org.kuali.rice -DarchetypeArtifactId=rice-archetype-quickstart -DarchetypeVersion=${project.version}</programlisting>
                 </listitem>
                 <listitem>
                   <para>Automated mode:</para>
-                  <programlisting>
+                  <programlisting linenumbering = "numbered">
 C:\project> mvn archetype:generate -DarchetypeGroupId=org.kuali.rice -DarchetypeArtifactId=rice-archetype-quickstart -DarchetypeVersion=${project.version}
 -DgroupId=org.foo
 -DartifactId=bar
@@ -306,7 +311,7 @@ C:\project> mvn archetype:generate -DarchetypeGroupId=org.kuali.rice -Darchetype
           <step>
             <para>Enter the project path and build the project.</para>
             <para>
-              <programlisting>
+              <programlisting linenumbering = "numbered">
 C:\project> cd bar
 C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</programlisting>
               This will clean, compile, run unit and integration tests and startup the project in jetty.
@@ -321,7 +326,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
 
       </section>
 
-      <section><title>Eclipse 3.7.2 JEE Edition</title>
+      <section xml:id="Eclipse"><title>Eclipse 3.7.2 JEE Edition</title>
         <para>
           The following plugins are required:
           <itemizedlist>
@@ -353,7 +358,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                     <imagedata fileref="../images/archetype/2_eclipse_dbk.png"/>
                   </imageobject>
                 </mediaobject>
-                <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/2_eclipse.png">Click to enlarge</link></para>
+              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/2_eclipse.png">Click to enlarge</link></para>
               </figure>
             </para>
           </step>
@@ -409,7 +414,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                   <imagedata fileref="../images/archetype/3_eclipse_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/3_eclipse.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/3_eclipse.png">Click to enlarge</link></para>
             </figure>
           </step>
           <step>
@@ -454,10 +459,10 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                   <para>datasource_url: jdbc:mysql://localhost:3306/rice</para>
                 </listitem>
                 <listitem>
-                  <para>datasource_username: rice</para>
+                  <para>datasource_username: RICE</para>
                 </listitem>
                 <listitem>
-                  <para>datasource_password: rice</para>
+                  <para>datasource_password: RICE</para>
                 </listitem>
               </itemizedlist>
               Click the <guibutton>Finish</guibutton> button.
@@ -469,7 +474,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                   <imagedata fileref="../images/archetype/4_eclipse_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/4_eclipse.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/4_eclipse.png">Click to enlarge</link></para>
             </figure>
           </step>
           <step>
@@ -500,7 +505,8 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
               creates many false positives. They can be disabled within eclipse.
             </para>
           </step>
-          <step>
+            
+            <step>
             <para>
               At this point it is a good idea to rebuild the entire project and make sure there are no errors.  Then
               run all the unit and integration tests through eclipse.</para>
@@ -518,7 +524,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                         <imagedata fileref="../images/archetype/5_eclipse_dbk.png"/>
                       </imageobject>
                     </mediaobject>
-                    <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/5_eclipse.png">Click to enlarge</link></para>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/5_eclipse.png">Click to enlarge</link></para>
                   </figure>
                 </step>
                 <step>
@@ -535,7 +541,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                         <imagedata fileref="../images/archetype/6_eclipse_dbk.png"/>
                       </imageobject>
                     </mediaobject>
-                    <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/6_eclipse.png">Click to enlarge</link></para>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/6_eclipse.png">Click to enlarge</link></para>
                   </figure>
                 </step>
                 <step>
@@ -552,7 +558,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                         <imagedata fileref="../images/archetype/7_eclipse_dbk.png"/>
                       </imageobject>
                     </mediaobject>
-                    <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/7_eclipse.png">Click to enlarge</link></para>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/7_eclipse.png">Click to enlarge</link></para>
                   </figure>
                 </step>
               </substeps>
@@ -574,7 +580,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                         <imagedata fileref="../images/archetype/8_eclipse_dbk.png"/>
                       </imageobject>
                     </mediaobject>
-                    <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/8_eclipse.png">Click to enlarge</link></para>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/8_eclipse.png">Click to enlarge</link></para>
                   </figure>
                  </step>
                  <step>
@@ -589,7 +595,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                         <imagedata fileref="../images/archetype/9_eclipse_dbk.png"/>
                       </imageobject>
                     </mediaobject>
-                    <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/9_eclipse.png">Click to enlarge</link></para>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/9_eclipse.png">Click to enlarge</link></para>
                   </figure>
                 </step>
                 <step>
@@ -603,7 +609,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                         <imagedata fileref="../images/archetype/10_eclipse_dbk.png"/>
                       </imageobject>
                     </mediaobject>
-                    <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/10_eclipse.png">Click to enlarge</link></para>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/10_eclipse.png">Click to enlarge</link></para>
                   </figure>
                 </step>
                 <step>
@@ -618,7 +624,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                         <imagedata fileref="../images/archetype/11_eclipse_dbk.png"/>
                       </imageobject>
                     </mediaobject>
-                    <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/11_eclipse.png">Click to enlarge</link></para>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/11_eclipse.png">Click to enlarge</link></para>
                   </figure>
                 </step>
                 <step>
@@ -632,14 +638,14 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                         <imagedata fileref="../images/archetype/12_eclipse_dbk.png"/>
                       </imageobject>
                     </mediaobject>
-                    <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/12_eclipse.png">Click to enlarge</link></para>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/12_eclipse.png">Click to enlarge</link></para>
                   </figure>
                 </step>
                 <step>
                   <para>
                     Select the <guilabel>Arguments</guilabel> tab and add more more memory by adding the following
                     <guilabel>VM Arguments:</guilabel>
-                    <programlisting>-Xms512m -Xmx2g -XX:MaxPermSize=512m</programlisting>
+                    <programlisting linenumbering = "numbered">-Xms512m -Xmx2g -XX:MaxPermSize=512m</programlisting>
                     Click the <guibutton>OK</guibutton> button.
                   </para>
                   <figure>
@@ -649,7 +655,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                         <imagedata fileref="../images/archetype/13_eclipse_dbk.png"/>
                       </imageobject>
                     </mediaobject>
-                    <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/13_eclipse.png">Click to enlarge</link></para>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/13_eclipse.png">Click to enlarge</link></para>
                   </figure>
                 </step>
               </substeps>
@@ -666,7 +672,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                   <imagedata fileref="../images/archetype/14_eclipse_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/14_eclipse.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/14_eclipse.png">Click to enlarge</link></para>
             </figure>
           </step>
           <step>
@@ -681,7 +687,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                   <imagedata fileref="../images/archetype/15_eclipse_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/15_eclipse.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/15_eclipse.png">Click to enlarge</link></para>
             </figure>
             <figure>
               <title>Eclipse: Initial screen</title>
@@ -690,13 +696,13 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                   <imagedata fileref="../images/archetype/16_eclipse_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/16_eclipse.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/16_eclipse.png">Click to enlarge</link></para>
             </figure>
           </step>
         </procedure>
       </section>
 
-      <section><title>Intellij IDEA Ultimate 11.1</title>
+      <section xml:id="Intellij"><title>Intellij IDEA Ultimate 11.1</title>
         <procedure>
           <step>
             <para>
@@ -707,10 +713,10 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
               <title>Intellij: new project</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/1_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s1_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/1_intellij.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s1_intellij.png">Click to enlarge</link></para>
             </figure>
           </step>
           <step>
@@ -722,10 +728,10 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
               <title>Intellij: Create project from scratch</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/2_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s2_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/2_intellij.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s2_intellij.png">Click to enlarge</link></para>
             </figure>
           </step>
           <step>
@@ -745,10 +751,10 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
               <title>Intellij: Select Maven Module</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/3_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s3_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/3_intellij.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s3_intellij.png">Click to enlarge</link></para>
             </figure>
           </step>
           <step>
@@ -804,10 +810,10 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
               <title>Intellij: Select archetype</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/4_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s4_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/4_intellij.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s4_intellij.png">Click to enlarge</link></para>
             </figure>
           </step>
           <step>
@@ -837,10 +843,10 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                   <para>datasource_url: jdbc:mysql://localhost:3306/rice</para>
                 </listitem>
                 <listitem>
-                  <para>datasource_username: rice</para>
+                  <para>datasource_username: RICE</para>
                 </listitem>
                 <listitem>
-                  <para>datasource_password: rice</para>
+                  <para>datasource_password: RICE</para>
                 </listitem>
               </itemizedlist>
               Click the <guibutton>Finish</guibutton> button.
@@ -849,10 +855,10 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
               <title>Intellij: Add database information</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/5_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s5_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/5_intellij.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s5_intellij.png">Click to enlarge</link></para>
             </figure>
           </step>
           <step>
@@ -864,11 +870,145 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
               <title>Intellij: Reimport the project</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/6_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s6_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/6_intellij.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s6_intellij.png">Click to enlarge</link></para>
             </figure>
+          </step>
+          <step>
+            <para>
+              At this point it is a good idea to rebuild the entire project and make sure there are no errors.  Then
+              run all the unit tests through Intellij. The integration test will be run after the server is configured. 
+            </para>
+            <substeps>
+              <step>
+                <para>
+                  From the menu choose <menuchoice><guimenu>Build</guimenu><guimenuitem>Rebuild Project</guimenuitem>
+                  </menuchoice> to rebuild the project.
+                </para>
+                <figure>
+                  <title>Intellij: Rebuild the project</title>
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="../images/archetype/s7.1_intellij_dbk.png"/>
+                    </imageobject>
+                  </mediaobject>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s7.1_intellij.png">Click to enlarge</link></para>
+                </figure>
+                <para>
+                  If you receive out of memory errors during the build, you can also try increasing the size of memory when maven runs in environment variables. 
+                  For specific instructions on setting environment variables, please refer to <link linkend="environment_variables">this</link> section of the installation guide.</para><para>
+                    <inlinemediaobject><imageobject><imagedata fileref="../images/archetype/s7.1a_Intellij.png"/></imageobject></inlinemediaobject>
+                  </para>
+                <note><para>If you have any errors during the build, ensure the Maven Importing is set to Import Maven
+                  projects automatically. (Go to <menuchoice>
+                    <guimenu>File</guimenu>
+                    <guimenuitem>Settings</guimenuitem>
+                  </menuchoice> and under Maven select Importing. Check the Import Maven projects
+                  automatically check box.) </para><para><inlinemediaobject><imageobject><imagedata fileref="../images/archetype/s7.1a_intellij_note.png" scalefit="1" width="100%" contentdepth="100%" /></imageobject></inlinemediaobject></para></note>
+              </step>
+              <step>
+                <para>
+                  Right click on <guilabel>src/test/java/org/foo/</guilabel> folder and choose
+                  <menuchoice><guimenuitem>Run 'Tests in 'org.foo''</guimenuitem></menuchoice> from the menu to run the
+                  unit tests.
+                </para>
+                <figure>
+                  <title>Intellij: Run unit tests</title>
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="../images/archetype/s7.2_intellij_dbk.png"/>
+                    </imageobject>
+                  </mediaobject>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetypes/s7.2_intellij.png">Click to enlarge</link></para>
+                </figure>
+              </step>
+            </substeps>
+          </step>
+          <step>
+            <para>
+              Setup the Application server in Intellij:
+            </para>
+            <substeps>
+              <step>
+                <para>
+                  Choose <menuchoice><guimenu>Run</guimenu><guimenuitem>Edit Configurations...</guimenuitem>
+                  </menuchoice> from the menu.
+                </para>
+                <figure>
+                  <title>Intellij: Edit configurations</title>
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="../images/archetype/s8.1_intellij_dbk.png"/>
+                    </imageobject>
+                  </mediaobject>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s8.1_intellij.png">Click to enlarge</link></para>
+                </figure>
+              </step>
+              <step>
+                <para>
+                  Click the <guibutton>+</guibutton> icon on the top left and select <menuchoice>
+                    <guimenu>Tomcat Server</guimenu><guimenuitem>Local</guimenuitem></menuchoice> from the menu.
+                </para>
+                <figure>
+                  <title>Intellij: Select the Tomcat Server</title>
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="../images/archetype/s8.2_intellij_dbk.png"/>
+                    </imageobject>
+                  </mediaobject>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s8.2_intellij.png">Click to enlarge</link></para>
+                </figure>
+              </step>
+              <step>
+                <para>
+                  Specify the server name in the <guilabel>Name</guilabel> field (e.g. "Local Tomcat 6"). Choose the
+                  tomcat server in the <guilabel>Application server</guilabel> drop down. Add more memory by specifying
+                  "-Xms512m -Xmx2g -XX:MaxPermSize=512m" in the <guilabel>VM options</guilabel> field.
+                </para>
+                <figure>
+                  <title>Intellij: Specify server and add more memory</title>
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="../images/archetype/s8.3_intellij_dbk.png"/>
+                    </imageobject>
+                  </mediaobject>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s8.3_intellij.png">Click to enlarge</link></para>
+                </figure>
+              </step>
+              <step>
+                <para>
+                  Switch to the <guilabel>Deployment</guilabel> tab.  Click the <guibutton>+</guibutton> icon and select
+                  <menuchoice><guimenuitem>artifact</guimenuitem></menuchoice> from the menu. Select
+                  <guilabel>bar:war (exploded)</guilabel> and click the <guibutton>OK</guibutton> button.
+                </para>
+                <figure>
+                  <title>Intellij: Deploy</title>
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="../images/archetype/s8.4_intellij_dbk.png"/>
+                    </imageobject>
+                  </mediaobject>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s8.4_intellij.png">Click to enlarge</link></para>
+                </figure>
+              </step>
+              <step>
+                <para>
+                  Specify "/bar" as the <guilabel>Application context</guilabel>.
+                  Click the <guibutton>OK</guibutton> button.
+                </para>
+                <figure>
+                  <title>Intellij: Specify application context</title>
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="../images/archetype/s8.5_intellij_dbk.png"/>
+                    </imageobject>
+                  </mediaobject>
+                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s8.5_intellij.png">Click to enlarge</link></para>
+                </figure>
+              </step>
+            </substeps>
           </step>
           <step>
             <para>
@@ -897,191 +1037,99 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
                 </step>
               </substeps>
             <figure>
-              <title>Intellij: Add reintegration test folder</title>
+              <title>Intellij: Add integration test folder</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/7_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s9_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/7_intellij.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s9_intellij.png">Click to enlarge</link></para>
             </figure>
-          </step>
-          <step>
-            <para>
-              At this point it is a good idea to rebuild the entire project and make sure there are no errors.  Then
-              run all the unit and integration tests through Intellij.
-            </para>
-            <substeps>
-              <step>
-                <para>
-                  From the menu choose <menuchoice><guimenu>Build</guimenu><guimenuitem>Rebuild Project</guimenuitem>
-                  </menuchoice> to rebuild the project.
-                </para>
-                <figure>
-                  <title>Intellij: Rebuild the project</title>
-                  <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="../images/archetype/8_intellij_dbk.png"/>
-                    </imageobject>
-                  </mediaobject>
-                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/8_intellij.png">Click to enlarge</link></para>
-                </figure>
-              </step>
-              <step>
-                <para>
-                  Right click on <guilabel>src/it/java/org/foo/BasicApplicationIT.java</guilabel> and choose
-                  <menuchoice><guimenuitem>Run 'BasicApplicationIT'</guimenuitem></menuchoice> from the menu to run the
-                  integration test.
-                </para>
-                <figure>
-                  <title>Intellij: Run integration test</title>
-                  <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="../images/archetype/9_intellij_dbk.png"/>
-                    </imageobject>
-                  </mediaobject>
-                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/9_intellij.png">Click to enlarge</link></para>
-                </figure>
-              </step>
-              <step>
-                <para>
-                  Right click on <guilabel>src/test/java/org/foo/</guilabel> folder and choose
-                  <menuchoice><guimenuitem>Run 'Tests in 'org.foo''</guimenuitem></menuchoice> from the menu to run the
-                  unit tests.
-                </para>
-                <figure>
-                  <title>Intellij: Run unit tests</title>
-                  <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="../images/archetype/10_intellij_dbk.png"/>
-                    </imageobject>
-                  </mediaobject>
-                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/10_intellij.png">Click to enlarge</link></para>
-                </figure>
-              </step>
-            </substeps>
-          </step>
-          <step>
-            <para>
-              Setup the Application server in Intellij:
-            </para>
-            <substeps>
-              <step>
-                <para>
-                  Choose <menuchoice><guimenu>Run</guimenu><guimenuitem>Edit Configurations...</guimenuitem>
-                </menuchoice> from the menu.
-                </para>
-                <figure>
-                  <title>Intellij: Edit configurations</title>
-                  <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="../images/archetype/11_intellij_dbk.png"/>
-                    </imageobject>
-                  </mediaobject>
-                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/11_intellij.png">Click to enlarge</link></para>
-                </figure>
-              </step>
-              <step>
-                <para>
-                  Click the <guibutton>+</guibutton> icon on the top left and select <menuchoice>
-                  <guimenu>Tomcat Server</guimenu><guimenuitem>Local</guimenuitem></menuchoice> from the menu.
-                </para>
-                <figure>
-                  <title>Intellij: Select the Tomcat Server</title>
-                  <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="../images/archetype/12_intellij_dbk.png"/>
-                    </imageobject>
-                  </mediaobject>
-                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/12_intellij.png">Click to enlarge</link></para>
-                </figure>
-              </step>
-              <step>
-                <para>
-                  Specify the server name in the <guilabel>Name</guilabel> field (e.g. "Local Tomcat 6"). Choose the
-                  tomcat server in the <guilabel>Application server</guilabel> drop down. Add more memory by specifying
-                  "-Xms512m -Xmx2g -XX:MaxPermSize=512m" in the <guilabel>VM options</guilabel> field.
-                </para>
-                <figure>
-                  <title>Intellij: Specify server and add more memory</title>
-                  <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="../images/archetype/13_intellij_dbk.png"/>
-                    </imageobject>
-                  </mediaobject>
-                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/13_intellij.png">Click to enlarge</link></para>
-                </figure>
-              </step>
-              <step>
-                <para>
-                  Switch to the <guilabel>Deployment</guilabel> tab.  Click the <guibutton>+</guibutton> icon and select
-                  <menuchoice><guimenuitem>artifact</guimenuitem></menuchoice> from the menu. Select
-                  <guilabel>bar:war (exploded)</guilabel> and click the <guibutton>OK</guibutton> button.
-                </para>
-                <figure>
-                  <title>Intellij: Deploy</title>
-                  <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="../images/archetype/14_intellij_dbk.png"/>
-                    </imageobject>
-                  </mediaobject>
-                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/14_intellij.png">Click to enlarge</link></para>
-                </figure>
-              </step>
-              <step>
-                <para>
-                  Specify "/bar" as the <guilabel>Application context</guilabel>.
-                  Click the <guibutton>OK</guibutton> button.
-                </para>
-                <figure>
-                  <title>Intellij: Specify application context</title>
-                  <mediaobject>
-                    <imageobject>
-                      <imagedata fileref="../images/archetype/15_intellij_dbk.png"/>
-                    </imageobject>
-                  </mediaobject>
-                  <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/15_intellij.png">Click to enlarge</link></para>
-                </figure>
-              </step>
-            </substeps>
+            <para> If you have not already done so, set the SDK to the JDK directory for all
+            projects by going to <menuchoice>
+              <guimenu>File</guimenu>
+              <guimenuitem>Project Structure</guimenuitem>
+            </menuchoice> and then under Project SDK, click New.</para><para><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/archetype/s9.1_Intellij.png" scalefit="1" width="100%" contentdepth="100%" />
+              </imageobject>
+            </inlinemediaobject>
+          </para>
+            <para>Locate and select the directory where the JDK is installed on your machine, for
+              example C:\Program Files\Java\jdk1.6.0_41</para><para><inlinemediaobject>
+              <imageobject>
+                  <imagedata fileref="../images/archetype/s9.2_Intellij.png" scalefit="1" width="100%" contentdepth="100%"/>
+              </imageobject>
+            </inlinemediaobject>
+          </para>
+            <para> If you need to allocate more memory to the Java compiler you can do so under <menuchoice>
+              <guimenu>File</guimenu>
+              <guimenuitem>Settings</guimenuitem>
+              <guisubmenu>Compiler</guisubmenu>
+            </menuchoice> and then under Java Compiler, change the Maximum heap size (MB).</para><para><inlinemediaobject>
+              <imageobject>
+                <imagedata fileref="../images/archetype/s9.3_Intellij.png" scalefit="1" width="100%" contentdepth="100%" />
+              </imageobject>
+            </inlinemediaobject>
+          </para>
           </step>
           <step>
             <para>
               Choose <menuchoice><guimenu>Run</guimenu><guimenuitem>Run 'Local Tomcat 6'</guimenuitem></menuchoice> from
               the menu
+              <note><para>If you have something defined in the field Startup page for Run/Debug Configurations for Tomcat (for example: http://localhost:8080/bar/), 
+                then that page will automatically show up in your default browser after the server starts.</para></note>
             </para>
             <figure>
               <title>Intellij: Run Tomcat locally</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/16_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s10_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/16_intellij.png">Click to enlarge</link></para>
+              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s10_intellij.png">Click to enlarge</link></para>
             </figure>
           </step>
           <step>
+            <para>Run the integration test</para>
             <para>
-              After the application has started navigate to
-              <link xlink:href="http://localhost:8080/bar">http://localhost:8080/bar</link>.
+              Right click on <guilabel>src/it/java/org/foo/BasicApplicationIT.java</guilabel> and choose
+              <menuchoice><guimenuitem>Run 'BasicApplicationIT'</guimenuitem></menuchoice> from the menu to run the
+              integration test.
             </para>
+            <figure>
+              <title>Intellij: Run integration test</title>
+              <mediaobject>
+                <imageobject>
+                  <imagedata fileref="../images/archetype/s11_intellij_dbk.png"/>
+                </imageobject>
+              </mediaobject>
+              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s11_intellij.png">Click to enlarge</link></para>
+            </figure>
+          </step>
+          <step>
+            <para> If the browser has not already done so after the server starts up, after a
+            message like the following in the server log:
+            <programlisting>INFO: Server startup in 136133 ms
+Connected to server</programlisting>navigate
+            to <link xlink:href="http://localhost:8080/bar">http://localhost:8080/bar</link>. </para>
             <figure>
               <title>Intellij: Login</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/17_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s12_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/17_intellij.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s12_intellij.png">Click to enlarge</link></para>
             </figure>
             <figure>
               <title>Intellij: Initial screen</title>
               <mediaobject>
                 <imageobject>
-                  <imagedata fileref="../images/archetype/18_intellij_dbk.png"/>
+                  <imagedata fileref="../images/archetype/s12.1_intellij_dbk.png"/>
                 </imageobject>
               </mediaobject>
-              <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/18_intellij.png">Click to enlarge</link></para>
+            <para><link xlink:href="http://site.kuali.org/rice/${project.version}/reference/images/archetype/s12.1_intellij.png">Click to enlarge</link></para>
             </figure>
           </step>
 
@@ -1090,18 +1138,18 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
       </section>
     </section>
 
-    <section>
+    <section xml:id="project_structure_and_config">
         <title>Project Structure and Configuration Files</title>
         <para>The result of running the create project script is a new maven based Rice client
             project. This includes the directory structures for building out your application, along
-            with the necessary configuration files. Let’s start by looking the directories that were
+            with the necessary configuration files. Let's start by looking the directories that were
             created. </para>
 
         <itemizedlist>
             <listitem>
-                <para>Project Root (eg ‘/java/projects/myapp’) – This is the root folder that was created to
+                <para>Project Root (eg '/java/projects/myapp') – This is the root folder that was created to
                     hold all the project contents. Within this folder you will find three sub-folders, a
-                    ‘.classpath’, ‘.project’, ‘instructions.txt’, and ‘pom.xml’ file.</para>
+                    '.classpath', '.project', 'instructions.txt', and 'pom.xml' file.</para>
             </listitem>
             <listitem>
                 <para>.settings – This folder contains settings configuration for the Eclipse IDE</para>
@@ -1123,9 +1171,9 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
 
         <para>Along with the directories several files are created. These are as follows:</para>
 
-        <table frame="none">
+        <table frame="none" tabstyle="striped">
             <title>Generated Files</title>
-            <tgroup cols="3">
+            <tgroup cols="2">
                 <colspec colname="c1" colnum="1" colwidth="1.0*"/>
                 <colspec colname="c2" colnum="2" colwidth="1.56*"/>
                 <thead>
@@ -1185,7 +1233,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
 
         <note><para>All of these files are located within the src/main/resources directory </para></note>
         <para>In addition to the files created within the project, two files are created in the
-            ‘{user home}/kuali/main/dev’ folder. These include:</para>
+            '{user home}/kuali/main/dev' folder. These include:</para>
 
         <itemizedlist>
             <listitem><para>{project}-config.xml – Configuration file for application. This is where the settings
@@ -1196,7 +1244,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
 
     </section>
 
-    <section>
+    <section xml:id="configuring_rice_app">
         <title>Configuring Your Rice Application</title>
         <para>Next we need to provide some configuration for our application that is custom to our
             environment (for example database connectivity). We can do this by modifying the
@@ -1205,64 +1253,67 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
         <para>Although there are many configuration properties available for customization, the
         following are required for getting started:</para>
 
-        <table frame="none">
-            <title>Configuration Parameters</title>
-            <tgroup cols="3">
-                <colspec colname="c1" colnum="1" colwidth="1.0*"/>
-                <colspec colname="c2" colnum="2" colwidth="1.56*"/>
-                <thead>
-                    <row>
-                        <entry>Parameter</entry>
-                        <entry>Description</entry>
-                        <entry>Example</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry>datasource.url</entry>
-                        <entry>JDBC URL of database to connect to</entry>
-                        <entry>jdbc:oracle:thin:@localhost:1521:XE
-                            jdbc:mysql://localhost:3306/kuldemo
-                        </entry>
-                    </row>
-                    <row>
-                        <entry>datasource.username</entry>
-                        <entry>User name for connecting to the server database</entry>
-                        <entry>rice
-                        </entry>
-                    </row>
-                    <row>
-                        <entry>datasource.password</entry>
-                        <entry>Password for connecting to the server database</entry>
-                        <entry></entry>
-                    </row>
-                    <row>
-                        <entry>datasource.ojb.platform</entry>
-                        <entry>Name of OJB platform to use for the database</entry>
-                        <entry>Oracle9i or MySQL
-                        </entry>
-                    </row>
-                    <row>
-                        <entry>datasource.platform</entry>
-                        <entry>Rice platform implementation for the database</entry>
-                        <entry>org.kuali.rice.core.database.platform.OraclePlatform
-                            org.kuali.rice.core.database.platform.MySQLPlatform
-                        </entry>
-                    </row>
-                    <row>
-                        <entry>datasource.driver.name</entry>
-                        <entry>JDBC driver for the database</entry>
-                        <entry>oracle.jdbc.driver.OracleDriver
-                            com.mysql.jdbc.Driver
-                        </entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
+      <table frame="none" tabstyle="striped">
+        <title>Configuration Parameters</title>
+        <tgroup cols="3">
+          <colspec colname="c1" colnum="1" colwidth="0.8*"/>
+          <colspec colname="c2" colnum="2" colwidth="1.5*"/>
+          <colspec colname="c3" colnum="3" colwidth="1.3*"/>
+          <thead>
+            <row>
+              <entry>Parameter</entry>
+              <entry>Description</entry>
+              <entry>Example</entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry morerows="1">datasource.url</entry>
+              <entry morerows="1">JDBC URL of database to connect to</entry>
+              <entry>jdbc:oracle:thin:@localhost:1521:XE
+              </entry>
+            </row>
+            <row>
+              <entry>jdbc:mysql://localhost:3306/kuldemo</entry>
+            </row>
+            <row>
+              <entry>datasource.username</entry>
+              <entry>User name for connecting to the server database</entry>
+              <entry>rice
+              </entry>
+            </row>
+            <row>
+              <entry>datasource.password</entry>
+              <entry>Password for connecting to the server database</entry>
+              <entry></entry>
+            </row>
+            <row>
+              <entry>datasource.ojb.platform</entry>
+              <entry>Name of OJB platform to use for the database</entry>
+              <entry>Oracle9i or MySQL
+              </entry>
+            </row>
+            <row>
+              <entry>datasource.platform</entry>
+              <entry>Rice platform implementation for the database</entry>
+              <entry>org.kuali.rice.core.framework.persistence.platform.OraclePlatform
+                org.kuali.rice.core.framework.persistence.platform.MySQLDatabasePlatform
+              </entry>
+            </row>
+            <row>
+              <entry>datasource.driver.name</entry>
+              <entry>JDBC driver for the database</entry>
+              <entry>oracle.jdbc.driver.OracleDriver
+                com.mysql.jdbc.Driver
+              </entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </table>
 
     </section>
 
-    <section>
+    <section xml:id="importing_into_eclipse">
         <title>Importing into Eclipse</title>
 
         <para>Now we have our project setup and are ready to begin development. Note at this point
@@ -1272,18 +1323,18 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
             code.</para>
 
         <para>Navigate to the Eclipse installation directory. There you should find an executable
-            named ‘eclipse.exe’. Once this file is found double click to start the IDE. When Eclipse
+            named 'eclipse.exe'. Once this file is found double click to start the IDE. When Eclipse
             starts up for the first time it will ask you to choose a workspace. This is a directory
             that Eclipse place newly created projects and will also read current projects from. A
-            standard within the community is to use ‘/java/projects’ for your working space. Note
+            standard within the community is to use '/java/projects' for your working space. Note
             you can select the checkbox to use the directory as your default and Eclipse will not
             prompt on the next startup.</para>
 
         <para><emphasis role="bold">Eclipse Memory:</emphasis> It is generally needed and
             recommended to allocate additional JVM memory for the Eclipse runtime. This can be done
-            by opening up the file named ‘eclipse.ini’ that exists in the root installation
+            by opening up the file named 'eclipse.ini' that exists in the root installation
             directory. At the end of the file you specify VM arguments as follows:</para>
-        <programlisting>-vmargs
+        <programlisting linenumbering = "numbered">-vmargs
 -Xms128m
 -Xmx1024m
 -XX:MaxPermSize=512m</programlisting>
@@ -1313,7 +1364,7 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
             </mediaobject>
         </figure>
 
-         <para>For the import source select ‘Existing Projects info Workspace’. This should
+         <para>For the import source select 'Existing Projects info Workspace'. This should
          bring up a dialog that looks like the following figure. </para>
 
         <figure>
@@ -1326,8 +1377,8 @@ C:\project\bar> mvn clean install -Dmaven.failsafe.skip=false jetty:run</program
             </mediaobject>
         </figure>
 
-        <para>Here click the ‘Browse’ button to locate the directory for the project. After
-            selecting the project location click the ‘Finish’ button. Eclipse will then import the
+        <para>Here click the 'Browse' button to locate the directory for the project. After
+            selecting the project location click the 'Finish' button. Eclipse will then import the
             project contents and you are ready to begin coding!</para>
 
 

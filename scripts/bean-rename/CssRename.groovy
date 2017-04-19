@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2016 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 package org.kuali.rice.krad.uif
+
+// NOTICE: The copy right at the beginning of cssReplacements.txt must be removed before
+// running this program
 
 def currentDir = new File(".");
 
@@ -32,7 +35,7 @@ currentDir.eachFileRecurse(
       if (file.isFile() && file.name.endsWith(".css") && !file.name.startsWith("jquery")) {
         fileText = file.text;
         replaceMap.each{
-            fileText = fileText.replace(it.key, it.value);
+            fileText = fileText?.replace(it.key, it.value);
         }
         file.write(fileText);
     }

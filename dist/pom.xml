@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2016 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -20,22 +20,20 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice</artifactId>
-    <version>ua-release8-SNAPSHOT</version>
+    <version>ua-2.5.19</version>
   </parent>
   <artifactId>rice-dist</artifactId>
   <packaging>pom</packaging>
   <name>Rice Distributions</name>
   <properties>
     <kuali.testjar.phase>none</kuali.testjar.phase>
-    <gmaven.stubs.phase>none</gmaven.stubs.phase>
-    <gmaven.compile.phase>none</gmaven.compile.phase>
-    <gmaven.test.compile.phase>none</gmaven.test.compile.phase>
     <maven.test.skip>true</maven.test.skip>
     <enforcer.phase>none</enforcer.phase>
     <failsafe.phase>none</failsafe.phase>
     <bin.phase>package</bin.phase>
     <src.phase>package</src.phase>
     <server.phase>package</server.phase>
+    <wsdl.phase>package</wsdl.phase>
   </properties>
   <profiles>
     <!-- Profile for generating versioned builds. Don't need the distributions as those get generated each night as a SNAPSHOT -->
@@ -69,10 +67,31 @@
             </executions>
           </plugin>
           <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>process-resources</phase>
+                <configuration>
+                  <target>
+                    <copy todir="${project.build.directory}/wsdls">
+                      <fileset dir="${project.basedir}/..">
+                        <include name="**/target/wsdl/*.wsdl" />
+                      </fileset>
+                      <flattenmapper />
+                    </copy>
+                  </target>
+                </configuration>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
             <executions>
               <execution>
-                <id>create-binary-distro</id>
+                <id>bin</id>
                 <phase>${bin.phase}</phase>
                 <goals>
                   <goal>single</goal>
@@ -84,7 +103,7 @@
                 </configuration>
               </execution>
               <execution>
-                <id>create-source-distro</id>
+                <id>src</id>
                 <phase>${src.phase}</phase>
                 <goals>
                   <goal>single</goal>
@@ -96,7 +115,7 @@
                 </configuration>
               </execution>
               <execution>
-                <id>create-server-distro</id>
+                <id>server</id>
                 <phase>${server.phase}</phase>
                 <goals>
                   <goal>single</goal>
@@ -104,6 +123,18 @@
                 <configuration>
                   <descriptors>
                     <descriptor>src/main/resources/assemblies/server.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+              <execution>
+                <id>wsdl</id>
+                <phase>${wsdl.phase}</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptors>
+                    <descriptor>src/main/resources/assemblies/wsdl.xml</descriptor>
                   </descriptors>
                 </configuration>
               </execution>

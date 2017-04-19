@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2005-2016 The Kuali Foundation
+
+    Licensed under the Educational Community License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.opensource.org/licenses/ecl2.php
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+  <!-- Base Fields -->
+
+  <bean id="Uif-FieldBase" abstract="true" parent="Uif-FieldBase-parentBean"/>
+  <bean id="Uif-FieldBase-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.FieldBase"
+        parent="Uif-ComponentBase">
+    <property name="cssClasses">
+      <list>
+        <value>uif-field</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="Uif-FieldBase-withLabel" abstract="true" parent="Uif-FieldBase-withLabel-parentBean"/>
+  <bean id="Uif-FieldBase-withLabel-parentBean" abstract="true" parent="Uif-FieldBase">
+    <property name="fieldLabel">
+      <bean parent="Uif-Label"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-DataField" parent="Uif-DataField-parentBean"/>
+  <bean id="Uif-DataField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.DataFieldBase"
+        parent="Uif-FieldBase-withLabel">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/dataInputField.ftl"/>
+    <property name="templateName" value="uif_dataInputField"/>
+    <property name="bindingInfo">
+      <ref bean="Uif-BindingInfo"/>
+    </property>
+    <property name="help">
+      <bean parent="Uif-Help"/>
+    </property>
+  </bean>
+
+
+  <bean id="Uif-DataField-withoutLabel" abstract="true" parent="Uif-DataField-withoutLabel-parentBean"/>
+  <bean id="Uif-DataField-withoutLabel-parentBean" abstract="true" parent="Uif-DataField">
+    <property name="fieldLabel">
+      <null/>
+    </property>
+  </bean>
+
+  <bean id="Uif-DataField-condensedTable" abstract="true" parent="Uif-DataField-condensedTable-parentBean"/>
+  <bean id="Uif-DataField-condensedTable-parentBean" abstract="true" parent="Uif-DataField"
+        p:fieldLabel.renderColon="false" p:fieldLabel.wrapperCssClasses="col-md-3"/>
+
+  <bean id="Uif-InputField" parent="Uif-InputField-parentBean"/>
+  <bean id="Uif-InputField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.InputFieldBase"
+        parent="Uif-DataField" scope="prototype">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/dataInputField.ftl"/>
+    <property name="templateName" value="uif_dataInputField"/>
+    <property name="cssClasses">
+      <list>
+        <value>uif-inputField</value>
+      </list>
+    </property>
+    <property name="postInputCssClasses">
+      <list>
+        <value>input-group-btn</value>
+      </list>
+    </property>
+    <property name="validationMessages">
+      <bean parent="Uif-FieldValidationMessages"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-LookupCriteriaInputField" parent="Uif-LookupCriteriaInputField-parentBean"/>
+  <bean id="Uif-LookupCriteriaInputField-parentBean" abstract="true"
+        class="org.kuali.rice.krad.lookup.LookupInputField"
+        parent="Uif-InputField">
+    <property name="cssClasses">
+      <list>
+        <value>uif-inputField</value>
+        <value>uif-lookupCriteriaInputField</value>
+      </list>
+    </property>
+    <property name="bindingInfo.bindToMap" value="true"/>
+  </bean>
+
+  <bean id="Uif-CheckboxConvertedRadioControl" parent="Uif-CheckboxConvertedRadioControl-parentBean"/>
+  <bean id="Uif-CheckboxConvertedRadioControl-parentBean" abstract="true" parent="Uif-HorizontalRadioControl">
+    <property name="options">
+      <list>
+        <bean parent="Uif-KeyLabelPair" p:key="Y" p:value="Yes"/>
+        <bean parent="Uif-KeyLabelPair" p:key="N" p:value="No"/>
+        <bean parent="Uif-KeyLabelPair" p:key="" p:value="Both"/>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="Uif-LookupActiveInputField" parent="Uif-LookupActiveInputField-parentBean"/>
+  <bean id="Uif-LookupActiveInputField-parentBean" parent="Uif-LookupCriteriaInputField-parentBean">
+    <property name="propertyName" value="active"/>
+    <property name="label" value="Active"/>
+    <property name="defaultValue" value="Y"/>
+    <property name="control">
+      <bean parent="Uif-CheckboxConvertedRadioControl"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-ActionField" parent="Uif-ActionField-parentBean"/>
+  <bean id="Uif-ActionField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.ActionField"
+        parent="Uif-FieldBase-withLabel" scope="prototype">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/actionField.ftl"/>
+    <property name="templateName" value="uif_actionField"/>
+    <property name="cssClasses">
+      <list>
+        <value>uif-actionField</value>
+      </list>
+    </property>
+    <property name="wrapperCssClasses">
+      <list merge="true">
+        <util:constant static-field="org.kuali.rice.krad.uif.CssConstants.Classes.ACTION_COLUMN_STYLE_CLASS"/>
+      </list>
+    </property>
+    <property name="action">
+      <bean parent="Uif-ActionImage"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-ActionLinkField" parent="Uif-ActionLinkField-parentBean"/>
+  <bean id="Uif-ActionLinkField-parentBean" abstract="true" parent="Uif-ActionField" scope="prototype">
+    <property name="action">
+      <bean parent="Uif-ActionLink"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-MessageField" parent="Uif-MessageField-parentBean"/>
+  <bean id="Uif-MessageField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.MessageField"
+        parent="Uif-FieldBase-withLabel" scope="prototype">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/messageField.ftl"/>
+    <property name="templateName" value="uif_messageField"/>
+    <property name="cssClasses">
+      <list>
+        <value>uif-messageField</value>
+      </list>
+    </property>
+    <property name="message">
+      <bean parent="Uif-Message"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-ColGroupingField" parent="Uif-ColGroupingField-parentBean"/>
+  <bean id="Uif-ColGroupingField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.MessageField"
+        parent="Uif-MessageField" scope="prototype">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/colGroupingField.ftl"/>
+    <property name="label" value="Group"/>
+    <property name="templateName" value="uif_colGroupingField"/>
+    <property name="message.renderWrapperTag" value="false"/>
+  </bean>
+
+  <bean id="Uif-LinkField" parent="Uif-LinkField-parentBean"/>
+  <bean id="Uif-LinkField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.LinkField"
+        parent="Uif-FieldBase-withLabel" scope="prototype">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/linkField.ftl"/>
+    <property name="templateName" value="uif_linkField"/>
+    <property name="cssClasses">
+      <list>
+        <value>uif-linkField</value>
+      </list>
+    </property>
+    <property name="link">
+      <bean parent="Uif-Link"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-ImageField" parent="Uif-ImageField-parentBean"/>
+  <bean id="Uif-ImageField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.ImageField"
+        parent="Uif-FieldBase-withLabel" scope="prototype">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/imageField.ftl"/>
+    <property name="templateName" value="uif_imageField"/>
+    <property name="cssClasses">
+      <list>
+        <value>uif-imageField</value>
+      </list>
+    </property>
+    <property name="image">
+      <bean parent="Uif-Image"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-ProgressBarField" parent="Uif-ProgressBarField-parentBean"/>
+  <bean id="Uif-ProgressBarField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.ProgressBarField"
+        parent="Uif-FieldBase-withLabel" scope="prototype">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/progressBarField.ftl"/>
+    <property name="templateName" value="uif_progressBarField"/>
+    <property name="cssClasses">
+      <list>
+        <value>uif-progressBarField</value>
+      </list>
+    </property>
+    <property name="progressBar">
+      <bean parent="Uif-ProgressBar"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-StepProgressBarField" parent="Uif-StepProgressBarField-parentBean"/>
+  <bean id="Uif-StepProgressBarField-parentBean" abstract="true" parent="Uif-ProgressBarField" scope="prototype">
+    <property name="progressBar">
+      <bean parent="Uif-StepProgressBar"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-SpaceField" parent="Uif-SpaceField-parentBean"/>
+  <bean id="Uif-SpaceField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.SpaceField"
+        parent="Uif-FieldBase" scope="prototype">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/spaceField.ftl"/>
+    <property name="templateName" value="uif_spaceField"/>
+    <property name="cssClasses">
+      <list>
+        <value>uif-spaceField</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="Uif-CheckboxInputField" parent="Uif-InputField">
+    <property name="cssClasses">
+      <list>
+        <value>uif-inputField</value>
+        <value>uif-checkboxInputField</value>
+      </list>
+    </property>
+    <property name="control">
+      <bean parent="Uif-CheckboxControl"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-CustomTemplateField" parent="Uif-CustomTemplateField-parentBean"/>
+  <bean id="Uif-CustomTemplateField-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.GenericField"
+        parent="Uif-FieldBase-withLabel" scope="prototype">
+    <property name="cssClasses">
+      <list>
+        <value>uif-customTemplateField</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="Uif-FieldGroupBase" parent="Uif-FieldGroupBase-parentBean"/>
+  <bean id="Uif-FieldGroupBase-parentBean" abstract="true" class="org.kuali.rice.krad.uif.field.FieldGroup"
+        parent="Uif-FieldBase-withLabel" scope="prototype">
+    <property name="template" value="/krad/WEB-INF/ftl/components/field/fieldGroup.ftl"/>
+    <property name="templateName" value="uif_fieldGroup"/>
+    <property name="cssClasses">
+      <list>
+        <value>uif-fieldGroup</value>
+      </list>
+    </property>
+    <property name="group">
+      <bean parent="Uif-VerticalBoxGroup"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-VerticalFieldGroup" parent="Uif-VerticalFieldGroup-parentBean"/>
+  <bean id="Uif-VerticalFieldGroup-parentBean" parent="Uif-FieldGroupBase">
+    <property name="cssClasses">
+      <list>
+        <value>uif-verticalFieldGroup</value>
+      </list>
+    </property>
+  </bean>
+
+  <bean id="Uif-HorizontalFieldGroup" parent="Uif-HorizontalFieldGroup-parentBean"/>
+  <bean id="Uif-HorizontalFieldGroup-parentBean" parent="Uif-FieldGroupBase">
+    <property name="cssClasses">
+      <list>
+        <value>uif-horizontalFieldGroup</value>
+      </list>
+    </property>
+    <property name="group">
+      <bean parent="Uif-HorizontalBoxGroup"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-CssGridFieldGroup" parent="Uif-CssGridFieldGroup-parentBean"/>
+  <bean id="Uif-CssGridFieldGroup-parentBean" parent="Uif-FieldGroupBase">
+    <property name="group">
+      <bean parent="Uif-CssGridGroup"/>
+    </property>
+  </bean>
+
+  <bean id="Uif-SimpleFieldGroup" parent="Uif-SimpleFieldGroup-parentBean"/>
+  <bean id="Uif-SimpleFieldGroup-parentBean" parent="Uif-FieldGroupBase">
+    <property name="group">
+      <bean parent="Uif-SimpleGroup"/>
+    </property>
+  </bean>
+
+</beans>

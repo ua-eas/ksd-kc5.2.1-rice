@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2016 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -82,7 +82,7 @@
 	<param name="RouteQueue.timeIncrement">1000</param>
 
 	<!-- XML ingester directories -->
-	<param name="data.xml.root.location">/opt/ears/${environment}/kew/xml</param>
+	<param name="data.xml.root.location">${java.io.tmpdir}/${environment}/kew/xml</param>
 	<param name="data.xml.pending.location">${data.xml.root.location}pending</param>
 	<param name="data.xml.loaded.location">${data.xml.root.location}loaded</param>
 	<param name="data.xml.problem.location">${data.xml.root.location}problem</param>

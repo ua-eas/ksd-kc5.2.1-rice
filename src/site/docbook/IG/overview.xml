@@ -52,7 +52,7 @@
     <section>
         <title>Software Distributions</title>
         <para>The Kuali Rice software is available through three different distributions:<table
-                frame="none">
+                frame="none" tabstyle="striped">
                 <title>Rice Software Distribution Types</title>
                 <tgroup cols="2">
                     <colspec colname="c1" colnum="1" colwidth="1.0*"/>
@@ -100,9 +100,9 @@
                             >http://nexus.kuali.org/content/groups/public/</link></para>
                 </listitem>
                 <listitem>
-                    <para><emphasis role="bold">Subversion Repository</emphasis> - <link
-                            xlink:href="http://svn.kuali.org/repos/rice/tags/rice-${project.version}"
-                            >http://svn.kuali.org/repos/rice/tags/rice-${project.version}</link></para>
+                    <para><emphasis role="bold">GitHub Repository</emphasis> - <link
+                            xlink:href="https://github.com/kuali/rice/tree/rice-${project.version}"
+                            >https://github.com/kuali/rice/tree/rice-${project.version}</link></para>
                 </listitem>
             </orderedlist>
         </para>
@@ -111,16 +111,16 @@
         <title>Installation Steps</title>
         <para>All Kuali Rice ${project.version} installations follow the same core steps:<orderedlist>
                 <listitem>
-                    <para>Install a database and JDBC drivers. </para>
+                    <para>Install a database (<link linkend="mysql_db_prep">MySQL</link> or <link linkend="oracle_db_prep">Oracle</link>) and JDBC drivers. </para>
                 </listitem>
                 <listitem>
-                    <para>Install and configure a JDK, Rice,  and other required software.</para>
+                    <para><link linkend="install_sw">Install and configure a JDK, Rice,  and other required software.</link></para>
                 </listitem>
                 <listitem>
-                    <para>Set up ImpEx process to create the database schema and populate it.</para>
+                    <para><link linkend="Rice_DB">Set up ImpEx process to create the database schema and populate it.</link></para>
                 </listitem>
                 <listitem>
-                    <para>Configure Rice software.</para>
+                    <para><link linkend="Rice_Config">Configure Rice software.</link></para>
                 </listitem>
                 <listitem>
                     <para>Test the installation</para>
