@@ -2,6 +2,8 @@ target/
 overlays/
 .idea/
 *.iml
+**/*.prefs
 rice-framework/krad-web/src/main/webapp/krad/min
 velocity.log
 .DS_Store
+/bin/

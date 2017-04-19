@@ -293,17 +293,27 @@
 
     <!-- set the kuali site url for publishing the documentation -->
     <kuali.site.publish.url>s3://site.origin.kuali.org/rice/${project.version}</kuali.site.publish.url>
-
+	<cas-client-core.version>3.2.1</cas-client-core.version>
   </properties>
 
   <!-- duplicating distributionManagement from parent pom because site plugin doesn't properly allow overriding for the site url -->
   <distributionManagement>
-    <downloadUrl>${kuali.site.download.url}</downloadUrl>
+    <!--downloadUrl>${kuali.site.download.url}</downloadUrl>
     <site>
       <id>${kuali.site.server.id}</id>
       <name>Kuali Maven Site</name>
       <url>${kuali.site.publish.url}</url>
     </site>
+    <repository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
     <repository>
       <id>${kuali.repo.release.id}</id>
       <name>${kuali.repo.release.name}</name>
@@ -313,6 +323,16 @@
       <id>${kuali.repo.snapshot.id}</id>
       <name>${kuali.repo.snapshot.name}</name>
       <url>${kuali.repo.snapshot.url}</url>
+    </snapshotRepository-->
+    <repository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -2201,6 +2221,19 @@
         <version>${jpa.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.jasig.cas.client</groupId>
+        <artifactId>cas-client-core</artifactId>
+        <version>${cas-client-core.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>commons-logging</artifactId>
+            <groupId>commons-logging</groupId>
+          </exclusion>
+        </exclusions>
+        <scope>runtime</scope>
+      </dependency>
+      
       <dependency>
         <groupId>org.javassist</groupId>
         <artifactId>javassist</artifactId>

@@ -15,6 +15,7 @@
  */
 package org.kuali.rice.kim.ldap;
 
+import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.kim.api.identity.CodedAttribute;
 import org.kuali.rice.kim.api.identity.employment.EntityEmployment;
@@ -44,7 +45,22 @@ public class EntityEmploymentMapper extends BaseMapper<EntityEmployment> {
         employee.setEmployeeStatus(
                 CodedAttribute.Builder.create(context.getStringAttribute(getConstants().getEmployeeStatusProperty())));
         //employee.setEmployeeTypeCode(context.getStringAttribute(getConstants().getEmployeeTypeProperty()));
-        employee.setEmployeeType(CodedAttribute.Builder.create("P"));
+        
+        // begin **AZ UPGRADE 3.0-6.0**
+        // employee type originally hardcodded to "P"
+        // want primary department and employeeId populated
+        // if we have employment set primary to true
+        if (StringUtils.isNotBlank(getConstants().getEmployeeTypeProperty())) {
+            employee.setEmployeeType(CodedAttribute.Builder.create(context.getStringAttribute(getConstants().getEmployeeTypeProperty())));
+        } else {
+            employee.setEmployeeType(CodedAttribute.Builder.create("P"));
+        }
+        
+        employee.setPrimaryDepartmentCode(departmentCode);
+        employee.setEmployeeId(employee.getId());
+        employee.setPrimary(true);
+        // end **AZ UPGRADE 3.0-6.0**
+        
         employee.setBaseSalaryAmount(KualiDecimal.ZERO);
         
         employee.setActive(true);
