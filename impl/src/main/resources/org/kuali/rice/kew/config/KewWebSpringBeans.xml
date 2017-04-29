@@ -22,6 +22,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
+  <!-- Needed for enDocumentSearchResultsSizeDAO.kewDataSource -->
+  <import resource="classpath:org/kuali/rice/kew/config/_KewDataSourceSpringBeans.xml"/>
 
   <bean id="KewApiConstants"
         class="org.kuali.rice.core.api.util.collect.ConstantsMap"
@@ -66,13 +68,6 @@
   <bean id="rice.kew.import.enDocumentSearchService" class="org.kuali.rice.krad.config.GlobalResourceLoaderServiceFactoryBean"
         p:serviceName="enDocumentSearchService"/>
 
-  <bean id="documentSearchCriteriaBoLookupableHelperService"
-        class="org.kuali.rice.kew.impl.document.search.DocumentSearchCriteriaBoLookupableHelperService" scope="prototype">
-    <property name="documentSearchCriteriaProcessor" ref="documentSearchCriteriaProcessor"/>
-    <property name="documentSearchCriteriaTranslator" ref="documentSearchCriteriaTranslator"/>
-    <property name="documentSearchService" ref="rice.kew.import.enDocumentSearchService"/>
-  </bean>
-
   <bean id="documentSearchCriteriaBoLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
     <property name="lookupableHelperService">
       <ref local="documentSearchCriteriaBoLookupableHelperService" />
@@ -83,6 +78,18 @@
   <bean class="org.kuali.rice.krad.util.spring.NamedOrderedListBean">
     <property name="name" value="scriptConfigurationFilePaths" />
     <property name="listItem" value="classpath:org/kuali/rice/kew/dwr-core.xml" />
+  </bean>
+
+  <bean id="enDocumentSearchResultsSizeDAO" class="edu.arizona.rice.kew.docsearch.dao.impl.DocumentSearchResultsSizeDAOJdbcImpl">
+    <property name="dataSource" ref="kewDataSource"/>
+    <property name="documentSearchService" ref="rice.kew.import.enDocumentSearchService"/>
+  </bean>
+
+  <bean id="documentSearchCriteriaBoLookupableHelperService" class="edu.arizona.rice.kew.impl.document.search.DocumentSearchCriteriaBoLookupableHelperService" scope="prototype">
+    <property name="documentSearchCriteriaProcessor" ref="documentSearchCriteriaProcessor"/>
+    <property name="documentSearchCriteriaTranslator" ref="documentSearchCriteriaTranslator"/>
+    <property name="documentSearchService" ref="rice.kew.import.enDocumentSearchService"/>
+    <property name="enDocumentSearchResultsSizeDAO" ref="enDocumentSearchResultsSizeDAO"/>
   </bean>
 
 </beans>
