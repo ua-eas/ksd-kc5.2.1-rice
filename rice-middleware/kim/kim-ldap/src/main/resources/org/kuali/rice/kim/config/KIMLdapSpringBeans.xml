@@ -235,9 +235,15 @@
       </property>
     </bean>
 
-    <bean id="kimIdentityDelegateService" class="org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl"
+	<!-- UA KFS7 upgrade vanilla code bug with referencing old services -->
+    <!-- bean id="kimIdentityDelegateService" class="org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl"
     	p:businessObjectService-ref="rice.kim.import.businessObjectService"
         p:criteriaLookupService-ref="rice.kim.import.criteriaLookupService">
+      <property name="principalDao" ref="ldapPrincipalDao" />
+    </bean-->
+    <bean id="kimIdentityDelegateService" class="org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl"
+    	p:dataObjectService-ref="dataObjectService"
+        p:identityServiceDao-ref="kimIdentityServiceDao">
       <property name="principalDao" ref="ldapPrincipalDao" />
     </bean>
 
