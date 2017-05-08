@@ -1,7 +1,9 @@
 package edu.arizona.rice.kew.impl.document.search;
 
 import java.util.Collection;
+import java.util.List;
 
+import org.kuali.rice.core.api.uif.RemotableAttributeField;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.impl.document.search.DocumentSearchGenerator;
 import org.kuali.rice.kns.web.struts.form.LookupForm;
@@ -36,9 +38,12 @@ public class DocumentSearchCriteriaBoLookupableHelperService extends org.kuali.r
 
     private Long getTotalMatchingDocumentsSize() {
         DocumentType documentType = getValidDocumentType(criteria.getDocumentTypeName());
+        List<RemotableAttributeField> searchFields = getDocumentSearchService().determineSearchFields(documentType);
         DocumentSearchGenerator docSearchGenerator = getDocumentSearchService().getStandardDocumentSearchGenerator();
 
-        return getEnDocumentSearchResultsSizeDAO().getTotalMatchingDocumentsSize(docSearchGenerator, criteria, documentType);
+        String sql = docSearchGenerator.generateSearchSql(criteria, searchFields);
+
+        return getEnDocumentSearchResultsSizeDAO().getTotalMatchingDocumentsSize(sql);
     }
 
 

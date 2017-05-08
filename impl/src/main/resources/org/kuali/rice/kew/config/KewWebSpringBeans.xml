@@ -82,7 +82,6 @@
 
   <bean id="enDocumentSearchResultsSizeDAO" class="edu.arizona.rice.kew.docsearch.dao.impl.DocumentSearchResultsSizeDAOJdbcImpl">
     <property name="dataSource" ref="kewDataSource"/>
-    <property name="documentSearchService" ref="rice.kew.import.enDocumentSearchService"/>
   </bean>
 
   <bean id="documentSearchCriteriaBoLookupableHelperService" class="edu.arizona.rice.kew.impl.document.search.DocumentSearchCriteriaBoLookupableHelperService" scope="prototype">
