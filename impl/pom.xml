@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice</artifactId>
-    <version>ua-release8</version>
+    <version>ua-release9</version>
   </parent>
   <artifactId>rice-impl</artifactId>
 

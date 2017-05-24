@@ -2,5 +2,9 @@ target/
 overlays/
 .gitignore
 .idea/
-*.iml
+.settings/
+**/.settings/
+**/*.iml
 **/*.prefs
+**/*.classpath
+**/*.project

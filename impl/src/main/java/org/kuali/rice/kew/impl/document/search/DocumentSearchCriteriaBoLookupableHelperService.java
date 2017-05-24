@@ -15,12 +15,23 @@
  */
 package org.kuali.rice.kew.impl.document.search;
 
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.config.property.Config;
 import org.kuali.rice.core.api.config.property.ConfigContext;
@@ -48,9 +59,6 @@ import org.kuali.rice.kew.exception.WorkflowServiceErrorException;
 import org.kuali.rice.kew.framework.document.search.DocumentSearchCriteriaConfiguration;
 import org.kuali.rice.kew.framework.document.search.DocumentSearchResultSetConfiguration;
 import org.kuali.rice.kew.framework.document.search.StandardResultField;
-import org.kuali.rice.kew.impl.document.search.DocumentSearchCriteriaBo;
-import org.kuali.rice.kew.impl.document.search.DocumentSearchCriteriaTranslator;
-import org.kuali.rice.kew.impl.document.search.FormFields;
 import org.kuali.rice.kew.lookup.valuefinder.SavedSearchValuesFinder;
 import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.kew.user.UserUtils;
@@ -65,24 +73,11 @@ import org.kuali.rice.kns.web.ui.Column;
 import org.kuali.rice.kns.web.ui.Field;
 import org.kuali.rice.kns.web.ui.ResultRow;
 import org.kuali.rice.kns.web.ui.Row;
-import org.kuali.rice.krad.UserSession;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.exception.ValidationException;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
-
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Implementation of lookupable helper service which handles the complex lookup behavior required by the KEW
@@ -113,8 +108,8 @@ public class DocumentSearchCriteriaBoLookupableHelperService extends KualiLookup
     // These two fields are *only* used to pass side-channel information across the superclass API boundary between
     // performLookup and getSearchResultsHelper.
     // (in theory these could be replaced with some threadlocal subterfuge, but keeping as-is for simplicity)
-    private DocumentSearchResults searchResults = null;
-    private DocumentSearchCriteria criteria = null;
+    protected DocumentSearchResults searchResults = null;
+    protected DocumentSearchCriteria criteria = null;
 
     @Override
     protected List<? extends BusinessObject> getSearchResultsHelper(Map<String, String> fieldValues, boolean unbounded) {
@@ -672,7 +667,7 @@ public class DocumentSearchCriteriaBoLookupableHelperService extends KualiLookup
      *
      * @return the DocumentType which matches the given name or null if no valid document type could be found
      */
-    private DocumentType getValidDocumentType(String documentTypeName) {
+    protected DocumentType getValidDocumentType(String documentTypeName) {
         if (StringUtils.isNotEmpty(documentTypeName)) {
             DocumentType documentType = KEWServiceLocator.getDocumentTypeService().findByNameCaseInsensitive(documentTypeName.trim());
             if (documentType != null && documentType.isActive()) {
