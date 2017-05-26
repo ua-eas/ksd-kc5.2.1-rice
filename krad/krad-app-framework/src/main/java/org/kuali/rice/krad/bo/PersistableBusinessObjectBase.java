@@ -15,15 +15,10 @@
  */
 package org.kuali.rice.krad.bo;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.ojb.broker.PersistenceBroker;
-import org.apache.ojb.broker.PersistenceBrokerAware;
-import org.apache.ojb.broker.PersistenceBrokerException;
-import org.kuali.rice.core.api.mo.common.GloballyUnique;
-import org.kuali.rice.core.api.mo.common.Versioned;
-import org.kuali.rice.krad.service.KRADServiceLocator;
-import org.kuali.rice.krad.service.PersistenceService;
-import org.kuali.rice.krad.service.PersistenceStructureService;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -36,10 +31,16 @@ import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.persistence.Version;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.ojb.broker.PersistenceBroker;
+import org.apache.ojb.broker.PersistenceBrokerAware;
+import org.apache.ojb.broker.PersistenceBrokerException;
+import org.kuali.rice.core.api.mo.common.GloballyUnique;
+import org.kuali.rice.core.api.mo.common.Versioned;
+import org.kuali.rice.krad.service.KRADServiceLocator;
+import org.kuali.rice.krad.service.PersistenceService;
+import org.kuali.rice.krad.service.PersistenceStructureService;
 
 /**
  * @author Kuali Rice Team (rice.collab@kuali.org)
@@ -235,7 +236,7 @@ public abstract class PersistableBusinessObjectBase extends BusinessObjectBase i
      * 
      * @see org.apache.ojb.broker.PersistenceBrokerAware#beforeInsert(org.apache.ojb.broker.PersistenceBroker)
      */
-    public final void beforeInsert(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
+    public void beforeInsert(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
         //setObjectId(UUID.randomUUID().toString());
         setObjectId(null);
         prePersist();
