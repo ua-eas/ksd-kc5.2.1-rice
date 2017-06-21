@@ -362,5 +362,8 @@ public abstract class PersistableBusinessObjectBase extends BusinessObjectBase i
 		}
 		return persistenceStructureService;
 	}
-
+	
+	protected final void finalize() throws Throwable {
+		super.finalize();
+	}
 }
