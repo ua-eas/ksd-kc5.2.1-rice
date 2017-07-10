@@ -120,7 +120,10 @@ public class PrincipalDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceB
 
         // check that the principal exists and is active
         Principal principal = getIdentityService().getPrincipal( principalId );
-        if ( principal == null || !principal.isActive() ) {
+        // TODO UA KFS7 upgrade. UALdapIdentifyService return principl from LDAP call as INACTIVE! - WE NEED TO LOOK INTO IT FURTHER.
+        // temporarily comment out isactive check
+//        if ( principal == null || !principal.isActive() ) {
+        if ( principal == null ) {
             return false;
         }
         // check that the identity is active

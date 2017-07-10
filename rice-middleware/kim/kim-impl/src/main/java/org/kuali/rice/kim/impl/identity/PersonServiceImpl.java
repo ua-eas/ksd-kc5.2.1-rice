@@ -15,6 +15,8 @@
  */
 package org.kuali.rice.kim.impl.identity;
 
+import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
+
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -969,9 +971,22 @@ public class PersonServiceImpl implements PersonService {
 
 
 	// See getSystemUserPersonFromDb() above
+	// UA KFS7 upgrade - adapt for UA ldap 
 	@Override
 	public Principal getSystemUserPrincipalFromDb() {
-		return getIdentityService().getPrincipalByPrincipalName(KRADConstants.SYSTEM_USER);
+        QueryByCriteria.Builder criteria = QueryByCriteria.Builder.create();
+
+        criteria.setPredicates(equal(KIMPropertyConstants.Principal.PRINCIPAL_NAME,  KRADConstants.SYSTEM_USER));
+
+		PrincipalBo principalBo;
+		try {
+			// This should ALWAYS be present, if not, we absolutely want an exception to be thrown immediately
+			principalBo = getDataObjectService().findMatching(PrincipalBo.class, criteria.build()).getResults().get(0);
+		} catch(Exception e){
+			throw new RuntimeException("Could not load system user from KRIM_PRNCPL_T: " + KRADConstants.SYSTEM_USER);
+		}
+
+		return PrincipalBo.to(principalBo);
 	}
 
 
