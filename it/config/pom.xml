@@ -21,7 +21,7 @@
   <parent>
     <artifactId>rice-it</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>ua-release10-SNAPSHOT</version>
+    <version>ua-release10</version>
   </parent>
   <artifactId>rice-it-config</artifactId>
   <name>Rice Integration Test Config</name>

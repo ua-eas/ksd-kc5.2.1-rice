@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice-config</artifactId>
-    <version>ua-release10-SNAPSHOT</version>
+    <version>ua-release10</version>
   </parent>
   <artifactId>rice-deploy</artifactId>
   <packaging>jar</packaging>
