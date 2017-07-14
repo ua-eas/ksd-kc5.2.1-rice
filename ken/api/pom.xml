@@ -20,10 +20,10 @@
   <parent>
     <artifactId>rice-ken</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>ua-release9</version>
+    <version>ua-release10</version>
   </parent>
   <artifactId>rice-ken-api</artifactId>
-  <version>ua-release9</version>
+  <version>ua-release10</version>
   <name>Rice KEN API</name>
 
   <dependencies>
