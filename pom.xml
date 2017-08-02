@@ -2620,6 +2620,12 @@
         <groupId>co.kuali</groupId>
         <artifactId>core-filter</artifactId>
         <version>${core-auth-servlet-filter.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>io.dropwizard.metrics</groupId>
