@@ -2662,10 +2662,10 @@
   </dependencyManagement>
 
   <scm>
-    <developerConnection>scm:git:git@github.com:kuali/rice.git</developerConnection>
-    <connection>scm:git:git@github.com:kuali/rice.git</connection>
-    <url>https://github.com/kuali/rice/tree/${project.scm.tag}</url>
-    <tag>rice-2.5.19-ua</tag>
+    <developerConnection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</developerConnection>
+    <connection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</connection>
+    <url>https://github.com/ua-eas/ksd-kc5.2.1-rice/tree/${project.scm.tag}</url>
+    <tag>rice-2.5-ua-development</tag>
   </scm>
 
 </project>
