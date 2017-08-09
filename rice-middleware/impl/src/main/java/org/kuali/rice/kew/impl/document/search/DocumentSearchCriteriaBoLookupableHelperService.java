@@ -758,7 +758,7 @@ public class DocumentSearchCriteriaBoLookupableHelperService extends KualiLookup
      *
      * @return the DocumentType which matches the given name or null if no valid document type could be found
      */
-    private static DocumentType getValidDocumentType(String documentTypeName) {
+    protected static DocumentType getValidDocumentType(String documentTypeName) {
         if (StringUtils.isNotEmpty(documentTypeName)) {
             DocumentType documentType = KEWServiceLocator.getDocumentTypeService().findByNameCaseInsensitive(documentTypeName.trim());
             if (documentType != null && documentType.isActive()) {

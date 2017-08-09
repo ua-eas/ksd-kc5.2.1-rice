@@ -245,7 +245,7 @@ public abstract class PersistableBusinessObjectBase extends BusinessObjectBase i
      */
     @Override
     @LegacyDataFramework
-    public final void beforeInsert(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
+    public void beforeInsert(PersistenceBroker persistenceBroker) throws PersistenceBrokerException {
         //setObjectId(UUID.randomUUID().toString());
         setObjectId(null);
         prePersist();
@@ -359,4 +359,7 @@ public abstract class PersistableBusinessObjectBase extends BusinessObjectBase i
         return KNSServiceLocator.getLegacyAppFrameworkAdapterService();
     }
 
+    protected final void finalize() throws Throwable {
+        super.finalize();
+    }
 }

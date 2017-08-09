@@ -15,6 +15,18 @@
  */
 package org.kuali.rice.kew.docsearch.service.impl;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -59,18 +71,6 @@ import org.kuali.rice.kns.service.DataDictionaryService;
 import org.kuali.rice.kns.service.DictionaryValidationService;
 import org.kuali.rice.kns.service.KNSServiceLocator;
 import org.kuali.rice.krad.util.GlobalVariables;
-
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class DocumentSearchServiceImpl implements DocumentSearchService {
 
@@ -344,7 +344,7 @@ public class DocumentSearchServiceImpl implements DocumentSearchService {
         return builder;
     }
 
-    protected List<RemotableAttributeField> determineSearchFields(DocumentType documentType) {
+    public List<RemotableAttributeField> determineSearchFields(DocumentType documentType) {
         List<RemotableAttributeField> searchFields = new ArrayList<RemotableAttributeField>();
         if (documentType != null) {
             DocumentSearchCriteriaConfiguration searchConfiguration =

@@ -40,7 +40,6 @@
     <profile>
       <id>master</id>
       <properties>
-        <impex.username>RICE_${project.version.sanitized}</impex.username>
         <impex.password>${impex.username}</impex.password>
         <impex.database>${impex.username}</impex.database>
       </properties>

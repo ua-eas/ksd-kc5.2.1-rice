@@ -406,6 +406,7 @@
       </list>
     </property>
     <property name="title" value="Document Search"/>
+    <property name="resultSetLimit" value="250"/>
   </bean>
   
 </beans>
