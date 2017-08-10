@@ -42,6 +42,7 @@
   <url>http://${kuali.site.hostname}/rice/${project.version}</url>
 
   <properties>
+    <kuali.release.profiles>release</kuali.release.profiles>
     <project.compile.source>1.7</project.compile.source>
     <project.compile.target>1.7</project.compile.target>
     <project.compiler.version>1.8</project.compiler.version>
@@ -293,7 +294,7 @@
 
     <!-- set the kuali site url for publishing the documentation -->
     <kuali.site.publish.url>s3://site.origin.kuali.org/rice/${project.version}</kuali.site.publish.url>
-	<cas-client-core.version>3.2.1</cas-client-core.version>
+    <cas-client-core.version>3.2.1</cas-client-core.version>
   </properties>
 
   <distributionManagement>
@@ -2206,7 +2207,7 @@
         </exclusions>
         <scope>runtime</scope>
       </dependency>
-      
+
       <dependency>
         <groupId>org.javassist</groupId>
         <artifactId>javassist</artifactId>
