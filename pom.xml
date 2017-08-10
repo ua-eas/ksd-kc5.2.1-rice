@@ -296,7 +296,6 @@
 	<cas-client-core.version>3.2.1</cas-client-core.version>
   </properties>
 
-  <!-- duplicating distributionManagement from parent pom because site plugin doesn't properly allow overriding for the site url -->
   <distributionManagement>
     <repository>
       <id>ua.releases</id>
