@@ -2665,7 +2665,7 @@
     <developerConnection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</developerConnection>
     <connection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</connection>
     <url>https://github.com/ua-eas/ksd-kc5.2.1-rice/tree/${project.scm.tag}</url>
-    <tag>rice-2.5-ua-development</tag>
+    <tag>rice-2.5-version-number</tag>
   </scm>
 
 </project>
