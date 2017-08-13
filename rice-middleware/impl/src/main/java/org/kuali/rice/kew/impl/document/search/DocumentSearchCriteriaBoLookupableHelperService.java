@@ -15,6 +15,21 @@
  */
 package org.kuali.rice.kew.impl.document.search;
 
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
@@ -69,13 +84,6 @@ import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
 
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.text.MessageFormat;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Implementation of lookupable helper service which handles the complex lookup behavior required by the KEW
  * document search screen.
@@ -109,8 +117,8 @@ public class DocumentSearchCriteriaBoLookupableHelperService extends KualiLookup
     // These two fields are *only* used to pass side-channel information across the superclass API boundary between
     // performLookup and getSearchResultsHelper.
     // (in theory these could be replaced with some threadlocal subterfuge, but keeping as-is for simplicity)
-    private DocumentSearchResults searchResults = null;
-    private DocumentSearchCriteria criteria = null;
+    protected DocumentSearchResults searchResults = null;
+    protected DocumentSearchCriteria criteria = null;
 
     private DocumentTypeWindowTargets targets;
 

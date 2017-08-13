@@ -504,38 +504,6 @@
         </plugins>
       </build>
     </profile>
-    <!-- Optimize the nightly build -->
-    <profile>
-      <id>nightly</id>
-      <properties>
-        <skipTests>true</skipTests>
-        <server.phase>none</server.phase>
-        <src.phase>none</src.phase>
-        <bin.phase>none</bin.phase>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
-        <kuali.gpg.phase>none</kuali.gpg.phase>
-      </properties>
-    </profile>
-    <!-- Profile for quickly creating basic Maven site -->
-    <profile>
-      <id>minsite</id>
-      <properties>
-        <rice.docbook.phase>none</rice.docbook.phase>
-      </properties>
-    </profile>
-    <!-- Profile for site generation. Assumes "mvn clean install" has been run -->
-    <profile>
-      <id>site</id>
-      <properties>
-        <gmaven.stubs.phase>none</gmaven.stubs.phase>
-        <gmaven.compile.phase>none</gmaven.compile.phase>
-        <gmaven.test.compile.phase>none</gmaven.test.compile.phase>
-        <skipTests>true</skipTests>
-        <enforcer.phase>none</enforcer.phase>
-        <failsafe.phase>none</failsafe.phase>
-        <rice.java2ws.phase>none</rice.java2ws.phase>
-      </properties>
-    </profile>
     <profile>
       <id>license</id>
       <properties>
