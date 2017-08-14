@@ -15,8 +15,30 @@
  */
 package org.kuali.rice.kim.document;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.persistence.annotations.ClassExtractor;
+import org.eclipse.persistence.annotations.Customizer;
 import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
 import org.kuali.rice.core.api.membership.MemberType;
@@ -57,22 +79,8 @@ import org.kuali.rice.krad.rules.rule.event.DocumentEvent;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import edu.arizona.rice.kim.document.IdentityManagementPersonDocumentCustomizer;
+import edu.arizona.rice.kim.document.PersonDocumentExtractor;
 
 /**
  * This is a description of what this class does - shyu don't forget to fill
@@ -84,6 +92,9 @@ import java.util.Map;
 @AttributeOverrides({ @AttributeOverride(name = "documentNumber", column = @Column(name = "FDOC_NBR")) })
 @Entity
 @Table(name = "KRIM_PERSON_DOCUMENT_T")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@ClassExtractor(PersonDocumentExtractor.class)
+@Customizer(IdentityManagementPersonDocumentCustomizer.class)
 public class IdentityManagementPersonDocument extends IdentityManagementKimDocument {
 
     protected static final long serialVersionUID = -534993712085516925L;
