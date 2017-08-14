@@ -3,7 +3,7 @@
  * Copyright 2009 State of Arizona Board of Regents
  *
  */
-package edu.arizona.kim.service.impl;
+package edu.arizona.rice.kim.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ import org.kuali.rice.kim.impl.KIMPropertyConstants;
 import org.kuali.rice.kim.impl.identity.principal.PrincipalBo;
 import org.kuali.rice.kim.service.impl.UiDocumentServiceImpl;
 
-import edu.arizona.kim.document.UaIdentityManagementPersonDocument;
+import edu.arizona.rice.kim.document.UaIdentityManagementPersonDocument;
 
 //import org.kuali.rice.kim.service.KIMServiceLocator;
 
@@ -27,7 +27,7 @@ import edu.arizona.kim.document.UaIdentityManagementPersonDocument;
  *
  * @author Leo Przybylski (przybyls@arizona.edu)
  */
-public class UaUiDocumentService extends UiDocumentServiceImpl {
+public class UaUiDocumentServiceImpl extends UiDocumentServiceImpl {
 	@SuppressWarnings("unused")
 	private static final Logger LOG = Logger.getLogger(UiDocumentServiceImpl.class);
 
