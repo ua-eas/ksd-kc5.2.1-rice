@@ -2,7 +2,7 @@
 
 	<!-- KFSI-4627 - adding employee ID property to make available to document search -->
   <bean id="IdentityManagementPersonDocument" parent="IdentityManagementPersonDocument-parentBean">
-    <property name="documentClass" value="edu.arizona.kim.document.UaIdentityManagementPersonDocument" />
+    <property name="documentClass" value="edu.arizona.rice.kim.document.UaIdentityManagementPersonDocument" />
     <property name="workflowAttributes" ref="IdentityManagementPersonDocument-workflowAttributes"/>
     <property name="attributes">
     	<list merge="true">
@@ -12,7 +12,7 @@
   </bean>
 
 	<bean id="IdentityManagementPersonDocument-searchingAttribute" abstract="true" class="org.kuali.rice.kns.datadictionary.SearchingAttribute" 
-		p:businessObjectClassName="edu.arizona.kim.document.UaIdentityManagementPersonDocument"
+		p:businessObjectClassName="edu.arizona.rice.kim.document.UaIdentityManagementPersonDocument"
 		p:showAttributeInSearchCriteria="true"
 		p:showAttributeInResultSet="true" />
 
