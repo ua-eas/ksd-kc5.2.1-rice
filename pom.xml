@@ -305,6 +305,14 @@
   </properties>
 
   <profiles>
+    <!-- jgitflow activates this profile automatically during a release -->
+    <profile>
+      <id>release-profile</id>
+      <properties>
+        <skipTests>true</skipTests>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+      </properties>
+    </profile>
     <!-- Optimize the nightly build -->
     <profile>
       <id>nightly</id>
@@ -727,6 +735,18 @@
     </testResources>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>external.atlassian.jgitflow</groupId>
+          <artifactId>jgitflow-maven-plugin</artifactId>
+          <version>1.0-m5.1</version>
+          <configuration>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <flowInitContext>
+              <masterBranchName>rice-2.5-ua-master</masterBranchName>
+              <developBranchName>rice-2.5-ua-development</developBranchName>
+            </flowInitContext>
+          </configuration>
+        </plugin>
         <plugin>
           <groupId>org.apache.tomcat.maven</groupId>
           <artifactId>tomcat7-maven-plugin</artifactId>
