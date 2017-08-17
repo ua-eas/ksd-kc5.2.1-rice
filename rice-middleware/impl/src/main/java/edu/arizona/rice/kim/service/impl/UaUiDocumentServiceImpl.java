@@ -3,7 +3,7 @@
  * Copyright 2009 State of Arizona Board of Regents
  *
  */
-package edu.arizona.rice.kim.service;
+package edu.arizona.rice.kim.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
