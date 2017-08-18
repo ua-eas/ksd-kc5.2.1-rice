@@ -28,7 +28,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
@@ -41,8 +40,6 @@ import org.kuali.rice.core.api.util.cache.CopiedObject;
 import org.kuali.rice.core.api.util.type.TypeUtils;
 import org.kuali.rice.core.web.format.DateFormatter;
 import org.kuali.rice.core.web.format.Formatter;
-import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kns.document.authorization.BusinessObjectRestrictions;
 import org.kuali.rice.kns.document.authorization.FieldRestriction;
@@ -79,17 +76,6 @@ import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.ObjectUtils;
 import org.kuali.rice.krad.util.UrlFactory;
 
-import java.security.GeneralSecurityException;
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 
 /**
  * This class declares many of the common spring injected properties, the get/set-ers for them,
@@ -765,7 +751,7 @@ public abstract class AbstractLookupableHelperServiceImpl implements LookupableH
      * @see LookupableHelperService#getReturnLocation()
      */
     public String getReturnLocation() {
-        return backLocation;
+        return WebUtils.sanitizeBackLocation(this.backLocation);
     }
 
     /**
