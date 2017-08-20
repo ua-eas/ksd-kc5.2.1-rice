@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Rice</name>
   <inceptionYear>2005</inceptionYear>
-  <version>ua-2.5-release1</version>
+  <version>2.5.19-ua-release1-SNAPSHOT</version>
   <description>
     The Kuali Rice effort provides an enterprise class middleware suite of integrated products that allows
     both Kuali and non-Kuali applications
@@ -52,6 +52,16 @@
     <kuali.release.prepare.goals>clean</kuali.release.prepare.goals>
     <kuali.release.goals>deploy</kuali.release.goals>
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
+    <kuali.release.profiles>release</kuali.release.profiles>
+
+    <!-- These properties modify the deploy process -->
+    <kuali.repo.release.id>ua.releases</kuali.repo.release.id>
+    <kuali.repo.release.name>UA Releases</kuali.repo.release.name>
+    <kuali.repo.release.url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases</kuali.repo.release.url>
+    <kuali.repo.snapshot.id>ua.snapshots</kuali.repo.snapshot.id>
+    <kuali.repo.snapshot.name>UA Snapshots</kuali.repo.snapshot.name>
+    <kuali.repo.snapshot.url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots</kuali.repo.snapshot.url>
+    
     <!-- TODO: remove when updated to 4.4 version of kuali-common -->
     <kuali-core.version>1.0.19</kuali-core.version>
     <appserver.port>8080</appserver.port>
@@ -285,61 +295,27 @@
     </spring-instrument-javaagent>
 
     <!-- Override properties from the parent pom for deploying to Maven repositories -->
-    <!-- These are the Kuali repository settings for an official release -->
-    <kuali.repo.release.id>kualico.nexus.core.releases</kuali.repo.release.id>
-    <kuali.repo.release.name>KualiCo Core Release Repository</kuali.repo.release.name>
-    <kuali.repo.release.url>https://nexus.kuali.co/nexus/content/repositories/core-releases-public/</kuali.repo.release.url>
-    <!-- These are the Kuali repository settings for snapshot builds -->
-    <kuali.repo.snapshot.id>kualico.nexus.core.releases</kuali.repo.snapshot.id>
-    <kuali.repo.snapshot.name>KualiCo Core Snapshot Repository</kuali.repo.snapshot.name>
-    <kuali.repo.snapshot.url>https://nexus.kuali.co/nexus/content/repositories/core-snapshots-public/</kuali.repo.snapshot.url>
+    <kuali.repo.release.id>ua.releases</kuali.repo.release.id>
+    <kuali.repo.release.name>UA Releases</kuali.repo.release.name>
+    <kuali.repo.release.url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases</kuali.repo.release.url>
+    <kuali.repo.snapshot.id>ua.snapshots</kuali.repo.snapshot.id>
+    <kuali.repo.snapshot.name>UA Snapshots</kuali.repo.snapshot.name>
+    <kuali.repo.snapshot.url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots</kuali.repo.snapshot.url>
 
     <!-- set the kuali site url for publishing the documentation -->
     <kuali.site.publish.url>s3://site.origin.kuali.org/rice/${project.version}</kuali.site.publish.url>
-	<cas-client-core.version>3.2.1</cas-client-core.version>
+    <cas-client-core.version>3.2.1</cas-client-core.version>
   </properties>
 
-  <!-- duplicating distributionManagement from parent pom because site plugin doesn't properly allow overriding for the site url -->
-  <distributionManagement>
-    <!--downloadUrl>${kuali.site.download.url}</downloadUrl>
-    <site>
-      <id>${kuali.site.server.id}</id>
-      <name>Kuali Maven Site</name>
-      <url>${kuali.site.publish.url}</url>
-    </site>
-    <repository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
-    </repository>
-    <snapshotRepository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
-    </snapshotRepository>
-    <repository>
-      <id>${kuali.repo.release.id}</id>
-      <name>${kuali.repo.release.name}</name>
-      <url>${kuali.repo.release.url}</url>
-    </repository>
-    <snapshotRepository>
-      <id>${kuali.repo.snapshot.id}</id>
-      <name>${kuali.repo.snapshot.name}</name>
-      <url>${kuali.repo.snapshot.url}</url>
-    </snapshotRepository-->
-    <repository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
-    </repository>
-    <snapshotRepository>
-      <id>deployment</id>
-      <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
-    </snapshotRepository>
-  </distributionManagement>
-
   <profiles>
+    <!-- jgitflow activates this profile automatically during a release -->
+    <profile>
+      <id>release-profile</id>
+      <properties>
+        <skipTests>true</skipTests>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+      </properties>
+    </profile>
     <!-- Optimize the nightly build -->
     <profile>
       <id>nightly</id>
@@ -735,6 +711,7 @@
   </profiles>
 
   <build>
+    <finalName>${project.artifactId}</finalName>
     <testResources>
       <!-- NOTE: Because Maven test runs can be spawned in a new JVM, the system
         properties on the initial Maven command line are not necessarily propagated
@@ -761,6 +738,18 @@
     </testResources>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>external.atlassian.jgitflow</groupId>
+          <artifactId>jgitflow-maven-plugin</artifactId>
+          <version>1.0-m5.1</version>
+          <configuration>
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <flowInitContext>
+              <masterBranchName>rice-2.5-ua-master</masterBranchName>
+              <developBranchName>rice-2.5-ua-development</developBranchName>
+            </flowInitContext>
+          </configuration>
+        </plugin>
         <plugin>
           <groupId>org.apache.tomcat.maven</groupId>
           <artifactId>tomcat7-maven-plugin</artifactId>
@@ -2697,10 +2686,10 @@
   </dependencyManagement>
 
   <scm>
-    <developerConnection>scm:git:git@github.com:kuali/rice.git</developerConnection>
-    <connection>scm:git:git@github.com:kuali/rice.git</connection>
-    <url>https://github.com/kuali/rice/tree/${project.scm.tag}</url>
-    <tag>rice-2.5.19</tag>
+    <developerConnection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</developerConnection>
+    <connection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</connection>
+    <url>https://github.com/ua-eas/ksd-kc5.2.1-rice/tree/${project.scm.tag}</url>
+    <tag>rice-2.5-ua-development</tag>
   </scm>
 
 </project>
