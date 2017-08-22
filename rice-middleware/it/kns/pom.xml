@@ -20,7 +20,7 @@
   <parent>
     <artifactId>rice-it</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>2.5.19-uarelease1-SNAPSHOT</version>
+    <version>ua-rice2.5.19-release1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
