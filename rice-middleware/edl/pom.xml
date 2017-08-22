@@ -20,11 +20,11 @@
   <parent>
     <artifactId>rice-middleware</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>ua-rice2.5.19-release1-SNAPSHOT</version>
+    <version>ua-release1-SNAPSHOT</version>
   </parent>
   <artifactId>rice-edl</artifactId>
   <packaging>pom</packaging>
-  <version>ua-rice2.5.19-release1-SNAPSHOT</version>
+  <version>ua-release1-SNAPSHOT</version>
   <name>Rice EDL</name>
   <modules>
   	<module>framework</module>

@@ -21,7 +21,7 @@
   <parent>
     <artifactId>rice-krms</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>ua-rice2.5.19-release1-SNAPSHOT</version>
+    <version>ua-release1-SNAPSHOT</version>
   </parent>
   <artifactId>rice-krms-framework</artifactId>
   <name>Rice KRMS Framework</name>
