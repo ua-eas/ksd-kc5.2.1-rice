@@ -76,6 +76,7 @@ public abstract class PersistableBusinessObjectBase extends BusinessObjectBase i
         this.versionNumber = versionNumber;
     }
 
+    protected final void finalize() throws Throwable { super.finalize(); }
 
     /**
      * getter for the guid based object id that is assignable to all objects, in order to support custom attributes a mapping must
