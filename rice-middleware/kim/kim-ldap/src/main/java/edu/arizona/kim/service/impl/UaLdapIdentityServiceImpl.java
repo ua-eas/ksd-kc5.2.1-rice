@@ -758,13 +758,21 @@ public class UaLdapIdentityServiceImpl extends IdentityServiceImpl implements Ld
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
+    /**
+     * UA KFS7 upgrade. (UAF-5246) new API for loading person information from EDS
+     */
+    @Override
+    public List<EntityDefault> findEntityDefaultsByCriteriaMap( Map<String, String> criteria) {
+    	return findEntityDefaults(criteria, false);
+    }
+
     @Override
     public EntityDefaultQueryResults findEntityDefaults( QueryByCriteria queryByCriteria) {
         // Reject for reason #2
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
     }
 
-    @Override
+	@Override
     public EntityQueryResults findEntities(QueryByCriteria queryByCriteria) {
         // Reject for reason #2
         throw new UnsupportedOperationException(UNSUPPORTED_OPERATION_MSG);
