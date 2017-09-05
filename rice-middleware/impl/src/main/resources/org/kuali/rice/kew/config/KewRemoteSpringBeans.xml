@@ -61,6 +61,8 @@
         <entry key="org.kuali.rice.kew.doctype.bo.DocumentTypeEBO" value="org.kuali.rice.kew.doctype.bo.DocumentType"/>
         <entry key="org.kuali.rice.kew.docsearch.DocumentSearchCriteriaEbo"
                value="org.kuali.rice.kew.impl.document.search.DocumentSearchCriteriaBo"/>
+        <entry key="edu.arizona.rice.kew.routeheader.DocumentRouteHeaderValueEbo"
+               value="edu.arizona.rice.kew.routeheader.DocumentRouteHeaderValueEboImpl"/>
       </map>
     </property>
   </bean>
