@@ -30,6 +30,7 @@ public class DocumentRouteHeaderValueEboImpl extends org.kuali.rice.kew.routehea
         }
 
         DocumentRouteHeaderValueEboImpl docRouteHeader = new DocumentRouteHeaderValueEboImpl();
+        docRouteHeader.setDocumentId(contract.getDocumentId());
         docRouteHeader.setDocumentTypeId(contract.getDocumentTypeId());
         docRouteHeader.setDocRouteStatus(contract.getDocRouteStatus());
         docRouteHeader.setFinalizedDate(contract.getFinalizedDate());
