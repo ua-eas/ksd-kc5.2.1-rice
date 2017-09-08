@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Rice</name>
   <inceptionYear>2005</inceptionYear>
-  <version>2.5.19-ua-release1-SNAPSHOT</version>
+  <version>2.5.19-ua-release1</version>
   <description>
     The Kuali Rice effort provides an enterprise class middleware suite of integrated products that allows
     both Kuali and non-Kuali applications
@@ -727,7 +727,17 @@
           <artifactId>jgitflow-maven-plugin</artifactId>
           <version>1.0-m5.1</version>
           <configuration>
+            <!-- Keep maven submodules at the same version as the parent POM -->
             <autoVersionSubmodules>true</autoVersionSubmodules>
+            <!-- push generated branches to remote upstream -->
+            <pushFeatures>true</pushFeatures>
+            <pushReleases>true</pushReleases>
+            <pushHotfixes>true</pushHotfixes>
+            <!-- Prevents deployments from dev workstations so that they can be done
+                 by CI server -->
+            <noDeploy>true</noDeploy>
+            <!-- Allow snapshot dependencies -->
+            <allowSnapshots>true</allowSnapshots>
             <flowInitContext>
               <masterBranchName>rice-2.5-ua-master</masterBranchName>
               <developBranchName>rice-2.5-ua-development</developBranchName>
