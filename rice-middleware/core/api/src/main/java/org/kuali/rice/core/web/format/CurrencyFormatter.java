@@ -19,6 +19,7 @@ package org.kuali.rice.core.web.format;
 
 // begin Kuali Foundation modification
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -200,6 +201,10 @@ public class CurrencyFormatter extends Formatter {
 
                 // Note that treating the number as a KualiDecimal below is obsolete. But it doesn't do any harm either since
                 // we already set maximumFractionDigits above.
+            }
+            //UAF-5589 This else if statement is used to prevent a ClassCastException when performing a custom doc search on EIRT
+            else if (obj instanceof BigDecimal) {
+                number = (BigDecimal) obj;
             }
             else {
                 number = (KualiDecimal) obj;
