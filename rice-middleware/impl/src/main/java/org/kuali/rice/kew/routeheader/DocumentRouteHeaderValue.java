@@ -69,7 +69,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
@@ -125,7 +124,6 @@ import java.util.Map;
  */
 @Entity
 @Table(name="KREW_DOC_HDR_T")
-@MappedSuperclass
 @NamedQueries({
     @NamedQuery(name=QuickLinksDAOJpa.FIND_WATCHED_DOCUMENTS_BY_INITIATOR_WORKFLOW_ID_NAME,
             query= QuickLinksDAOJpa.FIND_WATCHED_DOCUMENTS_BY_INITIATOR_WORKFLOW_ID_QUERY),
