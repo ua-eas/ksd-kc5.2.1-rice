@@ -84,7 +84,9 @@ public class IdentityManagementGroupDocument extends IdentityManagementTypeAttri
     @Convert(converter = BooleanYNConverter.class)
     protected boolean active = true;
 
-    @Transient
+    // UA KFS7 Upgrade
+    @Column(name="EDIT_FLAG")
+    @Convert(converter = BooleanYNConverter.class)
     protected boolean editing;
 
     @JoinFetch(value= JoinFetchType.OUTER)
