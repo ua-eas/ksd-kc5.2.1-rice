@@ -260,7 +260,6 @@
     	"[documentClass].hidden".  The value of this should be a comma delimited list of the DD names of the fields.
      -->
     <param name="kim.enable.history">false</param>
-    <param name="org.kuali.rice.kim.bo.ui.PersonDocumentEmploymentInfo.hidden" override="false">baseSalaryAmount</param>
 	  <param name="kim.hide.PersonDocumentAddress.type" override="false">HM</param>
 	  <param name="kim.hide.PersonDocumentPhone.type" override="false">HM</param>
 
