@@ -21,19 +21,16 @@ import static org.kuali.rice.kns.lookup.LookupUtils.getSearchResultsLimit;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.naming.NameClassPair;
-import javax.naming.SizeLimitExceededException;
 import javax.naming.directory.SearchControls;
 
-import edu.arizona.kim.eds.UaEdsConstants;
 import org.apache.commons.lang.StringUtils;
-import static org.kuali.rice.core.util.BufferedLogger.warn;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
@@ -42,9 +39,7 @@ import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.identity.privacy.EntityPrivacyPreferences;
 import org.kuali.rice.kim.dao.LdapPrincipalDao;
 import org.kuali.rice.kim.impl.identity.PersonImpl;
-import org.kuali.rice.kim.ldap.InvalidLdapEntityException;
 import org.kuali.rice.kim.util.Constants;
-import static org.kuali.rice.kns.lookup.LookupUtils.getSearchResultsLimit;
 import org.springframework.ldap.core.ContextMapper;
 import org.springframework.ldap.core.ContextMapperCallbackHandler;
 import org.springframework.ldap.core.DistinguishedName;
@@ -53,6 +48,8 @@ import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.LikeFilter;
 import org.springframework.ldap.filter.NotFilter;
 import org.springframework.ldap.filter.OrFilter;
+
+import edu.arizona.kim.eds.UaEdsConstants;
 
 /**
  * Integrated Data Access via LDAP to EDS. Provides implementation to interface method
@@ -271,6 +268,28 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         }
 
         return null;
+    }
+
+    @Override
+    public List<EntityDefault> getEntityDefaultsByCriteria(Map<String, List<String>> criteria) {
+	    Map<String, Object> convertedMap = new HashMap<>();
+        for (String key : criteria.keySet()) {
+            Object value = criteria.get(key);
+
+            String ldapKey = getLdapAttribute(key);
+            if (StringUtils.isBlank(ldapKey)) {
+                throw new RuntimeException("KIM value not mapped!: " + key);
+            }
+
+            convertedMap.put(ldapKey, value);
+        }
+
+        List<EntityDefault> results = search(EntityDefault.class, convertedMap);
+        if (results == null || results.size() == 0) {
+            results = Collections.emptyList();
+        }
+
+        return results;
     }
 
 	public Entity getEntityByPrincipalName(String principalName) {

@@ -277,6 +277,13 @@ public class UaLdapIdentityServiceImpl extends IdentityServiceImpl implements Ld
 
 
     @Override
+    public List<EntityDefault> getEntityDefaultsByCriteria(Map<String, List<String>> criteria) {
+        incomingParamCheck(criteria);
+        return getLdapPrincipalDao().getEntityDefaultsByCriteria(criteria);
+    }
+
+
+    @Override
     public Entity getEntity(String entityId) {
         incomingParamCheck(entityId);
         return getLdapPrincipalDao().getEntity(entityId);

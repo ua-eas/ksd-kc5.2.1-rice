@@ -96,4 +96,6 @@ public interface LdapPrincipalDao {
     Map<String, ContextMapper> getContextMappers();
     
     Constants getKimConstants();
+
+    List<EntityDefault> getEntityDefaultsByCriteria(Map<String, List<String>> criteria);
 }
