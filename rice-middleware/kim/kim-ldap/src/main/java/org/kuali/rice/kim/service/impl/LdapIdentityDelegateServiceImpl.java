@@ -22,25 +22,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.jws.WebParam;
+
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.criteria.CriteriaValue;
-import org.kuali.rice.core.api.criteria.EqualPredicate;
-import org.kuali.rice.core.api.criteria.Predicate;
-import org.kuali.rice.core.api.criteria.QueryByCriteria;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
-import org.kuali.rice.kim.api.identity.entity.EntityDefaultQueryResults;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.identity.privacy.EntityPrivacyPreferences;
 import org.kuali.rice.kim.dao.LdapPrincipalDao;
 import org.kuali.rice.kim.impl.identity.IdentityServiceImpl;
-import org.kuali.rice.kim.impl.identity.entity.EntityBo;
 import org.kuali.rice.kim.service.LdapIdentityService;
-
-import javax.jws.WebParam;
 
 /**
  * Implementation of {@link IdentityService} that communicates with and serves information
@@ -252,5 +248,12 @@ public class LdapIdentityDelegateServiceImpl extends IdentityServiceImpl impleme
         criteria.put(principalDao.getKimConstants().getKimLdapIdProperty(), principalIds);
         return principalDao.search(EntityDefault.class, criteria);
     }
+
+
+    @Override
+    public List<EntityDefault> getEntityDefaultsByCriteria(Map<String, List<String>> criteria) {
+        throw new NotImplementedException("Only the UaPersonService implements this method!");
+    }
+
 // end - **AZ UPGRADE 3.0-5.3**
 }

@@ -120,4 +120,6 @@ public interface PersonService {
 
 	// Same as above, but simpler object for exposure
 	Principal getSystemUserPrincipalFromDb();
+
+    List<Person> getPersonsByCriteria(Map<String, List<String>> criteria);
 }

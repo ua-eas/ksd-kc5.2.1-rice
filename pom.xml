@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Rice</name>
   <inceptionYear>2005</inceptionYear>
-  <version>2.5.19-ua-release3</version>
+  <version>2.5.19-ua-release4</version>
   <description>
     The Kuali Rice effort provides an enterprise class middleware suite of integrated products that allows
     both Kuali and non-Kuali applications
@@ -2467,7 +2467,6 @@
         </exclusions>
       </dependency>
       <dependency>
-        <!-- groupid was changed to com.experlog in later versions -->
         <groupId>xapool</groupId>
         <artifactId>xapool</artifactId>
         <version>${xapool.version}</version>

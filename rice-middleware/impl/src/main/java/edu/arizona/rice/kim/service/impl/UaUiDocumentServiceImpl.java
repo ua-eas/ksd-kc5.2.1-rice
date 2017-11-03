@@ -188,4 +188,16 @@ public class UaUiDocumentServiceImpl extends UiDocumentServiceImpl {
         return pndMembers;
     }
 
+
+    @Override
+    protected void updateRoleMembers( String roleId, String kimTypeId, List<KimDocumentRoleMember> modifiedRoleMembers, List<RoleMemberBo> roleMembers){
+        super.updateRoleMembers(roleId, kimTypeId, modifiedRoleMembers, roleMembers);
+
+        // If this is not cleared, they are later assumed by super.setMembersInDocument() as inactivations,
+        // will then get removed from the parent document, and subsequently deleted from the DB during the next
+        // save of the parent document (this only happens w/ IdentityManagementRoleDocument.save() and then
+        // directly after hitting reload button of same doc).
+        modifiedRoleMembers.clear();
+    }
+
 }

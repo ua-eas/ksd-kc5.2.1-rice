@@ -19,7 +19,6 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.kuali.rice.kim.api.identity.Person;
-import org.kuali.rice.kim.api.identity.PersonService;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
@@ -36,8 +35,6 @@ public class UaPersonService extends PersonServiceImpl {
 
 	@Override
 	protected List<Person> findPeopleInternal(Map<String, String> criteria, boolean unbounded) {
-		List<Person> retval = new ArrayList<Person>();
-
 		if (criteria.containsKey(KIMPropertyConstants.Person.ACTIVE)) {
 			String value = criteria.get(KIMPropertyConstants.Person.ACTIVE);
 			criteria.remove(KIMPropertyConstants.Person.ACTIVE);
@@ -45,20 +42,8 @@ public class UaPersonService extends PersonServiceImpl {
 		}
 
 		List<EntityDefault> entities = ldapIdentityService.findEntityDefaults(criteria, unbounded);
-		if (!entities.isEmpty()) {
-			for (EntityDefault e : entities) {
-				if (e != null) {
-					// get to get all principals for the identity as well
-					for (Principal p : e.getPrincipals()) {
-						PersonImpl person = convertEntityToPerson(e, p);
-						person.setActive(e.isActive());
-						retval.add(person);
-					}
-				}
-			}
-		}
 
-		return retval;
+        return convertEntityDefaultsToPersons(entities);
 	}
 
 	public void setLdapIdentityService(LdapIdentityService ldapIdentityService) {
@@ -93,5 +78,32 @@ public class UaPersonService extends PersonServiceImpl {
 
 		return retval;
 	}
+
+    @Override
+    public List<Person> getPersonsByCriteria(Map<String, List<String>> criteria) {
+        List<EntityDefault> entities = ldapIdentityService.getEntityDefaultsByCriteria(criteria);
+
+        return convertEntityDefaultsToPersons(entities);
+    }
+
+
+    private List<Person> convertEntityDefaultsToPersons(List<EntityDefault> entityDefaults) {
+        List<Person> personList = new ArrayList<>();
+
+        if (!entityDefaults.isEmpty()) {
+            for (EntityDefault e : entityDefaults) {
+                if (e != null) {
+                    // get to get all principals for the identity as well
+                    for (Principal p : e.getPrincipals()) {
+                        PersonImpl person = convertEntityToPerson(e, p);
+                        person.setActive(e.isActive());
+                        personList.add(person);
+                    }
+                }
+            }
+        }
+
+        return personList;
+    }
 
 }
