@@ -97,7 +97,7 @@
       <artifactId>spring-jdbc</artifactId>
     </dependency>
     <dependency>
-      <groupId>co.kuali</groupId>
+      <groupId>xapool</groupId>
       <artifactId>xapool</artifactId>
     </dependency>
     <dependency>
