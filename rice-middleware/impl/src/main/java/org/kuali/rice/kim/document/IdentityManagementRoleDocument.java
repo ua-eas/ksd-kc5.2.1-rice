@@ -494,6 +494,7 @@ public class IdentityManagementRoleDocument extends IdentityManagementTypeAttrib
 			String rolePermissionId;
 			for(KimDocumentRolePermission permission: getPermissions()){
 				permission.setRoleId(roleId);
+				permission.setDocumentNumber(getDocumentNumber());
 				if(StringUtils.isBlank(permission.getRolePermissionId())){
 					Long nextSeq = sas.getNextAvailableSequenceNumber(
 							KimConstants.SequenceNames.KRIM_ROLE_PERM_ID_S, 
@@ -531,6 +532,7 @@ public class IdentityManagementRoleDocument extends IdentityManagementTypeAttrib
             String roleMemberId;
             String roleResponsibilityActionId;
             for(KimDocumentRoleMember member: getModifiedMembers()){
+            	member.setDocumentNumber(getDocumentNumber());
                 member.setRoleId(roleId);
                 if(StringUtils.isBlank(member.getRoleMemberId())){
                     Long nextSeq = sas.getNextAvailableSequenceNumber(
@@ -540,6 +542,7 @@ public class IdentityManagementRoleDocument extends IdentityManagementTypeAttrib
                     member.setRoleMemberId(roleMemberId);
                 }
                 for(KimDocumentRoleQualifier qualifier: member.getQualifiers()){
+					qualifier.setDocumentNumber(getDocumentNumber());
                     qualifier.setKimTypId(getKimType().getId());
                 }
                 for(KimDocumentRoleResponsibilityAction roleRespAction: member.getRoleRspActions()){
