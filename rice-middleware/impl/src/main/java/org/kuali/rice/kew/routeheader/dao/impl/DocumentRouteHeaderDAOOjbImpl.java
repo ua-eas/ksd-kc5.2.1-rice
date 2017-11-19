@@ -68,8 +68,9 @@ public class DocumentRouteHeaderDAOOjbImpl extends PersistenceBrokerDaoSupport i
 //                }
             } else {
                 LOG.debug( "Current Header: null" );
+                LOG.debug( ExceptionUtils.getStackTrace(new Throwable()) );
             }
-            LOG.debug( ExceptionUtils.getStackTrace(new Throwable()) );
+
         }
         try {
             getPersistenceBrokerTemplate().store(routeHeader);

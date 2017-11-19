@@ -87,11 +87,13 @@ public class DocumentOperationAction extends KewKualiAction {
 	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentOperationAction.class);
 	private static final String DEFAULT_LOG_MSG = "Admin change via document operation";
 
+
 	public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		return mapping.findForward("basic");
 	}
 
 	public ActionForward getDocument(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		LOG.debug("HERE getDocument() ENTER...");
 		DocumentOperationForm docForm = (DocumentOperationForm) form;
 		String docId = null;
 		
@@ -105,7 +107,7 @@ public class DocumentOperationAction extends KewKualiAction {
 				GlobalVariables.getMessageMap().putError("documentId", RiceKeyConstants.ERROR_NUMERIC, "Document ID");
 			}
 		}
-
+		LOG.debug("HERE getDocument() docId="+docId);
 		if (docId != null) {
 			//to clear Document Field first;
 			docForm.resetOps();
@@ -117,7 +119,8 @@ public class DocumentOperationAction extends KewKualiAction {
 			if (routeHeader == null) {
 				GlobalVariables.getMessageMap().putError("documentId", RiceKeyConstants.ERROR_EXISTENCE, "document");
 			} else {
-				materializeDocument(routeHeader);
+				LOG.debug("HERE was materializeDocument(routeHeader) previously called...");
+				// materializeDocument(routeHeader );
 				docForm.setRouteHeader(routeHeader);
 				setRouteHeaderTimestampsToString(docForm);
 				docForm.setRouteHeaderOp(KewApiConstants.NOOP);
@@ -133,16 +136,18 @@ public class DocumentOperationAction extends KewKualiAction {
 				}
 				docForm.setInitialNodeInstances(initials);
 				request.getSession().setAttribute("routeNodeInstances",routeNodeInstances);
+				LOG.debug("HERE before docForm.setRouteNodeInstances(routeNodeInstances)");
 				docForm.setRouteNodeInstances(routeNodeInstances);
 				if(routeNodeInstances!=null){
 					Iterator routeNodeInstanceIter=routeNodeInstances.iterator();
 					while(routeNodeInstanceIter.hasNext()){
 						RouteNodeInstance routeNodeInstance=(RouteNodeInstance) routeNodeInstanceIter.next();
+						LOG.debug("HERE RouteNodeInstance "+routeNodeInstance);
 						Branch branch=routeNodeInstance.getBranch();
 						if (! branches1.containsKey(branch.getName())){
 							branches1.put(branch.getName(),branch);
 							branches.add(branch);
-							LOG.debug(branch.getName()+"; "+branch.getBranchState());
+							LOG.debug("HERE"+branch.getName()+"; "+branch.getBranchState());
 						}
 					}
 					if(branches.size()<1){
@@ -154,24 +159,24 @@ public class DocumentOperationAction extends KewKualiAction {
 				docForm.setBranches(branches);
 			}
 		}
-			
+		LOG.debug("HERE getDocument() EXIT...");
 		return mapping.findForward("basic");
 	}
 
-	/**
-	 * Sets up various objects on the document which are required for use inside of the Struts and JSP framework.
-	 *
-	 * Specifically, if a document has action requests with null RouteNodeInstances, it will create empty node instance
-	 * objects.
-	 */
-	private void materializeDocument(DocumentRouteHeaderValue document) {
-		for (Iterator iterator = document.getActionRequests().iterator(); iterator.hasNext();) {
-			ActionRequestValue request = (ActionRequestValue) iterator.next();
-			if (request.getNodeInstance() == null) {
-				request.setNodeInstance(new RouteNodeInstance());
-			}
-		}
-	}
+//	/**
+//	 * Sets up various objects on the document which are required for use inside of the Struts and JSP framework.
+//	 *
+//	 * Specifically, if a document has action requests with null RouteNodeInstances, it will create empty node instance
+//	 * objects.
+//	 */
+//	private void materializeDocument(DocumentRouteHeaderValue document) {
+//		for (Iterator iterator = document.getActionRequests().iterator(); iterator.hasNext();) {
+//			ActionRequestValue request = (ActionRequestValue) iterator.next();
+//			if (request.getNodeInstance() == null) {
+//				request.setNodeInstance(new RouteNodeInstance());
+//			}
+//		}
+//	}
 
 	public ActionForward clear(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		DocumentOperationForm docForm = (DocumentOperationForm) form;
@@ -408,7 +413,7 @@ public class DocumentOperationAction extends KewKualiAction {
 
 		List branches=(List)(request.getSession().getAttribute("branches"));
 		String branchStateIds = (docForm.getBranchStatesDelete() != null) ? docForm.getBranchStatesDelete().trim() : null;
-		List branchStatesToBeDeleted=new ArrayList();
+		List<Long> branchStatesToBeDeleted=new ArrayList<Long>();
 		if(branchStateIds!=null && !branchStateIds.equals("")){
 		    StringTokenizer idSets=new StringTokenizer(branchStateIds);
 		    while (idSets.hasMoreTokens()) {

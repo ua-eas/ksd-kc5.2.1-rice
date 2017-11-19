@@ -588,6 +588,7 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
 
     @Override
     public Collection<String> getRoleMemberPrincipalIds(String namespaceCode, String roleName, Map<String, String> qualification) throws RiceIllegalStateException {
+        LOG.debug("getRoleMemberPrincipalIds namespaceCode="+namespaceCode+" roleName="+roleName);
         incomingParamCheck(namespaceCode, "namespaceCode");
         incomingParamCheck(roleName, "roleName");
 

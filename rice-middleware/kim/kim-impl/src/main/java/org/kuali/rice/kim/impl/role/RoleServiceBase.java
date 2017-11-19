@@ -176,6 +176,7 @@ abstract class RoleServiceBase {
         
         //Getting unique kim types
         for (String roleId : roleIds) {
+            LOG.debug("getRoleMemberBoList roleId="+roleId);
             RoleBoLite role = getRoleBoLite(roleId);
             kimTypeIds.add(role.getKimTypeId());
         }
@@ -388,6 +389,7 @@ abstract class RoleServiceBase {
     }
     
     protected RoleBoLite getRoleBoLite(String roleId) {
+        LOG.debug("getRoleBoLite for roleId="+roleId);
         if (StringUtils.isBlank(roleId)) {
             return null;
         }
