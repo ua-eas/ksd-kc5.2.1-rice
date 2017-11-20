@@ -164,11 +164,20 @@ abstract class RoleServiceBase {
      */
     protected List<RoleMemberBo> getRoleMemberBoList(RoleDaoAction daoActionToTake, Collection<String> roleIds, String principalId,
                                                      Collection<String> groupIds, String memberTypeCode, Map<String, String> qualification) {
+        LOG.debug("getRoleMemberBoList daoActionToTake="+daoActionToTake);
         if (roleIds == null || roleIds.isEmpty()) {
+            LOG.debug("getRoleMemberBoList EMPTY roleIds");
             roleIds = Collections.emptyList();
+        } else {
+            LOG.debug("roleIDS size="+roleIds.size());
+            LOG.debug("roleIDS toString="+roleIds.toString());
         }
         if (groupIds == null || groupIds.isEmpty()) {
+            LOG.debug("getRoleMemberBoList EMPTY groupIds");
             groupIds = Collections.emptyList();
+        } else {
+            LOG.debug("roleIDS size="+roleIds.size());
+            LOG.debug("roleIDS toString="+roleIds.toString());
         }
 
         Map<String, String> validAttributeIds = new HashMap<String, String>();
@@ -180,6 +189,7 @@ abstract class RoleServiceBase {
             RoleBoLite role = getRoleBoLite(roleId);
             kimTypeIds.add(role.getKimTypeId());
         }
+        LOG.debug("kimTypeIds size="+kimTypeIds.size());
 
         if (qualification != null && CollectionUtils.isNotEmpty(qualification.entrySet())) {
             for (String kimTypeId : kimTypeIds) {
@@ -393,6 +403,7 @@ abstract class RoleServiceBase {
         if (StringUtils.isBlank(roleId)) {
             return null;
         }
+        //*********************** cache here ********************************//
         return getBusinessObjectService().findBySinglePrimaryKey(RoleBoLite.class, roleId);
     }
 
