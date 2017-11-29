@@ -154,9 +154,11 @@ public class KimTypeQualifierResolver extends QualifierResolverBase {
 	}
 	
 	protected String handlePersonDocument( List<Map<String, String>> qualifiers, IdentityManagementPersonDocument personDoc, String routeLevel ) {
+		LOG.debug("handlePersonDocument() qualifiers SIZE="+qualifiers.size()+" personDocId"+personDoc.getDocumentNumber()+" routeLevel="+routeLevel+" personDoc principalId="+(personDoc==null?"NULL":personDoc.getPrincipalId()));
     	// check the route level - see if we are doing groups or roles at the moment
         String principalId = personDoc.getPrincipalId();
         if ( GROUP_ROUTE_LEVEL.equals(routeLevel) ) {
+			LOG.debug("handlePersonDocument() AT GROUP_ROUTE_LEVEL");
         	// if groups, find any groups to which the user was added or removed
         	// get the type and service for each group
         	// handle as per the group document, a qualifier for each group
@@ -180,14 +182,18 @@ public class KimTypeQualifierResolver extends QualifierResolverBase {
         			}
         		}
         	}
+			LOG.debug("handlePersonDocument() AT GROUP_ROUTE_LEVEL RESULTED qualifiers="+qualifiers.size());
         } else if ( ROLE_ROUTE_LEVEL.equals(routeLevel) ) {
-//        	getRoleService().get
+			LOG.debug("handlePersonDocument() AT ROLE_ROUTE_LEVEL");
         	for ( PersonDocumentRole pdr : personDoc.getRoles() ) {
+				LOG.debug("handlePersonDocument() Looking at PersonDocumentRole="+pdr.getRoleId());
             	KimTypeService typeService = getTypeService(pdr.getKimTypeId());
         		for ( KimDocumentRoleMember rm : pdr.getRolePrncpls() ) {
+					LOG.debug("handlePersonDocument() Looking at KimDocumentRoleMember="+rm.getMemberId()+":"+rm.getRoleId()+":"+rm.getRoleMemberId());
         			boolean foundMember = false;
             		for ( RoleMembership rmi : getRoleService().getRoleMembers( Collections.singletonList( rm.getRoleId() ), Collections.<String, String>emptyMap() ) ) {
             			if ( StringUtils.equals( rmi.getId(), rm.getRoleMemberId() ) ) {
+							LOG.debug("handlePersonDocument() foundMember = TRUE rm="+rm.getRoleMemberId());
             				foundMember = true;
         					if ( !rm.isActive() ) { // don't need to check the role member information 
 								// - only active members are returned
@@ -198,10 +204,12 @@ public class KimTypeQualifierResolver extends QualifierResolverBase {
             			}
             		}
         			if ( !foundMember ) {
+						LOG.debug("handlePersonDocument() foundMember = FALSE rm="+rm.getRoleMemberId());
         				qualifiers.add( getRoleQualifier(rm.getRoleId(), pdr.getKimRoleType().getId(), typeService, rm.getQualifierAsMap(), routeLevel) );
         			}
         		}
         	}
+			LOG.debug("handlePersonDocument() AT ROLE_ROUTE_LEVEL RESULTED qualifiers size="+qualifiers.size());
         	// if roles, check the role member data for any roles added
         	// get the type and service for each role
         	// handle as for the role document, a qualifier for each role membership added

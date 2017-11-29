@@ -18,7 +18,10 @@ package org.kuali.rice.kim.service.dao;
 import org.kuali.rice.kim.api.group.Group;
 import org.kuali.rice.kim.api.identity.name.EntityName;
 import org.kuali.rice.kim.impl.group.GroupBo;
+import org.kuali.rice.kim.impl.role.RoleMemberBo;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public interface UiDocumentServiceDAO {
@@ -27,5 +30,6 @@ public interface UiDocumentServiceDAO {
 
     Map<String, EntityName> findEntityNamesForRole(String roleId);
 
+    Map<String, List<RoleMemberBo>> getActiveFilteredRoleMembersForPrincipal(String principalId, Collection<String> filteredRoleIds);
 
 }

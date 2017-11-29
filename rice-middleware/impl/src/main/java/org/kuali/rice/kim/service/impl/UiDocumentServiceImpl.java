@@ -17,7 +17,10 @@ package org.kuali.rice.kim.service.impl;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+import org.apache.ojb.broker.query.Criteria;
+import org.apache.ojb.broker.query.QueryFactory;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.criteria.Predicate;
@@ -141,15 +144,7 @@ import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.ObjectUtils;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.xml.namespace.QName;
 
@@ -180,8 +175,8 @@ public class UiDocumentServiceImpl implements UiDocumentService {
     /**
 	 * @see org.kuali.rice.kim.service.UiDocumentService#saveEntityPerson(IdentityManagementPersonDocument)
 	 */
-	public void saveEntityPerson(
-	    IdentityManagementPersonDocument identityManagementPersonDocument) {
+	public void saveEntityPerson(IdentityManagementPersonDocument identityManagementPersonDocument) {
+		LOG.debug("saveEntityPerson ENTER identityManagementPersonDocumentDocId="+identityManagementPersonDocument.getDocumentNumber());
 		EntityBo kimEntity = new EntityBo();
 		EntityBo origEntity = getEntityBo(identityManagementPersonDocument.getEntityId());
 		boolean creatingNew = true;
@@ -201,6 +196,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 		String initiatorPrincipalId = getInitiatorPrincipalId(identityManagementPersonDocument);
 		boolean inactivatingPrincipal = false;
 		if(canModifyEntity(initiatorPrincipalId, identityManagementPersonDocument.getPrincipalId())){
+			LOG.debug("saveEntityPerson before setupPrincipal");
 			inactivatingPrincipal = setupPrincipal(identityManagementPersonDocument, kimEntity, origEntity.getPrincipals());
 			setupAffiliation(identityManagementPersonDocument, kimEntity, origEntity.getAffiliations(), origEntity.getEmploymentInformation());
 			setupName(identityManagementPersonDocument, kimEntity, origEntity.getNames());
@@ -225,6 +221,9 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 			setupAddress(identityManagementPersonDocument, entityType, origEntityType.getAddresses());
             kimEntity.setEntityTypeContactInfos(entityTypes);
 		} else{
+            if(ObjectUtils.isNotNull(origEntity.getPrincipals())) {
+                kimEntity.setPrincipals(origEntity.getPrincipals());
+            }
 			if(ObjectUtils.isNotNull(origEntity.getExternalIdentifiers())) {
                 kimEntity.setExternalIdentifiers(origEntity.getExternalIdentifiers());
             }
@@ -248,18 +247,20 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 				kimEntity.setPrivacyPreferences(origEntity.getPrivacyPreferences());
 			}
 		}
-
+		LOG.debug("saveEntityPerson before  getBusinessObjectService().save(kimEntity)");
 		// Save the kim entity changes here.
         getBusinessObjectService().save(kimEntity);
 
 		// If person is being inactivated, do not bother populating roles, groups etc for this member since
 		// none of this is reinstated on activation.
 	    if ( !inactivatingPrincipal ) {
+			LOG.debug("saveEntityPerson  NOT inactivatingPrincipal before populating...");
 	        List <GroupMemberBo>  groupPrincipals = populateGroupMembers(identityManagementPersonDocument);
 	        List <RoleMemberBo>  rolePrincipals = populateRoleMembers(identityManagementPersonDocument);
 	        List <DelegateTypeBo> personDelegations = populateDelegations(identityManagementPersonDocument);
 	        List <RoleResponsibilityActionBo> roleRspActions = populateRoleRspActions(identityManagementPersonDocument);
 	        List <PersistableBusinessObject> bos = new ArrayList<PersistableBusinessObject>();
+			LOG.debug("saveEntityPerson  NOT inactivatingPrincipal AFTER populating... rolePrincipals.size="+rolePrincipals);
 	        //if(ObjectUtils.isNotNull(kimEntity.getPrivacyPreferences()))
 	        //	bos.add(kimEntity.getPrivacyPreferences());
 	        bos.addAll(groupPrincipals);
@@ -267,6 +268,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 	        bos.addAll(roleRspActions);
 	        bos.addAll(personDelegations);
 	     // boservice.save(bos) does not handle deleteawarelist
+			LOG.debug("saveEntityPerson  Before  getBusinessObjectService().save(bos) bos.size="+bos.size());
             getBusinessObjectService().save(bos);
 	        List <RoleMemberAttributeDataBo> blankRoleMemberAttrs = getBlankRoleMemberAttrs(rolePrincipals);
 	        if (!blankRoleMemberAttrs.isEmpty()) {
@@ -277,6 +279,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 	        KimImplServiceLocator.getRoleInternalService().principalInactivated(
                     identityManagementPersonDocument.getPrincipalId());
 	    }
+		LOG.debug("saveEntityPerson EXIT");
 	}
 
 	private String getInitiatorPrincipalId(Document document){
@@ -305,6 +308,9 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 	 * @see org.kuali.rice.kim.service.UiDocumentService#loadEntityToPersonDoc(IdentityManagementPersonDocument, String)
 	 */
 	public void loadEntityToPersonDoc(IdentityManagementPersonDocument identityManagementPersonDocument, String principalId) {
+		LOG.debug("loadEntityToPersonDoc ENTER");
+		LOG.debug("UAR-2368: "+ ExceptionUtils.getStackTrace(new Throwable()));
+
 		Principal principal = this.getIdentityService().getPrincipal(principalId);
         Entity kimEntity = null;
 
@@ -550,18 +556,20 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 	 * @param identityManagementPersonDocument {@link IdentityManagementPersonDocument}
 	 */
     protected void loadRoleToPersonDoc(IdentityManagementPersonDocument identityManagementPersonDocument) {
+		LOG.debug("loadRoleToPersonDoc ENTER docid="+identityManagementPersonDocument.getDocumentNumber());
+		LOG.debug("UAR-2368: "+ ExceptionUtils.getStackTrace(new Throwable()));
         List <PersonDocumentRole> docRoles = new ArrayList <PersonDocumentRole>();
         // a list for Id's of the roles added to docRoles
         List<String> roleIds = new ArrayList<String>();
 
         // get the membership objects for the PrincipalId
-        List<RoleMemberBo> roleMembers = getRoleMembersForPrincipal(identityManagementPersonDocument.getPrincipalId());
+        List<RoleMemberBo> roleMembers = getActiveFilteredRoleMembersForPrincipal(identityManagementPersonDocument.getPrincipalId());
 
         // if the PrincipalId is a member of any roles, add those roles to docRoles
         if(ObjectUtils.isNotNull(roleMembers)){
             // for each membership get the role and add it, if not already added
             for (RoleMemberBo member : roleMembers) {
-				if(member.isActive() && !roleIds.contains(member.getRoleId())) {
+				if(!roleIds.contains(member.getRoleId())) {
 					loadDocRoles(docRoles, roleIds, member, roleMembers);
 				}
             }
@@ -570,16 +578,17 @@ public class UiDocumentServiceImpl implements UiDocumentService {
         // complete the attributes for each role being being returned
         for (PersonDocumentRole role : docRoles) {
             role.setDefinitions(getAttributeDefinitionsForRole(role));
-
+			LOG.debug("loadRoleToPersonDoc before: newRolePrncpl for PersonDocumentRole="+role.getRoleId());
             KimDocumentRoleMember newRolePrncpl = new KimDocumentRoleMember();
             newRolePrncpl.setMemberTypeCode(MemberType.PRINCIPAL.getCode());
             newRolePrncpl.setMemberId(identityManagementPersonDocument.getPrincipalId());
             role.setNewRolePrncpl(newRolePrncpl);
-
+			LOG.debug("loadRoleToPersonDoc AFTER: newRolePrncpl="+newRolePrncpl);
             if(role.getDefinitions()!=null){
                 for (KimAttributeField key : role.getDefinitions()) {
                     KimDocumentRoleQualifier qualifier = new KimDocumentRoleQualifier();
                     setAttrDefnIdForQualifier(qualifier,key);
+					LOG.debug("loadRoleToPersonDoc role.getNewRolePrncpl().getQualifiers().add(qualifier);="+qualifier);
                     role.getNewRolePrncpl().getQualifiers().add(qualifier);
                 }
             }
@@ -591,6 +600,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
         }
 
         // add the PersonDocumentRoles to the IdentityManagementPersonDocument
+		LOG.debug("loadRoleToPersonDoc  identityManagementPersonDocument.setRoles(docRoles) docRoles size="+docRoles.size());
         identityManagementPersonDocument.setRoles(docRoles);
     }
 
@@ -603,7 +613,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 	 * @param roleMembers a list of {@link RoleMemberBo} membership objects for the PrincipalId
      */
     private void loadDocRoles(List <PersonDocumentRole> docRoles, List<String> roleIds,  RoleMemberBo member, List<RoleMemberBo> roleMembers) {
-
+		LOG.debug("loadDocRoles ENTER for RoleMemberBo.Id="+member.getRoleId());
         // get the RoleBoLite object by it's Id from a role membership object
         RoleBoLite role =  getBusinessObjectService().findBySinglePrimaryKey(RoleBoLite.class, member.getRoleId());
 
@@ -718,6 +728,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 
 	@SuppressWarnings("unchecked")
 	protected List<RoleMemberBo> getRoleMembersForPrincipal(String principalId) {
+		LOG.debug(" UAR-2368 getRoleMembersForPrincipal principalId="+principalId);
 		if ( principalId == null ) {
 			return new ArrayList<RoleMemberBo>();
 		}
@@ -727,8 +738,29 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 		return (List<RoleMemberBo>)getBusinessObjectService().findMatching(RoleMemberBo.class, criteria);
 	}
 
+	@SuppressWarnings("unchecked")
+	protected List<RoleMemberBo> getActiveFilteredRoleMembersForPrincipal(String principalId) {
+		LOG.debug(" UAR-2368 getActiveFilteredRoleMembersForPrincipal principalId="+principalId);
+		if ( principalId == null ) {
+			return new ArrayList<RoleMemberBo>();
+		}
+		Criteria searchCriteria = new Criteria();
+		searchCriteria.addEqualTo("memberId", principalId);
+		searchCriteria.addEqualTo("typeCode", MemberType.PRINCIPAL.getCode());
+		searchCriteria.addColumnIsNull("activeToDateValue");
+		//Exclude aggregator and other 'mega' roles that have more than 10k members. These should not be editable through IdentigyManagementPersonDoc!!!
+		searchCriteria.addNotIn("roleId",new ArrayList<String>(Arrays.asList("1220", "1117", "1109", "1108","1118","1238"));
+		org.apache.ojb.broker.query.QueryByCriteria query = QueryFactory.newQuery(RoleMemberBo.class, searchCriteria, Boolean.TRUE);
+		query.addOrderByDescending("roleId");
+		Collection<RoleMemberBo> searchResults =  getPersistenceBrokerTemplate().getCollectionByQuery(query);
+
+
+		return (List<RoleMemberBo>)getBusinessObjectService().findMatching(RoleMemberBo.class, criteria);
+	}
+
 	/**UAR-2368********************************************************************************************************************/
 	protected Collection<RoleMemberBo> getRoleMembersForPrincipal(String roleId, String principalId) {
+		LOG.debug("UAR-2368 getRoleMembersForPrincipal roleId="+roleId+ " principalId="+principalId);
 		if (StringUtils.isBlank(roleId) || StringUtils.isBlank(principalId)) {
 		    return new ArrayList<RoleMemberBo>();
 	    }
@@ -759,6 +791,8 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 	}
 
     protected List<KimDocumentRoleMember> populateDocRolePrncpl(String namespaceCode, List <RoleMemberBo> roleMembers, String principalId, List<KimAttributeField> definitions) {
+		LOG.debug("populateDocRolePrncpl namespaceCode="+namespaceCode+ " principalId="+principalId);
+		LOG.debug("UAR-2368: "+ ExceptionUtils.getStackTrace(new Throwable()));
 		List <KimDocumentRoleMember> docRoleMembers = new ArrayList <KimDocumentRoleMember>();
 		if(ObjectUtils.isNotNull(roleMembers)){
 	    	for (RoleMemberBo rolePrincipal : roleMembers) {
@@ -1761,6 +1795,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 	}
 
     public void setMembersInDocument(IdentityManagementRoleDocument identityManagementRoleDocument){
+		LOG.debug("setMembersInDocumentn identityManagementRoleDocument="+identityManagementRoleDocument);
         if(CollectionUtils.isNotEmpty(identityManagementRoleDocument.getDelegations())){
             Map<String, String> criteria = new HashMap<String, String>();
             criteria.put(KimConstants.PrimaryKeyConstants.ROLE_ID, identityManagementRoleDocument.getRoleId());
@@ -1788,6 +1823,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 
     protected List<KimDocumentRoleMember> loadRoleMembers(
             IdentityManagementRoleDocument identityManagementRoleDocument, List<RoleMemberBo> members){
+		LOG.debug("loadRoleMembers identityManagementRoleDocument="+identityManagementRoleDocument);
         List<KimDocumentRoleMember> pndMembers = new ArrayList<KimDocumentRoleMember>();
         KimDocumentRoleMember pndMember;
 
@@ -1865,6 +1901,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
     }
 
     public Collection<PrincipalBo>  findPrincipalsByPrincipalIds(Collection<String> principalIds) {
+		LOG.debug("findPrincipalsByPrincipalIds principalIds="+principalIds);
         if (!principalIds.isEmpty()) {
             Map<String,Collection> prncplNameSearchCrit = new HashMap<String,Collection>();
             prncplNameSearchCrit.put("PRNCPL_ID", principalIds);
@@ -2901,7 +2938,8 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 		List<String> newIds;
 		oldIds = getGroupService().getMemberPrincipalIds(kimGroup.getId()); // for the actionList update
 
-
+		LOG.debug("saveGroup()newGroupMembersList");
+		LOG.debug("UAR-2368: "+ ExceptionUtils.getStackTrace(new Throwable()));
 		List<GroupMemberBo> newGroupMembersList = getGroupMembers(identityManagementGroupDocument, origGroupMembers);
 		kimGroup.setMembers(newGroupMembersList);  // add the new, complete list to the group
 

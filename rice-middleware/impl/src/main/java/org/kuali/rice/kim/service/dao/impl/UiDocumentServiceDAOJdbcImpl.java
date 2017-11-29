@@ -20,6 +20,7 @@ import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.group.Group;
 import org.kuali.rice.kim.api.identity.name.EntityName;
+import org.kuali.rice.kim.impl.role.RoleMemberBo;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,7 +34,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,7 +70,7 @@ public class UiDocumentServiceDAOJdbcImpl implements UiDocumentServiceDAO {
                     " (SELECT MBR_ID FROM KRIM_ROLE_MBR_T WHERE MBR_TYP_CD = '" +
                     MemberType.GROUP.getCode() + "' AND ROLE_ID = '" + roleId + "')";
 
-                    LOG.debug("Query to find Entity Names for role " + roleId + ":" + sql);
+                    LOG.debug("Query to find Groups for " + "Role " + roleId + ":" + sql);
 
                 PreparedStatement statement = connection.prepareStatement(sql);
                 return statement;
@@ -157,4 +160,55 @@ public class UiDocumentServiceDAOJdbcImpl implements UiDocumentServiceDAO {
         );
         return entityNamesForPrincipals;
     }
+
+
+    @Override
+    public Map<String, List<RoleMemberBo>> getActiveFilteredRoleMembersForPrincipal(final String principalId, final Collection<String> filteredRoleIds) {
+        final Map<String,  List<RoleMemberBo>> filteredRoleMembers = new HashMap<>();
+
+        JdbcTemplate template = new JdbcTemplate(dataSource);
+        Map<String, EntityName> results  = template.execute(new PreparedStatementCreator() {
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                String sql = "SELECT KRMT.ROLE_MBR_ID, KRMT.ROLE_ID, KRMT.MBR_ID, KRMT.MBR_TYP_CD, KRMT.ACTV_FRM_DT, KRMT.ACTV_TO_DT" +
+                        " FROM KRIM_ROLE_MBR_T KRMT" +
+                        " WHERE KRMT.MBR_ID = '"+principalId+"'"+
+                        " AND KRMT.ACTV_TO_DT IN (SELECT MBR_ID FROM KRIM_ROLE_MBR_T WHERE ROLE_ID = '" + roleId + "')";
+                LOG.debug("Query getActiveFilteredRoleMembersForPrincipal to find Entity Names for principalId " + principalId + ":" + sql);
+
+                PreparedStatement statement = connection.prepareStatement(sql);
+                return statement;
+            }
+        }, new PreparedStatementCallback<Map<String, List<RoleMemberBo>>>() {
+            public Map<String, List<RoleMemberBo>> doInPreparedStatement(
+                    PreparedStatement statement) throws SQLException, DataAccessException {
+                ResultSet rs = statement.executeQuery();
+                try {
+                    while (rs.next()) {
+                        String id = rs.getString(1);
+                        String entityId = rs.getString(2);
+                        String firstName = rs.getString(3);
+                        String lastName = rs.getString(4);
+                        String suppressName = rs.getString(5);
+                        boolean suppressNameBoolean = false;
+                        if (KRADConstants.YES_INDICATOR_VALUE.equalsIgnoreCase(suppressName)) {
+                            suppressNameBoolean = true;
+                        }
+                        EntityName.Builder builder = EntityName.Builder.create(id, entityId, firstName, lastName, suppressNameBoolean);
+                        builder.setActive(true);
+                        builder.setDefaultValue(true);
+                        EntityName entityName = builder.build();
+                        filteredRoleMembers.put(entityName.getEntityId(), entityName);
+                    }
+                } finally {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                }
+                return filteredRoleMembers;
+            }
+        }
+        );
+        return filteredRoleMembers;
+    }
+
 }

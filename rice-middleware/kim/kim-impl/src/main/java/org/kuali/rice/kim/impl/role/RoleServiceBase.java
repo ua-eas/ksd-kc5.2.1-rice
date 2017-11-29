@@ -28,6 +28,7 @@ import javax.xml.namespace.QName;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.CoreConstants;
@@ -164,7 +165,7 @@ abstract class RoleServiceBase {
      */
     protected List<RoleMemberBo> getRoleMemberBoList(RoleDaoAction daoActionToTake, Collection<String> roleIds, String principalId,
                                                      Collection<String> groupIds, String memberTypeCode, Map<String, String> qualification) {
-        LOG.debug("getRoleMemberBoList daoActionToTake="+daoActionToTake);
+        LOG.debug("getRoleMemberBoList principalId="+principalId+" daoActionToTake="+daoActionToTake+" memberTypeCode="+memberTypeCode+" qualification="+qualification);
         if (roleIds == null || roleIds.isEmpty()) {
             LOG.debug("getRoleMemberBoList EMPTY roleIds");
             roleIds = Collections.emptyList();
@@ -199,8 +200,12 @@ abstract class RoleServiceBase {
             }
         }
 
-        Map<String, String> convertedQualification = convertQualifierKeys(qualification, validAttributeIds);
 
+        Map<String, String> convertedQualification = convertQualifierKeys(qualification, validAttributeIds);
+        LOG.debug("convertedQualification ="+convertedQualification);
+        //UAR-2368 *********************** HACK ********************************//
+        LOG.debug("UAR-2368: "+ExceptionUtils.getStackTrace(new Throwable()));
+        //UAR-2368 *********************** END ********************************//
         switch (daoActionToTake) {
             case ROLE_PRINCIPALS_FOR_PRINCIPAL_ID_AND_ROLE_IDS: // Search for principal role members only.
                 return roleDao.getRolePrincipalsForPrincipalIdAndRoleIds(roleIds, principalId, convertedQualification);
@@ -235,6 +240,7 @@ abstract class RoleServiceBase {
      * Calls the KimRoleDao's "getRoleMembersForRoleIds" method and/or retrieves any corresponding members from the cache.
      */
     protected List<RoleMemberBo> getStoredRoleMembersForRoleIds(Collection<String> roleIds, String memberTypeCode, Map<String, String> qualification) {
+        LOG.debug("getStoredRoleMembersForRoleIds ROLE_MEMBERS_FOR_ROLE_IDS");
         return getRoleMemberBoList(RoleDaoAction.ROLE_MEMBERS_FOR_ROLE_IDS, roleIds, null, Collections.<String>emptyList(), memberTypeCode, qualification);
     }
 
@@ -403,7 +409,9 @@ abstract class RoleServiceBase {
         if (StringUtils.isBlank(roleId)) {
             return null;
         }
-        //*********************** cache here ********************************//
+        //UAR-2368 *********************** HACK ********************************//
+        LOG.debug("UAR-2368: "+ExceptionUtils.getStackTrace(new Throwable()));
+        //UAR-2368 *********************** END ********************************//
         return getBusinessObjectService().findBySinglePrimaryKey(RoleBoLite.class, roleId);
     }
 

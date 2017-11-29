@@ -17,6 +17,7 @@ package org.kuali.rice.kim.service.impl;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.group.Group;
@@ -72,11 +73,14 @@ import java.util.Map;
  */
 public class LdapUiDocumentServiceImpl extends org.kuali.rice.kim.service.impl.UiDocumentServiceImpl {
 
+	private static final Logger LOG = Logger.getLogger(LdapUiDocumentServiceImpl.class);
+
 	/**
 	 *
 	 * @see org.kuali.rice.kim.service.UiDocumentService#loadEntityToPersonDoc(IdentityManagementPersonDocument, String)
 	 */
 	public void loadEntityToPersonDoc(IdentityManagementPersonDocument identityManagementPersonDocument, String principalId) {
+		LOG.debug("loadEntityToPersonDoc principalId="+principalId);
 		Principal principal = this.getIdentityService().getPrincipal(principalId);
         if(principal==null) {
         	throw new RuntimeException("Principal does not exist for principal id:"+principalId);
@@ -126,6 +130,7 @@ public class LdapUiDocumentServiceImpl extends org.kuali.rice.kim.service.impl.U
 	 * @see org.kuali.rice.kim.service.UiDocumentService#saveEntityPerson(IdentityManagementPersonDocument)
 	 */
     public void saveEntityPerson(IdentityManagementPersonDocument identityManagementPersonDocument) {
+    	LOG.debug("saveEntityPerson identityManagementPersonDocument"+identityManagementPersonDocument.toString());
         final Entity kimEntity = getIdentityService().getEntity(identityManagementPersonDocument.getEntityId());
 		boolean creatingNew = false;
 
@@ -133,7 +138,9 @@ public class LdapUiDocumentServiceImpl extends org.kuali.rice.kim.service.impl.U
 		boolean inactivatingPrincipal = false;
 
 		List <GroupMemberBo>  groupPrincipals = populateGroupMembers(identityManagementPersonDocument);
+		LOG.debug("saveEntityPerson before populateRoleMembers");
 		List <RoleMemberBo>  rolePrincipals = populateRoleMembers(identityManagementPersonDocument);
+		LOG.debug("saveEntityPerson after populateRoleMembers");
 		List <DelegateTypeBo> personDelegations = populateDelegations(identityManagementPersonDocument);
 		List <PersistableBusinessObject> bos = new ArrayList<PersistableBusinessObject>();
 		List <RoleResponsibilityActionBo> roleRspActions = populateRoleRspActions(identityManagementPersonDocument);
@@ -145,7 +152,9 @@ public class LdapUiDocumentServiceImpl extends org.kuali.rice.kim.service.impl.U
 		bos.addAll(roleRspActions);
 		bos.addAll(personDelegations);
 		// boservice.save(bos) does not handle deleteawarelist
+		LOG.debug("saveEntityPerson before getBusinessObjectService().save(bos)");
 		getBusinessObjectService().save(bos);
+		LOG.debug("saveEntityPerson AFTER getBusinessObjectService().save(bos)");
 
 		if (!blankRoleMemberAttrs.isEmpty()) {
 			getBusinessObjectService().delete(blankRoleMemberAttrs);
@@ -157,6 +166,7 @@ public class LdapUiDocumentServiceImpl extends org.kuali.rice.kim.service.impl.U
 	}
 
     protected boolean setupPrincipal(IdentityManagementPersonDocument identityManagementPersonDocument,EntityBo kimEntity, List<PrincipalBo> origPrincipals) {
+		LOG.debug("setupPrincipal identityManagementPersonDocument"+identityManagementPersonDocument.toString());
     	boolean inactivatingPrincipal = false;
 		List<PrincipalBo> principals = new ArrayList<PrincipalBo>();
 		Principal.Builder principal = Principal.Builder.create(identityManagementPersonDocument.getPrincipalName());
@@ -345,6 +355,7 @@ public class LdapUiDocumentServiceImpl extends org.kuali.rice.kim.service.impl.U
 	}
 
     public BusinessObject getMember(String memberTypeCode, String memberId){
+		LOG.debug("getMember memberTypeCode"+memberTypeCode+" memberId="+memberId);
         Class<? extends BusinessObject> roleMemberTypeClass = null;
         String roleMemberIdName = "";
     	if(MemberType.PRINCIPAL.getCode().equals(memberTypeCode)){
@@ -392,6 +403,7 @@ public class LdapUiDocumentServiceImpl extends org.kuali.rice.kim.service.impl.U
 	}
     
     protected List<RoleMemberBo> getRoleMembers(IdentityManagementRoleDocument identityManagementRoleDocument, List<RoleMemberBo> origRoleMembers){
+		LOG.debug("getRoleMembers identityManagementRoleDocument="+identityManagementRoleDocument+" origRoleMembers="+origRoleMembers.toString());
         List<RoleMemberBo> roleMembers = new ArrayList<RoleMemberBo>();
         RoleMemberBo newRoleMember;
         RoleMemberBo origRoleMemberImplTemp;
@@ -449,10 +461,12 @@ public class LdapUiDocumentServiceImpl extends org.kuali.rice.kim.service.impl.U
                 newRoleMember.setActiveToDateValue(documentRoleMember.getActiveToDate());
                 newRoleMember.setAttributeDetails(getRoleMemberAttributeData(documentRoleMember.getQualifiers(), origAttributes, activatingInactive, newRoleMemberIdAssigned));
                 newRoleMember.setRoleRspActions(getRoleMemberResponsibilityActions(documentRoleMember, origRoleMemberImplTemp, activatingInactive, newRoleMemberIdAssigned));
+				LOG.debug("getRoleMembers BEFORE roleMembers.add(newRoleMember) newRoleMember ="+newRoleMember);
                 roleMembers.add(newRoleMember);
                 activatingInactive = false;
             }
         }
+		LOG.debug("getRoleMembers EXIT roleMembers ="+roleMembers);
         return roleMembers;
     }
 }

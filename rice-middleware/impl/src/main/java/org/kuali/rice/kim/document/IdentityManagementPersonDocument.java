@@ -28,20 +28,7 @@ import org.kuali.rice.kim.api.identity.employment.EntityEmployment;
 import org.kuali.rice.kim.api.role.Role;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.api.type.KimType;
-import org.kuali.rice.kim.bo.ui.KimDocumentRoleMember;
-import org.kuali.rice.kim.bo.ui.KimDocumentRoleQualifier;
-import org.kuali.rice.kim.bo.ui.PersonDocumentAddress;
-import org.kuali.rice.kim.bo.ui.PersonDocumentAffiliation;
-import org.kuali.rice.kim.bo.ui.PersonDocumentCitizenship;
-import org.kuali.rice.kim.bo.ui.PersonDocumentEmail;
-import org.kuali.rice.kim.bo.ui.PersonDocumentEmploymentInfo;
-import org.kuali.rice.kim.bo.ui.PersonDocumentGroup;
-import org.kuali.rice.kim.bo.ui.PersonDocumentName;
-import org.kuali.rice.kim.bo.ui.PersonDocumentPhone;
-import org.kuali.rice.kim.bo.ui.PersonDocumentPrivacy;
-import org.kuali.rice.kim.bo.ui.PersonDocumentRole;
-import org.kuali.rice.kim.bo.ui.RoleDocumentDelegationMember;
-import org.kuali.rice.kim.bo.ui.RoleDocumentDelegationMemberQualifier;
+import org.kuali.rice.kim.bo.ui.*;
 import org.kuali.rice.kim.impl.identity.principal.PrincipalBo;
 import org.kuali.rice.kim.impl.type.KimTypeAttributesHelper;
 import org.kuali.rice.kim.service.KIMServiceLocatorInternal;
@@ -123,6 +110,12 @@ public class IdentityManagementPersonDocument extends IdentityManagementKimDocum
     // external identifier data
     @Transient
     protected Map<String, String> externalIdentifiers = null;
+
+    @Transient
+    List<KimDocumentRoleMember> modifiedRoleMemberships;
+
+    @Transient
+    List<KimDocumentRoleMember> modifiedRoleMemberships;
 
     @Column(name="ACTV_IND")
 	@Type(type="yes_no")
@@ -387,7 +380,13 @@ public class IdentityManagementPersonDocument extends IdentityManagementKimDocum
         		}
                 for (KimDocumentRoleQualifier qualifier : rolePrncpl.getQualifiers()) {
                     qualifier.setDocumentNumber(getDocumentNumber());
+                    qualifier.setRoleMemberId(rolePrncpl.getRoleMemberId());
                     qualifier.setKimTypId(role.getKimTypeId());
+                }
+                for (KimDocumentRoleResponsibilityAction responsibilityAction : rolePrncpl.getRoleRspActions()) {
+                    responsibilityAction.setDocumentNumber(getDocumentNumber());
+                    responsibilityAction.setRoleMemberId(rolePrncpl.getRoleMemberId());
+                    responsibilityAction.setRoleResponsibilityId("*");
                 }
             }
         }
@@ -400,6 +399,19 @@ public class IdentityManagementPersonDocument extends IdentityManagementKimDocum
                 }
                 addDelegationMemberToDelegation(delegationMember);
             }
+        }
+        // important to do this after getDelegationMembers since the addDelegationMemberToDelegation method will create
+        // primary and/or secondary delegations for us in a "just-in-time" fashion
+        if (getDelegations() != null) {
+            List<RoleDocumentDelegation> emptyDelegations = new ArrayList<>();
+            for (RoleDocumentDelegation delegation : getDelegations()) {
+                delegation.setDocumentNumber(getDocumentNumber());
+                if (delegation.getMembers().isEmpty()) {
+                    emptyDelegations.add(delegation);
+                }
+            }
+            // remove any empty delegations because we just don't need them
+            getDelegations().removeAll(emptyDelegations);
         }
         if (getAddrs() != null) {
         	String entityAddressId;
@@ -534,6 +546,19 @@ public class IdentityManagementPersonDocument extends IdentityManagementKimDocum
         }
         return rulePassed;
 	}
+
+
+
+    public List<KimDocumentRoleMember> getModifiedMembers() {
+        return this.modifiedMembers;
+    }
+
+
+    public void setModifiedMembers(List<KimDocumentRoleMember> modifiedMembers) {
+        LOG.debug("setModifiedMembers="+modifiedMembers);
+        this.modifiedMembers = modifiedMembers;
+    }
+
 
 	@Transient
 	protected transient DocumentHelperService documentHelperService;

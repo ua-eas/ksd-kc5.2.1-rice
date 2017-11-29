@@ -99,6 +99,7 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
         map.put(MemberType.ROLE.getCode(), RoleDaoAction.ROLE_MEMBERSHIPS_FOR_ROLE_IDS_AS_MEMBERS);
         return Collections.unmodifiableMap(map);
     }
+    
 
     private RoleService proxiedRoleService;
     private CacheManager cacheManager;
@@ -120,6 +121,7 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
 
     @Override
     public Role updateRole(final Role role) throws RiceIllegalArgumentException, RiceIllegalStateException {
+        LOG.debug("updateRole role="+role);
         incomingParamCheck(role, "role");
 
         RoleBoLite originalRole = getRoleBoLite(role.getId());
@@ -258,13 +260,20 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
         return loadRole(roleId);
     }
 
+
+
+
+
+
     /**
      * Loads the role with the given id, leveraging the cache where possible and querying the database
      * if role not already in the cache. If the role is not in the cache, then it will be placed in
      * the cache once it is loaded.
      */
     protected Role loadRole(String roleId) {
+
         Role role = getRoleFromCache(roleId);
+        LOG.debug("loadRole getRoleFromCache roleId="+roleId+" hit or miss="+role);
         if (role == null) {
             RoleBoLite roleBo = getRoleBoLite(roleId);
             if (roleBo != null) {
@@ -284,6 +293,7 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
         return null;
     }
 
+
     protected Role getRoleFromCache(String namespaceCode, String name) {
         Cache cache = cacheManager.getCache(Role.Cache.NAME);
         Cache.ValueWrapper cachedValue = cache.get("namespaceCode=" + namespaceCode + "|name=" + name);
@@ -293,6 +303,7 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
         return null;
     }
 
+
     protected void putRoleInCache(Role role) {
         if (role != null) {
             Cache cache = cacheManager.getCache(Role.Cache.NAME);
@@ -300,8 +311,10 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
             String nameKey = "namespaceCode=" + role.getNamespaceCode() + "|name=" + role.getName();
             cache.put(idKey, role);
             cache.put(nameKey, role);
+            LOG.debug("putRoleInCache  idKey="+idKey+" nameKey="+nameKey+" role="+role);
         }
     }
+
 
     protected Map<String, RoleBoLite> getRoleBoLiteMap(Collection<String> roleIds) {
         Map<String, RoleBoLite> result;
@@ -1912,6 +1925,7 @@ public class RoleServiceImpl extends RoleServiceBase implements RoleService {
     @Override
     public RoleMember updateRoleMember(@WebParam(
             name = "roleMember") RoleMember roleMember) throws RiceIllegalArgumentException, RiceIllegalStateException {
+        LOG.debug("updateRoleMember roleMember="+roleMember);
         incomingParamCheck(roleMember, "roleMember");
 
         RoleMemberBo originalRoleMemberBo = null;

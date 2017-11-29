@@ -329,6 +329,7 @@ public class IdentityManagementRoleDocument extends IdentityManagementTypeAttrib
      * @param modifiedMembers the modifiedMembers to set
      */
     public void setModifiedMembers(List<KimDocumentRoleMember> modifiedMembers) {
+		LOG.debug("setModifiedMembers="+modifiedMembers);
         this.modifiedMembers = modifiedMembers;
     }
 
