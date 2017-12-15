@@ -137,37 +137,26 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
         boolean validPrncplFoundIfPrncplCritPresent = true;
         Map<String, String> attribsMap = new HashMap<String, String>();
         if (!criteriaMap.isEmpty()) {
+            // principalId doesn't exist on 'Group'.
             List<Predicate> predicates = new ArrayList<Predicate>();
-            //principalId doesn't exist on 'Group'.  Lets do this predicate conversion separately
-            if (StringUtils.isNotBlank(criteriaMap.get(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME))) {
-                QueryByCriteria.Builder principalCriteria = QueryByCriteria.Builder.create();
-                Predicate principalPred = like("principalName", criteriaMap.get(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME));
-                principalCriteria.setPredicates(principalPred);
-                //String principalId = KimApiServiceLocator.getIdentityService()
-                //        .getPrincipalByPrincipalName(criteriaMap.get(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME)).getPrincipalId();
-                PrincipalQueryResults principals = KimApiServiceLocator.getIdentityService()
-                        .findPrincipals(principalCriteria.build());
-                List<String> principalIds = new ArrayList<String>();
-                for (Principal principal : principals.getResults()) {
-                    principalIds.add(principal.getPrincipalId());
-                }
-                if (CollectionUtils.isNotEmpty(principalIds)) {
-                    Timestamp currentTime = new Timestamp(Calendar.getInstance().getTimeInMillis());
-                    predicates.add( and(
-                                    in("members.memberId", principalIds.toArray(
-                                            new String[principalIds.size()])),
-                                    equal("members.typeCode", KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE.getCode()),
-                                    and(
-                                            or(isNull("members.activeFromDateValue"), lessThanOrEqual("members.activeFromDateValue", currentTime)),
-                                            or(isNull("members.activeToDateValue"), greaterThan("members.activeToDateValue", currentTime))
-                                    )
-                                ));
-                }else {
+            String principalName = criteriaMap.remove(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME);
+            if (StringUtils.isNotBlank(principalName)) {
+                Principal principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(principalName);
+                String principalId = principal.getPrincipalId();
+                if (StringUtils.isNotBlank(principalId)) {
+                    List<String> principalGroupIds = KimApiServiceLocator.getGroupService().getGroupIdsByPrincipalId(principalId);
+                    if (!principalGroupIds.isEmpty()) {
+                        predicates.add(in("id", principalGroupIds.toArray(new String[principalGroupIds.size()])));
+                    } else {
+                        // if there are no principalGroupIds, then there are no groups that the
+                        // principal is a member of.
+                        return new ArrayList<GroupBo>();
+                    }
+                } else {
                     validPrncplFoundIfPrncplCritPresent = false;
                 }
 
             }
-            criteriaMap.remove(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME);
             Map<String, String> criteriaCopy = new HashMap<String, String>();
             // copy the criteria map so we can modify it
             criteriaCopy.putAll(criteriaMap);
