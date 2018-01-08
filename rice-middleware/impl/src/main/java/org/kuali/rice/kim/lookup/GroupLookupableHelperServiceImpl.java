@@ -172,7 +172,10 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
                     criteriaMap.remove(key);
                 }
             }
-            predicates.add(PredicateUtils.convertMapToPredicate(criteriaMap));
+            boolean isCriteriaMapContainAtLeastOneCriteria = isCriteriaMapContainAtLeastOneCriteria(criteriaMap);
+            if (isCriteriaMapContainAtLeastOneCriteria) {
+                predicates.add(PredicateUtils.convertMapToPredicate(criteriaMap));
+            }
             criteria.setPredicates(and(predicates.toArray(new Predicate[predicates.size()])));
         }
         List<Group> groups = new ArrayList<Group>();
@@ -204,6 +207,24 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
         }
 
     	return new ArrayList<GroupBo>(groupBos.values());
+    }
+
+    /**
+     * This method determines if any of the members of the passed in map have values
+     * that are not blank.
+     *
+     * @param criteriaMap
+     *            the Map to test.
+     * @return <code>TRUE</code> if at least one of the Values of the Map's entries
+     *         is not blank,<code>FALSE</code> otherwise.
+     */
+    private boolean isCriteriaMapContainAtLeastOneCriteria(Map<String, String> criteriaMap) {
+        for (String key : criteriaMap.keySet()) {
+            if (StringUtils.isNotBlank(criteriaMap.get(key))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
