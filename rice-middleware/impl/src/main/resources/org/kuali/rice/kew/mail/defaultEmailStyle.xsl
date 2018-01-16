@@ -35,7 +35,8 @@
     <xsl:template match="immediateReminder">
         <xsl:variable name="docHandlerUrl" select="actionItem/actionItem/docHandlerURL"/>
         <email>
-            <subject>Action List Reminder <xsl:value-of select="actionItem/customSubject"/></subject>
+            <subject>Action List Reminder - <xsl:value-of select="actionItem/doc/routeStatusLabel"/> - <xsl:value-of select="actionItem/actionItem/actionRequestLabel"/>
+            <xsl:value-of select="actionItem/customSubject"/></subject>
             <body>Your Action List has an eDoc(electronic document) that needs your attention:
 
 Document ID:&tab;<xsl:value-of select="actionItem/actionItem/documentId"/>

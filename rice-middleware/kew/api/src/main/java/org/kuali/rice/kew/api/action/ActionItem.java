@@ -23,6 +23,7 @@ import org.kuali.rice.core.api.delegation.DelegationType;
 import org.kuali.rice.core.api.mo.AbstractDataTransferObject;
 import org.kuali.rice.core.api.mo.ModelBuilder;
 import org.kuali.rice.core.api.util.jaxb.DateTimeAdapter;
+import org.kuali.rice.kew.api.util.CodeTranslator;
 import org.w3c.dom.Element;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -165,6 +166,10 @@ public final class ActionItem
     @Override
     public String getActionRequestId() {
         return this.actionRequestId;
+    }
+    
+    public String getActionRequestLabel() {
+    	return CodeTranslator.getActionRequestLabel(getActionRequestCd());
     }
 
     @Override
