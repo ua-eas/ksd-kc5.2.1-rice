@@ -2675,14 +2675,12 @@
         <artifactId>netty</artifactId>
         <version>${netty.version}</version>
       </dependency>
-			
+        <!-- adding dependency for jsch version to fix Algorithm negotiation fail errors -->
       <dependency>
-		  <groupId>com.jcraft</groupId>
-		  <artifactId>jsch</artifactId>
-		  <version>0.1.54</version>
+        <groupId>com.jcraft</groupId>
+        <artifactId>jsch</artifactId>
+        <version>0.1.54</version>
       </dependency>
-		
-		
     </dependencies>
   </dependencyManagement>
 
