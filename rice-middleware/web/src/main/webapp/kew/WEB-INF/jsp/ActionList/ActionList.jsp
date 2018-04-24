@@ -538,6 +538,17 @@
 				</display:table>
 				</td>
 				</tr>
+				 <c:if test="${UserSession.objectMap[KewApiConstants.HELP_DESK_ACTION_LIST_PERSON_ATTR_NAME] == null && (! empty customActionsPresent) && (preferences.showClearFyi == Constants.PREFERENCES_YES_VAL || ActionListForm.customActionList)}">
+					 <tr>
+						 <td class="tinybutton">
+							 <div align="center">
+								 <a id="takeMassActions" href="javascript: setMethodToCallAndSubmit('takeMassActions')">
+								 	<img src="images/buttonsmall_takeactions.gif" />
+								 </a>
+							 </div>
+						 </td>
+					 </tr>
+				 </c:if>
 				</table>
               </td>
               <td></td>
@@ -547,18 +558,10 @@
 				<td colspan="3"><br />
 				</td>
 			</tr>
-			<c:if
-				test="${UserSession.objectMap[KewApiConstants.HELP_DESK_ACTION_LIST_PERSON_ATTR_NAME] == null && (! empty customActionsPresent) && (preferences.showClearFyi == Constants.PREFERENCES_YES_VAL || ActionListForm.customActionList)}">
-				<tr>
-					<td></td>
-					<td height="0" class="tinybutton">
-					<div align="center"><a id="takeMassActions"
-						href="javascript: setMethodToCallAndSubmit('takeMassActions')">
-					<img src="images/buttonsmall_takeactions.gif" /> </a></div>
-					</td>
-					<td></td>
-				</tr>
-			</c:if>
+			<tr>
+				<td colspan="3"><br />
+				</td>
+			</tr>
 		</table>
 		
 		</td>
