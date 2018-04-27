@@ -53,7 +53,8 @@ public class XAPoolDataSource extends StandardXAPoolDataSource implements Initia
     public XAPoolDataSource() {
         setDataSource(this.dataSource);
         setPreparedStmtCacheSize(0);
-        setCheckLevelObject(2);
+        //lowering level of connection testing to use less of select 1 from dual
+        setCheckLevelObject(1);
     }
 
     public void afterPropertiesSet() throws Exception {
