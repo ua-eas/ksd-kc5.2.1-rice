@@ -2695,12 +2695,12 @@
     <repository>
       <id>deployment</id>
       <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/releases/</url>
+      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/releases/</url>
     </repository>
     <snapshotRepository>
       <id>deployment</id>
       <name>Internal Releases</name>
-      <url>https://ka-tools.mosaic.arizona.edu/nexus/content/repositories/snapshots/</url>
+      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
