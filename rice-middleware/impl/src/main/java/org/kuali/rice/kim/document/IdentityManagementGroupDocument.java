@@ -26,6 +26,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -96,6 +97,7 @@ public class IdentityManagementGroupDocument extends IdentityManagementTypeAttri
 
     @JoinFetch(value= JoinFetchType.OUTER)
     @OneToMany(targetEntity = GroupDocumentQualifier.class, orphanRemoval = true, cascade = { CascadeType.REFRESH, CascadeType.REMOVE, CascadeType.PERSIST })
+    @OrderColumn(name="ATTR_DATA_ID")
     @JoinColumn(name = "FDOC_NBR", referencedColumnName = "FDOC_NBR", insertable = false, updatable = false)
     private List<GroupDocumentQualifier> qualifiers = new AutoPopulatingList<GroupDocumentQualifier>(GroupDocumentQualifier.class);
 
