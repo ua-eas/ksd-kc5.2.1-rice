@@ -17,6 +17,8 @@ package org.kuali.rice.krad.util;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,8 +35,7 @@ public class CsrfValidator {
 
     private static final Logger LOG = Logger.getLogger(CsrfValidator.class);
 
-    public static final String CSRF_PARAMETER = "csrfToken";
-    public static final String CSRF_SESSION_TOKEN = "csrfSessionToken";
+    private static ParameterService parameterService = null;
 
     /**
      * Applies CSRF protection for any HTTP method other than GET, HEAD, or OPTIONS.
@@ -46,6 +47,11 @@ public class CsrfValidator {
      * act immediately to terminate any additional work performed on the response.
      */
     public static boolean validateCsrf(HttpServletRequest request, HttpServletResponse response) {
+
+        if(!isCsrfProtectionEnabled()){
+            return true;
+        }
+
         if (HttpMethod.GET.equals(request.getMethod()) ||
                 HttpMethod.HEAD.equals(request.getMethod()) ||
                 HttpMethod.OPTIONS.equals(request.getMethod())) {
@@ -75,7 +81,7 @@ public class CsrfValidator {
      * @return the CSRF token on the request's session, or null if the session has none
      */
     public static String getSessionToken(HttpServletRequest request) {
-        return (String)request.getSession().getAttribute(CSRF_SESSION_TOKEN);
+        return (String)request.getSession().getAttribute(KRADConstants.CSRF_SESSION_TOKEN);
     }
 
     /**
@@ -85,7 +91,7 @@ public class CsrfValidator {
      * @return the CSRF token parameter on the request, or null if the request has none
      */
     public static String getRequestToken(HttpServletRequest request) {
-        return request.getParameter(CSRF_PARAMETER);
+        return request.getParameter(KRADConstants.CSRF_PARAMETER);
     }
 
     /**
@@ -96,8 +102,23 @@ public class CsrfValidator {
      */
     private static void placeSessionToken(HttpServletRequest request) {
         if (getSessionToken(request) == null) {
-            request.getSession().setAttribute(CSRF_SESSION_TOKEN, UUID.randomUUID().toString());
+            request.getSession().setAttribute(KRADConstants.CSRF_SESSION_TOKEN, UUID.randomUUID().toString());
         }
     }
 
+    private static boolean isCsrfProtectionEnabled(){
+        if(getParameterService().parameterExists(KRADConstants.KC_GEN_NAMESPACE,KRADConstants.DetailTypes.ALL_DETAIL_TYPE, KRADConstants.CSRF_PROTECTION_ENABLED)){
+
+            if(!getParameterService().getParameterValueAsBoolean(KRADConstants.KC_GEN_NAMESPACE,KRADConstants.DetailTypes.ALL_DETAIL_TYPE, KRADConstants.CSRF_PROTECTION_ENABLED)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected static ParameterService getParameterService(){
+        if (parameterService == null )
+            parameterService = CoreFrameworkServiceLocator.getParameterService();
+        return parameterService;
+    }
 }

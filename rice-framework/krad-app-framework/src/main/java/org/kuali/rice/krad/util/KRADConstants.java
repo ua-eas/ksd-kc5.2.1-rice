@@ -702,4 +702,12 @@ public final class KRADConstants {
         public static final String APPLICATION_URL = "application.url";
         public static final String KRAD_DEV_MODE = "rice.krad.dev.mode";
     }
+
+    // CSRF
+    public static final String CSRF_PROTECTION_ENABLED = "CSRF_PROTECTION_ENABLED";
+    public static final String CSRF_PARAMETER = "csrfToken";
+    public static final String CSRF_SESSION_TOKEN = "csrfSessionToken";
+
+    public static final String KC_GEN_NAMESPACE="KC-GEN";
+
 }
