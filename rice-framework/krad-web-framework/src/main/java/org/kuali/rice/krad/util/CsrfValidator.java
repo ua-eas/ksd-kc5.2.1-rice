@@ -107,9 +107,9 @@ public class CsrfValidator {
     }
 
     private static boolean isCsrfProtectionEnabled(){
-        if(getParameterService().parameterExists(KRADConstants.KC_GEN_NAMESPACE,KRADConstants.DetailTypes.ALL_DETAIL_TYPE, KRADConstants.CSRF_PROTECTION_ENABLED)){
+        if(getParameterService().parameterExists(KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE,KRADConstants.DetailTypes.CONFIG_DETAIL_TYPE, KRADConstants.CSRF_PROTECTION_ENABLED)){
 
-            if(!getParameterService().getParameterValueAsBoolean(KRADConstants.KC_GEN_NAMESPACE,KRADConstants.DetailTypes.ALL_DETAIL_TYPE, KRADConstants.CSRF_PROTECTION_ENABLED)){
+            if(!getParameterService().getParameterValueAsBoolean(KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE,KRADConstants.DetailTypes.CONFIG_DETAIL_TYPE, KRADConstants.CSRF_PROTECTION_ENABLED)){
                 return false;
             }
         }

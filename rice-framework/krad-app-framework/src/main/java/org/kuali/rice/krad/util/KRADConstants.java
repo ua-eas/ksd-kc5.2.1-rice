@@ -110,6 +110,7 @@ public final class KRADConstants {
         public static final String RULE_SERVICE_DETAIL_TYPE = "RuleBaseValues";
         public static final String RULE_TEMPLATE_DETAIL_TYPE = "RuleTemplate";
         public static final String WORKGROUP_DETAIL_TYPE = "Notification";
+        public static final String CONFIG_DETAIL_TYPE = "Config";
 
         private DetailTypes() {
             throw new UnsupportedOperationException("do not call");
@@ -707,7 +708,5 @@ public final class KRADConstants {
     public static final String CSRF_PROTECTION_ENABLED = "CSRF_PROTECTION_ENABLED";
     public static final String CSRF_PARAMETER = "csrfToken";
     public static final String CSRF_SESSION_TOKEN = "csrfSessionToken";
-
-    public static final String KC_GEN_NAMESPACE="KC-GEN";
 
 }
