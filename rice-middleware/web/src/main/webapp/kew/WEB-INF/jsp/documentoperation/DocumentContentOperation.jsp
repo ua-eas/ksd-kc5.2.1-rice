@@ -72,6 +72,7 @@
     	</td>
     </tr>
     </table>
+        <kul:csrf />
     </html:form>
 </body>
 </html>
