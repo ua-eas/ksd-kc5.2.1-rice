@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.kew.api.preferences.Preferences;
-import org.kuali.rice.kew.preferences.web.PreferencesConstants;
+import org.kuali.rice.kns.util.WebUtils;
 import org.kuali.rice.kns.web.struts.form.KualiForm;
 import org.kuali.rice.krad.exception.ValidationException;
 import org.kuali.rice.krad.util.GlobalVariables;
@@ -90,7 +90,7 @@ public class PreferencesForm extends KualiForm {
     }
     
 	public String getBackLocation() {
-		return this.backLocation;
+	    return WebUtils.sanitizeBackLocation(this.backLocation);
 	}
 	public void setBackLocation(String backLocation) {
 		this.backLocation = backLocation;
@@ -185,6 +185,8 @@ public class PreferencesForm extends KualiForm {
                 (!StringUtils.isBlank(preferences.getShowDelegator())) && (!PreferencesConstants.CheckBoxValues.getCheckBoxValues().contains(preferences.getShowDelegator())) ||
                 (!StringUtils.isBlank(preferences.getShowDateCreated())) && (!PreferencesConstants.CheckBoxValues.getCheckBoxValues().contains(preferences.getShowDateCreated())) ||
                 (!StringUtils.isBlank(preferences.getShowDateApproved())) &&(!PreferencesConstants.CheckBoxValues.getCheckBoxValues().contains(preferences.getShowDateApproved())) ||
+                (!StringUtils.isBlank(preferences.getShowSPSInboxTimestamp())) &&(!PreferencesConstants.CheckBoxValues.getCheckBoxValues().contains(preferences.getShowSPSInboxTimestamp())) ||
+        		(!StringUtils.isBlank(preferences.getShowSponsorDeadlineDate())) &&(!PreferencesConstants.CheckBoxValues.getCheckBoxValues().contains(preferences.getShowSponsorDeadlineDate())) ||
                 (!StringUtils.isBlank(preferences.getShowCurrentNode())) &&	(!PreferencesConstants.CheckBoxValues.getCheckBoxValues().contains(preferences.getShowCurrentNode())) ||
                 (!StringUtils.isBlank(preferences.getShowWorkgroupRequest())) && (!PreferencesConstants.CheckBoxValues.getCheckBoxValues().contains(preferences.getShowWorkgroupRequest())) ||
                 (!StringUtils.isBlank(preferences.getShowDocumentStatus())) && (!PreferencesConstants.CheckBoxValues.getCheckBoxValues().contains(preferences.getShowDocumentStatus())) ||
