@@ -17,7 +17,7 @@
 --%>
 <%@ include file="/kr/WEB-INF/jsp/tldHeader.jsp"%>
 
-<%@ page session="false" %>
+<%--<%@ page session="false" %> --%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Iterator" %>
 

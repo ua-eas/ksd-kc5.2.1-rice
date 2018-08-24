@@ -110,6 +110,7 @@ public final class KRADConstants {
         public static final String RULE_SERVICE_DETAIL_TYPE = "RuleBaseValues";
         public static final String RULE_TEMPLATE_DETAIL_TYPE = "RuleTemplate";
         public static final String WORKGROUP_DETAIL_TYPE = "Notification";
+        public static final String CONFIG_DETAIL_TYPE = "Config";
 
         private DetailTypes() {
             throw new UnsupportedOperationException("do not call");
@@ -193,6 +194,8 @@ public final class KRADConstants {
     public static final String LOGOFF_REDIRECT_URL_PARAMETER = "LOGOFF_REDIRECT_URL";
     public static final String LOGOFF_REDIRECT_URL_PROPERTY = "rice.portal.logout.redirectUrl";
     public static final String PORTAL_ALLOWED_REGEX = "rice.portal.allowed.regex";
+    public static final String BACK_LOCATION_ALLOWED_REGEX = "rice.backLocation.allowed.regex";
+    public static final String BACK_LOCATION_DEFAULT_URL = "rice.backLocation.default.url";
     //    public static final String BLANKET_APPROVE_METHOD = "blanketApprove";
     public static final String BUSINESS_OBJECT_CLASS_ATTRIBUTE = "businessObjectClassName";
     public static final String DATA_OBJECT_CLASS_ATTRIBUTE = "dataObjectClassName";
@@ -700,4 +703,10 @@ public final class KRADConstants {
         public static final String APPLICATION_URL = "application.url";
         public static final String KRAD_DEV_MODE = "rice.krad.dev.mode";
     }
+
+    // CSRF
+    public static final String CSRF_PROTECTION_ENABLED = "CSRF_PROTECTION_ENABLED";
+    public static final String CSRF_PARAMETER = "csrfToken";
+    public static final String CSRF_SESSION_TOKEN = "csrfSessionToken";
+
 }
