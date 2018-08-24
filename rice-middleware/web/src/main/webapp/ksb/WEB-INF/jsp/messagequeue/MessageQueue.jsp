@@ -21,6 +21,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
+<%@ taglib tagdir="/WEB-INF/tags/kr" prefix="kul"%>
 
 <c:set var="hasAnyRows" value="${false}" />
 <c:if test="${!empty MessageQueueForm.messageQueueRows}">
