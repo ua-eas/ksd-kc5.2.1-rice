@@ -17,7 +17,6 @@ import org.kuali.rice.kim.api.identity.employment.EntityEmployment;
 import org.springframework.ldap.core.DirContextOperations;
 
 import edu.arizona.kim.eds.UaEdsAffiliation;
-import edu.arizona.kim.eds.UaEdsConstants;
 import edu.arizona.kim.eds.UaEdsRecord;
 import edu.arizona.kim.eds.UaEdsRecordFactory;
 
@@ -111,8 +110,7 @@ public class UaEntityEmploymentMapper extends UaBaseMapper<List<EntityEmployment
             return "LDAP context was null!";
         }
 
-        UaEdsConstants edsConstants = new UaEdsConstants();
-        String netIdContextKey = edsConstants.getUidContextKey();
+        String netIdContextKey = getEdsConstants().getUidContextKey();
         String netId = context.getStringAttribute(netIdContextKey);
         if (StringUtils.isBlank(netId)) {
             return "Could not find uid in LDAP context";

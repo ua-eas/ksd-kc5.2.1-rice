@@ -33,7 +33,7 @@
         <property name="credentials" value="${rice.ldap.password}" />
     </bean>
 
-    <bean id="edsConstants" class="edu.arizona.kim.eds.UaEdsConstants" scope="prototype">
+    <bean id="edsConstants" class="edu.arizona.kim.eds.UaEdsConstants" >
         <!-- Keys into the EDS Schema -->
         <property name="uaIdContextKey"                                value="uaId" />
         <property name="uidContextKey"                                 value="uid" />
