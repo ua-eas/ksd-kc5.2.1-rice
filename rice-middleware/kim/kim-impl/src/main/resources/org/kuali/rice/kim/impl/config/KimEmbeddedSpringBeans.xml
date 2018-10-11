@@ -69,7 +69,7 @@
        	UA changes Identity Service
   -->
   <bean id="kimIdentityService"
-        class="edu.arizona.kim.service.impl.UaLdapIdentityServiceImpl"
+        class="edu.arizona.kim.service.impl.MockIdentityService"
         p:businessObjectService-ref="rice.kim.import.businessObjectService"
         p:ldapPrincipalDao-ref="ldapPrincipalDao">
   </bean>
