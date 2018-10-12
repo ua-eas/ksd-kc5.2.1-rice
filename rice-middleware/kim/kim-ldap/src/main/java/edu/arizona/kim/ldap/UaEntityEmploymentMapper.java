@@ -1,10 +1,12 @@
 package edu.arizona.kim.ldap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.coreservice.api.parameter.Parameter;
@@ -18,121 +20,142 @@ import edu.arizona.kim.eds.UaEdsAffiliation;
 import edu.arizona.kim.eds.UaEdsRecord;
 import edu.arizona.kim.eds.UaEdsRecordFactory;
 
-/**
- * Created by shaloo & kosta on 8/20/15.
- */
+
+
 public class UaEntityEmploymentMapper extends UaBaseMapper<List<EntityEmployment>> {
 
-	private static final Logger LOG = Logger.getLogger(UaEntityEmploymentMapper.class);
+    private static final Logger LOG = Logger.getLogger(UaEntityEmploymentMapper.class);
 
-	private ParameterService parameterService;
-	private UaEntityAffiliationMapper affiliationMapper;
-
-	@Override
-	List<EntityEmployment> mapDtoFromContext(DirContextOperations context) {
-		List<EntityEmployment.Builder> builders = mapBuilderFromContext(context);
-		List<EntityEmployment> employments = new ArrayList<EntityEmployment>();
-		if (builders != null) {
-			for (EntityEmployment.Builder builder : builders) {
-				employments.add(builder.build());
-			}
-		}
-
-		return employments;
-	}
-
-	List<EntityEmployment.Builder> mapBuilderFromContext(DirContextOperations context) {
-
-		UaEdsRecord edsRecord = UaEdsRecordFactory.getEdsRecord(context);
-		if (edsRecord == null) {
-			LOG.debug("No active and valid EDS eduPersonAffiliation found for context: " + context.getAttributes());
-			return null;
-		}
-
-		List<EntityEmployment.Builder> employments = new ArrayList<EntityEmployment.Builder>();
-
-		int affId = 1; // The affiliation id is just its position in the ordered
-						// set
-
-		for (UaEdsAffiliation edsAff : edsRecord.getOrderedAffiliations()) {
-
-			// Non-employees don't have employment info, like student or retiree
-			Set<String> nonEmployeeAffs = getValueSetForParameter(getEdsConstants().getEdsNonEmployeeAffsParamKey());
-			if (nonEmployeeAffs.contains(edsAff.getAffiliatonString())) {
-				continue;
-			}
-
-			final EntityEmployment.Builder employmentInfo = EntityEmployment.Builder.create();
-
-			if (affId == 1) {
-				// this is the primary affiliation
-				employmentInfo.setPrimary(true);
-			} else {
-				// This field defaults as 'true' when instantiated, so
-				// explicitly set to false
-				employmentInfo.setPrimary(false);
-			}
-
-			List<EntityAffiliation.Builder> affiliations = getAffiliationMapper().mapBuilderFromContext(context);
-			// only map affiliation if it exists
-			if (affiliations.size() > 0) {
-				employmentInfo.setEntityAffiliation(affiliations.get(0));
-			}
-
-			employmentInfo.setEmploymentRecordId(Integer.toString(affId));
-			employmentInfo.setEmployeeId(edsRecord.getEmplId());
-			employmentInfo.setActive(edsAff.isActive());
-			employmentInfo.setEmployeeStatus(CodedAttribute.Builder.create(edsAff.getStatusCode()));
-			employmentInfo.setPrimaryDepartmentCode(getConstants().getDefaultChartCode() + "-" + edsAff.getDeptCode());
-			employmentInfo.setEmployeeType(CodedAttribute.Builder.create(edsAff.getEmployeeType()));
-
-			// UAF-1030 -- baseSalaryAmount should always show $0.00, and *not* mapped to the EDS value
-			employmentInfo.setBaseSalaryAmount(KualiDecimal.ZERO);
-
-			employments.add(employmentInfo);
-			affId++;
-		}
+    private ParameterService parameterService;
+    private UaEntityAffiliationMapper affiliationMapper;
 
 
-		return employments;
+    @Override
+    protected List<EntityEmployment> mapDtoFromContext(DirContextOperations context) {
+        List<EntityEmployment.Builder> builders = mapBuilderFromContext(context);
+        List<EntityEmployment> employments = new ArrayList<>();
+        if (builders != null) {
+            for (EntityEmployment.Builder builder : builders) {
+                employments.add(builder.build());
+            }
+        }
 
-	}
+        return employments;
+    }
 
-	private Set<String> getValueSetForParameter(String parameterKey) {
-		String listAsCommaString = getStringForParameter(parameterKey);
-		String[] listAsArray = listAsCommaString.split(getEdsConstants().getKfsParamDelimiter());
-		Set<String> resultSet = new HashSet<String>();
-		for (String result : listAsArray) {
-			resultSet.add(result);
-		}
-		return resultSet;
-	}
 
-	private String getStringForParameter(String parameterKey) {
-		String namespaceCode = getEdsConstants().getParameterNamespaceCode();
-		String detailTypeCode = getEdsConstants().getParameterDetailTypeCode();
-		Parameter parameter = getParameterService().getParameter(namespaceCode, detailTypeCode, parameterKey);
-		if (parameter == null) {
-			String message = String.format("ParameterService returned null for parameterKey: '%s', namespaceCode: '%s', detailTypeCode: '%s'", parameterKey, namespaceCode, detailTypeCode);
-			throw new RuntimeException(message);
-		}
-		return parameter.getValue();
-	}
+    protected List<EntityEmployment.Builder> mapBuilderFromContext(DirContextOperations context) {
+        UaEdsRecord edsRecord = UaEdsRecordFactory.getEdsRecord(context);
+        if (edsRecord == null) {
+            LOG.warn("No active and valid EDS eduPersonAffiliation found for netId: " + getNetIdForLogWarning(context));
+            return null;
+        }
 
-	private ParameterService getParameterService() {
-		return parameterService;
-	}
+        // Setting up for loop below
+        int affIndex = 0; // Used for syncing ordered lists of UaEdsAffiliation and EntityAffiliation
+        int affId = 1; // The affiliation id is just its position in an ordered set
+        List<EntityAffiliation.Builder> kualiAffs = getAffiliationMapper().mapBuilderFromContext(context);
+        Set<String> nonEmployeeAffs = getValueSetForParameter(getEdsConstants().getEdsNonEmployeeAffsParamKey());
+        List<EntityEmployment.Builder> employments = new ArrayList<>();
 
-	public void setParameterService(ParameterService parameterService) {
-		this.parameterService = parameterService;
-	}
+        for (UaEdsAffiliation edsAff : edsRecord.getOrderedAffiliations()) {
+            if (nonEmployeeAffs.contains(edsAff.getAffiliatonString())) {
+                // Non-employees don't have employment info, like student or retiree
+                affIndex++;
+                continue;
+            }
 
-	public final UaEntityAffiliationMapper getAffiliationMapper() {
-		return this.affiliationMapper;
-	}
+            EntityEmployment.Builder employmentInfo = EntityEmployment.Builder.create();
+            employmentInfo.setPrimary(affId == 1);// Primary aff always has id == 1
+            employmentInfo.setEntityAffiliation(getAffForEmploymentInfo(affIndex, kualiAffs));
+            employmentInfo.setEmploymentRecordId(Integer.toString(affId));
+            employmentInfo.setEmployeeId(edsRecord.getEmplId());
+            employmentInfo.setActive(edsAff.isActive());
+            employmentInfo.setEmployeeStatus(CodedAttribute.Builder.create(edsAff.getStatusCode()));
+            employmentInfo.setPrimaryDepartmentCode(getConstants().getDefaultChartCode() + "-" + edsAff.getDeptCode());
+            employmentInfo.setEmployeeType(CodedAttribute.Builder.create(edsAff.getEmployeeType()));
+            employmentInfo.setBaseSalaryAmount(KualiDecimal.ZERO);//UAF-1030: baseSalaryAmount should always be $0.00
 
-	public void setAffiliationMapper(UaEntityAffiliationMapper entityAffiliationMapper) {
-		this.affiliationMapper = entityAffiliationMapper;
-	}
+            employments.add(employmentInfo);
+            affIndex++;
+            affId++;
+        }
+
+        return employments;
+    }
+
+
+    /*
+     * Note:
+     * Fact 1: The for loop this method is called from loops on EdsRecord#getOrderedAffs(context)
+     * Fact 2: Given the same context, EdsRecord#getOrderedAffs(context) will always return the
+     *         same-ordered collection
+     * Fact 3: The passed-in kualiAffs are actually built from EdsRecord.getOrderedAffs(context), with the same
+     *         context as the loop that called this method
+     *
+     * Point: That kualiAffs.get(n) will be informationally equivalent to
+     *        EdsRecord#getOrderedAffiliations().get(n), so each employmentInfo in the calling loop
+     *        will line up correctly with its corresponding aff (was bugged under FIN-294)
+     */
+    private EntityAffiliation.Builder getAffForEmploymentInfo(int affIndex, List<EntityAffiliation.Builder> kualiAffs) {
+        if (kualiAffs != null && affIndex < kualiAffs.size()) {
+            return kualiAffs.get(affIndex);
+        }
+        return null;
+    }
+
+
+    private String getNetIdForLogWarning(DirContextOperations context) {
+        if (context == null) {
+            return "LDAP context was null!";
+        }
+
+        String netIdContextKey = getEdsConstants().getUidContextKey();
+        String netId = context.getStringAttribute(netIdContextKey);
+        if (StringUtils.isBlank(netId)) {
+            return "Could not find uid in LDAP context";
+        }
+
+        return netId;
+    }
+
+
+    private Set<String> getValueSetForParameter(String parameterKey) {
+        String listAsCommaString = getStringForParameter(parameterKey);
+        String[] listAsArray = listAsCommaString.split(getEdsConstants().getKfsParamDelimiter());
+        return new HashSet<>(Arrays.asList(listAsArray));
+    }
+
+
+    private String getStringForParameter(String parameterKey) {
+        String namespaceCode = getEdsConstants().getParameterNamespaceCode();
+        String detailTypeCode = getEdsConstants().getParameterDetailTypeCode();
+        Parameter parameter = getParameterService().getParameter(namespaceCode, detailTypeCode, parameterKey);
+        if (parameter == null) {
+            String message = String.format("ParameterService returned null for parameterKey: '%s', namespaceCode: '%s', detailTypeCode: '%s'", parameterKey, namespaceCode, detailTypeCode);
+            throw new RuntimeException(message);
+        }
+        return parameter.getValue();
+    }
+
+
+    private ParameterService getParameterService() {
+        return parameterService;
+    }
+
+
+    public void setParameterService(ParameterService parameterService) {
+        this.parameterService = parameterService;
+    }
+
+
+    public final UaEntityAffiliationMapper getAffiliationMapper() {
+        return this.affiliationMapper;
+    }
+
+
+    public void setAffiliationMapper(UaEntityAffiliationMapper entityAffiliationMapper) {
+        this.affiliationMapper = entityAffiliationMapper;
+    }
 
 }
