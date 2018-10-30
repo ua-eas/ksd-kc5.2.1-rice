@@ -42,8 +42,8 @@
   <url>http://${kuali.site.hostname}/rice/${project.version}</url>
 
   <properties>
-    <project.compile.source>1.7</project.compile.source>
-    <project.compile.target>1.7</project.compile.target>
+    <project.compile.source>1.8</project.compile.source>
+    <project.compile.target>1.8</project.compile.target>
     <project.compiler.version>1.8</project.compiler.version>
     <tools.jar.path>${java.home}/../lib/tools.jar</tools.jar.path>
 
@@ -1555,12 +1555,6 @@
         <groupId>antlr</groupId>
         <artifactId>antlr</artifactId>
         <version>${antlr.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>aopalliance</groupId>
-        <artifactId>aopalliance</artifactId>
-        <version>${aopalliance.version}</version>
       </dependency>
 
       <!-- explicitly including asm to change version number from what maven would have resolved it to -->
