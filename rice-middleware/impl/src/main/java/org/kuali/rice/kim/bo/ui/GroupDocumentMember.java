@@ -16,12 +16,14 @@
 package org.kuali.rice.kim.bo.ui;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.kuali.rice.kim.api.KimConstants;
+import org.kuali.rice.krad.data.jpa.converters.BooleanYNConverter;
 
 /**
  * This is a description of what this class does - kellerj don't forget to fill this in. 
@@ -46,6 +48,11 @@ public class GroupDocumentMember extends KimDocumentBoActiveToFromBase {
 
     @Column(name = "MBR_NM")
     protected String memberName;
+
+    // UA KFS7 Upgrade
+    @Column(name="EDIT_FLAG")
+    @Convert(converter = BooleanYNConverter.class)
+    protected boolean editing;
 
     @Transient
     protected String memberNamespaceCode;
@@ -142,4 +149,13 @@ public class GroupDocumentMember extends KimDocumentBoActiveToFromBase {
     public void setMemberFullName(String memberFullName) {
         this.memberFullName = memberFullName;
     }
+
+    public boolean isEditing() {
+        return this.editing;
+    }
+
+    public void setEditing(boolean editing) {
+        this.editing = editing;
+    }
+
 }

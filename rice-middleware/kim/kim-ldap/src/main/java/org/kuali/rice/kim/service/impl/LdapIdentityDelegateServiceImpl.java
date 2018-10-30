@@ -17,28 +17,26 @@ package org.kuali.rice.kim.service.impl;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.jws.WebParam;
+
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.criteria.CriteriaValue;
-import org.kuali.rice.core.api.criteria.EqualPredicate;
-import org.kuali.rice.core.api.criteria.Predicate;
-import org.kuali.rice.core.api.criteria.QueryByCriteria;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
-import org.kuali.rice.kim.api.identity.entity.EntityDefaultQueryResults;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.identity.privacy.EntityPrivacyPreferences;
 import org.kuali.rice.kim.dao.LdapPrincipalDao;
 import org.kuali.rice.kim.impl.identity.IdentityServiceImpl;
-import org.kuali.rice.kim.impl.identity.entity.EntityBo;
-
-import javax.jws.WebParam;
+import org.kuali.rice.kim.service.LdapIdentityService;
 
 /**
  * Implementation of {@link IdentityService} that communicates with and serves information
@@ -47,7 +45,9 @@ import javax.jws.WebParam;
  * 
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-public class LdapIdentityDelegateServiceImpl extends IdentityServiceImpl {
+// **AZ UPGRADE 3.0-5.3** - implement LdapIdentityService interface
+public class LdapIdentityDelegateServiceImpl extends IdentityServiceImpl implements LdapIdentityService {
+
     private LdapPrincipalDao principalDao;
 
     @Override
@@ -234,4 +234,26 @@ public class LdapIdentityDelegateServiceImpl extends IdentityServiceImpl {
     public LdapPrincipalDao getPrincipalDao() {
         return principalDao;
     } 
+
+ // begin **AZ UPGRADE 3.0-5.3** - implement LdapIdentityService interface
+    @Override
+    public List<EntityDefault> findEntityDefaults(Map<String, String> criteria, boolean unbounded) {
+        return getPrincipalDao().lookupEntityDefault(criteria, unbounded);
+    }
+
+    //UAF-6 - Performance improvements to improve user experience for AWS deployment
+    @Override
+    public List<EntityDefault> getEntityDefaultsByPrincipalIds(Collection<String> principalIds) {
+        Map <String, Object> criteria = new HashMap<String, Object>();
+        criteria.put(principalDao.getKimConstants().getKimLdapIdProperty(), principalIds);
+        return principalDao.search(EntityDefault.class, criteria);
+    }
+
+
+    @Override
+    public List<EntityDefault> getEntityDefaultsByCriteria(Map<String, List<String>> criteria) {
+        throw new NotImplementedException("Only the UaPersonService implements this method!");
+    }
+
+// end - **AZ UPGRADE 3.0-5.3**
 }

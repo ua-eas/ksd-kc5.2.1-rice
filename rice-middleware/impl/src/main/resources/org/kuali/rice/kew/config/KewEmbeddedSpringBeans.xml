@@ -358,7 +358,7 @@
     <property name="serviceName" value="persistenceServiceOjb"/>
   </bean>
 
-  <bean id="kewModule" class="org.kuali.rice.kew.service.impl.KEWModuleService">
+  <bean id="kewModule" class="edu.arizona.rice.kew.service.impl.KEWModuleService">
     <property name="moduleConfiguration" ref="kewModuleConfiguration"/>
     <property name="kualiModuleService" ref="rice.kew.import.kualiModuleService"/>
   </bean>
@@ -397,6 +397,7 @@
     <property name="packagePrefixes">
       <list>
         <value>org.kuali.rice.kew.</value>
+        <value>edu.arizona.rice.kew.</value>
       </list>
     </property>
     <property name="externalizableBusinessObjectImplementations">
@@ -404,6 +405,8 @@
         <entry key="org.kuali.rice.kew.doctype.bo.DocumentTypeEBO" value="org.kuali.rice.kew.doctype.bo.DocumentType"/>
         <entry key="org.kuali.rice.kew.docsearch.DocumentSearchCriteriaEbo"
                value="org.kuali.rice.kew.impl.document.search.DocumentSearchCriteriaBo"/>
+        <entry key="edu.arizona.rice.kew.routeheader.DocumentRouteHeaderValueEbo"
+               value="edu.arizona.rice.kew.routeheader.DocumentRouteHeaderValueEboImpl"/>
       </map>
     </property>
     <property name="providers">

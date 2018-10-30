@@ -845,12 +845,11 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 	@Override
 	public boolean canModifyEntity( String currentUserPrincipalId, String toModifyPrincipalId ){
 		return (StringUtils.isNotBlank(currentUserPrincipalId) && StringUtils.isNotBlank(toModifyPrincipalId) &&
-				currentUserPrincipalId.equals(toModifyPrincipalId)) ||
 				getPermissionService().isAuthorized(
 						currentUserPrincipalId,
 						KimConstants.NAMESPACE_CODE,
 						KimConstants.PermissionNames.MODIFY_ENTITY,
-						Collections.singletonMap(KimConstants.AttributeConstants.PRINCIPAL_ID, currentUserPrincipalId));
+						Collections.singletonMap(KimConstants.AttributeConstants.PRINCIPAL_ID, currentUserPrincipalId)));
 	}
 
 	@Override
@@ -1831,28 +1830,28 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 		identityManagementRoleDocument.setMembers(members);
 	}
 
-	@Override
-	public void setDelegationMembersInDocument(IdentityManagementRoleDocument identityManagementRoleDocument){
-		if(CollectionUtils.isNotEmpty(identityManagementRoleDocument.getDelegations())){
-			for(RoleDocumentDelegation delegation: identityManagementRoleDocument.getDelegations()){
-				if(CollectionUtils.isNotEmpty(delegation.getMembers())){
-					RoleMemberBo roleMember;
-					for(RoleDocumentDelegationMember member: delegation.getMembers()){
-						member.setDelegationTypeCode(delegation.getDelegationTypeCode());
-						if (StringUtils.isEmpty(member.getRoleMemberName())) {
-							roleMember = getRoleMemberForRoleMemberId(member.getRoleMemberId());
-							if(roleMember!=null){
-								member.setRoleMemberName(getMemberName(roleMember.getType(), roleMember.getMemberId()));
-								member.setRoleMemberNamespaceCode(getMemberNamespaceCode(roleMember.getType(), roleMember.getMemberId()));
-							}
-						}
-						member.setEdit(false);
-						identityManagementRoleDocument.getDelegationMembers().add(member);
-					}
-				}
-			}
-		}
-	}
+    @Override
+    public void setDelegationMembersInDocument(IdentityManagementRoleDocument identityManagementRoleDocument){
+        if(CollectionUtils.isNotEmpty(identityManagementRoleDocument.getDelegations())){
+            for(RoleDocumentDelegation delegation: identityManagementRoleDocument.getDelegations()){
+                if(CollectionUtils.isNotEmpty(delegation.getMembers())){
+                    RoleMemberBo roleMember;
+                    for(RoleDocumentDelegationMember member: delegation.getMembers()){
+                        member.setDelegationTypeCode(delegation.getDelegationTypeCode());
+                        if (StringUtils.isEmpty(member.getRoleMemberName())) {
+                            roleMember = getRoleMemberForRoleMemberId(member.getRoleMemberId());
+                            if(roleMember!=null){
+                                member.setRoleMemberName(getMemberName(roleMember.getType(), roleMember.getMemberId()));
+                                member.setRoleMemberNamespaceCode(getMemberNamespaceCode(roleMember.getType(), roleMember.getMemberId()));
+                            }
+                        }
+                        member.setEdit(false);
+                        identityManagementRoleDocument.getDelegationMembers().add(member);
+                    }
+                }
+            }
+        }
+    }
 
 	protected List<KimDocumentRoleResponsibility> loadResponsibilities(List<RoleResponsibilityBo> roleResponsibilities){
 		List<KimDocumentRoleResponsibility> documentRoleResponsibilities = new ArrayList<KimDocumentRoleResponsibility>();
@@ -2435,7 +2434,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 				KimCommonUtilsInternal.copyProperties(newRoleResponsibility, documentRoleResponsibility);
 				newRoleResponsibility.setActive(documentRoleResponsibility.isActive());
 				newRoleResponsibility.setRoleId(identityManagementRoleDocument.getRoleId());
-				newRoleResponsibility.setVersionNumber(null);
+                newRoleResponsibility.setVersionNumber(null);
 				newRoleResponsibility.setObjectId(null);
 				if(ObjectUtils.isNotNull(origRoleResponsibilities)){
 					for(RoleResponsibilityBo origResponsibilityImpl: origRoleResponsibilities){
@@ -2549,38 +2548,38 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 		KimType roleType = getKimTypeInfoService().getKimType(kimTypeId);
 		KimTypeService kimTypeService = KimFrameworkServiceLocator.getKimTypeService(roleType);
 
-		if(CollectionUtils.isEmpty(modifiedRoleMembers)){
-			return;
-		}
-		for(KimDocumentRoleMember documentRoleMember : modifiedRoleMembers){
-			boolean isNewRoleMember = true;
-			for( RoleMemberBo roleMember : roleMembers ) {
-				// are we editing an existing record?
-				if ( StringUtils.equals( roleMember.getId(), documentRoleMember.getRoleMemberId()) ) {
-					// yes we are
-					roleMember.setActiveFromDateValue(documentRoleMember.getActiveFromDate());
-					roleMember.setActiveToDateValue(documentRoleMember.getActiveToDate());
-					isNewRoleMember = false;
+        if(CollectionUtils.isEmpty(modifiedRoleMembers)){
+            return;
+        }
+        for(KimDocumentRoleMember documentRoleMember : modifiedRoleMembers){
+            boolean isNewRoleMember = true;
+            for( RoleMemberBo roleMember : roleMembers ) {
+                // are we editing an existing record?
+                if ( StringUtils.equals( roleMember.getId(), documentRoleMember.getRoleMemberId()) ) {
+                    // yes we are
+                    roleMember.setActiveFromDateValue(documentRoleMember.getActiveFromDate());
+                    roleMember.setActiveToDateValue(documentRoleMember.getActiveToDate());
+                    isNewRoleMember = false;
 					List<RoleResponsibilityActionBo> responsibilityActions = getRoleMemberResponsibilityActionImpls(roleMember.getId());
 					roleMember.setRoleRspActions(responsibilityActions);
-					updateRoleMemberResponsibilityActions( documentRoleMember.getRoleRspActions(), roleMember.getRoleRspActions());
-					//KULRICE:1157-Added a call to notifyOnMemberRemoval to handle when a role member is inactivated from the role maintenance doc
-					if(roleMember.isActive() && !documentRoleMember.isActive()){
-						getRoleService().notifyOnMemberRemoval(RoleMemberBo.to(roleMember));
-					}
-					break;
-				}
-			}
-			if ( isNewRoleMember ) {
-				RoleMemberBo roleMember = null;
-				roleMember = new RoleMemberBo();
-				roleMember.setId(documentRoleMember.getRoleMemberId());
-				roleMember.setRoleId(roleId);
-				roleMember.setTypeCode(documentRoleMember.getMemberTypeCode());
-				roleMember.setMemberId(documentRoleMember.getMemberId());
-				roleMember.setType(MemberType.fromCode(documentRoleMember.getMemberTypeCode()));
-				roleMember.setActiveFromDateValue(documentRoleMember.getActiveFromDate());
-				roleMember.setActiveToDateValue(documentRoleMember.getActiveToDate());
+                    updateRoleMemberResponsibilityActions( documentRoleMember.getRoleRspActions(), roleMember.getRoleRspActions());
+                    //KULRICE:1157-Added a call to notifyOnMemberRemoval to handle when a role member is inactivated from the role maintenance doc
+                    if(roleMember.isActive() && !documentRoleMember.isActive()){
+                        getRoleService().notifyOnMemberRemoval(RoleMemberBo.to(roleMember));
+                    }
+                    break;
+                }
+            }
+            if ( isNewRoleMember ) {
+                RoleMemberBo roleMember = null;
+                roleMember = new RoleMemberBo();
+                roleMember.setId(documentRoleMember.getRoleMemberId());
+                roleMember.setRoleId(roleId);
+                roleMember.setTypeCode(documentRoleMember.getMemberTypeCode());
+                roleMember.setMemberId(documentRoleMember.getMemberId());
+                roleMember.setType(MemberType.fromCode(documentRoleMember.getMemberTypeCode()));
+                roleMember.setActiveFromDateValue(documentRoleMember.getActiveFromDate());
+                roleMember.setActiveToDateValue(documentRoleMember.getActiveToDate());
 
 				roleMember.setAttributeDetails(getRoleMemberAttributeData(documentRoleMember.getQualifiers(), null));
 				roleMember.setRoleRspActions( new ArrayList<RoleResponsibilityActionBo>() );
@@ -2604,10 +2603,10 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 		List<RoleResponsibilityActionBo> existingRoleMemberActions = new ArrayList<RoleResponsibilityActionBo>( roleMemberActions );
 		// loop over document items
 		for(KimDocumentRoleResponsibilityAction docRoleRspAction : documentRoleMemberActions){
-			boolean isNewAction = true;
-			// loop over role member items
-			Iterator<RoleResponsibilityActionBo> rraInterator = existingRoleMemberActions.iterator();
-			while ( rraInterator.hasNext() ) {
+		    boolean isNewAction = true;
+            // loop over role member items
+		    Iterator<RoleResponsibilityActionBo> rraInterator = existingRoleMemberActions.iterator();
+		    while ( rraInterator.hasNext() ) {
 				RoleResponsibilityActionBo roleRspAction = rraInterator.next();
 				// we have a match, update the existing record
 				// If the ID's match
@@ -2804,7 +2803,7 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 				KimCommonUtilsInternal.copyProperties(newDelegationMemberImpl, delegationMember);
 				newDelegationMemberImpl.setVersionNumber(null);
 				newDelegationMemberImpl.setObjectId(null);
-				newDelegationMemberImpl.setType(MemberType.fromCode(delegationMember.getMemberTypeCode()));
+                newDelegationMemberImpl.setType(MemberType.fromCode(delegationMember.getMemberTypeCode()));
 				if(ObjectUtils.isNotNull(origDelegationMembers)){
 					for(DelegateMemberBo origDelegationMember: origDelegationMembers){
 						if(activatingInactive && StringUtils.equals(origDelegationMember.getMemberId(), newDelegationMemberImpl.getMemberId()) &&
@@ -2821,24 +2820,24 @@ public class UiDocumentServiceImpl implements UiDocumentService {
 						}
 					}
 				}
-				if(ObjectUtils.isNotNull(allOrigMembers)){
-					for (DelegateMemberBo origMember : allOrigMembers) {
-						if ((origMember.getDelegationMemberId() != null) &&
-								(origMember.getDelegationMemberId().equals(delegationMember.getDelegationMemberId())) &&
-								(origMember.getRoleMemberId() != null) &&
-								(origMember.getRoleMemberId().equals(delegationMember.getRoleMemberId()))) {
-							newDelegationMemberImpl.setVersionNumber(origMember.getVersionNumber());
-							newDelegationMemberImpl.setObjectId(origMember.getObjectId());
-							origDelegationMemberImplTemp = origMember;
-						}
-					}
-				}
-				origAttributes = (origDelegationMemberImplTemp==null || origDelegationMemberImplTemp.getAttributeDetails()==null)?
-						new ArrayList<DelegateMemberAttributeDataBo>():origDelegationMemberImplTemp.getAttributeDetails();
-				newDelegationMemberImpl.setAttributeDetails(getDelegationMemberAttributeData(delegationMember.getQualifiers(), origAttributes, activatingInactive, delegationMemberId));
-				newDelegationMemberImpl.setActiveFromDateValue(delegationMember.getActiveFromDate());
-				newDelegationMemberImpl.setActiveToDateValue(delegationMember.getActiveToDate());
-				delegationsMembersList.add(newDelegationMemberImpl);
+                if(ObjectUtils.isNotNull(allOrigMembers)){
+                    for (DelegateMemberBo origMember : allOrigMembers) {
+                        if ((origMember.getDelegationMemberId() != null) &&
+                            (origMember.getDelegationMemberId().equals(delegationMember.getDelegationMemberId())) &&
+                            (origMember.getRoleMemberId() != null) &&
+                            (origMember.getRoleMemberId().equals(delegationMember.getRoleMemberId()))) {
+                                newDelegationMemberImpl.setVersionNumber(origMember.getVersionNumber());
+                                newDelegationMemberImpl.setObjectId(origMember.getObjectId());
+                                origDelegationMemberImplTemp = origMember;
+                        }
+                    }
+                }
+                    origAttributes = (origDelegationMemberImplTemp==null || origDelegationMemberImplTemp.getAttributeDetails()==null)?
+                            new ArrayList<DelegateMemberAttributeDataBo>():origDelegationMemberImplTemp.getAttributeDetails();
+                    newDelegationMemberImpl.setAttributeDetails(getDelegationMemberAttributeData(delegationMember.getQualifiers(), origAttributes, activatingInactive, delegationMemberId));
+                    newDelegationMemberImpl.setActiveFromDateValue(delegationMember.getActiveFromDate());
+                    newDelegationMemberImpl.setActiveToDateValue(delegationMember.getActiveToDate());
+                    delegationsMembersList.add(newDelegationMemberImpl);
 			}
 		}
 		return delegationsMembersList;

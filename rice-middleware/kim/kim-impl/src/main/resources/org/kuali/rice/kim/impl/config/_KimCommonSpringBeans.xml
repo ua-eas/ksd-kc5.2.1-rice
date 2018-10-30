@@ -88,7 +88,17 @@
     </property>
   </bean>
 
-  <bean id="personService" class="org.kuali.rice.kim.impl.identity.PersonServiceImpl">
+  <!-- bean id="personService" class="org.kuali.rice.kim.impl.identity.PersonServiceImpl">
+    <property name="personEntityTypeCodes">
+      <list>
+        <value>PERSON</value>
+        <value>SYSTEM</value>
+      </list>
+    </property>
+  </bean-->
+  <!-- UA changes -->
+  <bean id="personService" class="edu.arizona.kim.service.impl.UaPersonService">
+  	<property name="ldapIdentityService" ref="kimIdentityService"/>
     <property name="personEntityTypeCodes">
       <list>
         <value>PERSON</value>
@@ -96,6 +106,7 @@
       </list>
     </property>
   </bean>
+  <!-- end -->
 
   <bean id="kimAuthenticationService" class="org.kuali.rice.kim.impl.identity.AuthenticationServiceImpl"/>
 

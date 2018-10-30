@@ -137,37 +137,26 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
         boolean validPrncplFoundIfPrncplCritPresent = true;
         Map<String, String> attribsMap = new HashMap<String, String>();
         if (!criteriaMap.isEmpty()) {
+            // principalId doesn't exist on 'Group'.
             List<Predicate> predicates = new ArrayList<Predicate>();
-            //principalId doesn't exist on 'Group'.  Lets do this predicate conversion separately
-            if (StringUtils.isNotBlank(criteriaMap.get(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME))) {
-                QueryByCriteria.Builder principalCriteria = QueryByCriteria.Builder.create();
-                Predicate principalPred = like("principalName", criteriaMap.get(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME));
-                principalCriteria.setPredicates(principalPred);
-                //String principalId = KimApiServiceLocator.getIdentityService()
-                //        .getPrincipalByPrincipalName(criteriaMap.get(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME)).getPrincipalId();
-                PrincipalQueryResults principals = KimApiServiceLocator.getIdentityService()
-                        .findPrincipals(principalCriteria.build());
-                List<String> principalIds = new ArrayList<String>();
-                for (Principal principal : principals.getResults()) {
-                    principalIds.add(principal.getPrincipalId());
-                }
-                if (CollectionUtils.isNotEmpty(principalIds)) {
-                    Timestamp currentTime = new Timestamp(Calendar.getInstance().getTimeInMillis());
-                    predicates.add( and(
-                                    in("members.memberId", principalIds.toArray(
-                                            new String[principalIds.size()])),
-                                    equal("members.typeCode", KimConstants.KimGroupMemberTypes.PRINCIPAL_MEMBER_TYPE.getCode()),
-                                    and(
-                                            or(isNull("members.activeFromDateValue"), lessThanOrEqual("members.activeFromDateValue", currentTime)),
-                                            or(isNull("members.activeToDateValue"), greaterThan("members.activeToDateValue", currentTime))
-                                    )
-                                ));
-                }else {
+            String principalName = criteriaMap.remove(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME);
+            if (StringUtils.isNotBlank(principalName)) {
+                Principal principal = KimApiServiceLocator.getIdentityService().getPrincipalByPrincipalName(principalName);
+                String principalId = principal.getPrincipalId();
+                if (StringUtils.isNotBlank(principalId)) {
+                    List<String> principalGroupIds = KimApiServiceLocator.getGroupService().getGroupIdsByPrincipalId(principalId);
+                    if (!principalGroupIds.isEmpty()) {
+                        predicates.add(in("id", principalGroupIds.toArray(new String[principalGroupIds.size()])));
+                    } else {
+                        // if there are no principalGroupIds, then there are no groups that the
+                        // principal is a member of.
+                        return new ArrayList<GroupBo>();
+                    }
+                } else {
                     validPrncplFoundIfPrncplCritPresent = false;
                 }
 
             }
-            criteriaMap.remove(KimConstants.UniqueKeyConstants.PRINCIPAL_NAME);
             Map<String, String> criteriaCopy = new HashMap<String, String>();
             // copy the criteria map so we can modify it
             criteriaCopy.putAll(criteriaMap);
@@ -183,7 +172,10 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
                     criteriaMap.remove(key);
                 }
             }
-            predicates.add(PredicateUtils.convertMapToPredicate(criteriaMap));
+            boolean isCriteriaMapContainAtLeastOneCriteria = isCriteriaMapContainAtLeastOneCriteria(criteriaMap);
+            if (isCriteriaMapContainAtLeastOneCriteria) {
+                predicates.add(PredicateUtils.convertMapToPredicate(criteriaMap));
+            }
             criteria.setPredicates(and(predicates.toArray(new Predicate[predicates.size()])));
         }
         List<Group> groups = new ArrayList<Group>();
@@ -215,6 +207,24 @@ public class GroupLookupableHelperServiceImpl  extends KimLookupableHelperServic
         }
 
     	return new ArrayList<GroupBo>(groupBos.values());
+    }
+
+    /**
+     * This method determines if any of the members of the passed in map have values
+     * that are not blank.
+     *
+     * @param criteriaMap
+     *            the Map to test.
+     * @return <code>TRUE</code> if at least one of the Values of the Map's entries
+     *         is not blank,<code>FALSE</code> otherwise.
+     */
+    private boolean isCriteriaMapContainAtLeastOneCriteria(Map<String, String> criteriaMap) {
+        for (String key : criteriaMap.keySet()) {
+            if (StringUtils.isNotBlank(criteriaMap.get(key))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

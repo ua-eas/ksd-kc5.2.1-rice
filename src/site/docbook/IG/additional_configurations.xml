@@ -773,5 +773,4 @@ Using JRE_HOME:		/usr/java/jdk1.6.0_16</programlisting></para>
             <para>Note that if you already have a <code>rice.kr.additionalSpringFiles</code> configuration parameter specified, the value is treated as a comma separated list, so you can add a comma at the end of the present value and append on the configuration for the KNSOverrideSpringBeans.xml file.</para>
 
     </section>
-    </section>
 </chapter>

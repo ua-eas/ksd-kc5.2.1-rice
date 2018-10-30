@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Rice</name>
   <inceptionYear>2005</inceptionYear>
-  <version>2.6.0</version>
+  <version>2.5.19-ua-release49</version>
   <description>
     The Kuali Rice effort provides an enterprise class middleware suite of integrated products that allows
     both Kuali and non-Kuali applications
@@ -42,9 +42,8 @@
   <url>http://${kuali.site.hostname}/rice/${project.version}</url>
 
   <properties>
-    <project.java.version>1.8</project.java.version>
-    <project.compile.source>1.8</project.compile.source>
-    <project.compile.target>1.8</project.compile.target>
+    <project.compile.source>1.7</project.compile.source>
+    <project.compile.target>1.7</project.compile.target>
     <project.compiler.version>1.8</project.compiler.version>
     <tools.jar.path>${java.home}/../lib/tools.jar</tools.jar.path>
 
@@ -52,9 +51,14 @@
     <kuali.release.prepare.goals>clean</kuali.release.prepare.goals>
     <kuali.release.goals>deploy</kuali.release.goals>
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
-    <!-- TODO: remove with update to kuali-common 4.4.2 -->
+    <kuali.release.profiles>release</kuali.release.profiles>
+
+    <!-- TODO: remove when updated to 4.4 version of kuali-common -->
     <kuali-core.version>1.0.19</kuali-core.version>
     <appserver.port>8080</appserver.port>
+    <gmaven.stubs.phase>generate-resources</gmaven.stubs.phase>
+    <gmaven.compile.phase>compile</gmaven.compile.phase>
+    <gmaven.test.compile.phase>test-compile</gmaven.test.compile.phase>
     <checkstyle.suppressions.location>/org/kuali/rice/suppressions.xml</checkstyle.suppressions.location>
     <oracle.jdbc.version>11.2.0.4</oracle.jdbc.version>
     <oracle.jdbc.artifactId>ojdbc6</oracle.jdbc.artifactId>
@@ -97,6 +101,7 @@
 
     <!-- project dependency versions: -->
 
+    <ant.version>1.7.0</ant.version>
     <antlr.version>2.7.7</antlr.version>
     <asm.version>5.2</asm.version>
     <aspectj.version>1.8.10</aspectj.version>
@@ -230,9 +235,9 @@
     <mysql-connector-java.jar.location>
       ${jdbc.drivers.location}/mysql/${mysql.jdbc.artifactId}/${mysql.jdbc.version}/${mysql.jdbc.artifactId}-${mysql.jdbc.version}.jar
     </mysql-connector-java.jar.location>
-    <ojdbc.jar.location>
+    <ojdbc14.jar.location>
       ${jdbc.drivers.location}/com/oracle/${oracle.jdbc.artifactId}/${oracle.jdbc.version}/${oracle.jdbc.artifactId}-${oracle.jdbc.version}.jar
-    </ojdbc.jar.location>
+    </ojdbc14.jar.location>
 
     <cobertura.maven.plugin.version>2.5.1</cobertura.maven.plugin.version>
     <web.launch.context.path>/kr-dev</web.launch.context.path>
@@ -275,94 +280,19 @@
       -javaagent:${spring-instrument.jar}
     </spring-instrument-javaagent>
 
-    <!-- This allows us to swap out the nexus.kuali.org repository from the parent POM with the nexus.kuali.co repository -->
-    <kuali.repo>https://nexus.kuali.co/nexus/content/groups/public</kuali.repo>
-
-    <!-- Override properties from the parent pom for deploying to Maven repositories -->
-    <!-- These are the Kuali repository settings for an official release -->
-    <kuali.repo.release.id>kualico.nexus.core.releases</kuali.repo.release.id>
-    <kuali.repo.release.name>KualiCo Core Release Repository</kuali.repo.release.name>
-    <kuali.repo.release.url>https://nexus.kuali.co/nexus/content/repositories/core-releases-public/</kuali.repo.release.url>
-    <!-- These are the Kuali repository settings for snapshot builds -->
-    <kuali.repo.snapshot.id>kualico.nexus.core.releases</kuali.repo.snapshot.id>
-    <kuali.repo.snapshot.name>KualiCo Core Snapshot Repository</kuali.repo.snapshot.name>
-    <kuali.repo.snapshot.url>https://nexus.kuali.co/nexus/content/repositories/core-snapshots-public/</kuali.repo.snapshot.url>
-
     <!-- set the kuali site url for publishing the documentation -->
     <kuali.site.publish.url>s3://site.origin.kuali.org/rice/${project.version}</kuali.site.publish.url>
-
+    <cas-client-core.version>3.2.1</cas-client-core.version>
   </properties>
 
-  <!-- duplicating distributionManagement from parent pom because site plugin doesn't properly allow overriding for the site url -->
-  <distributionManagement>
-    <downloadUrl>${kuali.site.download.url}</downloadUrl>
-    <site>
-      <id>${kuali.site.server.id}</id>
-      <name>Kuali Maven Site</name>
-      <url>${kuali.site.publish.url}</url>
-    </site>
-    <repository>
-      <id>${kuali.repo.release.id}</id>
-      <name>${kuali.repo.release.name}</name>
-      <url>${kuali.repo.release.url}</url>
-    </repository>
-    <snapshotRepository>
-      <id>${kuali.repo.snapshot.id}</id>
-      <name>${kuali.repo.snapshot.name}</name>
-      <url>${kuali.repo.snapshot.url}</url>
-    </snapshotRepository>
-  </distributionManagement>
-
   <profiles>
-    <!-- this profile ensures that when building in eclipse with m2e that the groovy project nature and source folders are added -->
+    <!-- jgitflow activates this profile automatically during a release -->
     <profile>
-      <id>m2e</id>
-      <activation>      
-        <property>
-          <name>m2e.version</name>
-        </property>
-        <file>
-          <exists>src/test/groovy</exists>
-        </file>
-      </activation>
-      <build>        
-        <plugins>
-          <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <compilerId>groovy-eclipse-compiler</compilerId>
-            </configuration>
-            <dependencies>
-              <dependency>
-                <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-eclipse-compiler</artifactId>
-                <version>2.9.2-01</version>
-              </dependency>
-              <dependency>
-                <groupId>org.codehaus.groovy</groupId>
-                <artifactId>groovy-eclipse-batch</artifactId>
-                <version>2.4.3-01</version>
-              </dependency>
-            </dependencies>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>    
-    <!-- This profile will be used unless -DskipOracleProfile is passed as a parameter -->
-    <profile>
-      <id>usingOracle</id>
-      <activation>
-        <property>
-          <name>!skipOracleProfile</name>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.eclipse.persistence</groupId>
-          <artifactId>org.eclipse.persistence.oracle</artifactId>
-          <version>${eclipselink.version}</version>
-        </dependency>
-      </dependencies>
+      <id>release-profile</id>
+      <properties>
+        <skipTests>true</skipTests>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+      </properties>
     </profile>
     <!-- Optimize the nightly build -->
     <profile>
@@ -759,6 +689,7 @@
   </profiles>
 
   <build>
+    <finalName>${project.artifactId}</finalName>
     <testResources>
       <!-- NOTE: Because Maven test runs can be spawned in a new JVM, the system
         properties on the initial Maven command line are not necessarily propagated
@@ -785,6 +716,28 @@
     </testResources>
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>external.atlassian.jgitflow</groupId>
+          <artifactId>jgitflow-maven-plugin</artifactId>
+          <version>1.0-m5.1</version>
+          <configuration>
+            <!-- Keep maven submodules at the same version as the parent POM -->
+            <autoVersionSubmodules>true</autoVersionSubmodules>
+            <!-- push generated branches to remote upstream -->
+            <pushFeatures>true</pushFeatures>
+            <pushReleases>true</pushReleases>
+            <pushHotfixes>true</pushHotfixes>
+            <!-- Prevents deployments from dev workstations so that they can be done
+                 by CI server -->
+            <noDeploy>true</noDeploy>
+            <!-- Allow snapshot dependencies -->
+            <allowSnapshots>true</allowSnapshots>
+            <flowInitContext>
+              <masterBranchName>rice-2.5-ua-master</masterBranchName>
+              <developBranchName>rice-2.5-ua-development</developBranchName>
+            </flowInitContext>
+          </configuration>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-eclipse-plugin</artifactId>
@@ -1002,6 +955,9 @@
                       <exclude>geronimo-spec:geronimo-spec-saaj</exclude>
                       <exclude>org.apache.servicemix.specs:org.apache.servicemix.specs.saaj-api-1.3</exclude>
 
+                      <!-- exclude eh cache in general - only allow at a specific scope -->
+                      <exclude>net.sf.ehcache</exclude>
+
                       <!--
                         KULRICE-7262: Bad jstl version in maven repository
                         When we go back to the javax.servlet artifact, we'll need to remove this
@@ -1020,6 +976,7 @@
                       <include>org.glassfish.web:jstl-impl:${jstl.version}</include>
 
                       <include>org.slf4j:*:${slf4j.version}</include>
+                      <include>net.sf.ehcache:*:${ehcache.version}:jar:runtime</include>
                       <include>com.sun.xml.bind:jaxb-impl:${jaxb-impl.version}</include>
                     </includes>
                   </bannedDependencies>
@@ -1193,7 +1150,7 @@
             <skip>${maven.failsafe.skip}</skip>
             <additionalClasspathElements>
               <additionalClasspathElement>${mysql-connector-java.jar.location}</additionalClasspathElement>
-              <additionalClasspathElement>${ojdbc.jar.location}</additionalClasspathElement>
+              <additionalClasspathElement>${ojdbc14.jar.location}</additionalClasspathElement>
             </additionalClasspathElements>
             <useSystemClassLoader>${maven.failsafe.useSystemClassLoader}</useSystemClassLoader>
             <useFile>false</useFile>
@@ -1566,6 +1523,31 @@
     <module>dist</module>
   </modules>
 
+  <repositories>
+    <repository>
+      <id>kuali.nexus</id>
+      <name>Nexus Repository Manager</name>
+      <url>http://nexus.kuali.org/content/groups/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>kualico.nexus</id>
+      <name>KualiCo Nexus Repository Manager</name>
+      <url>https://nexus.kuali.co/nexus/content/groups/public</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <dependencyManagement>
     <dependencies>
 
@@ -1573,6 +1555,12 @@
         <groupId>antlr</groupId>
         <artifactId>antlr</artifactId>
         <version>${antlr.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>aopalliance</groupId>
+        <artifactId>aopalliance</artifactId>
+        <version>${aopalliance.version}</version>
       </dependency>
 
       <!-- explicitly including asm to change version number from what maven would have resolved it to -->
@@ -1587,6 +1575,17 @@
         <!-- using nodep to resolve a problem with the asm dependency -->
         <artifactId>cglib-nodep</artifactId>
         <version>${cglib.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjrt</artifactId>
+        <version>${aspectj.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>${aspectj.version}</version>
       </dependency>
 
       <dependency>
@@ -2190,8 +2189,26 @@
       </dependency>
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
+        <artifactId>org.eclipse.persistence.oracle</artifactId>
+        <version>${eclipselink.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
         <artifactId>javax.persistence</artifactId>
         <version>${jpa.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jasig.cas.client</groupId>
+        <artifactId>cas-client-core</artifactId>
+        <version>${cas-client-core.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>commons-logging</artifactId>
+            <groupId>commons-logging</groupId>
+          </exclusion>
+        </exclusions>
+        <scope>runtime</scope>
       </dependency>
 
       <dependency>
@@ -2329,7 +2346,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      
+
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-aws</artifactId>
@@ -2619,10 +2636,23 @@
   </dependencyManagement>
 
   <scm>
-    <developerConnection>scm:git:git@github.com:KualiCo/rice.git</developerConnection>
-    <connection>scm:git:git@github.com:KualiCo/rice.git</connection>
-    <url>https://github.com/KualiCo/rice/tree/${project.scm.tag}</url>
-    <tag>rice-2.6.0</tag>
+    <developerConnection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</developerConnection>
+    <connection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</connection>
+    <url>https://github.com/ua-eas/ksd-kc5.2.1-rice/tree/${project.scm.tag}</url>
+    <tag>rice-2.5-ua-development</tag>
   </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>

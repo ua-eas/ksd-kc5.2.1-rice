@@ -57,6 +57,8 @@
 	    <value>org.kuali.rice.kim.impl</value>
 	    <value>org.kuali.rice.kim.document</value>
 	    <value>org.kuali.rice.kim.bo</value>
+	    <!-- UA KFS7 upgrade -->
+	    <value>edu.arizona.rice.kim.document</value>
 	</util:list>
 
 	<util:list id="managedClassNames" />

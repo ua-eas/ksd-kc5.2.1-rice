@@ -44,8 +44,13 @@
       <property name="defaultPassword" value="${rice.ldap.password}" />
     </bean>
 
+    <!-- bean id="springSecurityAuthenticationSource"
+      class="org.springframework.security.ldap.authentication.SpringSecurityAuthenticationSource" /-->
+
+	<!-- UA CHANGES -->
     <bean id="springSecurityAuthenticationSource"
-      class="org.springframework.security.ldap.authentication.SpringSecurityAuthenticationSource" />
+      class="edu.arizona.kim.ldap.authentication.UaKualiAuthenticationSource" />
+	<!-- end -->
 
     <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
         <constructor-arg ref="contextSource" />
@@ -210,6 +215,7 @@
       <property name="ldapTemplate"     ref="ldapTemplate" />
       <property name="parameterService" ref="rice.kim.ldap.import.parameterService" />
       <property name="kimConstants"     ref="kimConstants" />
+      <property name="edsConstants"     ref="edsConstants" />
 
       <property name="contextMappers">
         <map>
@@ -230,8 +236,16 @@
       </property>
     </bean>
 
-    <bean id="kimIdentityDelegateService" class="org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl">
-       <property name="principalDao" ref="ldapPrincipalDao" />
+	<!-- UA KFS7 upgrade vanilla code bug with referencing old services -->
+    <!-- bean id="kimIdentityDelegateService" class="org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl"
+    	p:businessObjectService-ref="rice.kim.import.businessObjectService"
+        p:criteriaLookupService-ref="rice.kim.import.criteriaLookupService">
+      <property name="principalDao" ref="ldapPrincipalDao" />
+    </bean-->
+    <bean id="kimIdentityDelegateService" class="org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl"
+    	p:dataObjectService-ref="dataObjectService"
+        p:identityServiceDao-ref="kimIdentityServiceDao">
+      <property name="principalDao" ref="ldapPrincipalDao" />
     </bean>
 
 <!--     <bean id="kimUiDocumentService" class="org.kuali.rice.kim.service.impl.LdapUiDocumentServiceImpl" /> -->

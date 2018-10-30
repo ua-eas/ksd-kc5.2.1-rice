@@ -667,4 +667,11 @@ public class IdentityCurrentAndArchivedServiceImpl implements IdentityService {
 	private IdentityArchiveService getIdentityArchiveService() {
 		return identityArchiveService;
 	}
+
+	/**
+     * UA KFS7 upgrade. (UAF-5246) new API for loading person information from EDS
+     */
+    public List<EntityDefault> findEntityDefaultsByCriteriaMap(Map<String, String> criteria) {
+    	return new ArrayList<EntityDefault>();
+    }
 }

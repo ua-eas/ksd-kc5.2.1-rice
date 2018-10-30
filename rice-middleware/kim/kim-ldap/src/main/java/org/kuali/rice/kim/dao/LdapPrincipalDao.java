@@ -75,6 +75,18 @@ public interface LdapPrincipalDao {
 
 	List<String> lookupEntityIds(Map<String,String> searchCriteria);
 
+    // **AZ UPGRADE 3.0-6.0** - expose this method for ldap implementation
+    List<EntityDefault> lookupEntityDefault(Map<String, String> searchCriteria, boolean unbounded);
+
+    EntityDefault getEntityDefaultByEmployeeId(String employeeId);
+
+    Entity getEntityByEmployeeId(String employeeId);
+
+    List<Principal> getPrincipalsByPrincipalIds(List<String> principalIds);
+
+    List<Principal> getPrincipalsByEmployeeId(String employeeId);
+    // end AZ upgrade changes 7.0
+
 	EntityPrivacyPreferences getEntityPrivacyPreferences(String entityId);
 	
     Map<String, EntityNamePrincipalName> getDefaultNamesForPrincipalIds(List<String> principalIds);
@@ -84,4 +96,6 @@ public interface LdapPrincipalDao {
     Map<String, ContextMapper> getContextMappers();
     
     Constants getKimConstants();
+
+    List<EntityDefault> getEntityDefaultsByCriteria(Map<String, List<String>> criteria);
 }
