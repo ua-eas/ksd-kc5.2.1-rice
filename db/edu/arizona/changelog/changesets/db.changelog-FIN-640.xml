@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="FIN-640" author="Jim Reese">
+        <comment>
+            UAF-5851 : Update Parameter DEFAULT_NUMBER_OF_DAYS_OLD.
+            FIN-640 : Create Liquibase Files for DB SQL DDL Schema changes for Release 50.
+            This Liquibase replaces foundation Rice 2.6.0 DB upgrade SQL script '2015-03-10--KULRICE-14144.sql' and
+            has been modified to work with the UA KFS7 DB.
+        </comment>
+        <sql>
+            alter table krsb_qrtz_trigger_listeners drop constraint   KRSB_QRTZ_TRIGGER_LISTENE_TR1;
+            alter table krsb_qrtz_job_details drop column is_volatile;
+            alter table krsb_qrtz_triggers drop column is_volatile;
+            alter table krsb_qrtz_fired_triggers drop column is_volatile;
+            alter table krsb_qrtz_job_details add is_nonconcurrent VARCHAR2(1);
+            alter table krsb_qrtz_job_details add is_update_data VARCHAR2(1);
+            update krsb_qrtz_job_details set is_nonconcurrent = is_stateful;
+            update krsb_qrtz_job_details set is_update_data = is_stateful;
+            alter table krsb_qrtz_job_details drop column is_stateful;
+            alter table krsb_qrtz_fired_triggers add is_nonconcurrent VARCHAR2(1);
+            alter table krsb_qrtz_fired_triggers add is_update_data VARCHAR2(1);
+            update krsb_qrtz_fired_triggers set is_nonconcurrent = is_stateful;
+            update krsb_qrtz_fired_triggers set is_update_data = is_stateful;
+            alter table krsb_qrtz_fired_triggers drop column is_stateful;
+            alter table krsb_qrtz_blob_triggers add sched_name varchar(120) DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_calendars add sched_name varchar(120) DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_cron_triggers add sched_name varchar(120) DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_fired_triggers add sched_name varchar(120)  DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_fired_triggers add sched_time number(13) DEFAULT 1540230164677 NOT NULL;
+            alter table krsb_qrtz_job_details add sched_name varchar(120)  DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_locks add sched_name varchar(120) DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_paused_trigger_grps add sched_name varchar(120)  DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_scheduler_state add sched_name varchar(120)  DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_simple_triggers add sched_name varchar(120)  DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_triggers add sched_name varchar(120) DEFAULT 'KrTestScheduler' not null;
+            alter table krsb_qrtz_blob_triggers drop constraint KRSB_QRTZ_BLOB_TRIGGERS_TR1;
+            alter table krsb_qrtz_cron_triggers drop constraint KRSB_QRTZ_CRON_TRIGGERS_TR1;
+            ALTER TABLE KRSB_QRTZ_JOB_DETAILS DROP CONSTRAINT PKKRSB_QRTZ_JOB_DETAILS;
+            alter table krsb_qrtz_job_details add constraint KRSB_QRTZ_JOB_DETAILSP1 primary key (job_name, job_group, sched_name);
+            ALTER TABLE KRSB_QRTZ_TRIGGERS DROP CONSTRAINT PKKRSB_QRTZ_TRIGGERS;
+            alter table krsb_qrtz_triggers add constraint KRSB_QRTZ_TRIGGERSP1 primary key (trigger_name, trigger_group, sched_name);
+            alter table krsb_qrtz_triggers add constraint KRSB_QRTZ_TRIGGERS_TR1 foreign key (job_name, job_group, sched_name) references krsb_qrtz_job_details(job_name, job_group, sched_name);
+            ALTER TABLE KRSB_QRTZ_BLOB_TRIGGERS DROP CONSTRAINT PKKRSB_QRTZ_BLOB_TRIGGERS;
+            alter table krsb_qrtz_blob_triggers add constraint KRSB_QRTZ_BLOB_TRIGGERSP1 primary key (trigger_name, trigger_group, sched_name);
+            alter table krsb_qrtz_blob_triggers add constraint KRSB_QRTZ_BLOB_TRIGGERS_TR1 foreign key (trigger_name, trigger_group, sched_name) references krsb_qrtz_triggers(trigger_name, trigger_group, sched_name);
+            ALTER TABLE KRSB_QRTZ_CRON_TRIGGERS DROP CONSTRAINT PKKRSB_QRTZ_CRON_TRIGGERS;
+            alter table krsb_qrtz_cron_triggers add constraint KRSB_QRTZ_CRON_TRIGGERSP1 primary key (trigger_name, trigger_group, sched_name);
+            alter table krsb_qrtz_cron_triggers add constraint KRSB_QRTZ_CRON_TRIGGERS_TR1 foreign key (trigger_name, trigger_group, sched_name) references krsb_qrtz_triggers(trigger_name, trigger_group, sched_name);
+            ALTER TABLE KRSB_QRTZ_SIMPLE_TRIGGERS DROP CONSTRAINT PKKRSB_QRTZ_SIMPLE_TRIGGERS;
+            alter table krsb_qrtz_simple_triggers add constraint KRSB_QRTZ_SIMPLE_TRIGGERSP1 primary key (trigger_name, trigger_group, sched_name);
+            alter table krsb_qrtz_simple_triggers add constraint KRSB_QRTZ_SIMPLE_TRIGGERS_TR1 foreign key (trigger_name, trigger_group, sched_name) references krsb_qrtz_triggers(trigger_name, trigger_group, sched_name);
+            ALTER TABLE KRSB_QRTZ_FIRED_TRIGGERS DROP CONSTRAINT PKKRSB_QRTZ_FIRED_TRIGGERS;
+            alter table krsb_qrtz_fired_triggers add constraint KRSB_QRTZ_FIRED_TRIGGERSP1 primary key (entry_id, sched_name);
+            ALTER TABLE KRSB_QRTZ_CALENDARS DROP CONSTRAINT PKKRSB_QRTZ_CALENDARS;
+            alter table krsb_qrtz_calendars add constraint KRSB_QRTZ_CALENDARSP1 primary key (calendar_name, sched_name);
+            ALTER TABLE KRSB_QRTZ_LOCKS DROP CONSTRAINT PKKRSB_QRTZ_LOCKS;
+            alter table krsb_qrtz_locks add constraint KRSB_QRTZ_LOCKSP1 primary key (lock_name, sched_name);
+            ALTER TABLE KRSB_QRTZ_PAUSED_TRIGGER_GRPS DROP CONSTRAINT PKKRSB_QRTZ_PAUSED_TRIGGER_GR;
+            alter table krsb_qrtz_paused_trigger_grps add constraint KRSB_QRTZ_PAUSED_TRIGGER_GRP1 primary key (trigger_group, sched_name);
+            ALTER TABLE KRSB_QRTZ_SCHEDULER_STATE DROP CONSTRAINT PKKRSB_QRTZ_SCHEDULER_STATE;
+            alter table krsb_qrtz_scheduler_state add constraint KRSB_QRTZ_SCHEDULER_STATEP1 primary key (instance_name, sched_name);
+            CREATE TABLE krsb_qrtz_simprop_triggers
+            (
+            SCHED_NAME VARCHAR2(120) NOT NULL,
+            TRIGGER_NAME VARCHAR2(200) NOT NULL,
+            TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+            STR_PROP_1 VARCHAR2(512) NULL,
+            STR_PROP_2 VARCHAR2(512) NULL,
+            STR_PROP_3 VARCHAR2(512) NULL,
+            INT_PROP_1 NUMBER(10) NULL,
+            INT_PROP_2 NUMBER(10) NULL,
+            LONG_PROP_1 NUMBER(13) NULL,
+            LONG_PROP_2 NUMBER(13) NULL,
+            DEC_PROP_1 NUMERIC(13,4) NULL,
+            DEC_PROP_2 NUMERIC(13,4) NULL,
+            BOOL_PROP_1 VARCHAR2(1) NULL,
+            BOOL_PROP_2 VARCHAR2(1) NULL,
+            constraint KRSB_QRTZ_SIMPROP_TRIGGERSP1 primary key (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP),
+            constraint KRSB_QRTZ_SIMPROP_TRIGGERS_TR1 foreign key (SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP)
+            references KRSB_QRTZ_TRIGGERS(TRIGGER_NAME,TRIGGER_GROUP, SCHED_NAME)
+            );
+        </sql>
+        <rollback>
+            <sql>
+            </sql>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
