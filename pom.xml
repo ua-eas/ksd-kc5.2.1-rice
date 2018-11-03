@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Rice</name>
   <inceptionYear>2005</inceptionYear>
-  <version>2.6.0</version>
+  <version>2.5.19-ua-release50-SNAPSHOT</version>
   <description>
     The Kuali Rice effort provides an enterprise class middleware suite of integrated products that allows
     both Kuali and non-Kuali applications
@@ -291,6 +291,7 @@
     <!-- set the kuali site url for publishing the documentation -->
     <kuali.site.publish.url>s3://site.origin.kuali.org/rice/${project.version}</kuali.site.publish.url>
 
+    <kuali.release.profiles>release</kuali.release.profiles>
   </properties>
 
   <!-- duplicating distributionManagement from parent pom because site plugin doesn't properly allow overriding for the site url -->
@@ -755,7 +756,14 @@
         </plugins>
       </build>
     </profile>
-
+    <!-- jgitflow activates this profile automatically during a release -->
+    <profile>
+    <id>release-profile</id>
+    <properties>
+      <skipTests>true</skipTests>
+      <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
+    </profile>
   </profiles>
 
   <build>

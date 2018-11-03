@@ -1334,4 +1334,16 @@ public interface IdentityService {
     @WebMethod(operationName = "findPrincipals")
     @WebResult(name = "results")
     PrincipalQueryResults findPrincipals(@WebParam(name = "query") QueryByCriteria query)  throws RiceIllegalArgumentException;
+
+    /**
+     * UA KFS7 upgrade. (UAF-5246) Adding EDS API to allow loading Person information from EDS. This method finds EntityDefault data based on a query criteria.
+     * This is replacement of method EntityDefaultQueryResults findEntityDefaults(@WebParam(name = "query") QueryByCriteria query)
+     *
+     * @param query the criteria.
+     * @return query results.
+     */
+    @WebMethod(operationName = "findEntityDefaultsByCriteriaMap")
+    @WebResult(name = "results")
+    List<EntityDefault> findEntityDefaultsByCriteriaMap( Map<String, String> criteria);
+
 }

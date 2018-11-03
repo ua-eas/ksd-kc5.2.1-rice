@@ -46,6 +46,7 @@ import java.util.regex.Pattern;
 
 import static org.kuali.rice.core.util.BufferedLogger.*;
 import static org.kuali.rice.kns.lookup.LookupUtils.getSearchResultsLimit;
+import edu.arizona.kim.eds.UaEdsConstants;
 
 /**
  * Integrated Data Access via LDAP to EDS. Provides implementation to interface method
@@ -53,13 +54,14 @@ import static org.kuali.rice.kns.lookup.LookupUtils.getSearchResultsLimit;
  *
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-public class LdapPrincipalDaoImpl implements LdapPrincipalDao { 
-    private Constants kimConstants;
-    private LdapTemplate template;
-    private ParameterService parameterService;
+public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
+    protected Constants kimConstants;
+    protected UaEdsConstants edsConstants;
+    protected LdapTemplate template;
+    protected ParameterService parameterService;
 
     
-    private Map<String, ContextMapper> contextMappers;    
+    protected Map<String, ContextMapper> contextMappers;
     
     public LdapPrincipalDaoImpl() {
     }
@@ -100,6 +102,23 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         return null;
     }
 
+    public Principal getPrincipalByEmployeeId(String employeeId) {
+        if (StringUtils.isBlank(employeeId)) {
+            return null;
+        }
+
+        Map<String, Object> criteria = new HashMap();
+        String key = getEdsConstants().getEmplIdContextKey();
+        criteria.put(key, employeeId);
+        List<Principal> results = search(Principal.class, criteria);
+
+        if (results.size() > 0) {
+            return results.get(0);
+        }
+
+        return null;
+    }
+
     public <T> List<T> search(Class<T> type, Map<String, Object> criteria) {
         AndFilter filter = new AndFilter();
         
@@ -128,23 +147,25 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
             }
         };
         
-        info("Using filter ", filter);
+        info("Using filter ", filter.encode());
 
-        debug("Looking up mapper for ", type.getSimpleName());
-        final ContextMapper customMapper = contextMappers.get(type.getSimpleName());
+        List retval = new ArrayList();
 
-        ContextMapperCallbackHandler callbackHandler = new CustomContextMapperCallbackHandler(customMapper);
-        
-        try {
+        // UAF-6 defensice programming - no search with empty filter
+        if (StringUtils.isNotBlank(filter.encode())) {
+            debug("Looking up mapper for ", type.getSimpleName());
+            final ContextMapper customMapper = contextMappers.get(type.getSimpleName());
+
+            ContextMapperCallbackHandler callbackHandler = new CustomContextMapperCallbackHandler(customMapper);
+
             getLdapTemplate().search(DistinguishedName.EMPTY_PATH, 
-                                     filter.encode(), 
-                                     getSearchControls(), callbackHandler);
-        }
-        catch (SizeLimitExceededException e) {
-            // Ignore this. We want to limit our results.
+                                         filter.encode(),
+                                         getSearchControls(), callbackHandler);
+
+            retval = callbackHandler.getList();
         }
 
-        return callbackHandler.getList();
+        return retval;
     }
 
     protected SearchControls getSearchControls() {
@@ -233,6 +254,41 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         return null;
     }
 
+    public EntityDefault getEntityDefaultByEmployeeId(String employeeId) {
+        Map<String, Object> criteria = new HashMap();
+        String key = getEdsConstants().getEmplIdContextKey();
+        criteria.put(key, employeeId);
+
+        List<EntityDefault> results = search(EntityDefault.class, criteria);
+        if (results.size() > 0) {
+            return results.get(0);
+        }
+
+        return null;
+    }
+
+    @Override
+    public List<EntityDefault> getEntityDefaultsByCriteria(Map<String, List<String>> criteria) {
+	    Map<String, Object> convertedMap = new HashMap<>();
+        for (String key : criteria.keySet()) {
+            Object value = criteria.get(key);
+
+            String ldapKey = getLdapAttribute(key);
+            if (StringUtils.isBlank(ldapKey)) {
+                throw new RuntimeException("KIM value not mapped!: " + key);
+            }
+
+            convertedMap.put(ldapKey, value);
+        }
+
+        List<EntityDefault> results = search(EntityDefault.class, convertedMap);
+        if (results == null || results.size() == 0) {
+            results = Collections.emptyList();
+        }
+
+        return results;
+    }
+
 	public Entity getEntityByPrincipalName(String principalName) {
         Map<String, Object> criteria = new HashMap();
         criteria.put(getKimConstants().getKimLdapNameProperty(), principalName);
@@ -245,13 +301,47 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         return null;
     }
 
-	public List<EntityDefault> lookupEntityDefault(Map<String,String> searchCriteria, boolean unbounded) {
-        List<EntityDefault> results = new ArrayList();
-        Map<String, Object> criteria = getLdapLookupCriteria(searchCriteria);
-        
-        results = search(EntityDefault.class, criteria);
+    public Entity getEntityByEmployeeId(String employeeId) {
+        Map<String, Object> criteria = new HashMap();
+        String key = getEdsConstants().getEmplIdContextKey();
+        criteria.put(key, employeeId);
 
-        return results;
+        List<Entity> results = search(Entity.class, criteria);
+        if (results.size() > 0) {
+            return results.get(0);
+        }
+
+        return null;
+    }
+
+    public List<Principal> getPrincipalsByPrincipalIds(List<String> principalIds) {
+        if (principalIds == null) {
+            return null;
+        }
+
+        Map<String, Object> criteria = new HashMap();
+        String key = getKimConstants().getKimLdapIdProperty();
+        criteria.put(key, principalIds);
+        return search(Principal.class, criteria);
+    }
+
+
+    public List<Principal> getPrincipalsByEmployeeId(String employeeId) {
+        if (StringUtils.isBlank(employeeId)) {
+            return null;
+        }
+
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        String key = getEdsConstants().getEmplIdContextKey();
+        criteria.put(key, employeeId);
+
+        return  search(Principal.class, criteria);
+    }
+
+
+	public List<EntityDefault> lookupEntityDefault(Map<String,String> searchCriteria, boolean unbounded) {
+        Map<String, Object> criteria = getLdapLookupCriteria(searchCriteria);
+        return search(EntityDefault.class, criteria);
     }
 
 	public List<String> lookupEntityIds(Map<String,String> searchCriteria) {
@@ -272,36 +362,36 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
      */
     protected Map<String, Object> getLdapLookupCriteria(Map<String, String> searchCriteria) {
         Map<String, Object> criteria = new HashMap();
-        boolean hasTaxId = false;
         
         for (Map.Entry<String, String> criteriaEntry : searchCriteria.entrySet()) {
             debug(String.format("Searching with criteria %s = %s", criteriaEntry.getKey(), criteriaEntry.getValue()));
             String valueName = criteriaEntry.getKey();            
             Object value = criteriaEntry.getValue();
-            if (!criteriaEntry.getValue().equals("*")) {
-                valueName = String.format("%s.%s", criteriaEntry.getKey(), criteriaEntry.getValue());
-            }
 
-            if (!value.equals("*") && isMapped(valueName)) {
-                value = getLdapValue(valueName);
-                debug(value, " mapped to valueName ", valueName);
-            }
-        
-            if (isMapped(criteriaEntry.getKey())) {
-                debug(String.format("Setting attribute to (%s, %s)", 
-                                    getLdapAttribute(criteriaEntry.getKey()), 
-                                    value));
-                final String key = getLdapAttribute(criteriaEntry.getKey());
-                if (!criteria.containsKey(key)) {
-                    criteria.put(key, value);
+            // UAF-6 - defensive programming - handle null
+            if (value != null) {
+                if (!value.equals("*")) {
+                    valueName = String.format("%s.%s", criteriaEntry.getKey(), value);
                 }
-            }
-            else if (criteriaEntry.getKey().equalsIgnoreCase(getKimConstants().getExternalIdProperty())) {
-                criteria.put(getKimConstants().getKimLdapIdProperty(), value);
-            }
-            else if (criteriaEntry.getKey().equalsIgnoreCase(getKimConstants().getExternalIdTypeProperty()) 
-                     && value.toString().equals(getKimConstants().getTaxExternalIdTypeCode())) {
-                hasTaxId = true;
+
+                if (!value.equals("*") && isMapped(valueName)) {
+                    value = getLdapValue(valueName);
+                    debug(value, " mapped to valueName ", valueName);
+                }
+
+                if (isMapped(criteriaEntry.getKey())) {
+                    debug(String.format("Setting attribute to (%s, %s)",
+                                        getLdapAttribute(criteriaEntry.getKey()),
+                                        value));
+                    final String key = getLdapAttribute(criteriaEntry.getKey());
+                    if (!criteria.containsKey(key)) {
+                        criteria.put(key, value);
+                    }
+                }
+                else if (criteriaEntry.getKey().equalsIgnoreCase(getKimConstants().getExternalIdProperty())) {
+                    criteria.put(getKimConstants().getKimLdapIdProperty(), value);
+                }
+
             }
         }
         return criteria;
@@ -396,6 +486,20 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
 
     public Constants getKimConstants() {
         return kimConstants;
+    }
+
+
+    /*
+     * Note: When pulling a constant from this EDS class, there is no need to use the
+     *       getLdapAttribute(...) method for conversion, since UaEdsConstants already
+     *       has the correct mappings configured via spring, not parms.
+     */
+    public UaEdsConstants getEdsConstants() {
+        return edsConstants;
+    }
+
+    public void setEdsConstants(UaEdsConstants edsConstants) {
+        this.edsConstants = edsConstants;
     }
 
     public ParameterService getParameterService() {

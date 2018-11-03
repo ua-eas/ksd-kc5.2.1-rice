@@ -45,7 +45,7 @@
     </bean>
 
     <bean id="springSecurityAuthenticationSource"
-      class="org.springframework.security.ldap.authentication.SpringSecurityAuthenticationSource" />
+      class="edu.arizona.kim.ldap.authentication.UaKualiAuthenticationSource" />
 
     <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
         <constructor-arg ref="contextSource" />
@@ -210,6 +210,7 @@
       <property name="ldapTemplate"     ref="ldapTemplate" />
       <property name="parameterService" ref="rice.kim.ldap.import.parameterService" />
       <property name="kimConstants"     ref="kimConstants" />
+      <property name="edsConstants"     ref="edsConstants" />
 
       <property name="contextMappers">
         <map>
@@ -230,8 +231,10 @@
       </property>
     </bean>
 
-    <bean id="kimIdentityDelegateService" class="org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl">
-       <property name="principalDao" ref="ldapPrincipalDao" />
+    <bean id="kimIdentityDelegateService" class="org.kuali.rice.kim.service.impl.LdapIdentityDelegateServiceImpl"
+    	p:dataObjectService-ref="dataObjectService"
+        p:identityServiceDao-ref="kimIdentityServiceDao">
+      <property name="principalDao" ref="ldapPrincipalDao" />
     </bean>
 
 <!--     <bean id="kimUiDocumentService" class="org.kuali.rice.kim.service.impl.LdapUiDocumentServiceImpl" /> -->
