@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Collections;
 
 import static org.kuali.rice.core.util.BufferedLogger.*;
 import static org.kuali.rice.kns.lookup.LookupUtils.getSearchResultsLimit;
