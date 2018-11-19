@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="FIN-640-KULRICE-14217" author="Jim Reese">
+        <comment>
+            db.changelog-FIN-640-KULRICE-14217 : Create Liquibase Files for DB SQL DDL Schema changes for Release 50.
+            This Liquibase replaces foundation Rice 2.6.0 DB upgrade SQL script: '2015-05-12--KULRICE-14217.sql' which
+            required no modification to work with the UA KFS7 DB other than changing '/' statement terminators with ';'
+            and wrapping in a liquibase block.
+        </comment>
+        <sql>
+            CREATE TABLE KREW_ACTN_ITM_CHANGED_T
+            (
+            ACTN_TYP VARCHAR2(1),
+            ACTN_ITM_ID VARCHAR2(40),
+            PRIMARY KEY(ACTN_ITM_ID, ACTN_TYP)
+            );
+
+            CREATE OR REPLACE TRIGGER actn_item_changed
+            AFTER INSERT OR UPDATE OR DELETE ON KREW_ACTN_ITM_T
+            FOR EACH ROW
+            BEGIN
+            -- Use 'I' for an INSERT, 'U' for UPDATE, and 'D' for DELETE
+            IF INSERTING THEN
+            INSERT INTO KREW_ACTN_ITM_CHANGED_T VALUES ('I', :NEW.ACTN_ITM_ID);
+            ELSIF UPDATING THEN
+            INSERT INTO KREW_ACTN_ITM_CHANGED_T VALUES ('U', :NEW.ACTN_ITM_ID);
+            ELSE
+            INSERT INTO KREW_ACTN_ITM_CHANGED_T VALUES ('D', :OLD.ACTN_ITM_ID);
+            END IF;
+            END;
+        </sql>
+        <rollback>
+            <sql>
+            </sql>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
