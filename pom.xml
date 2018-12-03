@@ -53,7 +53,7 @@
     <kuali.release.goals>deploy</kuali.release.goals>
     <kuali.release.arguments>-DskipTests</kuali.release.arguments>
     <kuali.release.profiles>release</kuali.release.profiles>
-    
+
     <!-- TODO: remove when updated to 4.4 version of kuali-common -->
     <kuali-core.version>1.0.19</kuali-core.version>
     <appserver.port>8080</appserver.port>
