@@ -31,6 +31,7 @@
     <module>sql</module>
     <module>impex</module>
     <module>xml</module>
+    <module>liquibase</module>
   </modules>
   <repositories>
     <repository>
