@@ -9,7 +9,6 @@
   <!-- include file="changesets/db.changelog-UAF-###.xml" -->
 
   <include file="changesets/db.changelog-FIN-535-KULRICE-14144.xml" />
-  <include file="changesets/db.changelog-FIN-535-KULRICE-14217.xml" />
 
 </databaseChangeLog>
 
