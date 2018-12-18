@@ -57,6 +57,7 @@
 	    <value>org.kuali.rice.kim.impl</value>
 	    <value>org.kuali.rice.kim.document</value>
 	    <value>org.kuali.rice.kim.bo</value>
+	    <value>edu.arizona.rice.kim.document</value>
 	</util:list>
 
 	<util:list id="managedClassNames" />

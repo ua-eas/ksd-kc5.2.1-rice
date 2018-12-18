@@ -15,6 +15,8 @@
  */
 package org.kuali.rice.kim.impl.identity;
 
+import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
+
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +29,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
@@ -34,6 +37,7 @@ import org.kuali.rice.core.api.criteria.CountFlag;
 import org.kuali.rice.core.api.criteria.Predicate;
 import org.kuali.rice.core.api.criteria.PredicateUtils;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
+import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.IdentityService;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.PersonService;
@@ -45,15 +49,18 @@ import org.kuali.rice.kim.api.identity.type.EntityTypeContactInfoDefault;
 import org.kuali.rice.kim.api.role.RoleService;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
+import org.kuali.rice.kim.impl.identity.entity.EntityBo;
 import org.kuali.rice.kim.impl.identity.principal.PrincipalBo;
 import org.kuali.rice.kns.service.BusinessObjectMetaDataService;
 import org.kuali.rice.kns.service.KNSServiceLocator;
 import org.kuali.rice.kns.service.MaintenanceDocumentDictionaryService;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.DataObjectRelationship;
+import org.kuali.rice.krad.data.DataObjectService;
 import org.kuali.rice.krad.data.DataObjectWrapper;
 import org.kuali.rice.krad.data.KradDataServiceLocator;
 import org.kuali.rice.krad.lookup.CollectionIncomplete;
+import org.kuali.rice.krad.service.KRADServiceLocator;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.KRADPropertyConstants;
 import org.kuali.rice.krad.util.KRADUtils;
@@ -84,6 +91,7 @@ public class PersonServiceImpl implements PersonService {
 	private RoleService roleService;
 	private BusinessObjectMetaDataService businessObjectMetaDataService;
 	private MaintenanceDocumentDictionaryService maintenanceDocumentDictionaryService;
+	private DataObjectService dataObjectService;
 
 	protected List<String> personEntityTypeCodes = new ArrayList<String>( 4 );
 	// String that can be passed to the lookup framework to create an type = X OR type = Y criteria
@@ -191,6 +199,11 @@ public class PersonServiceImpl implements PersonService {
     public Person getPersonByPrincipalName(String principalName) {
 		if ( StringUtils.isBlank(principalName) ) {
 			return null;
+		}else if(principalName.equals(KRADConstants.SYSTEM_USER)){
+			// UA 7.0 uggrade
+			// UserSession uses KRADConstants.SYSTEM_USER principalName to initiate
+			// userless sessions, this won't be in LDAP, so create and return it here.
+			return getSystemUserPersonFromDb();
 		}
 
 		// get the corresponding principal
@@ -937,4 +950,58 @@ public class PersonServiceImpl implements PersonService {
 		}
 		return maintenanceDocumentDictionaryService;
 	}
+
+	/*
+	 * A Hack to get around the hardcoded system user "kr" in various services. Such system
+	 * users are the *only* ones that live in KIM tables, since they very well can't live in a
+	 * production LDAP system.
+	 *
+	 * The top level table these live in, is the KRIM_PRNCPL_T and the related KRIM_ENTITY_*_T
+	 * tables. Currently, there are only three users: {"kr", "kfs", "admin"}. KRADConstants
+	 * says "kr" is to be used, and following all references to KRADConstants.SYSTEM_USER seems
+	 * to prove it out too, so this is the system Person that this method returns.
+	 */
+	@Override
+	public Person getSystemUserPersonFromDb() {
+		Principal principal = getSystemUserPrincipalFromDb();
+		EntityDefault  entityDefault = getSystemUserEntityDefaultFromDb(principal.getEntityId());
+		return new PersonImpl(principal, entityDefault, KimConstants.EntityTypes.SYSTEM);
+	}
+
+
+	// See getSystemUserPersonFromDb() above
+	// UA KFS7 upgrade - adapt for UA ldap
+	@Override
+	public Principal getSystemUserPrincipalFromDb() {
+        QueryByCriteria.Builder criteria = QueryByCriteria.Builder.create();
+
+        criteria.setPredicates(equal(KIMPropertyConstants.Principal.PRINCIPAL_NAME,  KRADConstants.SYSTEM_USER));
+
+		PrincipalBo principalBo;
+		try {
+			// This should ALWAYS be present, if not, we absolutely want an exception to be thrown immediately
+			principalBo = getDataObjectService().findMatching(PrincipalBo.class, criteria.build()).getResults().get(0);
+		} catch(Exception e){
+			throw new RuntimeException("Could not load system user from KRIM_PRNCPL_T: " + KRADConstants.SYSTEM_USER);
+		}
+
+		return PrincipalBo.to(principalBo);
+	}
+
+
+	private EntityDefault getSystemUserEntityDefaultFromDb(String entityId){
+		EntityBo entityBo = getDataObjectService().find(EntityBo.class, entityId);
+		return EntityBo.toDefault(entityBo);
+	}
+
+	private DataObjectService getDataObjectService() {
+		if (this.dataObjectService == null) {
+			this.dataObjectService = KRADServiceLocator.getDataObjectService();
+		}
+		return this.dataObjectService;
+	}
+
+    public List<Person> getPersonsByCriteria(Map<String, List<String>> criteria) {
+	    throw new NotImplementedException("Only the UaPersonService implements this method!");
+    }
 }

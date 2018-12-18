@@ -770,7 +770,7 @@ public class ActionListEmailServiceImpl implements ActionListEmailService {
         }
     }
 
-    private void addJobToScheduler(JobDetail jobDetail) throws SchedulerException {
+    protected void addJobToScheduler(JobDetail jobDetail) throws SchedulerException {
         getScheduler().addJob(jobDetail, true);
     }
 

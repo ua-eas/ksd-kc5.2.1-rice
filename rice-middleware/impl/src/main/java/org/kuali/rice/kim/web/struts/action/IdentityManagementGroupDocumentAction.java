@@ -33,6 +33,7 @@ import org.kuali.rice.core.api.util.RiceKeyConstants;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.group.Group;
+import org.kuali.rice.kim.api.identity.entity.Entity;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.role.Role;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
@@ -229,6 +230,13 @@ public class IdentityManagementGroupDocumentAction extends IdentityManagementDoc
         }
         if(checkKimDocumentGroupMember(newMember) && 
         		KRADServiceLocatorWeb.getKualiRuleService().applyRules(new AddGroupMemberEvent("", groupDocumentForm.getGroupDocument(), newMember))){
+        	// UA KFS7 Upgrade Set member's fullname if possible
+        	Entity entity = KimApiServiceLocator.getIdentityService().getEntityByPrincipalName(newMember.getMemberName());
+        	if(entity != null) {
+        	 	String fullName = entity.getDefaultName().getFirstName() + " " + entity.getDefaultName().getLastName();
+        	 	newMember.setMemberFullName(fullName);
+        	}
+        	// END UA UPGRADE
         	newMember.setDocumentNumber(groupDocumentForm.getDocument().getDocumentNumber());
         	groupDocumentForm.getGroupDocument().addMember(newMember);
 	        groupDocumentForm.setMember(groupDocumentForm.getGroupDocument().getBlankMember());

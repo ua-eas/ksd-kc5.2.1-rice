@@ -15,6 +15,7 @@
  */
 package org.kuali.rice.kew.docsearch.service;
 
+import org.kuali.rice.core.api.uif.RemotableAttributeField;
 import org.kuali.rice.core.api.util.KeyValue;
 import org.kuali.rice.kew.api.document.search.DocumentSearchCriteria;
 import org.kuali.rice.kew.api.document.search.DocumentSearchResults;
@@ -111,4 +112,6 @@ public interface DocumentSearchService {
      * @return int
      */
     public int getFetchMoreIterationLimit();
+
+    public List<RemotableAttributeField> determineSearchFields(DocumentType documentType);
 }

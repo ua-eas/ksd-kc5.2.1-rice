@@ -20,7 +20,7 @@
   <parent>
     <artifactId>rice-framework</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>2.6.0</version>
+    <version>2.5.19-ua-release50-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -126,6 +126,11 @@
     <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>org.eclipse.persistence.jpa</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.persistence</groupId>
+      <artifactId>org.eclipse.persistence.oracle</artifactId>
       <optional>true</optional>
     </dependency>
     <dependency>

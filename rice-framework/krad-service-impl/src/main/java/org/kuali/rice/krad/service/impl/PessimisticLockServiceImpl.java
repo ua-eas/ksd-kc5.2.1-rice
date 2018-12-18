@@ -426,8 +426,10 @@ public class PessimisticLockServiceImpl implements PessimisticLockService {
      * @return a valid {@link Person} object
      */
     protected Person getWorkflowPessimisticLockOwnerUser() {
-        String networkId = KRADConstants.SYSTEM_USER;
-        return getPersonService().getPersonByPrincipalName(networkId);
+    	// UA 7.0 upgrade
+        /*String networkId = KRADConstants.SYSTEM_USER;
+        return getPersonService().getPersonByPrincipalName(networkId);*/
+    	return getPersonService().getSystemUserPersonFromDb();
     }
 
     /**
