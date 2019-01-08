@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice-middleware</artifactId>
-    <version>2.6.0</version>
+    <version>2.6.0-ua-release50</version>
   </parent>
   <artifactId>rice-standalone</artifactId>
   <packaging>war</packaging>
@@ -95,6 +95,11 @@
       <artifactId>rice-edl-impl</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>rice-db-ua</artifactId>
+      <version>${project.version}</version>
+    </dependency>
     <!-- Add dependency to spring-cloud-aws-context so standalone server can use AWS S3 -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
@@ -104,7 +109,7 @@
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
         </exclusion>
-      </exclusions>            
+      </exclusions>
     </dependency>
   </dependencies>
 </project>

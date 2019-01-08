@@ -28,7 +28,7 @@
   <packaging>pom</packaging>
   <name>Rice</name>
   <inceptionYear>2005</inceptionYear>
-  <version>2.6.0</version>
+  <version>2.6.0-ua-release50</version>
   <description>
     The Kuali Rice effort provides an enterprise class middleware suite of integrated products that allows
     both Kuali and non-Kuali applications
@@ -291,27 +291,9 @@
     <!-- set the kuali site url for publishing the documentation -->
     <kuali.site.publish.url>s3://site.origin.kuali.org/rice/${project.version}</kuali.site.publish.url>
 
+    <kuali.release.profiles>release</kuali.release.profiles>
+    <cas-client-core.version>3.2.1</cas-client-core.version>
   </properties>
-
-  <!-- duplicating distributionManagement from parent pom because site plugin doesn't properly allow overriding for the site url -->
-  <distributionManagement>
-    <downloadUrl>${kuali.site.download.url}</downloadUrl>
-    <site>
-      <id>${kuali.site.server.id}</id>
-      <name>Kuali Maven Site</name>
-      <url>${kuali.site.publish.url}</url>
-    </site>
-    <repository>
-      <id>${kuali.repo.release.id}</id>
-      <name>${kuali.repo.release.name}</name>
-      <url>${kuali.repo.release.url}</url>
-    </repository>
-    <snapshotRepository>
-      <id>${kuali.repo.snapshot.id}</id>
-      <name>${kuali.repo.snapshot.name}</name>
-      <url>${kuali.repo.snapshot.url}</url>
-    </snapshotRepository>
-  </distributionManagement>
 
   <profiles>
     <!-- this profile ensures that when building in eclipse with m2e that the groovy project nature and source folders are added -->
@@ -755,10 +737,18 @@
         </plugins>
       </build>
     </profile>
-
+    <!-- jgitflow activates this profile automatically during a release -->
+    <profile>
+    <id>release-profile</id>
+    <properties>
+      <skipTests>true</skipTests>
+      <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
+    </profile>
   </profiles>
 
   <build>
+    <finalName>${project.artifactId}</finalName>
     <testResources>
       <!-- NOTE: Because Maven test runs can be spawned in a new JVM, the system
         properties on the initial Maven command line are not necessarily propagated
@@ -1551,6 +1541,28 @@
       <plugin>
         <groupId>org.owasp</groupId>
         <artifactId>dependency-check-maven</artifactId>
+      </plugin>
+      
+      <plugin>
+        <groupId>external.atlassian.jgitflow</groupId>
+        <artifactId>jgitflow-maven-plugin</artifactId>
+        <version>1.0-m5.1</version>
+        <configuration>
+          <!-- Keep maven submodules at the same version as the parent POM -->
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <!-- push generated branches to remote upstream -->
+          <pushFeatures>true</pushFeatures>
+          <pushReleases>true</pushReleases>
+          <pushHotfixes>true</pushHotfixes>
+          <!-- Prevents deployments from dev workstations so that they can be done by CI server -->
+          <noDeploy>true</noDeploy>
+          <!-- Allow snapshot dependencies -->
+          <allowSnapshots>true</allowSnapshots>
+          <flowInitContext>
+            <masterBranchName>rice-2.6-ua-master</masterBranchName>
+            <developBranchName>rice-2.6-ua-development</developBranchName>
+          </flowInitContext>
+        </configuration>
       </plugin>
     </plugins>
 
@@ -2615,14 +2627,52 @@
           </exclusion>
         </exclusions>
       </dependency>
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>org.eclipse.persistence.oracle</artifactId>
+        <version>${eclipselink.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jasig.cas.client</groupId>
+        <artifactId>cas-client-core</artifactId>
+        <version>${cas-client-core.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>commons-logging</artifactId>
+            <groupId>commons-logging</groupId>
+          </exclusion>
+        </exclusions>
+        <scope>runtime</scope>
+      </dependency>
+      
+      <!-- adding dependency for jsch version to fix Algorithm negotiation fail errors -->
+      <dependency>
+        <groupId>com.jcraft</groupId>
+        <artifactId>jsch</artifactId>
+        <version>0.1.55</version>
+      </dependency>
+      
     </dependencies>
   </dependencyManagement>
 
   <scm>
-    <developerConnection>scm:git:git@github.com:KualiCo/rice.git</developerConnection>
-    <connection>scm:git:git@github.com:KualiCo/rice.git</connection>
-    <url>https://github.com/KualiCo/rice/tree/${project.scm.tag}</url>
-    <tag>rice-2.6.0</tag>
+    <developerConnection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</developerConnection>
+    <connection>scm:git:git@github.com:ua-eas/ksd-kc5.2.1-rice.git</connection>
+    <url>https://github.com/ua-eas/ksd-kc5.2.1-rice/tree/${project.scm.tag}</url>
+    <tag>rice-2.6-ua-development</tag>
   </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>deployment</id>
+      <name>Internal Releases</name>
+      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
 </project>

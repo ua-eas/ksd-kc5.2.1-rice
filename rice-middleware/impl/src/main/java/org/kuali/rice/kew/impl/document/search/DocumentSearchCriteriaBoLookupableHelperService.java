@@ -109,8 +109,8 @@ public class DocumentSearchCriteriaBoLookupableHelperService extends KualiLookup
     // These two fields are *only* used to pass side-channel information across the superclass API boundary between
     // performLookup and getSearchResultsHelper.
     // (in theory these could be replaced with some threadlocal subterfuge, but keeping as-is for simplicity)
-    private DocumentSearchResults searchResults = null;
-    private DocumentSearchCriteria criteria = null;
+    protected DocumentSearchResults searchResults = null;
+    protected DocumentSearchCriteria criteria = null;
 
     private DocumentTypeWindowTargets targets;
 
@@ -758,7 +758,7 @@ public class DocumentSearchCriteriaBoLookupableHelperService extends KualiLookup
      *
      * @return the DocumentType which matches the given name or null if no valid document type could be found
      */
-    private static DocumentType getValidDocumentType(String documentTypeName) {
+    protected static DocumentType getValidDocumentType(String documentTypeName) {
         if (StringUtils.isNotEmpty(documentTypeName)) {
             DocumentType documentType = KEWServiceLocator.getDocumentTypeService().findByNameCaseInsensitive(documentTypeName.trim());
             if (documentType != null && documentType.isActive()) {

@@ -18,6 +18,7 @@ package org.kuali.rice.kim.api.identity;
 import java.util.List;
 import java.util.Map;
 
+import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.krad.bo.BusinessObject;
 
 /**
@@ -98,4 +99,27 @@ public interface PersonService {
      */
 	Person updatePersonIfNecessary(String sourcePrincipalId, Person currentPerson );
 
+
+	/**
+	 * UA KFS7 upgrade
+	 *
+	 * @return
+	 */
+
+    /*
+     * A Hack to get around the hardcoded system user "kr" in various services. Such system
+     * users are the *only* ones that live in KIM tables, since they very well can't live in a
+     * production LDAP system.
+     *
+     * The top level table these live in, is the KRIM_PRNCPL_T and the related KRIM_ENTITY_*_T
+     * tables. Currently, there are only three users: {"kr", "kfs", "admin"}. KRADConstants
+     * says "kr" is to be used, and following all references to KRADConstants.SYSTEM_USER seems
+	 * to prove it out too, so this is the system Person that this method returns.
+     */
+    Person getSystemUserPersonFromDb();
+
+	// Same as above, but simpler object for exposure
+	Principal getSystemUserPrincipalFromDb();
+
+    List<Person> getPersonsByCriteria(Map<String, List<String>> criteria);
 }

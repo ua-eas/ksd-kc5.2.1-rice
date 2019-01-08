@@ -121,8 +121,8 @@
 	</bean>
   
   <!-- hack end -->
-  
-  <bean id="kimUiDocumentService" class="org.kuali.rice.kim.service.impl.UiDocumentServiceImpl" />
+
+  <bean id="kimUiDocumentService" class="edu.arizona.rice.kim.service.impl.UaUiDocumentServiceImpl" />
 
     <bean id="groupLookupable" class="org.kuali.rice.kim.lookup.GroupLookupableImpl" parent="kualiLookupable" scope="prototype">
         <property name="lookupableHelperService">

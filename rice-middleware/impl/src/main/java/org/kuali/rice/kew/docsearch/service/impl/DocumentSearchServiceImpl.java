@@ -344,7 +344,7 @@ public class DocumentSearchServiceImpl implements DocumentSearchService {
         return builder;
     }
 
-    protected List<RemotableAttributeField> determineSearchFields(DocumentType documentType) {
+    public List<RemotableAttributeField> determineSearchFields(DocumentType documentType) {
         List<RemotableAttributeField> searchFields = new ArrayList<RemotableAttributeField>();
         if (documentType != null) {
             DocumentSearchCriteriaConfiguration searchConfiguration =

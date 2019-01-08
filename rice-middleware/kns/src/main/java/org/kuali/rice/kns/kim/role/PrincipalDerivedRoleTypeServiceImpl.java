@@ -120,7 +120,7 @@ public class PrincipalDerivedRoleTypeServiceImpl extends DerivedRoleTypeServiceB
 
         // check that the principal exists and is active
         Principal principal = getIdentityService().getPrincipal( principalId );
-        if ( principal == null || !principal.isActive() ) {
+        if ( principal == null ) {
             return false;
         }
         // check that the identity is active
