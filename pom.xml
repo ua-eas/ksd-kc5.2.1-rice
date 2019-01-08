@@ -2644,6 +2644,14 @@
         </exclusions>
         <scope>runtime</scope>
       </dependency>
+      
+      <!-- adding dependency for jsch version to fix Algorithm negotiation fail errors -->
+      <dependency>
+        <groupId>com.jcraft</groupId>
+        <artifactId>jsch</artifactId>
+        <version>0.1.55</version>
+      </dependency>
+      
     </dependencies>
   </dependencyManagement>
 
