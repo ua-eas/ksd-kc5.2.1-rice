@@ -37,6 +37,7 @@
             alter table krsb_qrtz_paused_trigger_grps add sched_name varchar(120)  DEFAULT 'KrTestScheduler' not null;
             alter table krsb_qrtz_scheduler_state add sched_name varchar(120)  DEFAULT 'KrTestScheduler' not null;
             alter table krsb_qrtz_simple_triggers add sched_name varchar(120)  DEFAULT 'KrTestScheduler' not null;
+            alter table WHATSAMATTERUTABLE add sched_name varchar(120)  DEFAULT 'KrTestScheduler' not null;
             alter table krsb_qrtz_triggers add sched_name varchar(120) DEFAULT 'KrTestScheduler' not null;
             alter table krsb_qrtz_blob_triggers drop constraint KRSB_QRTZ_BLOB_TRIGGERS_TR1;
             alter table krsb_qrtz_cron_triggers drop constraint KRSB_QRTZ_CRON_TRIGGERS_TR1;
