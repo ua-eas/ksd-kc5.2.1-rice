@@ -53,7 +53,6 @@
 	<!-- Keystore Configuration -->
 	<param name="keystore.file">/usr/local/rice/rice.keystore</param>
 	<param name="keystore.alias">*** key alias ***</param>
-	<param name="keystore.password">*** password ***</param>
 	
 	<param name="mail.relay.server">localhost</param>
     <param name="mailing.list.batch">mailing.list.batch</param>
