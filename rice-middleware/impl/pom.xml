@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2005-2017 The Kuali Foundation
+    Copyright 2005-2018 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -311,7 +311,7 @@
       <artifactId>spring-security-core</artifactId>
       <scope>runtime</scope>
     </dependency>
-
+    
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-aws-context</artifactId>
@@ -320,7 +320,7 @@
           <groupId>commons-logging</groupId>
           <artifactId>commons-logging</artifactId>
         </exclusion>
-      </exclusions>
+      </exclusions>            
     </dependency>
 
     <dependency>
@@ -418,12 +418,6 @@
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>xerces</groupId>
-      <artifactId>xercesImpl</artifactId>
       <scope>runtime</scope>
     </dependency>
 

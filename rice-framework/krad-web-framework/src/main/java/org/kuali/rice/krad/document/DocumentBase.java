@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2017 The Kuali Foundation
+ * Copyright 2005-2018 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -484,6 +484,17 @@ public abstract class DocumentBase extends PersistableBusinessObjectBaseAdapter 
     @Override
     public void setAdHocRouteWorkgroups(List<AdHocRouteWorkgroup> adHocRouteWorkgroups) {
         this.adHocRouteWorkgroups = adHocRouteWorkgroups;
+    }
+
+    /**
+     * Returns null by default. Subclasses can override this to provide the node name to which any
+     * adhoc requests should be attached.
+     *
+     * @return the name of the node to attach adhoc requests toage
+     */
+    @Override
+    public String getAdHocRouteNodeName() {
+        return null;
     }
 
     @Override
