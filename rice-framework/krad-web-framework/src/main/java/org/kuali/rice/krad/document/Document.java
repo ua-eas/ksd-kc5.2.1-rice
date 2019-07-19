@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2017 The Kuali Foundation
+ * Copyright 2005-2018 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -181,6 +181,14 @@ public interface Document extends GloballyUnique {
      * @param adHocRouteWorkgroups
      */
     void setAdHocRouteWorkgroups(List<AdHocRouteWorkgroup> adHocRouteWorkgroups);
+
+    /**
+     * Return the name of the node to route any adhoc requests to, or null to let the workflow engine choose.
+     *
+     * @return the name of the node to route any adhoc requests to
+     */
+    String getAdHocRouteNodeName();
+
 
     /**
      * This method provides a hook that will be called before the document is saved. This method is useful for applying document
