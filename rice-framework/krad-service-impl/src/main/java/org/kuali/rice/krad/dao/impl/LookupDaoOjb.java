@@ -167,7 +167,7 @@ public class LookupDaoOjb extends PlatformAwareDaoBaseOjb implements LookupDao {
         return criteria;
     }
     
-    private BusinessObject checkBusinessObjectClass(Class businessObjectClass) {
+    protected BusinessObject checkBusinessObjectClass(Class businessObjectClass) {
         if (businessObjectClass == null) {
             throw new IllegalArgumentException("BusinessObject class passed to LookupDaoOjb findCollectionBySearchHelper... method was null");
         }
