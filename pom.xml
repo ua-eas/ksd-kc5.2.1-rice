@@ -2694,12 +2694,12 @@
     <repository>
       <id>deployment</id>
       <name>Internal Releases</name>
-      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/releases/</url>
+      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/sskinner-releases/</url>
     </repository>
     <snapshotRepository>
       <id>deployment</id>
       <name>Internal Releases</name>
-      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/snapshots/</url>
+      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/sskinner-snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
