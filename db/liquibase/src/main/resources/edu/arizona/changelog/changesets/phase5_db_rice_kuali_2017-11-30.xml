@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+
+    The Kuali Financial System, a comprehensive financial management system for higher education.
+
+    Copyright 2005-2018 Kuali, Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd" logicalFilePath="org/kuali/rice/db/phase5/post-rel-2017-11-02.xml">
+
+    <changeSet author="KFS701" id="FINP-2022_FIX_DOC_HANDLER_URLS_DUE" context="bootstrap,demo,unit">
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="doc_hdlr_url">${kfs.url}/arCashControl.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'CTRL'</where>
+        </update>
+        <update tableName="krew_actn_itm_t">
+            <column name="doc_hdlr_url">${kfs.url}/arCashControl.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'CTRL'</where>
+        </update>
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="doc_hdlr_url">${kfs.url}/arContractsGrantsCollectionActivity.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'CCA'</where>
+        </update>
+        <update tableName="krew_actn_itm_t">
+            <column name="doc_hdlr_url">${kfs.url}/arContractsGrantsCollectionActivity.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'CCA'</where>
+        </update>
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="doc_hdlr_url">${kfs.url}/arCustomerInvoiceWriteoff.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'INVW'</where>
+        </update>
+        <update tableName="krew_actn_itm_t">
+            <column name="doc_hdlr_url">${kfs.url}/arCustomerInvoiceWriteoff.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'INVW'</where>
+        </update>
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="doc_hdlr_url">${kfs.url}/arCustomerInvoice.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'INV'</where>
+        </update>
+        <update tableName="krew_actn_itm_t">
+            <column name="doc_hdlr_url">${kfs.url}/arCustomerInvoice.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'INV'</where>
+        </update>
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="doc_hdlr_url">${kfs.url}/arContractsGrantsLetterOfCreditReview.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'LCR'</where>
+        </update>
+        <update tableName="krew_actn_itm_t">
+            <column name="doc_hdlr_url">${kfs.url}/arContractsGrantsLetterOfCreditReview.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'LCR'</where>
+        </update>
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="doc_hdlr_url">${kfs.url}/arFinalBilledIndicator.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'FBI'</where>
+        </update>
+        <update tableName="krew_actn_itm_t">
+            <column name="doc_hdlr_url">${kfs.url}/arFinalBilledIndicator.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'FBI'</where>
+        </update>
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="doc_hdlr_url">${kfs.url}/arPaymentApplication.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'APP'</where>
+        </update>
+        <update tableName="krew_actn_itm_t">
+            <column name="doc_hdlr_url">${kfs.url}/arPaymentApplication.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'APP'</where>
+        </update>
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="doc_hdlr_url">${kfs.url}/arCustomerCreditMemo.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'CRM'</where>
+        </update>
+        <update tableName="krew_actn_itm_t">
+            <column name="doc_hdlr_url">${kfs.url}/arCustomerCreditMemo.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'CRM'</where>
+        </update>
+        <update tableName="KREW_DOC_TYP_T">
+            <column name="doc_hdlr_url">${kfs.url}/generalLedgerGeneralLedgerCorrectionProcess.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'GLCP'</where>
+        </update>
+        <update tableName="krew_actn_itm_t">
+            <column name="doc_hdlr_url">${kfs.url}/generalLedgerGeneralLedgerCorrectionProcess.do?methodToCall=docHandler</column>
+            <where>doc_hdlr_url like '%kfs.url%Document.do%' and doc_typ_nm = 'GLCP'</where>
+        </update>
+    </changeSet>
+
+    <changeSet author="KFS701" id="FINP-1782_KFS_CONFIG_VIEWER_PERMISSIONS" context="bootstrap,demo,unit">
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID" value="FINP1782"/>
+            <column name="OBJ_ID" value="FINP1782"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="29"/>
+            <column name="NMSPC_CD" value="KFS-SYS"/>
+            <column name="NM" value="Use Configuration Viewer Screen"/>
+            <column name="DESC_TXT" value="Allows users to access the Configuration Viewer screen"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID" value="FINP1782"/>
+            <column name="OBJ_ID" value="FINP1782"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP1782"/>
+            <column name="KIM_TYP_ID" value="12"/>
+            <column name="KIM_ATTR_DEFN_ID" value="2"/>
+            <column name="ATTR_VAL" value="org.kuali.kfs.sys.web.struts.ConfigViewerAction"/>
+        </insert>
+        <insert tableName="krim_role_perm_t">
+            <column name="ROLE_PERM_ID" value="FINP1782"/>
+            <column name="OBJ_ID" value="FINP1782"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='UA Security Manager')"/>
+            <column name="PERM_ID" value="FINP1782"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
