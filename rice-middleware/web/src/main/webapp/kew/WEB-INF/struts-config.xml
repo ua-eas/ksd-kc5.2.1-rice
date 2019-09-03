@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2017 The Kuali Foundation
+    Copyright 2005-2018 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -44,6 +44,7 @@
         <form-bean name="IngesterForm" type="org.kuali.rice.core.web.impex.IngesterForm" />
         <form-bean name="FeedbackForm" type="org.kuali.rice.kew.feedback.web.FeedbackForm"/>
         <form-bean name="NoteForm" type="org.kuali.rice.kew.notes.web.NoteForm" />
+        <form-bean name="StuckDocumentsForm" type="org.kuali.rice.kew.web.StuckDocumentsForm" />
     </form-beans>
 
     <global-exceptions>
@@ -217,6 +218,14 @@
             <forward name="basic" path="/WEB-INF/jsp/notes/AllNotesReport.jsp" />
             <forward name="requiredStateError" path="/WEB-INF/jsp/notes/AllNotesReport.jsp"/>
             <forward name="finalStateError" path="/WEB-INF/jsp/notes/AllNotesReport.jsp"/>
+        </action>
+
+        <action path="/StuckDocuments" name="StuckDocumentsForm" input="/WEB-INF/jsp/StuckDocuments.jsp"
+                type="org.kuali.rice.kew.web.StuckDocumentsAction"
+                scope="request" parameter="methodToCall" validate="true" attribute="KualiForm">
+            <forward name="basic" path="/WEB-INF/jsp/StuckDocuments.jsp" />
+            <forward name="report" path="/WEB-INF/jsp/StuckDocumentsReport.jsp" />
+            <forward name="autofixReport" path="/WEB-INF/jsp/StuckDocumentsAutofixReport.jsp" />
         </action>
 
     </action-mappings>
