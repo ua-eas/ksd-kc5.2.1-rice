@@ -13,6 +13,8 @@
   <include file="changesets/phase5_db_rice_kuali_2017-11-30.xml"/>
   <include file="changesets/phase5_db_rice_kuali_2018-02-08.xml"/>
   <include file="changesets/phase5_db_rice_kuali_2018-05-10.xml"/>
+  <include file="changesets/db.changelog-FIN-1052.xml"/>
+
 
 
 
