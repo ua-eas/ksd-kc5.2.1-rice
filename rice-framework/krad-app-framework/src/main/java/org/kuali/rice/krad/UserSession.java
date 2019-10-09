@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,17 @@ package org.kuali.rice.krad;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.rice.kim.api.KimConstants;
 import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.kim.api.permission.Permission;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
+import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.SessionTicket;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -37,12 +41,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class UserSession implements Serializable {
     private static final long serialVersionUID = 4532616762540067557L;
 
-    private static final Object NULL_VALUE = new Object();
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(UserSession.class);
+
+    private static final String NULL_VALUE = "NULL";
 
     private Person person;
     private Person backdoorUser;
     private AtomicInteger nextObjectKey;
-    private ConcurrentHashMap<String, Object> objectMap;
+    private ConcurrentHashMap<String, Serializable> objectMap;
     private String kualiSessionId;
 
     /**
@@ -70,7 +76,7 @@ public class UserSession implements Serializable {
     public UserSession(String principalName) {
         initPerson(principalName);
         this.nextObjectKey = new AtomicInteger(0);
-        this.objectMap = new ConcurrentHashMap<String, Object>();
+        this.objectMap = new ConcurrentHashMap<String, Serializable>();
     }
 
     /**
@@ -160,9 +166,37 @@ public class UserSession implements Serializable {
      */
     public void setBackdoorUser(String principalName) {
         // only allow backdoor in non-production environments
-        if (!isProductionEnvironment()) {
+        if (!isProductionEnvironment() && isBackdoorAuthorized()) {
             this.backdoorUser = KimApiServiceLocator.getPersonService().getPersonByPrincipalName(principalName);
         }
+    }
+
+    public boolean isBackdoorAuthorized() {
+        boolean isAuthorized = true;
+
+        //we should check to see if a kim permission exists for the requested application first
+        Map<String, String> permissionDetails = new HashMap<String, String>();
+        String requestAppCode = ConfigContext.getCurrentContextConfig().getProperty("app.code");
+        permissionDetails.put(KimConstants.AttributeConstants.APP_CODE, requestAppCode);
+        List<Permission> perms = KimApiServiceLocator.getPermissionService().findPermissionsByTemplate(
+                KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE, KimConstants.PermissionTemplateNames.BACKDOOR_RESTRICTION);
+        for (Permission kpi : perms) {
+            if (kpi.getAttributes().values().contains(requestAppCode)) {
+                //if a permission exists, is the user granted permission to use backdoor?
+                isAuthorized = KimApiServiceLocator.getPermissionService().isAuthorizedByTemplate(
+                        getActualPerson().getPrincipalId(), KRADConstants.KUALI_RICE_SYSTEM_NAMESPACE,
+                        KimConstants.PermissionTemplateNames.BACKDOOR_RESTRICTION, permissionDetails,
+                        Collections.<String, String>emptyMap());
+            }
+        }
+        if (!isAuthorized) {
+            LOG.warn("Attempt to backdoor was made by user: "
+                    + getPerson().getPrincipalId()
+                    + " into application with app code: "
+                    + requestAppCode
+                    + " but they do not have appropriate permissions.");
+        }
+        return isAuthorized;
     }
 
     /**
@@ -216,7 +250,7 @@ public class UserSession implements Serializable {
      *
      * @param object
      */
-    public String addObjectWithGeneratedKey(Object object) {
+    public String addObjectWithGeneratedKey(Serializable object) {
         String objectKey = nextObjectKey.incrementAndGet() + "";
         addObject(objectKey, object);
         return objectKey;
@@ -229,7 +263,7 @@ public class UserSession implements Serializable {
      * @param key the mapping key
      * @param object the object to store
      */
-    public void addObject(String key, Object object) {
+    public void addObject(String key, Serializable object) {
         if (object != null) {
             objectMap.put(key, object);
         } else {
@@ -246,7 +280,7 @@ public class UserSession implements Serializable {
      * @param key the mapping key
      * @param object the object to store
      */
-    public void addObjectIfAbsent(String key, Object object) {
+    public void addObjectIfAbsent(String key, Serializable object) {
         if (object != null) {
             objectMap.putIfAbsent(key, object);
         } else {
@@ -400,7 +434,7 @@ public class UserSession implements Serializable {
     /**
      * retrieves an unmodifiable view of the objectMap.
      */
-    public Map<String, Object> getObjectMap() {
+    public Map<String, Serializable> getObjectMap() {
         return Collections.unmodifiableMap(this.objectMap);
     }
 
@@ -408,6 +442,6 @@ public class UserSession implements Serializable {
      * clear the objectMap
      */
     public void clearObjectMap() {
-        this.objectMap = new ConcurrentHashMap<String, Object>();
+        this.objectMap = new ConcurrentHashMap<String, Serializable>();
     }
 }

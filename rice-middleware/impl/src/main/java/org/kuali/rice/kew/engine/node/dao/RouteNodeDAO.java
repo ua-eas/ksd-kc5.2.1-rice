@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,11 @@ public interface RouteNodeDAO {
     public RouteNodeInstance findRouteNodeInstanceById(String nodeInstanceId);
     public List<RouteNodeInstance> getActiveNodeInstances(String documentId);
     public List<String> getActiveRouteNodeNames(String documentId);
+    public List<String> getActiveSimpleRouteNodeNames(String documentId);
     public List<RouteNodeInstance> getTerminalNodeInstances(String documentId);
     public List<String> getTerminalRouteNodeNames(String documentId);
     public List<String> getCurrentRouteNodeNames(String documentId);
+    public List<String> getCurrentSimpleRouteNodeNames(String documentId);
     public List getInitialNodeInstances(String documentId);
     public NodeState findNodeState(Long nodeInstanceId, String key);
     public RouteNode findRouteNodeByName(String documentTypeId, String name);

@@ -1,6 +1,6 @@
 <#--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@
     <#if element.render && element.label?has_content && element.label != "&nbsp;">
     <li>
         <#if element.renderAsLink>
-            <a ${id} data-role="breadcrumb" href="${element.url.href}" ${krad.attrBuild(element)}>${element.label}</a>
+            <a ${id} data-role="breadcrumb" href="${element.url.href?html}" ${krad.attrBuild(element)}>${element.label}</a>
         <#else>
             <span data-role="breadcrumb" ${id} ${krad.attrBuild(element)}>${element.label}</span>
         </#if>

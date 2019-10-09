@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -99,6 +99,7 @@
 
   <bean id="kimResponsibilityService" class="org.kuali.rice.kim.impl.responsibility.ResponsibilityServiceImpl"
         p:dataObjectService-ref="dataObjectService"
+        p:responsibilityDao-ref="responsibilityDao"
         p:defaultResponsibilityTypeService-ref="defaultResponsibilityTypeService"
         p:kimTypeInfoService-ref="kimTypeInfoService"
         p:roleService-ref="kimRoleService"/>

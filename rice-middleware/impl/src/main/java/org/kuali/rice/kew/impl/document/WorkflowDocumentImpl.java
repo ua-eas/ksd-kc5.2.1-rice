@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -774,10 +774,23 @@ public class WorkflowDocumentImpl implements Serializable, WorkflowDocumentProto
         return Collections.unmodifiableSet(new HashSet<String>(names));
     }
 
+    @Override
+    public Set<String> getSimpleNodeNames() {
+        final List<String> names = getWorkflowDocumentService().getActiveSimpleRouteNodeNames(getDocumentId());
+        return Collections.unmodifiableSet(new HashSet<String>(names));
+    }
+
+    @Override
     public Set<String> getCurrentNodeNames() {
     	final List<String> names = getWorkflowDocumentService().getCurrentRouteNodeNames(getDocumentId());
         return Collections.unmodifiableSet(new HashSet<String>(names));
     }
+
+    @Override
+    public Set<String> getCurrentSimpleNodeNames() {
+        final List<String> names = getWorkflowDocumentService().getCurrentSimpleRouteNodeNames(getDocumentId());
+        return Collections.unmodifiableSet(new HashSet<String>(names));}
+
 
     @Override
     public void returnToPreviousNode(String annotation, String nodeName) {

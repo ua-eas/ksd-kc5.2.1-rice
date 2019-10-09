@@ -1,6 +1,6 @@
 <%--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -83,8 +83,6 @@ Copyright 2005-2014 The Kuali Foundation. All rights reserved. Kuali is licensed
 <p>Portions Copyright (c) 2001-2006 Sun Microsystems, Inc. All Rights Reserved. <!-- Rice 1.0.0 --></p>
 
 <p>Portions Copyright (c) 2002, 2003 Mihai Bazon. All Rights Reserved.  Licensed under GNU Lesser General Public License (<a href="http://www.opensource.org/licenses/lgpl-license.php" rel="nofollow">http://www.opensource.org/licenses/lgpl-license.php</a>).<!-- Rice 1.0.0 - for javascript calendar --></p>
-
-<p>Portions Copyright (c) 2003-2006 The Werken Company. All Rights Reserved. (<a href="http://jaxen.codehaus.org/" rel="nofollow">http://jaxen.codehaus.org/</a>) <!-- Rice 1.0.0 --></p>
 
 <p>Portions Copyright (c) 2001-2005 MetaStuff, Ltd. All Rights Reserved. (<a href="http://www.dom4j.org/" rel="nofollow">http://www.dom4j.org/</a>) <!-- Rice 1.0.0 --></p>
 

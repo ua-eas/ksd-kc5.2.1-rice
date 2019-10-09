@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -421,6 +421,15 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
     	final List<String> nodes = KEWServiceLocator.getRouteNodeService().getActiveRouteNodeNames(documentId);
     	return nodes != null ? Collections.unmodifiableList(nodes) : Collections.<String>emptyList();
     }
+
+    public List<String> getActiveSimpleRouteNodeNames(String documentId) {
+        if (StringUtils.isBlank(documentId)) {
+            throw new RiceIllegalArgumentException("documentId was null or blank");
+        }
+
+        final List<String> nodes = KEWServiceLocator.getRouteNodeService().getActiveSimpleRouteNodeNames(documentId);
+        return nodes != null ? Collections.unmodifiableList(nodes) : Collections.<String>emptyList();
+    }
     
     public List<String> getTerminalRouteNodeNames(String documentId) {
     	if (StringUtils.isBlank(documentId)) {
@@ -440,7 +449,17 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
     	return nodes != null ? Collections.unmodifiableList(nodes) : Collections.<String>emptyList();
     }
 
-	private List<RouteNodeInstance> convertRouteNodeInstances(List<org.kuali.rice.kew.engine.node.RouteNodeInstance> routeNodeInstanceBos) {
+    public List<String> getCurrentSimpleRouteNodeNames(String documentId) {
+        if (StringUtils.isBlank(documentId)) {
+            throw new RiceIllegalArgumentException("documentId was null or blank");
+        }
+
+        final List<String> nodes = KEWServiceLocator.getRouteNodeService().getCurrentSimpleRouteNodeNames(documentId);
+        return nodes != null ? Collections.unmodifiableList(nodes) : Collections.<String>emptyList();
+    }
+
+
+    private List<RouteNodeInstance> convertRouteNodeInstances(List<org.kuali.rice.kew.engine.node.RouteNodeInstance> routeNodeInstanceBos) {
 		List<RouteNodeInstance> routeNodeInstances = new ArrayList<RouteNodeInstance>();
         for (org.kuali.rice.kew.engine.node.RouteNodeInstance routeNodeInstanceBo : routeNodeInstanceBos) {
         	routeNodeInstances.add(org.kuali.rice.kew.engine.node.RouteNodeInstance.to(routeNodeInstanceBo));

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -293,4 +293,39 @@ public interface ResponsibilityService {
             @WebParam(name = "namespaceCode") String namespaceCode,
             @WebParam(name = "templateName") String templateName)
             throws RiceIllegalArgumentException;
+
+    /**
+     * Return the active responsibilities for the given workflow document type.
+     *
+     * @since 2.6
+     * @param documentTypeName document type name associated with the responsibilities
+     * @return an immutable list of {@link org.kuali.rice.kim.api.responsibility.Responsibility}, if none are found list
+     *         will be empty
+     * @throws RiceIllegalArgumentException if the document type name is null or blank
+     */
+    @WebMethod(operationName = "findWorkflowResponsibilities")
+    @XmlElementWrapper(name = "responsibilities", required = true)
+    @XmlElement(name = "responsibility", required = false)
+    @WebResult(name = "responsibilities")
+    List<Responsibility> findWorkflowResponsibilities(
+            @WebParam(name = "documentTypeName") String documentTypeName)
+            throws RiceIllegalArgumentException;
+
+    /**
+     * Return the active exception routing responsibilities for the given workflow document type.
+     *
+     * @since 2.6
+     * @param documentTypeName document type name associated with the responsibilities
+     * @return an immutable list of {@link org.kuali.rice.kim.api.responsibility.Responsibility}, if none are found list
+     *         will be empty
+     * @throws RiceIllegalArgumentException if the document type name is null or blank
+     */
+    @WebMethod(operationName = "findWorkflowExceptionResponsibilities")
+    @XmlElementWrapper(name = "responsibilities", required = true)
+    @XmlElement(name = "responsibility", required = false)
+    @WebResult(name = "responsibilities")
+    List<Responsibility> findWorkflowExceptionResponsibilities(
+            @WebParam(name = "documentTypeName") String documentTypeName)
+            throws RiceIllegalArgumentException;
+
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -191,6 +191,9 @@ public final class XmlConstants {
     //style
     public static final String STYLE_STYLES = "styles";
     public static final String STYLE_STYLE = "style";
+
+    public static final String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
+    public static final String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
     
     private XmlConstants() {
     	throw new UnsupportedOperationException("do not call");

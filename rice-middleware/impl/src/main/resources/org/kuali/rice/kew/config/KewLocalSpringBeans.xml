@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
@@ -26,6 +27,8 @@
   <import resource="classpath:org/kuali/rice/kew/config/KewEmbeddedSpringBeans.xml"/>
   <import resource="classpath:org/kuali/rice/kew/config/_KewLocalServiceBusSpringBeans.xml"/>
   <import resource="classpath:org/kuali/rice/kew/config/_KewJpaSpringBeans.xml"/>
+  <import resource="classpath:org/kuali/rice/kew/config/_KewLocalSpringBeans_AttachmentService_File.xml"/>
+  <import resource="classpath:org/kuali/rice/kew/config/_KewLocalSpringBeans_AttachmentService_S3.xml"/>
 
   <!-- the distributed cache manager that calls into the kewCacheAdminService on the ksb -->
   <bean id="kewDistributedCacheManager" class="org.kuali.rice.core.impl.cache.DistributedCacheManagerDecorator"
@@ -95,11 +98,7 @@
   <!--  NoteService -->
   <bean id="enNoteService" class="org.kuali.rice.kew.notes.service.impl.NoteServiceImpl">
     <property name="noteDAO" ref="enNoteDAO"/>
-    <property name="attachmentService">
-      <bean class="org.kuali.rice.kew.notes.service.impl.AttachmentServiceImpl">
-        <property name="attachmentDir" value="${attachment.dir.location}"/>
-      </bean>
-    </property>
+    <property name="attachmentService" ref="rice.kew.attachmentService"/>
     <property name="dataObjectService" ref="dataObjectService"/>
   </bean>
 
@@ -209,6 +208,7 @@
         <idref local="rice.kew.noteService"/>
         <idref local="rice.kew.kewTypeRepositoryService"/>
         <idref local="rice.kew.peopleFlowService"/>
+        <idref local="rice.kew.stuckDocumentService"/>
       </list>
     </property>
   </bean>
@@ -219,5 +219,126 @@
         class="org.kuali.rice.core.framework.persistence.ojb.BaseOjbConfigurer"
         p:metadataLocation="classpath:org/kuali/rice/kew/impl/config/OJB-repository-kew.xml"
         p:jcdAliases="kewDataSource"/>
+
+  <!-- Stuck document configuration -->
+
+  <bean id="stuckDocumentsAutofixEnabledParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_AUTOFIX_ENABLED_IND"
+        c:defaultValue="false"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <!-- Default, every 15 minutes -->
+  <bean id="stuckDocumentsAutofixCronExpressionParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_AUTOFIX_CRON_EXPRESSION"
+        c:defaultValue="0 0/15 * 1/1 * ? *"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+
+  <bean id="stuckDocumentsAutofixQuietPeriodParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_AUTOFIX_QUIET_PERIOD"
+        c:defaultValue="300"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <bean id="stuckDocumentsAutofixMaxAttemptsParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_AUTOFIX_MAX_ATTEMPTS"
+        c:defaultValue="2"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <bean id="stuckDocumentsAutofixNotificationEnabledParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_AUTOFIX_NOTIFICATION_ENABLED"
+        c:defaultValue="true"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <bean id="stuckDocumentsAutofixNotificationSubjectParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_AUTOFIX_NOTIFICATION_SUBJECT"
+        c:defaultValue="Failed to autofix document #{ '$' + '{documentId}'}"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <bean id="stuckDocumentsNotificationEnabledParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_NOTIFICATION_ENABLED_IND"
+        c:defaultValue="false"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <!-- Default, every 1 hour -->
+  <bean id="stuckDocumentsNotificationCronExpressionParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_NOTIFICATION_CRON_EXPRESSION"
+        c:defaultValue="0 0 0/1 1/1 * ? *"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <bean id="stuckDocumentsNotificationFromParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_NOTIFICATION_FROM"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <bean id="stuckDocumentsNotificationToParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_NOTIFICATION_TO"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <bean id="stuckDocumentsNotificationSubjectParam"
+        class="org.kuali.rice.coreservice.framework.parameter.ParameterRuntimeConfig"
+        c:namespaceCode="KR-WKFLW"
+        c:componentCode="All"
+        c:name="STUCK_DOCUMENTS_NOTIFICATION_SUBJECT"
+        c:defaultValue="Stuck Documents Found"
+        c:parameterService-ref="rice.kew.import.parameterService"/>
+
+  <bean id="rice.ksb.import.scheduler"
+        class="org.kuali.rice.core.framework.resourceloader.GlobalResourceLoaderServiceFactoryBean"
+        p:serviceName="rice.ksb.scheduler"
+        p:mustExist="false"/>
+
+  <bean id="rice.kew.stuckDocumentScheduler"
+        class="org.kuali.rice.kew.impl.stuck.StuckDocumentScheduler"
+        p:scheduler-ref="rice.ksb.import.scheduler"
+        p:notificationEnabled-ref="stuckDocumentsNotificationEnabledParam"
+        p:notificationCronExpression-ref="stuckDocumentsNotificationCronExpressionParam"
+        p:autofixEnabled-ref="stuckDocumentsAutofixEnabledParam"
+        p:autofixCronExpression-ref="stuckDocumentsAutofixCronExpressionParam"
+        p:autofixQuietPeriod-ref="stuckDocumentsAutofixQuietPeriodParam"
+        p:autofixMaxAttempts-ref="stuckDocumentsAutofixMaxAttemptsParam"/>
+
+  <bean id="rice.kew.stuckDocumentService"
+        class="org.kuali.rice.kew.impl.stuck.StuckDocumentServiceImpl"
+        p:stuckDocumentDao-ref="rice.kew.stuckDocumentDao"
+        p:notifier-ref="rice.kew.stuckDocumentNotifier"
+        p:failureNotificationEnabled-ref="stuckDocumentsAutofixNotificationEnabledParam"/>
+
+  <bean id="rice.kew.stuckDocumentNotifier"
+        class="org.kuali.rice.kew.impl.stuck.StuckDocumentNotifierImpl"
+        p:from-ref="stuckDocumentsNotificationFromParam"
+        p:to-ref="stuckDocumentsNotificationToParam"
+        p:subject-ref="stuckDocumentsNotificationSubjectParam"
+        p:mailer-ref="rice.kew.import.mailer"
+        p:autofixSubject-ref="stuckDocumentsAutofixNotificationSubjectParam"/>
+
 
 </beans>

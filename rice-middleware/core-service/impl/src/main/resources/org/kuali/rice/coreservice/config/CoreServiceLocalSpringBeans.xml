@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -56,10 +56,13 @@
     <property name="dataObjectService" ref="dataObjectService"/>
   </bean>
 
+  <bean id="taskScheduler" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"/>
+
   <bean id="parameterService" class="org.kuali.rice.coreservice.impl.parameter.ParameterServiceImpl">
     <property name="parameterRepositoryService" ref="parameterRepositoryService"/>
     <property name="kualiModuleService" ref="rice.coreService.import.kualiModuleService"/>
     <property name="applicationId" value="${application.id}"/>
+    <property name="taskScheduler" ref="taskScheduler"/>
   </bean>
 
   <bean id="styleService" class="org.kuali.rice.coreservice.impl.style.StyleServiceImpl">

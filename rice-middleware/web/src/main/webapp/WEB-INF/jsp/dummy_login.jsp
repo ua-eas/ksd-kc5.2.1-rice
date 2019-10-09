@@ -1,6 +1,6 @@
 <%--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -88,6 +88,8 @@
 <div class="build">${ConfigProperties.version} (${ConfigProperties.datasource.ojb.platform})</div>
 
 <form name="loginForm" action="" method="post">
+
+    <kul:csrf />
 
 <div class="body">
         <table id="login" cellspacing="0" cellpadding="0" align="center">

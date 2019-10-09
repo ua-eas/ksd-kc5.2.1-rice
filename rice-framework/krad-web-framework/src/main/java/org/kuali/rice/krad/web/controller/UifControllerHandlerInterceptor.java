@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,12 @@ package org.kuali.rice.krad.web.controller;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.kuali.rice.krad.UserSession;
+import org.kuali.rice.krad.service.CsrfService;
 import org.kuali.rice.krad.uif.UifConstants;
 import org.kuali.rice.krad.uif.UifParameters;
 import org.kuali.rice.krad.uif.util.ProcessLogger;
 import org.kuali.rice.krad.uif.view.ViewModel;
+import org.kuali.rice.krad.util.CsrfValidator;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADUtils;
 import org.kuali.rice.krad.web.form.HistoryManager;
@@ -51,6 +53,9 @@ public class UifControllerHandlerInterceptor implements HandlerInterceptor {
     @Autowired
     private ModelAndViewService modelAndViewService;
 
+    @Autowired
+    private CsrfService csrfService;
+
     /**
      * Before the controller executes the user session is set on GlobalVariables
      * and messages are cleared, in addition setup for the history manager and a check on missing session
@@ -62,6 +67,10 @@ public class UifControllerHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) throws Exception {
         checkHandlerMethodAccess(request, handler);
+
+        if (!getCsrfService().validateCsrfIfNecessary(request, response)) {
+            return false;
+        }
 
         final UserSession session = KRADUtils.getUserSessionFromRequest(request);
 
@@ -235,4 +244,13 @@ public class UifControllerHandlerInterceptor implements HandlerInterceptor {
     public void setModelAndViewService(ModelAndViewService modelAndViewService) {
         this.modelAndViewService = modelAndViewService;
     }
+
+    protected CsrfService getCsrfService() {
+        return csrfService;
+    }
+
+    public void setCsrfService(CsrfService csrfService) {
+        this.csrfService = csrfService;
+    }
+
 }

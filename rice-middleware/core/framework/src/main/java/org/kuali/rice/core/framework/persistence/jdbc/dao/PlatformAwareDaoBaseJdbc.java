@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 package org.kuali.rice.core.framework.persistence.jdbc.dao;
 
-import org.kuali.rice.core.framework.persistence.platform.DatabasePlatform;
 import org.kuali.rice.core.framework.persistence.dao.PlatformAwareDao;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.kuali.rice.core.framework.persistence.platform.DatabasePlatform;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-public abstract class PlatformAwareDaoBaseJdbc extends SimpleJdbcDaoSupport implements PlatformAwareDao {
+public abstract class PlatformAwareDaoBaseJdbc extends JdbcDaoSupport implements PlatformAwareDao {
     private DatabasePlatform dbPlatform;
     
     public DatabasePlatform getDbPlatform(){

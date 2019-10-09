@@ -1,5 +1,5 @@
 /*
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -393,6 +393,12 @@ KradRequest.prototype = {
         var actionParent;
         if (this.$action) {
             actionParent = jQuery(this.$action).parents("[data-omit_group='true']");
+        }
+
+        // always add the CSRF token if it's there
+        var csrfField = jQuery("[name='csrfToken']:input");
+        if (csrfField.length) {
+            jQuery.extend(data, {csrfToken: csrfField.val()});
         }
 
         var updateParent;

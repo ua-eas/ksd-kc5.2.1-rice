@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -827,7 +827,7 @@ public abstract class KualiAction extends DispatchAction {
         
         // KULRICE-8077: PO Quote Limitation of Only 9 Vendors
         String questionTextAttributeName = KRADConstants.QUESTION_TEXT_ATTRIBUTE_NAME + questionId;
-        GlobalVariables.getUserSession().addObject(questionTextAttributeName, (Object)questionText);
+        GlobalVariables.getUserSession().addObject(questionTextAttributeName, questionText);
 
         String questionUrl = UrlFactory.parameterizeUrl(getApplicationBaseUrl() + "/kr/" + KRADConstants.QUESTION_ACTION, parameters);
         return new ActionForward(questionUrl, true);

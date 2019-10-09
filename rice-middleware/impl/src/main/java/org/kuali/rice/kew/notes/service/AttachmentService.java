@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package org.kuali.rice.kew.notes.service;
 import java.io.File;
 
 import org.kuali.rice.kew.notes.Attachment;
+import org.springframework.core.io.Resource;
 
 /**
  * A service providing access for attachments.
@@ -28,8 +29,16 @@ import org.kuali.rice.kew.notes.Attachment;
  */
 public interface AttachmentService {
 
-	public void persistAttachedFileAndSetAttachmentBusinessObjectValue(Attachment attachment) throws Exception;
-	public File findAttachedFile(Attachment attachment) throws Exception;
-	public void deleteAttachedFile(Attachment attachment) throws Exception;
+	void persistAttachedFileAndSetAttachmentBusinessObjectValue(Attachment attachment) throws Exception;
+	
+	/**
+	 * @deprecated use {@link #findAttachedResource(Attachment)} instead
+	 */
+	@Deprecated
+	File findAttachedFile(Attachment attachment) throws Exception;
+	
+	Resource findAttachedResource(Attachment attachment);
+	
+	void deleteAttachedFile(Attachment attachment) throws Exception;
 	
 }

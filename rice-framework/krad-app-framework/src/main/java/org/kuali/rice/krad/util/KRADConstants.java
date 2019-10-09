@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -119,6 +119,8 @@ public final class KRADConstants {
 
     public static final class ParameterNames {
         public static final String DEFAULT_LOCALE_CODE = "DEFAULT_LOCALE_CODE";
+        public static final String CSRF_EXEMPT_PATHS = "CSRF_EXEMPT_PATHS";
+        public static final String CSRF_ENABLED_IND = "CSRF_ENABLED_IND";
     }
 
     public static final class DocumentFormHeaderFieldIds {
@@ -194,6 +196,8 @@ public final class KRADConstants {
     public static final String LOGOFF_REDIRECT_URL_PARAMETER = "LOGOFF_REDIRECT_URL";
     public static final String LOGOFF_REDIRECT_URL_PROPERTY = "rice.portal.logout.redirectUrl";
     public static final String PORTAL_ALLOWED_REGEX = "rice.portal.allowed.regex";
+    public static final String BACK_LOCATION_ALLOWED_REGEX = "rice.backLocation.allowed.regex";
+    public static final String BACK_LOCATION_DEFAULT_URL = "rice.backLocation.default.url";
     //    public static final String BLANKET_APPROVE_METHOD = "blanketApprove";
     public static final String BUSINESS_OBJECT_CLASS_ATTRIBUTE = "businessObjectClassName";
     public static final String DATA_OBJECT_CLASS_ATTRIBUTE = "dataObjectClassName";
@@ -640,6 +644,8 @@ public final class KRADConstants {
         public static final String ENABLE_LEGACY_DATA_FRAMEWORK = "rice.krad.enableLegacyDataFramework";
         public static final String ENABLE_VIEW_AUTOGENERATION = "rice.krad.views.autoGeneration.enabled";
         public static final String ENABLE_PREINSTANTIATE_BEANS = "rice.krad.preInstantiateBeans.enabled";
+        public static final String CSRF_EXEMPT_PATHS = "csrf.exempt.paths";
+        public static final String CSRF_ENABLED = "csrf.enabled";
 
         private Config() {
             throw new UnsupportedOperationException("do not call");

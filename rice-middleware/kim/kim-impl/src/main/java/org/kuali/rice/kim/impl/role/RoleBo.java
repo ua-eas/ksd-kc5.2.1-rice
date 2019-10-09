@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ public class RoleBo extends DataObjectBase implements RoleEbo {
 
     @JoinFetch(value= JoinFetchType.OUTER)
     @OneToMany(targetEntity = RoleMemberBo.class, orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID", insertable = false, updatable = false)
+    @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
     private List<RoleMemberBo> members = new AutoPopulatingList<RoleMemberBo>(RoleMemberBo.class);
 
     @Transient

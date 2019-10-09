@@ -1,5 +1,5 @@
-/*
- * Copyright 2006-2015 The Kuali Foundation
+/**
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.kuali.rice.kew.api.util;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.xml.utils.XMLChar;
 
 public class UserTextFilterForXml {
+
     /**
      * Removes invalid XML 1.0 Unicode characters
      * @param text The String to clean
@@ -47,4 +46,5 @@ public class UserTextFilterForXml {
             }
         }
     }
+
 }

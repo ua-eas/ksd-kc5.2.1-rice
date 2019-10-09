@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.kuali.rice.kew.stats.Stats;
 import org.kuali.rice.kew.api.KewApiConstants;
+import org.kuali.rice.kns.util.WebUtils;
 import org.kuali.rice.kns.web.struts.form.KualiForm;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
@@ -276,7 +277,7 @@ public class StatsForm extends KualiForm {
     }
 
 	public String getBackLocation() {
-		return this.backLocation;
+		return WebUtils.sanitizeBackLocation(this.backLocation);
 	}
 
 	public void setBackLocation(String backLocation) {

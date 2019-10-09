@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,6 +53,7 @@ public class StaticWeavingTest {
     private void assertStaticWeaved(Set<Class<?>>... types) {
         for (Set<Class<?>> typeSet : types) {
             for (Class<?> type : typeSet) {
+                if (!hasValidAnnotation(type)) continue;
                 boolean foundWeaved = false;
                 Method[] methods = type.getDeclaredMethods();
                 for (Method method : methods) {
@@ -70,6 +71,10 @@ public class StaticWeavingTest {
                 }
             }
         }
+    }
+
+    private boolean hasValidAnnotation(Class<?> type) {
+        return type.isAnnotationPresent(Entity.class) || type.isAnnotationPresent(MappedSuperclass.class) || type.isAnnotationPresent(Embeddable.class);
     }
 
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -326,6 +326,21 @@ public interface DocumentService {
     public Document sendAdHocRequests(Document document, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException;
 
     /**
+     * Send ad hoc requests for the given document to the specified node name, optionally providing an annotation which
+     * will show up in the route log of the document.  Also optionally providing a list of ad hoc recipients for the
+     * document. However if no ad hoc recipients are provided, no ad hoc requests will be sent.
+     *
+     * @param document the document for which the ad hoc requests are sent
+     * @param annotation the annotation to appear in the route log of the document
+     * @param nodeName the name of the node to attach the adhoc requests to
+     * @param adHocRecipients list of ad hoc recipients to which the document will be routed
+     * @return the document
+     * @throws WorkflowException
+     */
+    public Document sendAdHocRequests(Document document, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException;
+
+
+    /**
      * Builds an workflow notification request for the note and sends it to note recipient.
      *
      * @param document - document that contains the note
@@ -370,4 +385,16 @@ public interface DocumentService {
      * @return the saved document
      */
     Document validateAndPersistDocument(Document document, DocumentEvent event) throws ValidationException;
+
+    Document routeDocument(Document document, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRouteRecipients) throws WorkflowException;
+
+    Document blanketApproveDocument(Document document, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRouteRecipients) throws WorkflowException;
+
+    Document approveDocument(Document document, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRouteRecipients) throws WorkflowException;
+
+    Document clearDocumentFyi(Document document, String nodeName, List<AdHocRouteRecipient> adHocRouteRecipients) throws WorkflowException;
+
+    Document acknowledgeDocument(Document document, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRouteRecipients) throws WorkflowException;
+
+    Document completeDocument(Document document, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRouteRecipients) throws WorkflowException;
 }

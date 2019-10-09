@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,8 @@ import org.kuali.rice.kew.notes.service.AttachmentService;
 import org.kuali.rice.kew.notes.service.NoteService;
 import org.kuali.rice.krad.data.DataObjectService;
 import org.springframework.beans.factory.annotation.Required;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 
 public class NoteServiceImpl implements NoteService {
 
@@ -91,6 +93,10 @@ public class NoteServiceImpl implements NoteService {
 			throw new RuntimeException(e);
 		}
 
+	}
+	
+	public Resource findAttachmentResource(Attachment attachment) {
+		return attachmentService.findAttachedResource(attachment);
 	}
 
 	public Attachment findAttachment(String attachmentId) {

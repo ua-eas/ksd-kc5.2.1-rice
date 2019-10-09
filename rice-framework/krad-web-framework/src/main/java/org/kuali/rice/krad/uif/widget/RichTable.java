@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,6 @@ import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.KRADUtils;
 import org.kuali.rice.krad.web.form.UifFormBase;
 
-import javax.annotation.Nullable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -570,7 +569,7 @@ public class RichTable extends WidgetBase {
     private List<String> getFirstRowPropertyNames(List<Field> firstRowFields) {
         return Lists.transform(firstRowFields, new Function<Field, String>() {
             @Override
-            public String apply(@Nullable Field field) {
+            public String apply(Field field) {
                 if (field != null && field instanceof DataField) {
                     return ((DataField) field).getPropertyName();
                 } else {

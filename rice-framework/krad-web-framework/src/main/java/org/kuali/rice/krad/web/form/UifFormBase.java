@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package org.kuali.rice.krad.web.form;
 
-import org.apache.commons.lang.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.uif.UifConstants;
 import org.kuali.rice.krad.uif.UifConstants.ViewType;
@@ -35,15 +35,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Base form class for views within the KRAD User Interface Framework.
@@ -208,9 +200,12 @@ public class UifFormBase implements ViewModel {
     protected Map<String, Boolean> actionFlags;
     protected Map<String, Boolean> editModes;
 
+    @SessionTransient
     protected HttpServletRequest request;
 
     private Object dialogDataObject;
+
+    private String csrfToken;
 
     public UifFormBase() {
         renderedInDialog = false;
@@ -253,6 +248,9 @@ public class UifFormBase implements ViewModel {
         } else {
             setRequestedFormKey(formKeyParam);
         }
+
+        String csrfToken = KRADServiceLocatorWeb.getCsrfService().getSessionToken(request);
+        setCsrfToken(csrfToken);
 
         this.request = request;
     }
@@ -1522,4 +1520,13 @@ public class UifFormBase implements ViewModel {
                 this.formKey).append(", requestedFormKey=").append(this.requestedFormKey).append("]");
         return builder.toString();
     }
+
+    public String getCsrfToken() {
+        return csrfToken;
+    }
+
+    public void setCsrfToken(String csrfToken) {
+        this.csrfToken = csrfToken;
+    }
+
 }

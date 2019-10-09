@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,6 @@
  */
 package org.kuali.rice.krad.workflow.service.impl;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
@@ -32,8 +26,6 @@ import org.kuali.rice.kew.api.WorkflowDocument;
 import org.kuali.rice.kew.api.WorkflowDocumentFactory;
 import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kew.api.action.ActionType;
-import org.kuali.rice.kew.api.document.node.RouteNodeInstance;
-import org.kuali.rice.kew.api.exception.InvalidActionTakenException;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.group.Group;
 import org.kuali.rice.kim.api.identity.Person;
@@ -47,6 +39,11 @@ import org.kuali.rice.krad.exception.UnknownDocumentIdException;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -132,30 +129,42 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
 
     @Override
     public void acknowledge(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
+        acknowledge(workflowDocument, annotation, null, adHocRecipients);
+    }
+
+    @Override
+    public void acknowledge(WorkflowDocument workflowDocument, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("acknowleding document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
 
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, nodeName,
+                filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ}), null);
         workflowDocument.acknowledge(annotation);
     }
 
     @Override
     public void approve(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
+        approve(workflowDocument, annotation, null, adHocRecipients);
+    }
+
+    @Override
+    public void approve(WorkflowDocument workflowDocument, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("approving document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
 
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, nodeName,
+                filterAdHocRecipients(adHocRecipients,
+                        new String[] { KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ }), null);
         workflowDocument.approve(annotation);
     }
-
 
     @Override
     public void superUserApprove(WorkflowDocument workflowDocument, String annotation) throws WorkflowException {
     	if ( LOG.isInfoEnabled() ) {
-    		LOG.info("super user approve document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
-    	}
+            LOG.info("super user approve document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
+        }
         workflowDocument.superUserBlanketApprove(annotation);
     }
 
@@ -177,11 +186,17 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
 
     @Override
     public void blanketApprove(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
+        blanketApprove(workflowDocument, annotation, null, adHocRecipients);
+    }
+
+    @Override
+    public void blanketApprove(WorkflowDocument workflowDocument, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("blanket approving document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
 
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, nodeName,
+                filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ}), null);
         workflowDocument.blanketApprove(annotation);
     }
 
@@ -205,11 +220,16 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
 
     @Override
     public void clearFyi(WorkflowDocument workflowDocument, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
+        clearFyi(workflowDocument, null, adHocRecipients);
+    }
+
+    @Override
+    public void clearFyi(WorkflowDocument workflowDocument, String nodeName, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("clearing FYI for document(" + workflowDocument.getDocumentId() + ")");
         }
 
-        handleAdHocRouteRequests(workflowDocument, "", filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_FYI_REQ }));
+        handleAdHocRouteRequests(workflowDocument, "", nodeName, filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_FYI_REQ}), null);
         workflowDocument.fyi();
     }
 
@@ -220,11 +240,21 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
 
     @Override
     public void sendWorkflowNotification(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients, String notificationLabel) throws WorkflowException {
+        sendWorkflowNotification(workflowDocument,annotation, null, adHocRecipients, notificationLabel);
+    }
+
+    @Override
+    public void sendWorkflowNotification(WorkflowDocument workflowDocument, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
+        sendWorkflowNotification(workflowDocument, annotation, nodeName, adHocRecipients, null);
+    }
+
+    @Override
+    public void sendWorkflowNotification(WorkflowDocument workflowDocument, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRecipients, String notificationLabel) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("sending FYI for document(" + workflowDocument.getDocumentId() + ")");
         }
 
-        handleAdHocRouteRequests(workflowDocument, annotation, adHocRecipients, notificationLabel);
+        handleAdHocRouteRequests(workflowDocument, annotation, nodeName, adHocRecipients, notificationLabel);
     }
 
     @Override
@@ -238,11 +268,19 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
 
     @Override
     public void route(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
+       route(workflowDocument, annotation, null, adHocRecipients);
+    }
+
+    @Override
+    public void route(WorkflowDocument workflowDocument, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("routing document(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
 
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ, KewApiConstants.ACTION_REQUEST_COMPLETE_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, nodeName,
+                filterAdHocRecipients(adHocRecipients, new String[]{KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ,
+                        KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ,
+                        KewApiConstants.ACTION_REQUEST_COMPLETE_REQ}), null);
         workflowDocument.route(annotation);
     }
 
@@ -274,7 +312,6 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
         if (LOG.isDebugEnabled()) {
             LOG.debug("getting current route level name for document(" + workflowDocument.getDocumentId());
         }
-//        return KEWServiceLocator.getRouteHeaderService().getRouteHeader(workflowDocument.getDocumentId()).getCurrentRouteLevelName();
         WorkflowDocument freshCopyWorkflowDoc = loadWorkflowDocument(workflowDocument.getDocumentId(), GlobalVariables.getUserSession().getPerson());
         return getCurrentRouteNodeNames(freshCopyWorkflowDoc);
     }
@@ -296,35 +333,27 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
     }
 
     private void handleAdHocRouteRequests(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients) throws WorkflowException {
-    	handleAdHocRouteRequests(workflowDocument, annotation, adHocRecipients, null);
+    	handleAdHocRouteRequests(workflowDocument, annotation, null, adHocRecipients, null);
     }
 
     /**
      * Convenience method for generating ad hoc requests for a given document
-     *
-     * @param flexDoc
-     * @param annotation
-     * @param adHocRecipients
-     * @throws InvalidActionTakenException
-     * @throws InvalidRouteTypeException
-     * @throws InvalidActionRequestException
      */
-    private void handleAdHocRouteRequests(WorkflowDocument workflowDocument, String annotation, List<AdHocRouteRecipient> adHocRecipients, String notificationLabel) throws WorkflowException {
+    private void handleAdHocRouteRequests(WorkflowDocument workflowDocument, String annotation, String nodeName, List<AdHocRouteRecipient> adHocRecipients, String notificationLabel) throws WorkflowException {
 
         if (adHocRecipients != null && adHocRecipients.size() > 0) {
-            String currentNode = null;
-            Set<String> currentNodes = workflowDocument.getNodeNames();
-            if (currentNodes.isEmpty()) {
-                List<RouteNodeInstance> nodes = KewApiServiceLocator.getWorkflowDocumentService().getTerminalRouteNodeInstances(
-                        workflowDocument.getDocumentId());
-                currentNodes = new HashSet<String>();
-                for (RouteNodeInstance node : nodes) {
-                    currentNodes.add(node.getName());
+
+            if (StringUtils.isBlank(nodeName)) {
+                Set<String> currentNodes = workflowDocument.getSimpleNodeNames();
+                if (currentNodes.isEmpty()) {
+                    // let's check simple "terminal" nodes as well if there are no "active" ones
+                    currentNodes = workflowDocument.getCurrentSimpleNodeNames();
                 }
-            }
-            if (!currentNodes.isEmpty()) {
-                // for now just pick a node and go with it...
-                currentNode = currentNodes.iterator().next();
+
+                if (!currentNodes.isEmpty()) {
+                    // select the current node, if there are multiple simple nodes on the document, we just pick one to use
+                    nodeName = currentNodes.iterator().next();
+                }
             }
 
             List<AdHocRoutePerson> adHocRoutePersons = new ArrayList<AdHocRoutePerson>();
@@ -347,7 +376,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
                 		if (principal == null) {
                 			throw new RiceRuntimeException("Could not locate principal with name '" + recipient.getId() + "'");
                 		}
-                        workflowDocument.adHocToPrincipal(ActionRequestType.fromCode(recipient.getActionRequested()), currentNode, newAnnotation, principal.getPrincipalId(), "", true, notificationLabel);
+                        workflowDocument.adHocToPrincipal(ActionRequestType.fromCode(recipient.getActionRequested()), nodeName, newAnnotation, principal.getPrincipalId(), "", true, notificationLabel);
                         AdHocRoutePerson personRecipient  = (AdHocRoutePerson)recipient;
                         adHocRoutePersons.add(personRecipient);
                     }
@@ -356,7 +385,7 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
                 		if (group == null) {
                 			throw new RiceRuntimeException("Could not locate group with id '" + recipient.getId() + "'");
                 		}
-                    	workflowDocument.adHocToGroup(ActionRequestType.fromCode(recipient.getActionRequested()), currentNode, newAnnotation, group.getId() , "", true, notificationLabel);
+                    	workflowDocument.adHocToGroup(ActionRequestType.fromCode(recipient.getActionRequested()), nodeName, newAnnotation, group.getId() , "", true, notificationLabel);
                         AdHocRouteWorkgroup groupRecipient  = (AdHocRouteWorkgroup)recipient;
                         adHocRouteWorkgroups.add(groupRecipient);
                     }
@@ -402,10 +431,17 @@ public class WorkflowDocumentServiceImpl implements WorkflowDocumentService {
      */
     @Override
 	public void complete(WorkflowDocument workflowDocument, String annotation, List adHocRecipients) throws WorkflowException {
+        complete(workflowDocument, annotation, null, adHocRecipients);
+    }
+
+    @Override
+    public void complete(WorkflowDocument workflowDocument, String annotation, String nodeName, List adHocRecipients) throws WorkflowException {
         if (LOG.isDebugEnabled()) {
             LOG.debug("routing flexDoc(" + workflowDocument.getDocumentId() + ",'" + annotation + "')");
         }
-        handleAdHocRouteRequests(workflowDocument, annotation, filterAdHocRecipients(adHocRecipients, new String[] { KewApiConstants.ACTION_REQUEST_COMPLETE_REQ,KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ, KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ }));
+        handleAdHocRouteRequests(workflowDocument, annotation, nodeName, filterAdHocRecipients(adHocRecipients,
+                new String[]{KewApiConstants.ACTION_REQUEST_COMPLETE_REQ, KewApiConstants.ACTION_REQUEST_ACKNOWLEDGE_REQ,
+                        KewApiConstants.ACTION_REQUEST_FYI_REQ, KewApiConstants.ACTION_REQUEST_APPROVE_REQ}), null);
         workflowDocument.complete(annotation);
     }
 

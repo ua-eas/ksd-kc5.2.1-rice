@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ import java.util.List;
 public class PeopleFlowMemberBo implements Serializable, PeopleFlowMemberContract,BusinessObject {
 
     @Id
-    @GeneratedValue(generator = "KREW_PPL_FLW_S")
+    @GeneratedValue(generator = "KREW_PPL_FLW_MBR_S")
     @PortableSequenceGenerator(name = "KREW_PPL_FLW_MBR_S")
     @Column(name = "PPL_FLW_MBR_ID", nullable = false)
     private String id;

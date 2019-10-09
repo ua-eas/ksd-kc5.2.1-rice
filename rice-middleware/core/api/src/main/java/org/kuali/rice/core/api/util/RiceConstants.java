@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public final class RiceConstants {
 
     public static final String RICE_JPA_ENABLED = "rice.jpa.enabled";
     public static final String JPA_ENABLED_SUFFIX = ".jpa.enabled";
-    
+
     public static final String SERVICES_TO_CACHE = "rice.resourceloader.servicesToCache";
     public static final String RICE_LOGGING_CONFIGURE = "rice.logging.configure";
 

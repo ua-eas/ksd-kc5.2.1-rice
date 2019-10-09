@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -384,6 +384,16 @@
     <load-on-startup>5</load-on-startup>
   </servlet>
 
+  <servlet>
+    <servlet-name>health</servlet-name>
+    <servlet-class>org.kuali.rice.web.health.HealthServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>health</servlet-name>
+    <url-pattern>/health</url-pattern>
+  </servlet-mapping>
+
   <servlet-mapping>
     <servlet-name>remoting</servlet-name>
     <url-pattern>/remoting/*</url-pattern>
@@ -469,6 +479,10 @@
     <taglib>
       <taglib-uri>http://www.kuali.org/struts.apache.org/tags-html-el</taglib-uri>
       <taglib-location>/WEB-INF/tld/kuali-struts-html-el.tld</taglib-location>
+    </taglib>
+    <taglib>
+      <taglib-uri>http://www.owasp.org/index.php/Category:OWASP_Enterprise_Security_API</taglib-uri>
+      <taglib-location>/WEB-INF/tld/esapi.tld</taglib-location>
     </taglib>
   </jsp-config>
 </web-app>

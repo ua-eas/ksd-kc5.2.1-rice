@@ -1,6 +1,6 @@
 <%--
 
-    Copyright 2005-2015 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@
 
 <html-el:form action="/WorkflowDocHandler.do" >
   <html-el:hidden property="lookupableImplServiceName" value="${ActionForm.lookupableImplServiceName}" />
+	<kul:csrf />
   <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0" class="bord-r-t">
     <c:if test="${(! ActionForm.superUserSearch) && (ActionForm.command != 'displayActionListInlineView') && (ActionForm.workflowDocument.approvalRequested || ActionForm.workflowDocument.completionRequested ||
                  ActionForm.showBlanketApproveButton || ActionForm.workflowDocument.FYIRequested || ActionForm.workflowDocument.acknowledgeRequested)}">

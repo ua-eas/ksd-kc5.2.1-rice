@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -173,4 +173,10 @@ public class OracleDatabasePlatform extends ANSISqlDatabasePlatform {
             		time).append("', 'YYYY-MM-DD HH24:MI:SS')").toString(); 
         }
 	}
+
+    @Override
+    public String getValidationQuery() {
+        return "select 1 from dual";
+    }
+
 }

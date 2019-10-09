@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2015 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,7 +103,7 @@ public class AgendaEditorBusRule extends MaintenanceDocumentRuleBase {
 
                 // attempt to do a lookup, see if this object already exists by these Primary Keys
                 PersistableBusinessObject testBo = findSingleMatching(getDataObjectService(),
-                        dataObjectClass.asSubclass(PersistableBusinessObject.class), newPkFields);
+                        (Class<PersistableBusinessObject>)dataObjectClass.asSubclass(PersistableBusinessObject.class), newPkFields);
 
                 // if the retrieve was successful, then this object already exists, and we need
                 // to complain
