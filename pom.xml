@@ -314,7 +314,7 @@
     <!-- this profile ensures that when building in eclipse with m2e that the groovy project nature and source folders are added -->
     <profile>
       <id>m2e</id>
-      <activation>      
+      <activation>
         <property>
           <name>m2e.version</name>
         </property>
@@ -322,7 +322,7 @@
           <exists>src/test/groovy</exists>
         </file>
       </activation>
-      <build>        
+      <build>
         <plugins>
           <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -344,7 +344,7 @@
           </plugin>
         </plugins>
       </build>
-    </profile>    
+    </profile>
     <!-- This profile will be used unless -DskipOracleProfile is passed as a parameter -->
     <profile>
       <id>usingOracle</id>
@@ -2468,7 +2468,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      
+
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-aws</artifactId>
