@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+
+    The Kuali Financial System, a comprehensive financial management system for higher education.
+
+    Copyright 2005-2019 Kuali, Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd" logicalFilePath="org/kuali/rice/db/phase5/post-rel-2019-01-10.xml">
+    <changeSet id="FINP-4663" author="KFS701" context="bootstrap,demo,unit">
+        <update tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="PERM_ID" value="FINP-4129-P6"/>
+            <where>ATTR_DATA_ID = 'FINP-4129-P6A2'</where>
+        </update>
+        <update tableName="KRIM_PERM_T">
+            <column name="DESC_TXT" value="Users allowed to create new and maintain existing records using the Milestone Schedule document."/>
+            <where>PERM_ID = 'FINP-4129-P7'</where>
+        </update>
+        <update tableName="KRIM_PERM_T">
+            <column name="DESC_TXT" value="Users allowed to create new and maintain existing records using the Predetermined Billing Schedule document."/>
+            <where>PERM_ID = 'FINP-4129-P10'</where>
+        </update>
+        <update tableName="KRIM_PERM_T">
+            <column name="DESC_TXT" value="Users allowed to maintain existing (but not create new) records using the Milestone Schedule document."/>
+            <where>PERM_ID = 'FINP-4129-P8'</where>
+        </update>
+        <update tableName="KRIM_PERM_T">
+            <column name="DESC_TXT" value="Users allowed to maintain existing (but not create new) records using the Predetermined Billing Schedule document."/>
+            <where>PERM_ID = 'FINP-4129-P11'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

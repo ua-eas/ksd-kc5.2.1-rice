@@ -1,0 +1,619 @@
+<?xml version="1.0"?>
+<!--
+
+    The Kuali Financial System, a comprehensive financial management system for higher education.
+
+    Copyright 2005-2019 Kuali, Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd" logicalFilePath="org/kuali/rice/db/phase5/post-rel-2018-11-01.xml">
+
+    <changeSet id="FINP-4129-0" author="KFS701" context="bootstrap,demo,unit">
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Modify Maintenance Document Field')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Modify Maintenance Document Field Milestone Schedule milestoneNumber"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P1A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P1"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'componentName')"/>
+            <column name="ATTR_VAL" value="Milestone"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P1A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P1"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'propertyName')"/>
+            <column name="ATTR_VAL" value="milestoneNumber"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Modify Maintenance Document Field')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Modify Maintenance Document Field Milestone Schedule milestoneDescription"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P2A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P2"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'componentName')"/>
+            <column name="ATTR_VAL" value="Milestone"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P2A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P2"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'propertyName')"/>
+            <column name="ATTR_VAL" value="milestoneDescription"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P3"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Modify Maintenance Document Field')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Modify Maintenance Document Field Milestone Schedule milestoneAmount"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P3A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P3"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'componentName')"/>
+            <column name="ATTR_VAL" value="Milestone"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P3A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P3"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'propertyName')"/>
+            <column name="ATTR_VAL" value="milestoneAmount"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P4"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Modify Maintenance Document Field')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Modify Maintenance Document Field Predetermined Billing Schedule billNumber"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P4A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P4"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'componentName')"/>
+            <column name="ATTR_VAL" value="Bill"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P4A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P4"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'propertyName')"/>
+            <column name="ATTR_VAL" value="billNumber"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P5"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Modify Maintenance Document Field')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Modify Maintenance Document Field Predetermined Billing Schedule billDescription"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P5A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P5"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'componentName')"/>
+            <column name="ATTR_VAL" value="Bill"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P5A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P5"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'propertyName')"/>
+            <column name="ATTR_VAL" value="billDescription"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P6"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Modify Maintenance Document Field')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Modify Maintenance Document Field Predetermined Billing Schedule estimatedAmount"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P6A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P6"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'componentName')"/>
+            <column name="ATTR_VAL" value="Bill"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P6A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P4"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'namespaceOrComponentPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'propertyName')"/>
+            <column name="ATTR_VAL" value="estimatedAmount"/>
+        </insert>
+
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P7"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="42"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Create / Maintain Record(s) MILE FALSE"/>
+            <column name="DESC_TXT" value="Users allowed to maintain existing (but not create new) records using the Milestone Schedule document."/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P7A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P7"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'documentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="MILE"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P7A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P7"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'documentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ATTR_VAL" value="FALSE"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P8"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Create / Maintain Record(s)')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Create / Maintain Record(s) MILE TRUE"/>
+            <column name="DESC_TXT" value="Users allowed to create new and maintain existing records using the Milestone Schedule document."/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P8A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P8"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'documentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="MILE"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P8A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P8"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'documentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ATTR_VAL" value="TRUE"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P9"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Initiate Document')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Initiate Document MILE"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P9A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P9"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-SYS' and srvc_nm = 'documentTypePermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="MILE"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P10"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Create / Maintain Record(s)')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Create / Maintain Record(s) PDBS FALSE"/>
+            <column name="DESC_TXT" value="Users allowed to maintain existing (but not create new) records using the Predetermined Billing Schedule document."/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P10A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P10"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'documentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="PDBS"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P10A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P10"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'documentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ATTR_VAL" value="FALSE"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P11"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Create / Maintain Record(s)')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Create / Maintain Record(s) PDBS TRUE"/>
+            <column name="DESC_TXT" value="Users allowed to create new and maintain existing records using the Predetermined Billing Schedule document."/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P11A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P11"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'documentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="PDBS"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P11A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P11"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'documentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ATTR_VAL" value="TRUE"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4129-P12"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Initiate Document')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Initiate Document PDBS"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4129-P12A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4129-P12"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-SYS' and srvc_nm = 'documentTypePermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="PDBS"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR' and ROLE_NM='Funds Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P8"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR' and ROLE_NM='Funds Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P9"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP3"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR' and ROLE_NM='Funds Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P11"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP4"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR' and ROLE_NM='Funds Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P12"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP5"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P1"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP6"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P2"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP7"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P3"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP8"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P4"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP9"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P5"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP10"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P6"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP11"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P7"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP12"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P9"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP13"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P10"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP14"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>
+            <column name="PERM_ID" value="FINP-4129-P12"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP15"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P1"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP16"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P2"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP17"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P3"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP18"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P4"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP19"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P5"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP20"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P6"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP21"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P7"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP22"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P9"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP23"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P10"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP24"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>
+            <column name="PERM_ID" value="FINP-4129-P12"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP25"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P1"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP26"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P2"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP27"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P3"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP28"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P4"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP29"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P5"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP30"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P6"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP31"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P7"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP32"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P9"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP33"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P10"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_ROLE_PERM_T">
+            <column name="ROLE_PERM_ID" value="FINP-4129-RP34"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>
+            <column name="PERM_ID" value="FINP-4129-P12"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <modifySql dbms="oracle">
+            <replace replace="uuid()" with="sys_guid()"/>
+        </modifySql>
+    </changeSet>
+    <changeSet id="FINP-4330" author="KFS701">
+        <update tableName="KRIM_PERM_T">
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-SYS' and nm = 'Initiate Document')"/>
+            <where>PERM_ID in ('FINP-4129-P9','FINP-4129-P12')</where>
+        </update>
+    </changeSet>
+
+</databaseChangeLog>
