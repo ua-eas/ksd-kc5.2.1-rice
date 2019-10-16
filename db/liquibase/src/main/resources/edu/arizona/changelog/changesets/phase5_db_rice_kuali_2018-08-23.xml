@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+
+    The Kuali Financial System, a comprehensive financial management system for higher education.
+
+    Copyright 2005-2019 Kuali, Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd" logicalFilePath="org/kuali/rice/db/phase5/post-rel-2018-08-16.xml">
+    <changeSet author="KFS701" id="FINP-3744_KFS_EDIT_OBJECT_CODE_ON_REQS_AT_COMMODITY" context="bootstrap,demo,unit">
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID" value="FINP3744"/>
+            <column name="OBJ_ID" value="FINP3744"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KFS-SYS' and nm = 'Modify Accounting Lines')"/>
+            <column name="NMSPC_CD" value="KFS-PURAP"/>
+            <column name="NM" value="Modify Object Code REQS Commodity items.sourceAccountingLines.financialObjectCode"/>
+            <column name="DESC_TXT" value="Allows users to edit the object code on the accounting line and the capital asset tab in the event an object code is changed from capital to non-capital or vice versa."/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID" value="FINP3744-P1A1"/>
+            <column name="OBJ_ID" value="FINP3744-P1A1"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP3744"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-SYS' and srvc_nm = 'documentTypeAndNodeAndFieldsPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="REQS"/>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID" value="FINP3744-P1A2"/>
+            <column name="OBJ_ID" value="FINP3744-P1A2"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP3744"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-SYS' and srvc_nm = 'documentTypeAndNodeAndFieldsPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-WKFLW' and nm = 'routeNodeName')"/>
+            <column name="ATTR_VAL" value="Commodity"/>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID" value="FINP3744-P1A3"/>
+            <column name="OBJ_ID" value="FINP3744-P1A3"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP3744"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-SYS' and srvc_nm = 'documentTypeAndNodeAndFieldsPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'propertyName')"/>
+            <column name="ATTR_VAL" value="items.sourceAccountingLines.financialObjectCode"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
