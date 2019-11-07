@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!--
+
+    The Kuali Financial System, a comprehensive financial management system for higher education.
+
+    Copyright 2005-2018 Kuali, Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd" logicalFilePath="org/kuali/rice/db/phase5/post-rel-2018-01-18.xml">
+
+    <changeSet author="KFS701" id="FINP-2709_ISBS_REPORT_REMOVAL" context="bootstrap,demo,unit">
+        <validCheckSum>7:a6ff4ddea6b6a6c1696cbeed92b67915</validCheckSum>
+        <!-- delete role permission linked to permission -->
+        <delete tableName="krim_role_perm_t">
+            <where>
+                perm_id = (select perm_id from krim_perm_t where nm = 'View Report Income Statement/Balance Sheet')
+            </where>
+        </delete>
+
+        <!-- delete permission attribute data -->
+        <delete tableName="krim_perm_attr_data_t">
+            <where>
+                perm_id = (select perm_id from krim_perm_t where nm = 'View Report Income Statement/Balance Sheet')
+            </where>
+        </delete>
+
+        <!-- delete role -->
+        <delete tableName="krim_perm_t">
+            <where>NM = 'View Report Income Statement/Balance Sheet'</where>
+        </delete>
+    </changeSet>
+
+    <changeSet author="KFS701" id="FINP-2709_DETAILED_TRANSACTION_REPORT_REMOVAL" context="bootstrap,demo,unit">
+        <validCheckSum>7:4f11baa2d97a87db8494b63cc19a1a25</validCheckSum>
+        <!--  delete role permission linked to permission -->
+        <delete tableName="krim_role_perm_t">
+            <where>
+                perm_id = (select perm_id from krim_perm_t where nm = 'View Report Detailed Transactions')
+            </where>
+        </delete>
+
+        <!--  delete permission attribute data -->
+        <delete tableName="krim_perm_attr_data_t">
+            <where>
+                perm_id = (select perm_id from krim_perm_t where nm = 'View Report Detailed Transactions')
+            </where>
+        </delete>
+
+        <!-- delete role -->
+        <delete tableName="krim_perm_t">
+            <where>NM = 'View Report Detailed Transactions'</where>
+        </delete>
+    </changeSet>
+
+</databaseChangeLog>
