@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice-it</artifactId>
-    <version>2.6.2-ua-release53-SNAPSHOT</version>
+    <version>2.6.3-ua-release53-SNAPSHOT</version>
   </parent>
   <artifactId>rice-it-ksb</artifactId>
 
@@ -162,7 +162,7 @@
 
     <dependency>
       <groupId>javax.ws.rs</groupId>
-      <artifactId>jsr311-api</artifactId>
+      <artifactId>javax.ws.rs-api</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

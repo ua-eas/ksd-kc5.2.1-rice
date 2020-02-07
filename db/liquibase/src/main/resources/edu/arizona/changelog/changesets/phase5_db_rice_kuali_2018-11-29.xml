@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!--
+
+    The Kuali Financial System, a comprehensive financial management system for higher education.
+
+    Copyright 2005-2019 Kuali, Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd" logicalFilePath="org/kuali/rice/db/phase5/post-rel-2018-11-08.xml">
+    <changeSet id="FINP-4262" author="KFS701" context="bootstrap,demo,unit">
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID" value="FINP4262"/>
+            <column name="OBJ_ID" value="FINP4262"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Upload Batch Input File(s)')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Upload Batch Input File(s) milestoneScheduleCsvInputFileType"/>
+            <column name="DESC_TXT" value="Allow access to the Milestone Schedule Upload screen."/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID" value="FINP4262-P1A1"/>
+            <column name="OBJ_ID" value="FINP4262-P1A1"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP4262"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'batchFeedOrJobPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-SYS' and nm = 'beanName')"/>
+            <column name="ATTR_VAL" value="milestoneScheduleCsvInputFileType"/>
+        </insert>
+        <!--<insert tableName="krim_role_perm_t">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP4262-RP1"/>-->
+            <!--<column name="OBJ_ID" value="FINP4262-RP1"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>-->
+            <!--<column name="PERM_ID" value="FINP4262"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="krim_role_perm_t">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP4262-RP2"/>-->
+            <!--<column name="OBJ_ID" value="FINP4262-RP2"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>-->
+            <!--<column name="PERM_ID" value="FINP4262"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="krim_role_perm_t">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP4262-RP3"/>-->
+            <!--<column name="OBJ_ID" value="FINP4262-RP3"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>-->
+            <!--<column name="PERM_ID" value="FINP4262"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+    </changeSet>
+    <changeSet id="FINP-4338-0" author="KFS701" context="bootstrap,demo,unit">
+        <insert tableName="KRIM_PERM_TMPL_T">
+            <column name="PERM_TMPL_ID" value="FINP-4338-PT1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="NMSPC_CD" value="KR-NS"/>
+            <column name="NM" value="Add Line"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'componentSectionPermissionTypeService')"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4338-P1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="FINP-4338-PT1"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Modify Maintenance Document Section Milestone Schedule milestones"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4338-P1A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4338-P1"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'componentFieldPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'componentName')"/>
+            <column name="ATTR_VAL" value="Milestone"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4338-P1A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4338-P1"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'componentFieldPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'sectionId')"/>
+            <column name="ATTR_VAL" value="Milestones"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-4338-P2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" value="FINP-4338-PT1"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Modify Maintenance Document Section Predetermined Billing Schedule bills"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4338-P2A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4338-P2"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'componentFieldPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'componentName')"/>
+            <column name="ATTR_VAL" value="Bill"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-4338-P2A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-4338-P2"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'componentFieldPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'sectionId')"/>
+            <column name="ATTR_VAL" value="Bills"/>
+        </insert>
+        <!--<insert tableName="KRIM_ROLE_PERM_T">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP-4338-RP1"/>-->
+            <!--<column name="OBJ_ID" valueComputed="uuid()"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>-->
+            <!--<column name="PERM_ID" value="FINP-4338-P1"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="KRIM_ROLE_PERM_T">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP-4338-RP2"/>-->
+            <!--<column name="OBJ_ID" valueComputed="uuid()"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>-->
+            <!--<column name="PERM_ID" value="FINP-4338-P2"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="KRIM_ROLE_PERM_T">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP-4338-RP3"/>-->
+            <!--<column name="OBJ_ID" valueComputed="uuid()"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>-->
+            <!--<column name="PERM_ID" value="FINP-4338-P1"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="KRIM_ROLE_PERM_T">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP-4338-RP4"/>-->
+            <!--<column name="OBJ_ID" valueComputed="uuid()"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>-->
+            <!--<column name="PERM_ID" value="FINP-4338-P2"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="KRIM_ROLE_PERM_T">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP-4338-RP5"/>-->
+            <!--<column name="OBJ_ID" valueComputed="uuid()"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>-->
+            <!--<column name="PERM_ID" value="FINP-4338-P1"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="KRIM_ROLE_PERM_T">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP-4338-RP6"/>-->
+            <!--<column name="OBJ_ID" valueComputed="uuid()"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>-->
+            <!--<column name="PERM_ID" value="FINP-4338-P2"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <modifySql dbms="oracle">
+            <replace replace="uuid()" with="sys_guid()"/>
+        </modifySql>
+    </changeSet>
+    <changeSet id="FINP-4340" author="KFS701" context="bootstrap,demo,unit">
+        <insert tableName="krim_perm_t">
+            <column name="PERM_ID" value="FINP4340"/>
+            <column name="OBJ_ID" value="FINP4340"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t where nmspc_cd = 'KR-NS' and nm = 'Upload Batch Input File(s)')"/>
+            <column name="NMSPC_CD" value="KFS-AR"/>
+            <column name="NM" value="Upload Batch Input File(s) predeterminedBillingScheduleCsvInputFileType"/>
+            <column name="DESC_TXT" value="Allow access to the Predetermined Billing Schedule Upload screen."/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="krim_perm_attr_data_t">
+            <column name="ATTR_DATA_ID" value="FINP4340-P1A1"/>
+            <column name="OBJ_ID" value="FINP4340-P1A1"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP4340"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-NS' and srvc_nm = 'batchFeedOrJobPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-SYS' and nm = 'beanName')"/>
+            <column name="ATTR_VAL" value="predeterminedBillingScheduleCsvInputFileType"/>
+        </insert>
+        <!--<insert tableName="krim_role_perm_t">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP4340-RP1"/>-->
+            <!--<column name="OBJ_ID" value="FINP4340-RP1"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Operations')"/>-->
+            <!--<column name="PERM_ID" value="FINP4340"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="krim_role_perm_t">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP4340-RP2"/>-->
+            <!--<column name="OBJ_ID" value="FINP4340-RP2"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Processor')"/>-->
+            <!--<column name="PERM_ID" value="FINP4340"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+        <!--<insert tableName="krim_role_perm_t">-->
+            <!--<column name="ROLE_PERM_ID" value="FINP4340-RP3"/>-->
+            <!--<column name="OBJ_ID" value="FINP4340-RP3"/>-->
+            <!--<column name="VER_NBR" valueNumeric="1"/>-->
+            <!--<column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS' and ROLE_NM='Contracts &amp; Grants Manager')"/>-->
+            <!--<column name="PERM_ID" value="FINP4340"/>-->
+            <!--<column name="ACTV_IND" value="Y"/>-->
+        <!--</insert>-->
+    </changeSet>
+</databaseChangeLog>
