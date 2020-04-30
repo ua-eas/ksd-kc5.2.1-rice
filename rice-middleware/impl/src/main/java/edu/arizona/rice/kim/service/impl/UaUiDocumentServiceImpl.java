@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.kim.api.KimConstants;
@@ -39,7 +40,7 @@ import edu.arizona.rice.kim.document.UaIdentityManagementPersonDocument;
  */
 public class UaUiDocumentServiceImpl extends UiDocumentServiceImpl {
 	@SuppressWarnings("unused")
-	private static final Logger LOG = Logger.getLogger(UiDocumentServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(UiDocumentServiceImpl.class);
 	
 	/**
 	 * Looks up GroupInfo objects for each group id passed in

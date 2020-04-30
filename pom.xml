@@ -455,7 +455,7 @@
                           <exclude>javax.servlet:jstl</exclude>
 
                           <!--legacy app server support-->
-                          <exclude>javax.servlet:servlet-api<license-maven-plugin/exclude>
+                          <exclude>javax.servlet:servlet-api</exclude>
                           <exclude>javax.servlet.jsp.jstl:jstl-api</exclude>
                           <exclude>javax.servlet.jsp:jsp-api</exclude>
                           <exclude>org.glassfish.web:jstl-impl</exclude>
@@ -1209,6 +1209,7 @@
   </build>
 
   <modules>
+    <module>db</module>
     <module>rice-middleware</module>
     <module>rice-framework</module>
   </modules>
