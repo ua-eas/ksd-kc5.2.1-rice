@@ -20,6 +20,12 @@
   <include file="changesets/phase5_db_rice_kuali_2018-12-06.xml"/>
   <include file="changesets/phase5_db_rice_kuali_2019-01-17.xml"/>
   <include file="changesets/db.changelog-FIN-182.xml"/>
+  <include file="changesets/phase5_db_rice_kuali_2019-06-13.xml"/>
+  <include file="changesets/phase5_db_rice_kuali_2019-07-11.xml"/>
+  <include file="changesets/phase5_db_rice_kuali_2019-07-18.xml"/>
+  <include file="changesets/phase5_db_rice_kuali_2019-08-08.xml"/>
+  <include file="changesets/phase5_db_rice_kuali_2019-08-15.xml"/>
+  <include file="changesets/2019_phase5_db_rice_FINP-6081.xml"/>
 
 
 
