@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2005-2018 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -21,15 +21,12 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice-middleware</artifactId>
-    <version>2.6.3</version>
+    <version>2.7.0-SNAPSHOT</version>
   </parent>
   <artifactId>rice-web</artifactId>
   <packaging>war</packaging>
 
   <properties>
-    <monitoring.filter />
-    <monitoring.mapping />
-    <monitoring.listener />
     <war.overlay.exclude.2>DO_NOT_MATCH_ANYTHING_PATTERN</war.overlay.exclude.2>
   </properties>
 
@@ -39,17 +36,6 @@
       <artifactId>rice-krad-web</artifactId>
       <version>${project.version}</version>
       <type>war</type>
-    </dependency>
-
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>rice-krms-impl</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>rice-legacy-web</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -82,62 +68,119 @@
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>rice-edl-impl</artifactId>
-      <version>${project.version}</version>
+      <groupId>co.kuali</groupId>
+      <artifactId>core-filter</artifactId>
+      <version>1.7</version>
+      <exclusions>
+        <!--<exclusion>-->
+          <!--<groupId>org.glassfish.jersey.core</groupId>-->
+          <!--<artifactId>jersey-client</artifactId>-->
+        <!--</exclusion>-->
+        <!--<exclusion>-->
+          <!--<groupId>org.glassfish.jersey.media</groupId>-->
+          <!--<artifactId>jersey-media-json-jackson</artifactId>-->
+        <!--</exclusion>-->
+        <exclusion>
+          <artifactId>commons-lang</artifactId>
+          <groupId>commons-lang</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>log4j</artifactId>
+          <groupId>log4j</groupId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>jul-to-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>jcl-over-slf4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.glassfish.hk2</groupId>
+          <artifactId>hk2-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.glassfish.hk2,external</groupId>
+          <artifactId>javax.inject</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.glassfish.hk2</groupId>
+          <artifactId>hk2-locator</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.glassfish.hk2.external</groupId>
+          <artifactId>javax.inject</artifactId>
+        </exclusion>
+      </exclusions>
+
     </dependency>
-      <dependency>
-        <groupId>co.kuali</groupId>
-        <artifactId>core-filter</artifactId>
-        <exclusions>
-          <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
     <dependency>
       <groupId>mysql</groupId>
-      <artifactId>${mysql.jdbc.artifactId}</artifactId>
+      <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.45</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-       <groupId>org.owasp.esapi</groupId>
-       <artifactId>esapi</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.kuali.rice</groupId>
-      <version>${project.version}</version>
-      <artifactId>rice-kim-ldap</artifactId>
-    </dependency>
+      <dependency>
+          <groupId>org.owasp.encoder</groupId>
+          <artifactId>encoder-jsp</artifactId>
+          <version>1.2.1</version>
+      </dependency>
     <dependency>
       <groupId>io.dropwizard.metrics</groupId>
       <artifactId>metrics-core</artifactId>
+        <version>${metrics.version}</version>
     </dependency>
     <dependency>
       <groupId>io.dropwizard.metrics</groupId>
       <artifactId>metrics-jvm</artifactId>
+        <version>${metrics.version}</version>
     </dependency>
     <dependency>
       <groupId>io.dropwizard.metrics</groupId>
       <artifactId>metrics-healthchecks</artifactId>
+        <version>${metrics.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.btm</groupId>
       <artifactId>btm</artifactId>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.objenesis</groupId>
+      <artifactId>objenesis</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy-agent</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -175,93 +218,8 @@
           </overlays>
           <useCache>true</useCache>
         </configuration>
-        <dependencies>
-			<dependency>
-			  <groupId>org.codehaus.plexus</groupId>
-			  <artifactId>plexus-archiver</artifactId>
-			  <version>2.3</version>
-			  <exclusions>
-				<exclusion>
-				  <groupId>org.codehaus.plexus</groupId>
-				  <artifactId>plexus-container-default</artifactId>
-				</exclusion>
-				<exclusion>
-				  <groupId>org.codehaus.plexus</groupId>
-				  <artifactId>plexus-component-api</artifactId>
-				</exclusion>
-			  </exclusions>
-			</dependency>
-		</dependencies>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>process-resources</phase>
-            <configuration>
-              <tasks>
-                <echo>Extracting Help Files</echo>
-                <unzip src="${basedir}/src/main/help/RiceHelp.zip" dest="${project.build.directory}/help/kr/static/help/" />
-              </tasks>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
-    <pluginManagement>
-    	<plugins>
-    		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-    		<plugin>
-    			<groupId>org.eclipse.m2e</groupId>
-    			<artifactId>lifecycle-mapping</artifactId>
-    			<version>1.0.0</version>
-    			<configuration>
-    				<lifecycleMappingMetadata>
-    					<pluginExecutions>
-    						<pluginExecution>
-    							<pluginExecutionFilter>
-    								<groupId>com.samaxes.maven</groupId>
-    								<artifactId>
-    									maven-minify-plugin
-    								</artifactId>
-    								<versionRange>
-    									[1.3.5,)
-    								</versionRange>
-    								<goals>
-    									<goal>minify</goal>
-    								</goals>
-    							</pluginExecutionFilter>
-    							<action>
-    								<ignore />
-    							</action>
-    						</pluginExecution>
-    						<pluginExecution>
-    							<pluginExecutionFilter>
-    								<groupId>
-    									org.apache.maven.plugins
-    								</groupId>
-    								<artifactId>
-    									maven-antrun-plugin
-    								</artifactId>
-    								<versionRange>[1.7,)</versionRange>
-    								<goals>
-    									<goal>run</goal>
-    								</goals>
-    							</pluginExecutionFilter>
-    							<action>
-    								<ignore />
-    							</action>
-    						</pluginExecution>
-    					</pluginExecutions>
-    				</lifecycleMappingMetadata>
-    			</configuration>
-    		</plugin>
-    	</plugins>
-    </pluginManagement>
   </build>
 
   <profiles>

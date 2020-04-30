@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.kew.docsearch.xml;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.ConfigurationException;
 import org.kuali.rice.core.api.impex.xml.XmlConstants;
 import org.kuali.rice.core.api.util.ConcreteKeyValue;
@@ -61,7 +62,7 @@ import java.util.Map;
  * Immutable object that encapsulates the XML searchable attribute content
  */
 class XMLSearchableAttributeContent {
-    private static final Logger LOG = Logger.getLogger(XMLSearchableAttributeContent.class);
+    private static final Logger LOG = LogManager.getLogger(XMLSearchableAttributeContent.class);
 
     private ExtensionDefinition def;
     private Element attributeConfig;

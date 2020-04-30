@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
  */
 package org.kuali.rice.krad.maintenance;
 
-import java.util.List;
-import java.util.Map;
-
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.krad.bo.BusinessObject;
 import org.kuali.rice.krad.bo.DocumentHeader;
 import org.kuali.rice.krad.uif.service.ViewHelperService;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Provides contract for implementing a maintenance object within the maintenance framework

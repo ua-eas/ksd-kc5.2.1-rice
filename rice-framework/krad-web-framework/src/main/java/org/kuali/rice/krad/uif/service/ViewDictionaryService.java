@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 package org.kuali.rice.krad.uif.service;
 
 import org.kuali.rice.krad.inquiry.Inquirable;
-import org.kuali.rice.krad.uif.view.ViewSessionPolicy;
 import org.kuali.rice.krad.lookup.LookupForm;
+import org.kuali.rice.krad.uif.view.ViewSessionPolicy;
 
 /**
  * Provides methods to query the dictionary meta-data for view entries and their

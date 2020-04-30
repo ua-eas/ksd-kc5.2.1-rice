@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.kew.plugin;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.property.Config;
 import org.kuali.rice.kew.api.WorkflowRuntimeException;
 
@@ -39,7 +40,7 @@ import java.util.zip.ZipFile;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class ZipFilePluginLoader extends BasePluginLoader {
-	private static final Logger LOG = Logger.getLogger(ZipFilePluginLoader.class);
+	private static final Logger LOG = LogManager.getLogger(ZipFilePluginLoader.class);
 
 	private final File pluginZipFile;
     private final File extractionDirectory;

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 package org.kuali.rice.krad.datadictionary;
 
-import java.io.Serializable;
-
 import org.kuali.rice.krad.datadictionary.validator.ValidationTrace;
+
+import java.io.Serializable;
 
 /**
  * Defines methods common to all DataDictionaryDefinition types.

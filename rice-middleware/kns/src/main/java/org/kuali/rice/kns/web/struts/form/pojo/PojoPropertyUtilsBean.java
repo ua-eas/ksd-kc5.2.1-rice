@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,8 @@ import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.beanutils.WrapDynaBean;
 import org.apache.commons.beanutils.expression.Resolver;
 import org.apache.commons.collections.FastHashMap;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.web.format.Formatter;
 import org.kuali.rice.kns.service.KNSServiceLocator;
 import org.kuali.rice.krad.bo.PersistableBusinessObject;
@@ -60,7 +61,7 @@ import java.util.Map;
 @Deprecated
 public class PojoPropertyUtilsBean extends PropertyUtilsBean {
 
-    public static final Logger LOG = Logger.getLogger(PojoPropertyUtilsBean.class.getName());
+    public static final Logger LOG = LogManager.getLogger(PojoPropertyUtilsBean.class.getName());
 
     /**
      * Thin interface for determining the appropriate item class for a collection property

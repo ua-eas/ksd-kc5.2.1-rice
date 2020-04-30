@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.krad.data.provider.annotation.impl;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -50,9 +51,9 @@ public class AnnotationMetadataProviderImplTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		BasicConfigurator.configure();
-		Logger.getLogger(CompositeMetadataProviderImpl.class).setLevel(Level.DEBUG);
-		Logger.getLogger(AnnotationMetadataProviderImpl.class).setLevel(Level.DEBUG);
-		Logger.getLogger(EclipseLinkJpaMetadataProviderImpl.class).setLevel(Level.DEBUG);
+		LogManager.getLogger(CompositeMetadataProviderImpl.class);
+		LogManager.getLogger(AnnotationMetadataProviderImpl.class);
+		LogManager.getLogger(EclipseLinkJpaMetadataProviderImpl.class);
         dataObjectService = Mockito.mock(DataObjectService.class);
 		jpaMetadataProvider = new EclipseLinkJpaMetadataProviderImpl();
 		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("krad-data-unit-test");

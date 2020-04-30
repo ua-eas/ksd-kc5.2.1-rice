@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.kew.engine.node;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.doctype.RouteNodeConfigurationParameterContract;
 import org.kuali.rice.kew.api.doctype.RouteNodeContract;
@@ -319,16 +320,12 @@ public class RouteNode implements Serializable, RouteNodeContract {
     public boolean isRulesEngineNode() {
         return StringUtils.equals(routeMethodCode, KewApiConstants.ROUTE_LEVEL_RULES_ENGINE);
     }
-
-    public boolean isPeopleFlowNode() {
-        return StringUtils.equals(routeMethodCode, KewApiConstants.ROUTE_LEVEL_PEOPLE_FLOW);
-    }
     
     public boolean isRoleNode() {
     	try {
     		return nodeType != null && NodeType.fromNode(this).isTypeOf(NodeType.ROLE);
     	} catch( ResourceUnavailableException ex ) {
-    		Logger.getLogger( RouteNode.class ).info( "isRoleNode(): Unable to determine node type: " + ex.getMessage() );
+    		LogManager.getLogger( RouteNode.class ).info( "isRoleNode(): Unable to determine node type: " + ex.getMessage() );
     		return false;
     	}
     }

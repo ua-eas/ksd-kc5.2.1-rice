@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,15 @@
  */
 package org.kuali.rice.krad.uif.component;
 
+import org.kuali.rice.krad.datadictionary.Copyable;
+import org.kuali.rice.krad.uif.util.LifecycleAwareList;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.List;
-
-import org.kuali.rice.krad.datadictionary.Copyable;
-import org.kuali.rice.krad.uif.util.LifecycleAwareList;
 
 /**
  * Annotation for {@link Copyable} fields to indicate that a delayed copy proxy should be used

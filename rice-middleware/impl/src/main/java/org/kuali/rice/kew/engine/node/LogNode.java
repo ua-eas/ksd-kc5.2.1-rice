@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,9 @@ import java.io.StringReader;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.engine.RouteContext;
 import org.kuali.rice.kew.engine.RouteHelper;
 import org.kuali.rice.kew.engine.node.var.PropertyScheme;
@@ -37,7 +38,7 @@ import org.xml.sax.InputSource;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class LogNode implements SimpleNode {
-    private static final Logger LOG = Logger.getLogger(LogNode.class);
+    private static final Logger LOG = LogManager.getLogger(LogNode.class);
 
     public SimpleResult process(RouteContext context, RouteHelper helper) throws Exception {
         LOG.error("processing");
@@ -64,7 +65,7 @@ public class LogNode implements SimpleNode {
         if (name == null) {
             l = LOG;
         } else {
-            l = Logger.getLogger(name);
+            l = LogManager.getLogger(name);
         }
         l.log(Level.toLevel(level), retrievedVal);
         return new SimpleResult(true);

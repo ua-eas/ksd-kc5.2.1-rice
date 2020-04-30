@@ -1,6 +1,6 @@
 <%--
 
-    Copyright 2005-2018 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -31,8 +31,8 @@
 			   value="<%=request.getParameter(KualiAction.TEXT_AREA_FIELD_NAME)%>" />
 	</c:if>
 
-	<c:set var="textAreaFieldNameJS"><esapi:encodeForJavaScript>${textAreaFieldName}</esapi:encodeForJavaScript></c:set>
-	<c:set var="textAreaFieldNameAttribute"><esapi:encodeForHTMLAttribute>${textAreaFieldName}</esapi:encodeForHTMLAttribute></c:set>
+	<c:set var="textAreaFieldNameJS"><e:forJavaScript value="${textAreaFieldName}" /></c:set>
+	<c:set var="textAreaFieldNameAttribute"><e:forHtmlAttribute value="${textAreaFieldName}" /></c:set>
 
 	<head>
 		<link href="${pageContext.request.contextPath}/kr/css/kuali.css" rel="stylesheet" type="text/css" />

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@
 package org.kuali.rice.krad.data.jpa.eclipselink;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.descriptors.ClassDescriptor;
 import org.eclipse.persistence.expressions.Expression;
 import org.eclipse.persistence.internal.expressions.FunctionExpression;
@@ -68,8 +70,7 @@ import java.util.Set;
  * Provides an EclipseLink-specific implementation for the {@link JpaMetadataProviderImpl}.
  */
 public class EclipseLinkJpaMetadataProviderImpl extends JpaMetadataProviderImpl {
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
-			.getLogger(EclipseLinkJpaMetadataProviderImpl.class);
+	private static final Logger LOG = LogManager.getLogger(EclipseLinkJpaMetadataProviderImpl.class);
 
     /**
      * {@inheritDoc}

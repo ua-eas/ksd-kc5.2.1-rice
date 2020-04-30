@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@ import java.net.URLEncoder;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.mo.common.GloballyUnique;
 import org.kuali.rice.krad.bo.Attachment;
 import org.kuali.rice.krad.bo.Note;
@@ -52,7 +53,7 @@ import com.amazonaws.services.s3.transfer.Upload;
 @Transactional
 public class AmazonS3AttachmentServiceImpl implements AttachmentService {
 
-	private static final Logger LOG = Logger.getLogger(AmazonS3AttachmentServiceImpl.class);
+	private static final Logger LOG = LogManager.getLogger(AmazonS3AttachmentServiceImpl.class);
 
 	private ResourceLoader resourceLoader;
 	private String bucketName;

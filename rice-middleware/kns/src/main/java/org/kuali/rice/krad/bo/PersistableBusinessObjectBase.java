@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public abstract class PersistableBusinessObjectBase extends BusinessObjectBase i
     private static final class WeaveMe extends PersistableBusinessObjectBase {}
 
     private static final long serialVersionUID = 1451642350593233282L;
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PersistableBusinessObjectBase.class);
+	private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(PersistableBusinessObjectBase.class);
 
 	@Version
     @Column(name = "VER_NBR", length = 8)

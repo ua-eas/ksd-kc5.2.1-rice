@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,9 @@
 package org.kuali.rice.kew.impl.stuck;
 
 import org.kuali.rice.kew.api.KewApiServiceLocator;
+import org.kuali.rice.kew.api.document.DocumentRefreshQueue;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
+import org.kuali.rice.kew.doctype.service.DocumentTypeService;
 import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.opensaml.xmlsec.signature.P;
 import org.quartz.DisallowConcurrentExecution;
@@ -26,8 +28,8 @@ import org.quartz.JobExecutionException;
 import org.quartz.JobKey;
 import org.quartz.PersistJobDataAfterExecution;
 import org.quartz.SchedulerException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,12 +39,13 @@ import java.util.stream.Collectors;
 @PersistJobDataAfterExecution
 public class AutofixDocumentsJob implements Job {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AutofixDocumentsJob.class);
+    private static final Logger LOG = LogManager.getLogger(AutofixDocumentsJob.class);
 
     static final String INCIDENT_IDS = "incidentIds";
     static final String CURRENT_AUTOFIX_COUNT = "currentAutofixCount";
 
     private volatile StuckDocumentService stuckDocumentService;
+    private volatile DocumentTypeService documentTypeService;
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -117,12 +120,24 @@ public class AutofixDocumentsJob implements Job {
     private void tryToFix(StuckDocumentIncident incident) {
         getStuckDocumentService().recordNewIncidentFixAttempt(incident);
         String docId = incident.getDocumentId();
-        DocumentType documentType = KEWServiceLocator.getDocumentTypeService().findByDocumentId(docId);
-        KewApiServiceLocator.getDocumentRequeuerService(documentType.getApplicationId(), docId, 0).refreshDocument(docId);
+        DocumentType documentType = getDocumentTypeService().findByDocumentId(docId);
+        DocumentRefreshQueue drq = KewApiServiceLocator.getDocumentRequeuerService(documentType.getApplicationId(), docId, 0);
+        drq.refreshDocument(docId);
     }
 
     private int autofixMaxAttempts(JobExecutionContext context) {
         return context.getMergedJobDataMap().getInt(AutofixCollectorJob.AUTOFIX_MAX_ATTEMPTS_KEY);
+    }
+
+    protected DocumentTypeService getDocumentTypeService() {
+        if (this.documentTypeService == null) {
+            this.documentTypeService = KEWServiceLocator.getDocumentTypeService();
+        }
+        return this.documentTypeService;
+    }
+
+    public void setDocumentTypeService(DocumentTypeService documentTypeService) {
+        this.documentTypeService = documentTypeService;
     }
 
     protected StuckDocumentService getStuckDocumentService() {
@@ -135,6 +150,4 @@ public class AutofixDocumentsJob implements Job {
     public void setStuckDocumentService(StuckDocumentService stuckDocumentService) {
         this.stuckDocumentService = stuckDocumentService;
     }
-
-
 }

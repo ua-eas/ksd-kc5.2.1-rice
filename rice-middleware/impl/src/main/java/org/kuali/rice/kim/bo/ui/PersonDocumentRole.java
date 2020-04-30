@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
 import org.kuali.rice.kim.api.services.KimApiServiceLocator;
@@ -56,7 +57,7 @@ import org.springframework.util.StringUtils;
 @Entity
 @Table(name = "KRIM_PND_ROLE_MT")
 public class PersonDocumentRole extends KimDocumentBoActivatableEditableBase {
-    private static final Logger LOG = Logger.getLogger(PersonDocumentRole.class);
+    private static final Logger LOG = LogManager.getLogger(PersonDocumentRole.class);
     private static final long serialVersionUID = 4908044213007222739L;
 
     @Id

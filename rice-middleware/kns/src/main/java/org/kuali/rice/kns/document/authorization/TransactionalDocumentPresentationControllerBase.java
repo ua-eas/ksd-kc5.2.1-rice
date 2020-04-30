@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package org.kuali.rice.kns.document.authorization;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.kuali.rice.krad.document.Document;
 
 import java.util.HashSet;
@@ -29,7 +29,7 @@ import java.util.Set;
  */
 @Deprecated
 public class TransactionalDocumentPresentationControllerBase extends DocumentPresentationControllerBase implements TransactionalDocumentPresentationController {
-    private static Log LOG = LogFactory.getLog(TransactionalDocumentPresentationControllerBase.class);
+    private static Logger LOG = LogManager.getLogger(TransactionalDocumentPresentationControllerBase.class);
     
     /**
      * 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@ import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.wss4j.dom.WSConstants;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
@@ -45,7 +46,7 @@ import java.util.Map;
  */
 public class SOAPConnector extends AbstractServiceConnector {
 
-    private static final Logger LOG = Logger.getLogger(SOAPConnector.class);
+    private static final Logger LOG = LogManager.getLogger(SOAPConnector.class);
 
 	public SOAPConnector(final SoapServiceConfiguration serviceConfiguration, final URL alternateEndpointUrl) {
 		super(serviceConfiguration, alternateEndpointUrl);

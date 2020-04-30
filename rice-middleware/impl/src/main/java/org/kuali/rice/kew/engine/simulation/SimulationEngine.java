@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.kuali.rice.kew.engine.simulation;
 
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.actionitem.ActionItem;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
@@ -81,7 +81,7 @@ public class SimulationEngine extends StandardWorkflowEngine implements Simulati
         super(routeNodeService, routeHeaderService, parameterService, config);
     }
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SimulationEngine.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(SimulationEngine.class);
 
 	private SimulationCriteria criteria;
     private SimulationResults results;
@@ -128,8 +128,8 @@ public class SimulationEngine extends StandardWorkflowEngine implements Simulati
     		documentId = document.getDocumentId();
     		
     		// detect if MDC already has docId param (to avoid nuking it below)
-    		boolean mdcHadDocId = MDC.get("docId") != null;
-    		if (!mdcHadDocId) { MDC.put("docId", documentId); }
+    		boolean mdcHadDocId = ThreadContext.get("docId") != null;
+    		if (!mdcHadDocId) { ThreadContext.put("docId", documentId); }
     		
     		PerformanceLogger perfLog = new PerformanceLogger(documentId);
     		try {
@@ -175,7 +175,7 @@ public class SimulationEngine extends StandardWorkflowEngine implements Simulati
     			perfLog.log("Time to run simulation.");
     			RouteContext.clearCurrentRouteContext();
     			
-    			if (!mdcHadDocId) { MDC.remove("docID"); }
+    			if (!mdcHadDocId) { ThreadContext.remove("docID"); }
     		}
     	} finally {
     		RouteContext.releaseCurrentRouteContext();

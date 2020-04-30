@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,20 @@
  * limitations under the License.
  */
 package org.kuali.rice.krad.uif.util;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.kuali.rice.krad.service.DataDictionaryService;
+import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
+import org.kuali.rice.krad.uif.UifConstants;
+import org.kuali.rice.krad.uif.lifecycle.ViewPostMetadata;
+import org.kuali.rice.krad.uif.util.ObjectPathExpressionParser.PathEntry;
+import org.kuali.rice.krad.uif.view.ViewModel;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -42,26 +56,13 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.kuali.rice.krad.service.DataDictionaryService;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.uif.UifConstants;
-import org.kuali.rice.krad.uif.lifecycle.ViewPostMetadata;
-import org.kuali.rice.krad.uif.util.ObjectPathExpressionParser.PathEntry;
-import org.kuali.rice.krad.uif.view.ViewModel;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.PropertyEditorRegistry;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-
 /**
  * Utility methods to get/set property values and working with objects.
  * 
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public final class ObjectPropertyUtils {
-    private static final Logger LOG = Logger.getLogger(ObjectPropertyUtils.class);
+    private static final Logger LOG = LogManager.getLogger(ObjectPropertyUtils.class);
 
     /**
      * Internal metadata cache.

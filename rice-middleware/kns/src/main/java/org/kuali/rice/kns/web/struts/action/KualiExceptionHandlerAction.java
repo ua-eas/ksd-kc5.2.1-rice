@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts.Globals;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -48,8 +49,7 @@ import org.kuali.rice.krad.util.KRADConstants;
  */
 @Deprecated
 public class KualiExceptionHandlerAction extends Action {
-    private static final Logger LOG = Logger
-            .getLogger(KualiExceptionHandlerAction.class);
+    private static final Logger LOG = LogManager.getLogger(KualiExceptionHandlerAction.class);
 
     private static final String EXCEPTION_TIME_STAMP = "exception-timeStamp";
     private static final String EXCEPTION_DOCUMENT_ID = "exception-" + ExceptionIncident.DOCUMENT_ID;

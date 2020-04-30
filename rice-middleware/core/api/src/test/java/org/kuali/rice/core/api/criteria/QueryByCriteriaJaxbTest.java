@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,8 +39,8 @@ import junit.framework.Assert;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AssignableTypeFilter;
@@ -50,7 +50,7 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
  */
 public class QueryByCriteriaJaxbTest {
 
-    Logger LOG = LoggerFactory.getLogger(QueryByCriteriaJaxbTest.class);
+    Logger LOG = LogManager.getLogger(QueryByCriteriaJaxbTest.class);
 
     // All the Predicates that will be magically discovered have to be under this package
     public static final String PREDICATE_BASE_PACKAGE = "org/kuali/rice/core/api/criteria";

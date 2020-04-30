@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 package org.kuali.rice.krad.uif.lifecycle;
-
-import static org.kuali.rice.krad.uif.UifConstants.ViewPhases.APPLY_MODEL;
-import static org.kuali.rice.krad.uif.UifConstants.ViewPhases.FINALIZE;
-import static org.kuali.rice.krad.uif.UifConstants.ViewPhases.INITIALIZE;
 
 import org.kuali.rice.krad.uif.UifConstants;
 import org.kuali.rice.krad.uif.component.Component;
@@ -50,14 +46,16 @@ import org.kuali.rice.krad.uif.lifecycle.model.PopulateComponentContextTask;
 import org.kuali.rice.krad.uif.lifecycle.model.RefreshStateModifyTask;
 import org.kuali.rice.krad.uif.lifecycle.model.SuffixIdFromContainerTask;
 import org.kuali.rice.krad.uif.lifecycle.model.SyncClientSideStateTask;
-import org.kuali.rice.krad.uif.util.CopyUtils;
 import org.kuali.rice.krad.uif.util.LifecycleElement;
 import org.kuali.rice.krad.uif.util.RecycleUtils;
 import org.kuali.rice.krad.uif.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+
+import static org.kuali.rice.krad.uif.UifConstants.ViewPhases.APPLY_MODEL;
+import static org.kuali.rice.krad.uif.UifConstants.ViewPhases.FINALIZE;
+import static org.kuali.rice.krad.uif.UifConstants.ViewPhases.INITIALIZE;
 
 /**
  * Default phase builder implementation.

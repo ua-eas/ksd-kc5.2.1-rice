@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,8 @@ import org.apache.cxf.transport.http.DestinationRegistry;
 import org.apache.cxf.transport.http.HTTPTransportFactory;
 import org.apache.cxf.transport.servlet.ServletController;
 import org.apache.cxf.transport.servlet.servicelist.ServiceListGeneratorServlet;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.core.api.util.ClassLoaderUtils;
@@ -64,7 +65,7 @@ import java.util.Vector;
  */
 public class KSBDispatcherServlet extends DispatcherServlet {
 
-	private static final Logger LOG = Logger.getLogger(KSBDispatcherServlet.class);
+	private static final Logger LOG = LogManager.getLogger(KSBDispatcherServlet.class);
 	private static final long serialVersionUID = 6790121225857950019L;
     private static final String REMOTING_SERVLET_CONFIG_LOCATION = "classpath:org/kuali/rice/ksb/config/remoting-servlet.xml";
 

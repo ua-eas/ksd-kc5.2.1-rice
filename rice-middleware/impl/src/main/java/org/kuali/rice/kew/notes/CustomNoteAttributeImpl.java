@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.kew.notes;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.api.document.Document;
 import org.kuali.rice.krad.UserSession;
 
@@ -29,7 +30,7 @@ public class CustomNoteAttributeImpl implements CustomNoteAttribute {
 
     private Document routeHeaderVO;
     private UserSession userSession;
-    private static final Logger LOG = Logger.getLogger(CustomNoteAttributeImpl.class);
+    private static final Logger LOG = LogManager.getLogger(CustomNoteAttributeImpl.class);
 
     @Override
 	public boolean isAuthorizedToAddNotes() throws Exception {

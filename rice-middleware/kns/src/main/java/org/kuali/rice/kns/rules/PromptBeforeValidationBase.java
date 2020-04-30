@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ import java.util.NoSuchElementException;
 @Deprecated
 public abstract class PromptBeforeValidationBase implements PromptBeforeValidation {
 
-    protected static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(PromptBeforeValidationBase.class);
+    protected static org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(PromptBeforeValidationBase.class);
 
     protected String question;
     protected String buttonClicked;

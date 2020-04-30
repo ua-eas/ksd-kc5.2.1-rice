@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,14 @@
  */
 package org.kuali.rice.krad.uif.lifecycle;
 
-import java.util.LinkedHashSet;
-import java.util.Queue;
-import java.util.Set;
-
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.uif.UifConstants;
 import org.kuali.rice.krad.uif.lifecycle.ViewLifecycle.LifecycleEvent;
 import org.kuali.rice.krad.uif.util.RecycleUtils;
+
+import java.util.LinkedHashSet;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  * Lifecycle phase processing task for finalizing a component.

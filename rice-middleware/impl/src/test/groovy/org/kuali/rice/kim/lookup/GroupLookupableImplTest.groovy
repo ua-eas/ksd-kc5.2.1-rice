@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,6 @@ class GroupLookupableImplTest {
         ] as LookupableHelperService)
 
         // test that the result is the same as the return value from the protected helper
-        assertEquals(lookupable.getCreateNewUrl("KIM_BASE_PATH/identityManagementGroupDocument.do?returnLocation=RETURN_LOCATION&docTypeName=IdentityManagementGroupDocument&methodToCall=docHandler&command=initiate"), lookupable.getCreateNewUrl())
-        //assertEquals("""<a title="Create a new record" href="KIM_BASE_PATH/identityManagementGroupDocument.do?returnLocation=RETURN_LOCATION&docTypeName=IdentityManagementGroupDocument&methodToCall=docHandler&command=initiate"><img src="images/tinybutton-createnew.gif" alt="create new" width="70" height="15"/></a>""", lookupable.getCreateNewUrl())
+        assertEquals(lookupable.getCreateNewUrl("KIM_BASE_PATH/identityManagementGroupDocument.do?docTypeName=IdentityManagementGroupDocument&returnLocation=RETURN_LOCATION&methodToCall=docHandler&command=initiate"), lookupable.getCreateNewUrl())
     }
 }

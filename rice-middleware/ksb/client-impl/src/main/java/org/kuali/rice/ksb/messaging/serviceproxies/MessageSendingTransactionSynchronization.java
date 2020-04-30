@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.ksb.messaging.serviceproxies;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.ksb.messaging.MessageServiceInvoker;
 import org.kuali.rice.ksb.messaging.PersistedMessageBO;
 import org.kuali.rice.ksb.service.KSBServiceLocator;
@@ -32,7 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class MessageSendingTransactionSynchronization extends TransactionSynchronizationAdapter {
     
-    private static final Logger LOG = Logger.getLogger(MessageSendingTransactionSynchronization.class);
+    private static final Logger LOG = LogManager.getLogger(MessageSendingTransactionSynchronization.class);
     public static final AtomicBoolean CALLED_TRANS_COMMITTED = new AtomicBoolean(false);
     public static final AtomicBoolean CALLED_TRANS_ROLLEDBACKED = new AtomicBoolean(false);
 

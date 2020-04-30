@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.kew.actionrequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.delegation.DelegationType;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.core.api.membership.MemberType;
@@ -74,7 +75,7 @@ import java.util.Set;
  */
 public class ActionRequestFactory {
 
-	private static final Logger LOG = Logger.getLogger(ActionRequestFactory.class);
+	private static final Logger LOG = LogManager.getLogger(ActionRequestFactory.class);
 
 	private static RoleService roleService;
 	private static IdentityHelperService identityHelperService;

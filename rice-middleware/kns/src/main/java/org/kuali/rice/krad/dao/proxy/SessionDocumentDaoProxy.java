@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.krad.dao.proxy;
 
 import java.sql.Timestamp;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.krad.bo.SessionDocument;
 import org.kuali.rice.krad.dao.SessionDocumentDao;
 import org.kuali.rice.krad.util.LegacyUtils;
@@ -26,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class SessionDocumentDaoProxy implements SessionDocumentDao {
 
-	private static Logger LOG = Logger.getLogger(SessionDocumentDaoProxy.class);
+	private static Logger LOG = LogManager.getLogger(SessionDocumentDaoProxy.class);
 
 	private SessionDocumentDao sessionDocumentDaoJpa;
     private SessionDocumentDao sessionDocumentDaoOjb;

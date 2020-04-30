@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2018 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -22,31 +22,24 @@
   <parent>
     <artifactId>rice</artifactId>
     <groupId>org.kuali.rice</groupId>
-    <version>2.6.3</version>
+    <version>2.7.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>rice-middleware</artifactId>
   <packaging>pom</packaging>
 
   <modules>
-    <module>client-contrib</module>
     <module>core</module>
     <module>core-service</module>
-    <module>edl</module>
     <module>impl</module>
-    <module>it</module>
-    <module>ken</module>
     <module>kew</module>
     <module>kim</module>
     <module>kns</module>
-    <module>krms</module>
     <module>ksb</module>
     <module>location</module>
-    <module>sampleapp</module>
     <module>serviceregistry</module>
     <module>standalone</module>
     <module>web</module>
-    <module>legacy-web</module>
   </modules>
 
 </project>

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.kew.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.engine.node.BranchState;
 import org.kuali.rice.kew.routeheader.DocumentRouteHeaderValue;
@@ -37,7 +38,7 @@ import java.util.List;
  */
 public class FutureRequestDocumentStateManager {
 
-    private static final Logger LOG = Logger.getLogger(FutureRequestDocumentStateManager.class);
+    private static final Logger LOG = LogManager.getLogger(FutureRequestDocumentStateManager.class);
 
     private boolean receiveFutureRequests;
     private boolean doNotReceiveFutureRequests;

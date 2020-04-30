@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,9 @@
  */
 package org.kuali.rice.kew.engine.node;
 
-import org.apache.log4j.Logger;
-import org.jdom.Element;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jdom2.Element;
 import org.kuali.rice.core.api.util.xml.XmlHelper;
 import org.kuali.rice.kew.engine.RouteContext;
 import org.kuali.rice.kew.engine.RouteHelper;
@@ -42,7 +43,7 @@ import java.util.Iterator;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class FYIByNetworkId extends RequestActivationNode {
-    private static final Logger LOG = Logger.getLogger(FYIByNetworkId.class);
+    private static final Logger LOG = LogManager.getLogger(FYIByNetworkId.class);
 
 	public SimpleResult process(RouteContext context, RouteHelper helper)
 			throws Exception {

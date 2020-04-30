@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.kns.service.impl;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
 import org.kuali.rice.kns.datadictionary.BusinessObjectEntry;
 import org.kuali.rice.kns.datadictionary.FieldDefinition;
@@ -58,8 +59,7 @@ import java.util.Set;
  */
 @Deprecated
 public class BusinessObjectDictionaryServiceImpl implements BusinessObjectDictionaryService {
-	private static Logger LOG = Logger
-			.getLogger(BusinessObjectDictionaryServiceImpl.class);
+	private static Logger LOG = LogManager.getLogger(BusinessObjectDictionaryServiceImpl.class);
 
     private DataDictionaryService dataDictionaryService;
     private PersistenceStructureService persistenceStructureService;

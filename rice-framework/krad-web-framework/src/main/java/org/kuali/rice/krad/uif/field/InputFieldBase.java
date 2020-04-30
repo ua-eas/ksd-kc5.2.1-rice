@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 package org.kuali.rice.krad.uif.field;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -52,12 +48,9 @@ import org.kuali.rice.krad.uif.control.SelectControl;
 import org.kuali.rice.krad.uif.control.TextAreaControl;
 import org.kuali.rice.krad.uif.control.TextControl;
 import org.kuali.rice.krad.uif.control.UifKeyValuesFinder;
-import org.kuali.rice.krad.uif.element.Action;
 import org.kuali.rice.krad.uif.element.FieldValidationMessages;
 import org.kuali.rice.krad.uif.element.Label;
-import org.kuali.rice.krad.uif.element.Link;
 import org.kuali.rice.krad.uif.element.Message;
-import org.kuali.rice.krad.uif.element.ValidationMessages;
 import org.kuali.rice.krad.uif.lifecycle.ViewLifecycle;
 import org.kuali.rice.krad.uif.lifecycle.ViewLifecycleRestriction;
 import org.kuali.rice.krad.uif.lifecycle.ViewPostMetadata;
@@ -77,6 +70,10 @@ import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.KRADUtils;
 import org.kuali.rice.krad.web.form.MaintenanceDocumentForm;
 import org.kuali.rice.krad.web.form.UifFormBase;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Field that encapsulates data input/output captured by an attribute within the

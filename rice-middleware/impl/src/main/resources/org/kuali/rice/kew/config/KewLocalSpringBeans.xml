@@ -1,6 +1,6 @@
 <!--
 
-    Copyright 2005-2018 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -80,12 +80,6 @@
 
   <bean id="rice.kew.kewTypeRepositoryService" class="org.kuali.rice.kew.impl.repository.KewTypeBoServiceImpl">
     <property name="dataObjectService" ref="dataObjectService"/>
-  </bean>
-
-  <bean id="rice.kew.peopleFlowService" class="org.kuali.rice.kew.impl.peopleflow.PeopleFlowServiceImpl">
-    <property name="dataObjectService" ref="dataObjectService"/>
-    <property name="kewTypeRepositoryService" ref="rice.kew.kewTypeRepositoryService"/>
-    <property name="responsibilityIdService" ref="enResponsibilityIdService"/>
   </bean>
 
     <!--  StatsService -->
@@ -207,7 +201,6 @@
         <idref local="enQuickLinksService"/>
         <idref local="rice.kew.noteService"/>
         <idref local="rice.kew.kewTypeRepositoryService"/>
-        <idref local="rice.kew.peopleFlowService"/>
         <idref local="rice.kew.stuckDocumentService"/>
       </list>
     </property>

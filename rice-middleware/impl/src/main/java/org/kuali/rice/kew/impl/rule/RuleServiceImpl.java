@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.kew.impl.rule;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.criteria.Predicate;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
@@ -56,7 +57,7 @@ import static org.kuali.rice.core.api.criteria.PredicateFactory.*;
  */
 public class RuleServiceImpl implements RuleService {
 
-    private static final Logger LOG = Logger.getLogger(RuleServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(RuleServiceImpl.class);
 
     private DataObjectService dataObjectService;
 

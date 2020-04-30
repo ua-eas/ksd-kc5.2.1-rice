@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -261,9 +261,6 @@ public final class RiceKeyConstants {
             "error.document.identityManagementPerson.qualifier.valueNotUnique";
     public static final String ERROR_NEGATIVES_NOT_ALLOWED_ON_FIELD =
             "error.negatives.not.allowed.on.field";
-
-    // PeopleFlow
-    public static final String PEOPLEFLOW_DUPLICATE = "peopleFlow.duplicate";
 
     // Super User
     public static final String ERROR_SUPER_USER_TAKE_ACTIONS_MISSING = "superuser.takeactions.annotation.missing";

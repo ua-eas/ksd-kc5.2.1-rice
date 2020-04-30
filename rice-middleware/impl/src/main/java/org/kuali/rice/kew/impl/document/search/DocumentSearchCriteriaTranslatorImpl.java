@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@ package org.kuali.rice.kew.impl.document.search;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.search.Range;
 import org.kuali.rice.core.api.search.SearchExpressionUtils;
@@ -56,7 +57,7 @@ import java.util.Set;
  */
 public class DocumentSearchCriteriaTranslatorImpl implements DocumentSearchCriteriaTranslator {
 
-    private static final Logger LOG = Logger.getLogger(DocumentSearchCriteriaTranslatorImpl.class);
+    private static final Logger LOG = LogManager.getLogger(DocumentSearchCriteriaTranslatorImpl.class);
 
     private static final String DOCUMENT_STATUSES = "documentStatuses";
     private static final String ROUTE_NODE_LOOKUP_LOGIC = "routeNodeLookupLogic";

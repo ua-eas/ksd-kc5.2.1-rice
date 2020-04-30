@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.core.framework.config.module;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.ConfigurationException;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
@@ -37,7 +38,7 @@ import java.util.List;
  */
 public class WebModuleLoaderListener implements ServletContextListener {
 
-    private static final Logger LOG = Logger.getLogger(WebModuleLoaderListener.class);
+    private static final Logger LOG = LogManager.getLogger(WebModuleLoaderListener.class);
     private static final QName RESOURCE_LOADER_NAME = new QName("org.kuali.rice.web", "WebModuleResourceLoader");
 
     @Override

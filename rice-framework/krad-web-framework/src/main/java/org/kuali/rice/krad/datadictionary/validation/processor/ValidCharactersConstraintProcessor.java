@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.krad.datadictionary.validation.processor;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.search.SearchOperator;
 import org.kuali.rice.core.api.util.ClassLoaderUtils;
@@ -50,7 +51,7 @@ public class ValidCharactersConstraintProcessor extends MandatoryElementConstrai
 
     public static final String VALIDATE_METHOD = "validate";
 
-    private static final Logger LOG = Logger.getLogger(ValidCharactersConstraintProcessor.class);
+    private static final Logger LOG = LogManager.getLogger(ValidCharactersConstraintProcessor.class);
     private static final String[] DATE_RANGE_ERROR_PREFIXES = {KRADConstants.LOOKUP_RANGE_LOWER_BOUND_PROPERTY_PREFIX,
             KRADConstants.LOOKUP_RANGE_UPPER_BOUND_PROPERTY_PREFIX};
 

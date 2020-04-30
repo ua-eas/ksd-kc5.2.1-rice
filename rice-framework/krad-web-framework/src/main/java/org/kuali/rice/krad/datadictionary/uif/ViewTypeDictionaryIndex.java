@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
  */
 package org.kuali.rice.krad.datadictionary.uif;
 
+import org.kuali.rice.krad.datadictionary.DataDictionaryException;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.kuali.rice.krad.datadictionary.DataDictionaryException;
 
 /**
  * Holds view index information for a view type, where the index keys are built

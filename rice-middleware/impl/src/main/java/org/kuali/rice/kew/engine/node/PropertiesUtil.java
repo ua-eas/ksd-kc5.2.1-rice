@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Iterator;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.engine.RouteContext;
 import org.kuali.rice.kew.engine.node.var.Property;
 import org.kuali.rice.kew.engine.node.var.PropertyScheme;
@@ -32,7 +33,7 @@ import org.kuali.rice.kew.engine.node.var.PropertyScheme;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public final class PropertiesUtil {
-    private static final Logger LOG = Logger.getLogger(PropertiesUtil.class);
+    private static final Logger LOG = LogManager.getLogger(PropertiesUtil.class);
 
 	private PropertiesUtil() {
 		throw new UnsupportedOperationException("do not call");

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,15 @@
  */
 package org.kuali.rice.krad.uif.util;
 
-import java.io.Serializable;
-import java.util.Map;
-import java.util.Queue;
-
 import org.kuali.rice.krad.datadictionary.Copyable;
 import org.kuali.rice.krad.uif.component.Component;
 import org.kuali.rice.krad.uif.lifecycle.ViewLifecycle;
 import org.kuali.rice.krad.uif.lifecycle.ViewLifecyclePhase;
 import org.kuali.rice.krad.uif.lifecycle.ViewLifecycleTask;
+
+import java.io.Serializable;
+import java.util.Map;
+import java.util.Queue;
 
 /**
  * Interface to be implemented by objects that participates in the view lifecycle.

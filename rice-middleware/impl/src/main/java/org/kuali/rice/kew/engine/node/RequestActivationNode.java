@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.kew.actionitem.ActionItem;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
 import org.kuali.rice.kew.api.action.ActionRequestStatus;
@@ -43,7 +43,7 @@ import org.kuali.rice.kew.util.Utilities;
  */
 public class RequestActivationNode extends RequestActivationNodeBase {
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RequestActivationNode.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(RequestActivationNode.class);
     private static long generatedRequestPriority = 0;
 
     @Override
@@ -108,7 +108,7 @@ public class RequestActivationNode extends RequestActivationNodeBase {
      */
     public boolean activateRequests(RouteContext context, DocumentRouteHeaderValue document,
             RouteNodeInstance nodeInstance) throws WorkflowException {
-        MDC.put("docId", document.getDocumentId());
+        ThreadContext.put("docId", document.getDocumentId());
         PerformanceLogger performanceLogger = new PerformanceLogger(document.getDocumentId());
         List<ActionItem> generatedActionItems = new ArrayList<ActionItem>();
         List<ActionRequestValue> requests = new ArrayList<ActionRequestValue>();

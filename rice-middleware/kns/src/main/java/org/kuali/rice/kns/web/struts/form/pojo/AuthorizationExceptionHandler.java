@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 package org.kuali.rice.kns.web.struts.form.pojo;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.apache.struts.Globals;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -37,7 +37,7 @@ public class AuthorizationExceptionHandler extends ExceptionHandler {
     
     private static final String AUTHORIZATION_EXCEPTION_HANDLER = "authorizationExceptionHandler";
 
-    private static final Log LOG = LogFactory.getLog(AuthorizationExceptionHandler.class);
+    private static final Logger LOG = LogManager.getLogger(AuthorizationExceptionHandler.class);
     
     /**
      * Logs the AuthorizationException before forwarding the user to the explanation page.

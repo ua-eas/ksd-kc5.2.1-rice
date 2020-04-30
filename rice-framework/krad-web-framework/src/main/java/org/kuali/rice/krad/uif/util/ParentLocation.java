@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package org.kuali.rice.krad.uif.util;
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.krad.datadictionary.parse.BeanTag;
 import org.kuali.rice.krad.datadictionary.parse.BeanTagAttribute;
-import org.kuali.rice.krad.datadictionary.parse.BeanTags;
 import org.kuali.rice.krad.datadictionary.uif.UifDictionaryBeanBase;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.uif.UifConstants;
@@ -44,7 +43,7 @@ import java.util.Map;
 public class ParentLocation extends UifDictionaryBeanBase implements Serializable {
 
     private static final long serialVersionUID = -6242148809697931126L;
-    //private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ParentLocation.class);
+    //private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(ParentLocation.class);
 
     private UrlInfo parentViewUrl;
     private UrlInfo parentPageUrl;

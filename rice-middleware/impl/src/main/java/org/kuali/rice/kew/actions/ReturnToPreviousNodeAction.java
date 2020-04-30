@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,9 @@
  */
 package org.kuali.rice.kew.actions;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.kew.actionrequest.ActionRequestFactory;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
 import org.kuali.rice.kew.actionrequest.Recipient;
@@ -26,7 +27,6 @@ import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kew.api.action.ActionType;
 import org.kuali.rice.kew.api.doctype.DocumentTypePolicy;
 import org.kuali.rice.kew.api.exception.InvalidActionTakenException;
-import org.kuali.rice.kew.doctype.bo.DocumentType;
 import org.kuali.rice.kew.engine.CompatUtils;
 import org.kuali.rice.kew.engine.RouteHelper;
 import org.kuali.rice.kew.engine.node.NodeGraphSearchCriteria;
@@ -40,7 +40,6 @@ import org.kuali.rice.kew.framework.postprocessor.ProcessDocReport;
 import org.kuali.rice.kew.routeheader.DocumentRouteHeaderValue;
 import org.kuali.rice.kew.service.KEWServiceLocator;
 import org.kuali.rice.kew.api.KewApiConstants;
-import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.identity.principal.PrincipalContract;
 
 
@@ -59,7 +58,7 @@ import java.util.List;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class ReturnToPreviousNodeAction extends ActionTakenEvent {
-    protected static final Logger LOG = Logger.getLogger(ReturnToPreviousNodeAction.class);
+    protected static final Logger LOG = LogManager.getLogger(ReturnToPreviousNodeAction.class);
 
     // ReturnToPrevious returns to initial node when sent a null node name
     protected static final String INITIAL_NODE_NAME = null;
@@ -264,7 +263,7 @@ public class ReturnToPreviousNodeAction extends ActionTakenEvent {
     }
 
     public void recordAction() throws InvalidActionTakenException {
-        MDC.put("docId", getRouteHeader().getDocumentId());
+        ThreadContext.put("docId", getRouteHeader().getDocumentId());
         updateSearchableAttributesIfPossible();
         LOG.debug("Returning document " + getRouteHeader().getDocumentId() + " to previous node: " + nodeName + ", annotation: " + annotation);
 

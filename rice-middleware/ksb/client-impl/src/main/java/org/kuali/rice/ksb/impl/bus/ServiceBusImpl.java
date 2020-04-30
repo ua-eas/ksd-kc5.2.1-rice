@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,8 @@ import java.util.concurrent.TimeUnit;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.property.Config;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.lifecycle.BaseLifecycle;
@@ -53,7 +54,7 @@ import org.springframework.beans.factory.InitializingBean;
 
 public class ServiceBusImpl extends BaseLifecycle implements ServiceBus, InitializingBean, DisposableBean {
 	
-	private static final Logger LOG = Logger.getLogger(ServiceBusImpl.class);
+	private static final Logger LOG = LogManager.getLogger(ServiceBusImpl.class);
 	
 	private final Object serviceLock = new Object();
 	private final Object synchronizeLock = new Object();

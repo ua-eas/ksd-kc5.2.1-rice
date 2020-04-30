@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,8 @@ import javax.jws.WebParam;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.criteria.Predicate;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
@@ -55,7 +56,7 @@ import org.kuali.rice.kim.impl.services.KimImplServiceLocator;
 import org.kuali.rice.krad.data.DataObjectService;
 
 public class GroupServiceImpl extends GroupServiceBase implements GroupService {
-    private static final Logger LOG = Logger.getLogger(GroupServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(GroupServiceImpl.class);
 
     private DataObjectService dataObjectService;
 

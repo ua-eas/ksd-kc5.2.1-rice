@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.mail.EmailBody;
 import org.kuali.rice.core.api.mail.EmailFrom;
@@ -79,8 +81,7 @@ import org.quartz.impl.triggers.CronTriggerImpl;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class ActionListEmailServiceImpl implements ActionListEmailService {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger
-            .getLogger(ActionListEmailServiceImpl.class);
+    private static Logger LOG = LogManager.getLogger(ActionListEmailServiceImpl.class);
 
     private static final String DEFAULT_EMAIL_FROM_ADDRESS = "admin@localhost";
 

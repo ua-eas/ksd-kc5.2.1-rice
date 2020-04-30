@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,21 @@
  */
 package org.kuali.rice.krad.uif.view;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.krad.uif.component.Component;
 import org.kuali.rice.krad.uif.container.CollectionGroup;
 import org.kuali.rice.krad.uif.container.Container;
 import org.kuali.rice.krad.uif.field.DataField;
 import org.kuali.rice.krad.uif.util.CopyUtils;
 import org.kuali.rice.krad.uif.util.LifecycleElement;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Holds component indexes of a {@link View} instance for convenient retrieval during the lifecycle.
@@ -37,7 +38,7 @@ import org.kuali.rice.krad.uif.util.LifecycleElement;
  */
 public class ViewIndex implements Serializable {
     private static final long serialVersionUID = 4700818801272201371L;
-    private static final Logger LOG = Logger.getLogger(ViewIndex.class);
+    private static final Logger LOG = LogManager.getLogger(ViewIndex.class);
 
     private Map<String, Component> index;
     private Map<String, DataField> dataFieldIndex;

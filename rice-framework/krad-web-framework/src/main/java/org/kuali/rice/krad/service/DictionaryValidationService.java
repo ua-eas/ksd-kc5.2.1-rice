@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
  */
 package org.kuali.rice.krad.service;
 
-import java.beans.PropertyDescriptor;
-
 import org.kuali.rice.krad.datadictionary.DataDictionaryEntry;
 import org.kuali.rice.krad.datadictionary.ReferenceDefinition;
 import org.kuali.rice.krad.datadictionary.state.StateMapping;
@@ -24,6 +22,8 @@ import org.kuali.rice.krad.datadictionary.validation.AttributeValueReader;
 import org.kuali.rice.krad.datadictionary.validation.result.DictionaryValidationResult;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.document.TransactionalDocument;
+
+import java.beans.PropertyDescriptor;
 
 /**
  * Defines the API for the validating against the data dictionary.

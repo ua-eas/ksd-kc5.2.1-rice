@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,10 @@
 package org.kuali.rice.krad.rules.rule.event;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.util.KRADPropertyConstants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Abstract superclass for document-related events.
@@ -29,7 +27,7 @@ import java.util.List;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 abstract public class DocumentEventBase extends RuleEventBase implements DocumentEvent {
-    private static final Logger LOG = Logger.getLogger(DocumentEventBase.class);
+    private static final Logger LOG = LogManager.getLogger(DocumentEventBase.class);
 
     protected Document document;
 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,13 +28,13 @@ import javax.persistence.Converter;
  *
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
-@Converter(autoApply = true)
+@Converter (autoApply = true)
 public class BooleanYNConverter implements AttributeConverter<Boolean, String> {
 
     /**
      * Defines the set of values that all correspond to yes.
      */
-	protected static final Set<String> YES_VALUES = new HashSet<String>();
+	protected static final Set<String> YES_VALUES = new HashSet<>();
 	static {
 		YES_VALUES.add("Y");
 		YES_VALUES.add("y");

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,12 @@
  */
 package org.kuali.rice.krad.web.bind;
 
-import org.springframework.beans.*;
+import org.springframework.beans.AbstractNestablePropertyAccessor;
+import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.InvalidPropertyException;
+import org.springframework.beans.NullValueInNestedPathException;
+import org.springframework.beans.PropertyValue;
 
 /**
  * Bean wrapper that will auto grow paths for setting the value but not grow paths for getting

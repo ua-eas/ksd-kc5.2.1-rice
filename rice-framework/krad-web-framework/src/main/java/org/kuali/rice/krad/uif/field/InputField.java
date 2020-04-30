@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 package org.kuali.rice.krad.uif.field;
-
-import java.util.List;
 
 import org.kuali.rice.core.api.data.DataType;
 import org.kuali.rice.krad.datadictionary.validation.capability.CaseConstrainable;
@@ -34,9 +32,10 @@ import org.kuali.rice.krad.uif.component.Component;
 import org.kuali.rice.krad.uif.control.Control;
 import org.kuali.rice.krad.uif.element.FieldValidationMessages;
 import org.kuali.rice.krad.uif.element.Message;
-import org.kuali.rice.krad.uif.element.ValidationMessages;
 import org.kuali.rice.krad.uif.widget.QuickFinder;
 import org.kuali.rice.krad.uif.widget.Suggest;
+
+import java.util.List;
 
 /**
  * TODO mark don't forget to fill this in.

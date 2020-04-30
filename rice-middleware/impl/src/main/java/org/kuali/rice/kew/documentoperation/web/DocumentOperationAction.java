@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,7 +84,7 @@ import java.util.StringTokenizer;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class DocumentOperationAction extends KewKualiAction {
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentOperationAction.class);
+	private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(DocumentOperationAction.class);
 	private static final String DEFAULT_LOG_MSG = "Admin change via document operation";
 
     private DataObjectService dataObjectService;
