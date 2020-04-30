@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.coreservice.api.parameter.Parameter;
 import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
@@ -32,7 +33,7 @@ public class UaEdsRecordFactory {
 
 	private static final String DCC_EMPLOYEE_TYPE = "Z";
 	private static final String EDS_CONSTANTS = "edsConstants";
-	private static final Logger LOG = Logger.getLogger(UaEdsRecordFactory.class);
+	private static final Logger LOG = LogManager.getLogger(UaEdsRecordFactory.class);
 	private static final ParameterService parameterService = CoreFrameworkServiceLocator.getParameterService();
 	private static final UaEdsConstants edsConstants = GlobalResourceLoader.<UaEdsConstants> getService(EDS_CONSTANTS);
 

@@ -1,13 +1,11 @@
 package edu.arizona.kim.ldap;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import edu.arizona.kim.eds.UaEdsAffiliation;
+import edu.arizona.kim.eds.UaEdsRecord;
+import edu.arizona.kim.eds.UaEdsRecordFactory;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.util.type.KualiDecimal;
 import org.kuali.rice.coreservice.api.parameter.Parameter;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
@@ -16,15 +14,13 @@ import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
 import org.kuali.rice.kim.api.identity.employment.EntityEmployment;
 import org.springframework.ldap.core.DirContextOperations;
 
-import edu.arizona.kim.eds.UaEdsAffiliation;
-import edu.arizona.kim.eds.UaEdsRecord;
-import edu.arizona.kim.eds.UaEdsRecordFactory;
+import java.util.*;
 
 
 
 public class UaEntityEmploymentMapper extends UaBaseMapper<List<EntityEmployment>> {
 
-    private static final Logger LOG = Logger.getLogger(UaEntityEmploymentMapper.class);
+    private static final Logger LOG = LogManager.getLogger(UaEntityEmploymentMapper.class);
 
     private ParameterService parameterService;
     private UaEntityAffiliationMapper affiliationMapper;

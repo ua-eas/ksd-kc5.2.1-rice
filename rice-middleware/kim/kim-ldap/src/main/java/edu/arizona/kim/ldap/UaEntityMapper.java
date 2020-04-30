@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
 import org.kuali.rice.kim.api.identity.employment.EntityEmployment;
 import org.kuali.rice.kim.api.identity.entity.Entity;
@@ -25,7 +26,7 @@ import edu.arizona.kim.eds.UaEdsRecordFactory;
  */
 public class UaEntityMapper extends UaBaseMapper<Entity> {
 
-	private static final Logger LOG = Logger.getLogger(UaEntityMapper.class);
+	private static final Logger LOG = LogManager.getLogger(UaEntityMapper.class);
 
 	private UaEntityAffiliationMapper affiliationMapper;
 	private UaEntityTypeContactInfoMapper entityTypeContactInfoMapper;
