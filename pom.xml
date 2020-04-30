@@ -1209,6 +1209,7 @@
   </build>
 
   <modules>
+    <module>db</module>
     <module>rice-middleware</module>
     <module>rice-framework</module>
   </modules>
