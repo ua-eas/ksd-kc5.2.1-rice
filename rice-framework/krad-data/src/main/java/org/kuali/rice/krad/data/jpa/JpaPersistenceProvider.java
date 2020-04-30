@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -85,7 +85,7 @@ import com.google.common.collect.Sets;
  */
 public class JpaPersistenceProvider implements PersistenceProvider, BeanFactoryAware {
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(JpaPersistenceProvider.class);
+	private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(JpaPersistenceProvider.class);
 
     /**
      * Indicates if a JPA {@code EntityManager} flush should be automatically executed when calling

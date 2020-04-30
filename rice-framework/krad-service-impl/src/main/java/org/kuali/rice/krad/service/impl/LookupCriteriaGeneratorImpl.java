@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,8 @@ import java.util.Map;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.criteria.Predicate;
 import org.kuali.rice.core.api.criteria.PredicateFactory;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
@@ -56,7 +57,7 @@ import org.kuali.rice.krad.util.KRADUtils;
  */
 public class LookupCriteriaGeneratorImpl implements LookupCriteriaGenerator {
 
-    private static final Logger LOG = Logger.getLogger(LookupCriteriaGeneratorImpl.class);
+    private static final Logger LOG = LogManager.getLogger(LookupCriteriaGeneratorImpl.class);
 
     private DateTimeService dateTimeService;
     private DataDictionaryService dataDictionaryService;

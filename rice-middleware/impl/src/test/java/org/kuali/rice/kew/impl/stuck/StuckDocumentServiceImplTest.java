@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,10 +70,10 @@ public class StuckDocumentServiceImplTest {
         incidentDatabase = new HashMap<String, StuckDocumentIncident>();
         fixAttemptDatabase = new HashMap<String, StuckDocumentFixAttempt>();
         when(dao.findIncident(any())).then(invocation -> {
-            return incidentDatabase.get(invocation.getArgumentAt(0, String.class));
+            return incidentDatabase.get(invocation. getArgument(0));
         });
         when(dao.saveIncident(any())).then(invocation -> {
-            StuckDocumentIncident incident = invocation.getArgumentAt(0, StuckDocumentIncident.class);
+            StuckDocumentIncident incident = invocation.getArgument(0);
             if (incident.getStuckDocumentIncidentId() == null) {
                 incident.setStuckDocumentIncidentId(UUID.randomUUID().toString());
             }
@@ -81,7 +81,7 @@ public class StuckDocumentServiceImplTest {
             return incident;
         });
         when(dao.saveFixAttempt(any())).then(invocation -> {
-            StuckDocumentFixAttempt attempt = invocation.getArgumentAt(0, StuckDocumentFixAttempt.class);
+            StuckDocumentFixAttempt attempt = invocation.getArgument(0);
             if (attempt.getStuckDocumentFixAttemptId() == null) {
                 attempt.setStuckDocumentFixAttemptId(UUID.randomUUID().toString());
             }

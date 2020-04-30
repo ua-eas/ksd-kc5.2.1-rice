@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.kns.datadictionary.validation.charlevel;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.krad.datadictionary.exporter.ExportMap;
 import org.kuali.rice.krad.datadictionary.validation.CharacterLevelValidationPattern;
 
@@ -31,7 +32,7 @@ import org.kuali.rice.krad.datadictionary.validation.CharacterLevelValidationPat
 public class RegexValidationPattern extends CharacterLevelValidationPattern {
 
     private static final long serialVersionUID = -5642894236634278352L;
-    private static final Logger LOG=Logger.getLogger(RegexValidationPattern.class);
+    private static final Logger LOG = LogManager.getLogger(RegexValidationPattern.class);
     /**
      * Regular expression, e.g. "[a-zA-Z0-9]"
      */

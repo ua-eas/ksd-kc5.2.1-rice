@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,13 @@
  */
 package org.kuali.rice.krad.web.form;
 
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.kuali.rice.krad.inquiry.Inquirable;
 import org.kuali.rice.krad.uif.UifConstants.ViewType;
 import org.kuali.rice.krad.uif.view.InquiryView;
 import org.kuali.rice.krad.web.bind.RequestAccessible;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Form class for <code>InquiryView</code> screens

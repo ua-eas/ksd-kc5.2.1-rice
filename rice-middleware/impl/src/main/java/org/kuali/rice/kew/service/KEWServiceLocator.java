@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,11 +15,11 @@
  */
 package org.kuali.rice.kew.service;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.module.RunMode;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
-import org.kuali.rice.edl.framework.extract.ExtractService;
 import org.kuali.rice.kew.actionlist.service.ActionListService;
 import org.kuali.rice.kew.actionrequest.service.ActionRequestService;
 import org.kuali.rice.kew.actions.ActionRegistry;
@@ -80,7 +80,7 @@ import javax.xml.namespace.QName;
  */
 public final class KEWServiceLocator {
 
-	private static final Logger LOG = Logger.getLogger(KEWServiceLocator.class);
+	private static final Logger LOG = LogManager.getLogger(KEWServiceLocator.class);
 
 	public static final String KEW_RUN_MODE_PROPERTY = "kew.mode";
 	
@@ -375,10 +375,6 @@ public final class KEWServiceLocator {
 
     public static DocumentSearchService getDocumentSearchService() {
     	return (DocumentSearchService) getBean(DOCUMENT_SEARCH_SERVICE);
-    }
-
-    public static ExtractService getExtractService() {
-	return (ExtractService) getBean(EXTRACT_SERVICE);
     }
 
     public static IdentityHelperService getIdentityHelperService() {

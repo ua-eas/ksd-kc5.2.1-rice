@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 package org.kuali.rice.kew.engine;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
@@ -67,7 +67,7 @@ import java.util.List;
  */
 public class StandardWorkflowEngine implements WorkflowEngine {
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(StandardWorkflowEngine.class);
+	private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(StandardWorkflowEngine.class);
 
 	protected final RouteHelper helper = new RouteHelper();
 	protected RouteNodeService routeNodeService;
@@ -93,7 +93,7 @@ public class StandardWorkflowEngine implements WorkflowEngine {
 		if (documentId == null) {
 			throw new IllegalArgumentException("Cannot process a null document id.");
 		}
-		MDC.put("docId", documentId);
+		ThreadContext.put("docId", documentId);
 		boolean success = true;
 		RouteContext context = RouteContext.createNewRouteContext();
 		try {
@@ -164,7 +164,7 @@ public class StandardWorkflowEngine implements WorkflowEngine {
                 throw new RouteManagerException("Problems contacting PostProcessor", e, context);
             }
 			RouteContext.releaseCurrentRouteContext();
-			MDC.remove("docId");
+			ThreadContext.remove("docId");
 		}
 	}
 

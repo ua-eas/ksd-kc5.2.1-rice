@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package org.kuali.rice.krad.data.jpa;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.krad.data.jpa.converters.BooleanYNConverter;
 import org.springframework.beans.factory.BeanClassLoaderAware;
@@ -154,8 +156,7 @@ public class KradEntityManagerFactoryBean implements FactoryBean<EntityManagerFa
         BeanFactoryAware, BeanNameAware, InitializingBean, DisposableBean, EntityManagerFactoryInfo,
         PersistenceExceptionTranslator, ResourceLoaderAware, LoadTimeWeaverAware {
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
-			.getLogger(KradEntityManagerFactoryBean.class);
+	private static final Logger LOG = LogManager.getLogger(KradEntityManagerFactoryBean.class);
 
     /**
      * Prefix for property names that are passed to the JPA persistence context as JPA properties.

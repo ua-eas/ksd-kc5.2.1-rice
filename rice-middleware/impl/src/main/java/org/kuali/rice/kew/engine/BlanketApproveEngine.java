@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.kuali.rice.kew.engine;
 
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.coreservice.framework.parameter.ParameterService;
 import org.kuali.rice.kew.actionrequest.ActionRequestFactory;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
@@ -51,7 +51,7 @@ import java.util.Set;
  */
 public class BlanketApproveEngine extends StandardWorkflowEngine {
 	
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BlanketApproveEngine.class);
+	private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(BlanketApproveEngine.class);
 
 
     BlanketApproveEngine(RouteNodeService routeNodeService, RouteHeaderService routeHeaderService, 
@@ -66,7 +66,7 @@ public class BlanketApproveEngine extends StandardWorkflowEngine {
         if (documentId == null) {
             throw new IllegalArgumentException("Cannot process a null document id.");
         }
-        MDC.put("docId", documentId);
+        ThreadContext.put("docId", documentId);
 
         try {
             RouteContext context = RouteContext.createNewRouteContext();
@@ -153,7 +153,7 @@ public class BlanketApproveEngine extends StandardWorkflowEngine {
             }
         } finally {
             RouteContext.releaseCurrentRouteContext();
-            MDC.remove("docId");
+            ThreadContext.remove("docId");
         }
     }
 

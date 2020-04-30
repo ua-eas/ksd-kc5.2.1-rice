@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,6 @@
  */
 package org.kuali.rice.krad.inquiry;
 
-import java.util.Set;
-
 import org.kuali.rice.krad.bo.Exporter;
 import org.kuali.rice.krad.datadictionary.DataObjectEntry;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
@@ -26,6 +24,8 @@ import org.kuali.rice.krad.uif.view.ViewPresentationControllerBase;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.web.form.InquiryForm;
 import org.kuali.rice.krad.web.form.UifFormBase;
+
+import java.util.Set;
 
 /**
  * Implementation of {@link org.kuali.rice.krad.uif.view.ViewPresentationController} for

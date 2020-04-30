@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.kim.api.services;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.kim.api.group.GroupService;
 import org.kuali.rice.kim.api.identity.IdentityService;
@@ -27,7 +28,7 @@ import org.kuali.rice.kim.api.type.KimTypeInfoService;
 
 public class KimApiServiceLocator {
 
-    private static final Logger LOG = Logger.getLogger(KimApiServiceLocator.class);
+    private static final Logger LOG = LogManager.getLogger(KimApiServiceLocator.class);
 
     public static final String KIM_GROUP_SERVICE = "kimGroupService";
     public static final String KIM_IDENTITY_SERVICE = "kimIdentityService";

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,6 @@
  */
 package org.kuali.rice.krad.uif.freemarker;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringEscapeUtils;
-import org.kuali.rice.krad.uif.UifConstants;
-import org.kuali.rice.krad.uif.component.Component;
-import org.kuali.rice.krad.uif.container.CollectionGroup;
-import org.kuali.rice.krad.uif.container.Group;
-import org.kuali.rice.krad.uif.layout.LayoutManager;
-import org.kuali.rice.krad.uif.layout.StackedLayoutManager;
-import org.kuali.rice.krad.uif.util.ScriptUtils;
-import org.kuali.rice.krad.uif.widget.Disclosure;
-import org.kuali.rice.krad.uif.element.Pager;
-import org.kuali.rice.krad.uif.widget.Tooltip;
-import org.springframework.util.StringUtils;
-
 import freemarker.core.Environment;
 import freemarker.core.InlineTemplateUtils;
 import freemarker.core.Macro;
@@ -43,6 +23,25 @@ import freemarker.template.ObjectWrapper;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.kuali.rice.krad.uif.UifConstants;
+import org.kuali.rice.krad.uif.component.Component;
+import org.kuali.rice.krad.uif.container.CollectionGroup;
+import org.kuali.rice.krad.uif.container.Group;
+import org.kuali.rice.krad.uif.element.Pager;
+import org.kuali.rice.krad.uif.layout.LayoutManager;
+import org.kuali.rice.krad.uif.layout.StackedLayoutManager;
+import org.kuali.rice.krad.uif.util.ScriptUtils;
+import org.kuali.rice.krad.uif.widget.Disclosure;
+import org.kuali.rice.krad.uif.widget.Tooltip;
+import org.springframework.util.StringUtils;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Inline FreeMarker rendering utilities.

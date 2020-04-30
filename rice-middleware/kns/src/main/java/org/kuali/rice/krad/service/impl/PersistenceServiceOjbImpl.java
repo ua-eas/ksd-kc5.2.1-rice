@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.krad.service.impl;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.ojb.broker.metadata.ClassDescriptor;
 import org.apache.ojb.broker.metadata.ConnectionRepository;
 import org.apache.ojb.broker.metadata.DescriptorRepository;
@@ -61,7 +62,7 @@ import java.util.Vector;
 @Transactional
 @LegacyDataFramework
 public class PersistenceServiceOjbImpl extends PersistenceServiceImplBase implements PersistenceService {
-    private static Logger LOG = Logger.getLogger(PersistenceServiceOjbImpl.class);
+    private static Logger LOG = LogManager.getLogger(PersistenceServiceOjbImpl.class);
     private static final String CLASSPATH_RESOURCE_PREFIX = "classpath:";
     private PersistenceDao persistenceDao;
 

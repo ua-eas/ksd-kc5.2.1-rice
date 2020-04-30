@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package org.kuali.rice.kew.actions;
 import java.sql.Timestamp;
 import java.util.List;
 
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
 import org.kuali.rice.kew.actiontaken.ActionTakenValue;
 import org.kuali.rice.kew.api.KewApiConstants;
@@ -37,7 +37,7 @@ import org.kuali.rice.kim.api.identity.principal.PrincipalContract;
  *
  */
 public class RouteDocumentAction extends ActionTakenEvent {
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(RouteDocumentAction.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(RouteDocumentAction.class);
 
     public RouteDocumentAction(DocumentRouteHeaderValue rh, PrincipalContract principal) {
         super(KewApiConstants.ACTION_TAKEN_COMPLETED_CD, rh, principal);
@@ -81,7 +81,7 @@ public class RouteDocumentAction extends ActionTakenEvent {
      */
     @Override
     public void recordAction() throws InvalidActionTakenException {
-        MDC.put("docId", getRouteHeader().getDocumentId());
+        ThreadContext.put("docId", getRouteHeader().getDocumentId());
         updateSearchableAttributesIfPossible();
 
         if ( LOG.isDebugEnabled() ) {

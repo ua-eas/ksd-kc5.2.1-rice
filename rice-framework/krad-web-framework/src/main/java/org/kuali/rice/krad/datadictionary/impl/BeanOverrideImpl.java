@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.krad.datadictionary.impl;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.krad.datadictionary.BeanOverride;
 import org.kuali.rice.krad.datadictionary.FieldOverride;
 
@@ -30,7 +31,7 @@ import java.util.List;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class BeanOverrideImpl implements BeanOverride {
-    private static final Logger LOG = Logger.getLogger(BeanOverrideImpl.class);
+    private static final Logger LOG = LogManager.getLogger(BeanOverrideImpl.class);
     private String beanName;
     private List<FieldOverride> fieldOverrides;
 

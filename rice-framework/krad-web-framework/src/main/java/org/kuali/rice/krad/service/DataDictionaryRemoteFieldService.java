@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import org.kuali.rice.core.api.uif.RemotableAttributeField;
  * dictionary {@link org.kuali.rice.krad.datadictionary.AttributeDefinition} configurations
  *
  * <p>
- * Used by the default type services {@link org.kuali.rice.krad.workflow.DataDictionaryPeopleFlowTypeServiceImpl} to
  * build the remotable fields for the type attributes
  * </p>
  *

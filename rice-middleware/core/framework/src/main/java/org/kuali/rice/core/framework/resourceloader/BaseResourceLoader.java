@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package org.kuali.rice.core.framework.resourceloader;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.core.api.reflect.ObjectDefinition;
 import org.kuali.rice.core.api.resourceloader.ResourceLoader;
@@ -32,7 +34,7 @@ import javax.xml.namespace.QName;
  */
 public class BaseResourceLoader extends ResourceLoaderContainer implements ResourceLoader {
 
-	protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BaseResourceLoader.class);
+	protected static final Logger LOG = LogManager.getLogger(BaseResourceLoader.class);
 
 	private ServiceLocator serviceLocator;
 

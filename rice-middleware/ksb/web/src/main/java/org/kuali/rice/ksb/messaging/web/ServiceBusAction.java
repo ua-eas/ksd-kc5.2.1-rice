@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -51,7 +52,7 @@ public class ServiceBusAction extends KSBAction {
 
     private static final QName SERVICE_BUS_ADMIN_SERVICE_QUEUE = new QName(
             KsbApiConstants.Namespaces.KSB_NAMESPACE_2_0, "serviceBusAdminService");
-    private static final Logger LOG = Logger.getLogger(ServiceBusAction.class);
+    private static final Logger LOG = LogManager.getLogger(ServiceBusAction.class);
 
     public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {

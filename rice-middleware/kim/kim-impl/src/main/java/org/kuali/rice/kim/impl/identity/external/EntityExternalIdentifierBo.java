@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.annotations.JoinFetch;
 import org.eclipse.persistence.annotations.JoinFetchType;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
@@ -42,7 +42,7 @@ import org.kuali.rice.krad.data.jpa.PortableSequenceGenerator;
 @Entity
 @Table(name = "KRIM_ENTITY_EXT_ID_T")
 public class EntityExternalIdentifierBo extends DataObjectBase implements EntityExternalIdentifierContract {
-    private static final Logger LOG = org.apache.log4j.Logger.getLogger(EntityExternalIdentifierBo.class);
+    private static final Logger LOG = org.apache.logging.log4j.LogManager.getLogger(EntityExternalIdentifierBo.class);
     private static final long serialVersionUID = 1L;
 
     @Id

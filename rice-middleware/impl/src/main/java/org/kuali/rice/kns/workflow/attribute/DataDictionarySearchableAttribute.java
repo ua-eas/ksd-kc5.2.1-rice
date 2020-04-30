@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.kns.workflow.attribute;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.module.RunMode;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
@@ -77,7 +78,7 @@ import java.util.Map;
 public class DataDictionarySearchableAttribute implements SearchableAttribute {
 
     private static final long serialVersionUID = 173059488280366451L;
-	private static final Logger LOG = Logger.getLogger(DataDictionarySearchableAttribute.class);
+	private static final Logger LOG = LogManager.getLogger(DataDictionarySearchableAttribute.class);
     public static final String DATA_TYPE_BOOLEAN = "boolean";
     public static final String KEW_RUN_MODE_PROPERTY = "kew.mode";
 

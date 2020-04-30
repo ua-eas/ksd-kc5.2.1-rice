@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.ksb.messaging.web;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -49,7 +50,7 @@ import java.util.Map;
 public class ServiceRegistryAction extends KSBAction {
 
 	private static final String REMOVED_APPLICATION_ID_PARAM = "removedApplicationId";
-    private static final Logger LOG = Logger.getLogger(ServiceRegistryAction.class);
+    private static final Logger LOG = LogManager.getLogger(ServiceRegistryAction.class);
 
     public ActionForward start(ActionMapping mapping, ActionForm form, HttpServletRequest request,
 	    HttpServletResponse response) throws IOException, ServletException {

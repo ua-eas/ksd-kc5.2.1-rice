@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package org.kuali.rice.ksb.api.bus.support;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.ksb.api.KsbApiServiceLocator;
 import org.kuali.rice.ksb.api.bus.ServiceBus;
 import org.kuali.rice.ksb.api.bus.ServiceDefinition;
@@ -27,7 +29,7 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class ServiceBusExporter implements InitializingBean {
 	
-	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ServiceBusExporter.class);
+	private static Logger LOG = LogManager.getLogger(ServiceBusExporter.class);
 	
 	private ServiceDefinition serviceDefinition;
 	private boolean forceSync = false;

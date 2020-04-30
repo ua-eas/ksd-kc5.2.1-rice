@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,10 +24,8 @@ import org.kuali.rice.kew.api.action.ActionRequest;
 import org.kuali.rice.kew.api.action.ActionRequestType;
 import org.kuali.rice.kew.api.action.ActionType;
 import org.kuali.rice.kew.api.document.DocumentStatus;
-import org.kuali.rice.krad.uif.view.RequestAuthorizationCache;
 import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
-import org.kuali.rice.krad.util.KRADUtils;
 
 import java.io.Serializable;
 

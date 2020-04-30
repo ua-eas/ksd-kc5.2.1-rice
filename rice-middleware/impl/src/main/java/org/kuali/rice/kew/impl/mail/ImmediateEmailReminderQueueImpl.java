@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package org.kuali.rice.kew.impl.mail;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.kew.api.action.ActionItem;
 import org.kuali.rice.kew.api.mail.ImmediateEmailReminderQueue;
@@ -28,8 +30,7 @@ import org.kuali.rice.kew.service.KEWServiceLocator;
  */
 public class ImmediateEmailReminderQueueImpl implements ImmediateEmailReminderQueue {
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
-            .getLogger(ImmediateEmailReminderQueueImpl.class);
+    private static final Logger LOG = LogManager.getLogger(ImmediateEmailReminderQueueImpl.class);
 
     private ActionListEmailService actionListEmailService;
 

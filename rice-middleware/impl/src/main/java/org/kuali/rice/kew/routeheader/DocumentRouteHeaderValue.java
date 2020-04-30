@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.kew.routeheader;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
@@ -156,7 +157,7 @@ import java.util.Map;
 public class DocumentRouteHeaderValue extends DataObjectBase implements DocumentContract, DocumentSearchCriteriaEbo {
 
     private static final long serialVersionUID = -4700736340527913220L;
-    private static final Logger LOG = Logger.getLogger(DocumentRouteHeaderValue.class);
+    private static final Logger LOG = LogManager.getLogger(DocumentRouteHeaderValue.class);
 
     private static final String TERMINAL = "";
     private static final boolean FINAL_STATE = true;

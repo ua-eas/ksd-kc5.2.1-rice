@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.action.ActionType;
 import org.kuali.rice.kew.api.exception.WorkflowException;
@@ -51,7 +52,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class PostProcessorServiceImpl implements PostProcessorService {
 
-    private static final Logger LOG = Logger.getLogger(PostProcessorServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(PostProcessorServiceImpl.class);
 
     private DocumentService documentService;
 

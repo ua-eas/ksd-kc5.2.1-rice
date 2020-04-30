@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.kew.routemodule.service.impl;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.reflect.ObjectDefinition;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
@@ -36,24 +37,15 @@ import org.springframework.beans.factory.BeanFactoryAware;
  */
 public class RouteModuleServiceImpl implements RouteModuleService, BeanFactoryAware {
 
-    private static final Logger LOG = Logger.getLogger(RouteModuleServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(RouteModuleServiceImpl.class);
 
     private BeanFactory beanFactory;
-    private String rulesEngineRouteModuleId;
-
-    private RouteModule peopleFlowRouteModule;
-    private volatile RouteModule rulesEngineRouteModule;
 
     public RouteModule findRouteModule(RouteNode node) throws ResourceUnavailableException {
         String routeMethodName = node.getRouteMethodName();
         LOG.debug("Finding route module for routeMethodName="+routeMethodName+" at route level "+node.getRouteNodeName());
         RouteModule routeModule = null;
-        // default to FlexRM module if the routeMethodName is null
-        if (node.isRulesEngineNode()) {
-            routeModule = getRulesEngineRouteModule();
-        } else if (node.isPeopleFlowNode()) {
-            routeModule = getPeopleFlowRouteModule();
-        } else if (routeMethodName == null || node.isFlexRM()) {
+        if (routeMethodName == null || node.isFlexRM()) {
             routeModule = getFlexRMRouteModule(routeMethodName);
         } else {
             routeModule = getRouteModule(routeMethodName);
@@ -88,36 +80,8 @@ public class RouteModuleServiceImpl implements RouteModuleService, BeanFactoryAw
         return new FlexRMAdapter();
     }
 
-    public void setPeopleFlowRouteModule(RouteModule peopleFlowRouteModule) {
-        this.peopleFlowRouteModule = peopleFlowRouteModule;
-    }
-
-    public RouteModule getPeopleFlowRouteModule() {
-        return peopleFlowRouteModule;
-    }
-
-    public String getRulesEngineRouteModuleId() {
-        return rulesEngineRouteModuleId;
-    }
-
-    public void setRulesEngineRouteModuleId(String rulesEngineRouteModuleId) {
-        this.rulesEngineRouteModuleId = rulesEngineRouteModuleId;
-    }
-
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         this.beanFactory = beanFactory;
     }
-
-    /**
-     * Loaded lazily by id so as not to introduce a runtime dependency on KRMS when it is not in use.
-     */
-    protected RouteModule getRulesEngineRouteModule() {
-        if (rulesEngineRouteModule == null) {
-            // this should initialize the route module in spring
-            rulesEngineRouteModule = (RouteModule)beanFactory.getBean(getRulesEngineRouteModuleId());
-        }
-        return rulesEngineRouteModule;
-    }
-
 }

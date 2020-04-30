@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
  */
 public class OracleDatabasePlatform extends ANSISqlDatabasePlatform {
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(OracleDatabasePlatform.class);
+	private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(OracleDatabasePlatform.class);
 	private static final long DEFAULT_TIMEOUT_SECONDS = 60 * 60; // default to 1 hour
 	public static final long WAIT_FOREVER = -1;
 	

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ import java.util.Map;
 @Deprecated
 public abstract class HtmlData implements Serializable {
 
-	protected static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(HtmlData.class);
+	protected static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(HtmlData.class);
 
 	public static final String ANCHOR_HTML_DATA_TYPE = AnchorHtmlData.class.getName();
 	public static final String INPUT_HTML_DATA_TYPE = InputHtmlData.class.getName();

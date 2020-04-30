@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Dumps the fields of the given class.
@@ -27,7 +28,7 @@ import org.apache.log4j.Logger;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class ClassDumper {
-    private static final Logger LOG = Logger.getLogger(ClassDumper.class);
+    private static final Logger LOG = LogManager.getLogger(ClassDumper.class);
 
     public static void dumpFieldsToLog(Object o) {
         if (LOG.isDebugEnabled()) {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@ import com.codahale.metrics.Metric;
 import com.codahale.metrics.MetricSet;
 import com.codahale.metrics.RatioGauge;
 import org.apache.commons.dbcp.BasicDataSource;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.enhydra.jdbc.pool.StandardXAPoolDataSource;
 
 import javax.sql.DataSource;
@@ -41,7 +42,7 @@ import java.util.Map;
  */
 public class DatabaseConnectionPoolMetricSet implements MetricSet {
 
-    private static final Logger LOG = Logger.getLogger(DatabaseConnectionPoolMetricSet.class);
+    private static final Logger LOG = LogManager.getLogger(DatabaseConnectionPoolMetricSet.class);
 
     public static final String ACTIVE = "pool.active";
     public static final String MIN = "pool.min";

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
  */
 package org.kuali.rice.krad.messages;
 
+import org.kuali.rice.krad.bo.PersistableBusinessObjectBaseAdapter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
-import org.kuali.rice.krad.bo.PersistableBusinessObjectBaseAdapter;
 
 /**
  * Holds the text and metadata for a message that will be given by the system, including validation

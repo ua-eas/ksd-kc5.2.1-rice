@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
  */
 package org.kuali.rice.core.api.security.credentials;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.InitializingBean;
 
 /**
  * CredentialsSourceFactory constructs or returns an existing instance of a
@@ -36,7 +36,7 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public final class CredentialsSourceFactory implements InitializingBean {
 
-	private final Log log = LogFactory.getLog(this.getClass());
+	private final Logger log = LogManager.getLogger(this.getClass());
 
 	private List<CredentialsSource> credentialsSources;
 

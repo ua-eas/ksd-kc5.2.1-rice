@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,7 +134,7 @@ import com.google.common.base.Function;
  */
 public class StandardGenericXMLSearchableAttribute implements SearchableAttribute {
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(StandardGenericXMLSearchableAttribute.class);
+	private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(StandardGenericXMLSearchableAttribute.class);
     private static final String FIELD_DEF_E = "fieldDef";
     /**
      * Compile-time option that controls whether we check and return errors for field bounds options that conflict with searchable attribute configuration.

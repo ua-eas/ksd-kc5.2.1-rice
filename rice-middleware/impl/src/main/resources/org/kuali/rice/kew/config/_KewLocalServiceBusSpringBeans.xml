@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright 2005-2018 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -143,18 +143,6 @@
         </property>
         <property name="localServiceName" value="kewTypeRepositoryService"/>
         <property name="busSecurity" value="${rice.kew.kewTypeRepositoryService.secure}"/>
-      </bean>
-    </property>
-  </bean>
-
-  <bean id="rice.kew.peopleFlowService.exporter" parent="kewServiceExporter">
-    <property name="serviceDefinition">
-      <bean parent="kewService">
-        <property name="service">
-          <ref bean="rice.kew.peopleFlowService"/>
-        </property>
-        <property name="localServiceName" value="peopleFlowService"/>
-        <property name="busSecurity" value="${rice.kew.peopleFlowService.secure}"/>
       </bean>
     </property>
   </bean>

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,8 @@ import java.util.Map;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.api.rule.RuleExtension;
 import org.kuali.rice.kew.routeheader.DocumentContent;
 
@@ -55,7 +56,7 @@ import org.kuali.rice.kew.routeheader.DocumentContent;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public abstract class GenericWorkflowAttribute extends AbstractWorkflowAttribute {
-    protected final Logger log = Logger.getLogger(getClass());
+    protected final Logger log = LogManager.getLogger(getClass());
     protected final String attributeName;
     protected final GenericAttributeContent content;
     

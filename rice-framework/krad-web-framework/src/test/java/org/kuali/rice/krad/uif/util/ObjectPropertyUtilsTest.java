@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,8 +72,8 @@ import org.kuali.rice.krad.web.bind.RequestAccessible;
 import org.kuali.rice.krad.web.bind.UifConfigurableWebBindingInitializer;
 import org.kuali.rice.krad.web.bind.UifServletRequestDataBinder;
 import org.kuali.rice.krad.web.form.UifFormBase;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -82,7 +82,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class ObjectPropertyUtilsTest extends ProcessLoggingUnitTest {
 
-    final Logger LOG = LoggerFactory.getLogger(ObjectPropertyUtilsTest.class);
+    final Logger LOG = LogManager.getLogger(ObjectPropertyUtilsTest.class);
 
     @Retention(RetentionPolicy.RUNTIME)
     public @interface TestAnnotation {

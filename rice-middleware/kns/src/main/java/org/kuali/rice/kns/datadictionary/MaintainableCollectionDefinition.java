@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ public class MaintainableCollectionDefinition extends MaintainableItemDefinition
     private static final long serialVersionUID = -5617868782623587053L;
 
 	// logger
-    //private static Log LOG = LogFactory.getLog(MaintainableCollectionDefinition.class);
+    //private static Logger LOG = LogManager.getLogger(MaintainableCollectionDefinition.class);
 
 	protected Class<? extends BusinessObject> businessObjectClass;
 

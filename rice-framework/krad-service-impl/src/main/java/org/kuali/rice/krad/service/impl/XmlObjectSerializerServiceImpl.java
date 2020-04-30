@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.kuali.rice.krad.service.LegacyDataAdapter;
 import org.kuali.rice.krad.service.XmlObjectSerializerService;
 import org.kuali.rice.krad.service.util.DateTimeConverter;
@@ -43,7 +43,7 @@ import com.thoughtworks.xstream.mapper.Mapper;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class XmlObjectSerializerServiceImpl implements XmlObjectSerializerService {
-	private static final Log LOG = LogFactory.getLog(XmlObjectSerializerServiceImpl.class);
+	private static final Logger LOG = LogManager.getLogger(XmlObjectSerializerServiceImpl.class);
 
 	protected LegacyDataAdapter lda;
 

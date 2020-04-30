@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,9 @@
 package org.kuali.rice.kew.impl.document.attribute;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.ThreadContext;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.kew.api.KewApiServiceLocator;
@@ -53,14 +54,14 @@ import java.util.List;
  */
 public class DocumentAttributeIndexingQueueImpl implements DocumentAttributeIndexingQueue {
 
-	private static Logger LOG = Logger.getLogger(DocumentAttributeIndexingQueueImpl.class);
+	private static Logger LOG = LogManager.getLogger(DocumentAttributeIndexingQueueImpl.class);
 
     @Override
     public void indexDocument(String documentId) {
         if (StringUtils.isBlank(documentId)) {
             throw new RiceIllegalArgumentException("documentId was null or blank");
         }
-        MDC.put("docId", documentId);
+        ThreadContext.put("docId", documentId);
         try {
             long t1 = System.currentTimeMillis();
             LOG.info("Indexing document attributes for document " + documentId);
@@ -76,7 +77,7 @@ public class DocumentAttributeIndexingQueueImpl implements DocumentAttributeInde
             LOG.info("...finished indexing document " + documentId + " for document search, total time = " + (t2 - t1) +
                     " ms.");
         } finally {
-            MDC.remove("docId");
+            ThreadContext.remove("docId");
         }
     }
 

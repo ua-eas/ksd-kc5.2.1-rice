@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 package org.kuali.rice.krad.uif.lifecycle;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.krad.uif.util.ProcessLogger;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Base abstract implementation for a lifecycle task.
@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public abstract class ViewLifecycleTaskBase<T> implements ViewLifecycleTask<T> {
-    private final Logger LOG = LoggerFactory.getLogger(ViewLifecycleTaskBase.class);
+    private final Logger LOG = LogManager.getLogger(ViewLifecycleTaskBase.class);
 
     private final Class<T> elementType;
 

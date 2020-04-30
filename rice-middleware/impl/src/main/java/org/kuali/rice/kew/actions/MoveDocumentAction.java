@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
 import org.kuali.rice.kew.actionrequest.Recipient;
 import org.kuali.rice.kew.actiontaken.ActionTakenValue;
@@ -48,7 +48,7 @@ import org.kuali.rice.kim.api.identity.principal.PrincipalContract;
  */
 public class MoveDocumentAction extends ActionTakenEvent {
 
-    protected final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(getClass());
+    protected final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(getClass());
 
     private MovePoint movePoint;
 
@@ -98,7 +98,7 @@ public class MoveDocumentAction extends ActionTakenEvent {
     }
 
     public void recordAction() throws InvalidActionTakenException {
-        MDC.put("docId", getRouteHeader().getDocumentId());
+        ThreadContext.put("docId", getRouteHeader().getDocumentId());
         updateSearchableAttributesIfPossible();
         LOG.debug("Moving document " + getRouteHeader().getDocumentId() + " to point: " + displayMovePoint(movePoint) + ", annotation: " + annotation);
 

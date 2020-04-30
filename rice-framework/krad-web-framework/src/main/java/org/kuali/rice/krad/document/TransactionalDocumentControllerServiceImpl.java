@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package org.kuali.rice.krad.document;
 import org.kuali.rice.kew.api.action.ActionType;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kim.api.identity.Person;
+import org.kuali.rice.krad.data.KradDataServiceLocator;
+import org.kuali.rice.krad.data.MaterializeOption;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.PessimisticLockService;
 import org.kuali.rice.krad.uif.UifConstants;
@@ -25,10 +27,6 @@ import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.web.form.DialogResponse;
 import org.kuali.rice.krad.web.form.DocumentFormBase;
-import org.kuali.rice.krad.data.KradDataServiceLocator;
-import org.kuali.rice.krad.data.MaterializeOption;
-import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
-import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.web.form.TransactionalDocumentFormBase;
 import org.kuali.rice.krad.web.form.UifFormBase;
 import org.springframework.web.servlet.ModelAndView;

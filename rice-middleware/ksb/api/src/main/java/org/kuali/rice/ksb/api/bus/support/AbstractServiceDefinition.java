@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.CoreConstants;
 import org.kuali.rice.core.api.config.ConfigurationException;
 import org.kuali.rice.core.api.config.CoreConfigHelper;
@@ -41,7 +42,7 @@ import java.net.URL;
  */
 public abstract class AbstractServiceDefinition implements ServiceDefinition {
 
-	private static final Logger LOG = Logger.getLogger(AbstractServiceDefinition.class);
+	private static final Logger LOG = LogManager.getLogger(AbstractServiceDefinition.class);
 		
 	// used internally to construct the service name
 	private String localServiceName;

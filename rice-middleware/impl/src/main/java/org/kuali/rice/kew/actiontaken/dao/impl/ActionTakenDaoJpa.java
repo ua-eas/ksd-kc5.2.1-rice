@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public class ActionTakenDaoJpa implements ActionTakenDao {
 
 	private EntityManager entityManager;
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ActionTakenDaoJpa.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(ActionTakenDaoJpa.class);
 
     public static final String GET_LAST_ACTION_TAKEN_DATE_NAME = "ActionTakenValue.getLastActionTakenDate";
     public static final String GET_LAST_ACTION_TAKEN_DATE_QUERY =

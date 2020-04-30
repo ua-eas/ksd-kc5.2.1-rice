@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,9 @@
 package org.kuali.rice.kew.xml;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.jdom.Element;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jdom2.Element;
 import org.kuali.rice.core.api.util.xml.XmlException;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.api.rule.RoleName;
@@ -36,7 +37,7 @@ import static org.kuali.rice.core.api.impex.xml.XmlConstants.*;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class CommonXmlParser {
-    private static final Logger LOG = Logger.getLogger(CommonXmlParser.class);
+    private static final Logger LOG = LogManager.getLogger(CommonXmlParser.class);
 
     /**
      * Parses, but does not save, a RuleResponsibility from responsibility identifier elements nested in

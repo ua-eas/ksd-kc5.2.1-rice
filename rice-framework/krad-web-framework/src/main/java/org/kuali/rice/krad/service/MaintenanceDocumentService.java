@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 package org.kuali.rice.krad.service;
 
+import org.kuali.rice.krad.maintenance.Maintainable;
 import org.kuali.rice.krad.maintenance.MaintenanceDocument;
 import org.kuali.rice.krad.maintenance.MaintenanceLock;
-import org.kuali.rice.krad.maintenance.Maintainable;
 
 import java.util.List;
 import java.util.Map;

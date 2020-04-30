@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
  */
 package org.kuali.rice.krad.uif.util;
 
-import java.util.Map;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.lifecycle.Lifecycle;
 import org.kuali.rice.krad.datadictionary.DataDictionary;
 import org.kuali.rice.krad.datadictionary.DataDictionaryException;
@@ -26,6 +25,8 @@ import org.kuali.rice.krad.uif.service.ViewService;
 import org.kuali.rice.krad.uif.service.ViewTypeService;
 import org.kuali.rice.krad.uif.view.View;
 
+import java.util.Map;
+
 /**
  * Simple view service implementation for supporting framework level UIF unit tests. 
  * 
@@ -33,7 +34,7 @@ import org.kuali.rice.krad.uif.view.View;
  */
 public class TestViewService implements ViewService, Lifecycle {
     
-    private static final Logger LOG = Logger.getLogger(TestViewService.class);
+    private static final Logger LOG = LogManager.getLogger(TestViewService.class);
 
     private boolean running;
     private DataDictionary dataDictionary;

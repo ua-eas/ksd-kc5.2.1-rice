@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.kuali.rice.kew.engine.node;
 
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
 import org.kuali.rice.kew.api.exception.WorkflowException;
 import org.kuali.rice.kew.engine.RouteContext;
@@ -62,7 +62,7 @@ import java.util.List;
  */
 public class IteratedRequestActivationNode implements SimpleNode {
 
-    protected final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(getClass());
+    protected final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(getClass());
     private static long generatedRequestPriority = 0;
 
     protected static interface RequestFulfillmentCriteria {
@@ -201,7 +201,7 @@ public class IteratedRequestActivationNode implements SimpleNode {
      * @throws org.kuali.rice.kew.api.exception.WorkflowException
      */
     private boolean activateRequests(RouteContext context, DocumentRouteHeaderValue document, RouteNodeInstance nodeInstance) throws WorkflowException {
-        MDC.put("docId", document.getDocumentId());
+        ThreadContext.put("docId", document.getDocumentId());
         PerformanceLogger performanceLogger = new PerformanceLogger(document.getDocumentId());
         List generatedActionItems = new ArrayList();
         List<ActionRequestValue> requests = KEWServiceLocator.getActionRequestService().findPendingRootRequestsByDocIdAtRouteNode(document.getDocumentId(), nodeInstance.getRouteNodeInstanceId());

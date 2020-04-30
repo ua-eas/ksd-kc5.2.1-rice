@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,11 @@ package org.kuali.rice.kew.engine.node;
 
 import org.kuali.rice.kew.api.doctype.ProcessDefinitionContract;
 import org.kuali.rice.kew.doctype.bo.DocumentType;
+import org.kuali.rice.krad.data.jpa.converters.Boolean01Converter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -59,6 +61,7 @@ public class ProcessDefinitionBo implements Serializable, ProcessDefinitionContr
 	@JoinColumn(name="INIT_RTE_NODE_ID")
 	private RouteNode initialRouteNode;
     @Column(name="INIT_IND")
+	@Convert(converter = Boolean01Converter.class)
 	private boolean initial = false;
 	@Version
 	@Column(name="VER_NBR")

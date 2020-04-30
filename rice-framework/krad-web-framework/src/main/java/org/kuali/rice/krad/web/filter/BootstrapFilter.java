@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.krad.web.filter;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.property.Config;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.reflect.ObjectDefinition;
@@ -56,7 +57,7 @@ import java.util.TreeSet;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class BootstrapFilter implements Filter {
-	private static final Logger LOG = Logger.getLogger(BootstrapFilter.class);
+	private static final Logger LOG = LogManager.getLogger(BootstrapFilter.class);
 
 	private static final String FILTER_PREFIX = "filter.";
 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ import java.util.regex.Pattern;
  */
 public class LookupableImpl extends ViewHelperServiceImpl implements Lookupable {
     private static final long serialVersionUID = 1885161468871327740L;
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(LookupableImpl.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(LookupableImpl.class);
 
     private Class<?> dataObjectClass;
 

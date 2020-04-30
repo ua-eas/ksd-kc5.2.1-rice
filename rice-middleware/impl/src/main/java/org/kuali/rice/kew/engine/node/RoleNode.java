@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.kew.engine.node;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.criteria.Predicate;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
 import org.kuali.rice.kew.actionitem.ActionItem;
@@ -57,8 +58,7 @@ import static org.kuali.rice.core.api.criteria.PredicateFactory.equal;
  */
 public class RoleNode extends RequestsNode {
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
-			.getLogger( RoleNode.class );
+	private static final Logger LOG = LogManager.getLogger( RoleNode.class );
 
 	@Override
 	protected RouteModule getRouteModule(RouteContext context) throws Exception {

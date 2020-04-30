@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,8 @@ import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
 import org.apache.commons.collections.iterators.IteratorEnumeration;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts.action.ActionServlet;
 import org.kuali.rice.core.api.config.ConfigurationException;
 import org.kuali.rice.core.api.config.property.ConfigContext;
@@ -53,7 +54,7 @@ import java.util.Map;
  */
 @Deprecated
 public class KualiActionServlet extends ActionServlet {
-    private static final Logger LOG = Logger.getLogger(KualiActionServlet.class);
+    private static final Logger LOG = LogManager.getLogger(KualiActionServlet.class);
     
     // KULRICE-8176: KFS Notes/Attachments Tab Functionality for Note Text Error - Visible/Special characters, spaces, or tabs
     private String parameterEncoding = "";

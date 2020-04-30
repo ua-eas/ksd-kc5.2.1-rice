@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@ import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.interceptor.LoggingOutInterceptor;
 import org.apache.cxf.jaxrs.JAXRSBindingFactory;
 import org.apache.cxf.jaxrs.client.JAXRSClientFactoryBean;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.core.api.security.credentials.CredentialsSource;
 import org.kuali.rice.ksb.api.bus.support.RestServiceConfiguration;
@@ -42,7 +43,7 @@ import java.util.Map;
  */
 public class ResourceFacadeImpl implements ResourceFacade {
 
-	private static final Logger LOG = Logger.getLogger(ResourceFacadeImpl.class);
+	private static final Logger LOG = LogManager.getLogger(ResourceFacadeImpl.class);
 
 	private final RestServiceConfiguration serviceConfiguration;
 	private CredentialsSource credentialsSource;

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,8 @@ import java.util.List;
 import org.apache.cxf.Bus;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.endpoint.ServerRegistry;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.ksb.api.bus.ServiceDefinition;
 import org.kuali.rice.ksb.messaging.bam.BAMServerProxy;
 import org.kuali.rice.ksb.messaging.servlet.CXFServletControllerAdapter;
@@ -33,7 +34,7 @@ import org.kuali.rice.ksb.messaging.servlet.CXFServletControllerAdapter;
  */
 public abstract class AbstractWebServiceExporter implements ServiceExporter {
 
-    static final Logger LOG = Logger.getLogger(AbstractWebServiceExporter.class);
+    static final Logger LOG = LogManager.getLogger(AbstractWebServiceExporter.class);
     
     private final ServiceDefinition serviceDefinition;
     private final Bus cxfBus;

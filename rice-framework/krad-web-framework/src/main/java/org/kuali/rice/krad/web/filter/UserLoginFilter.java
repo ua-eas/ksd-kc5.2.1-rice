@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 package org.kuali.rice.krad.web.filter;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
@@ -185,11 +185,11 @@ public class UserLoginFilter implements Filter {
     }
 
     private void addToMDC(HttpServletRequest request) {
-        MDC.put(MDC_USER, KRADUtils.getUserSessionFromRequest(request).getPrincipalName());
+        ThreadContext.put(MDC_USER, KRADUtils.getUserSessionFromRequest(request).getPrincipalName());
     }
 
     private void removeFromMDC() {
-        MDC.remove(MDC_USER);
+        ThreadContext.remove(MDC_USER);
     }
 
     /**

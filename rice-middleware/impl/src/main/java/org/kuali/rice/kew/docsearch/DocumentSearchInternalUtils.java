@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.MutableDateTime;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
@@ -59,7 +60,7 @@ import com.google.common.base.Function;
  */
 public class DocumentSearchInternalUtils {
 
-    private static final Logger LOG = Logger.getLogger(DocumentSearchInternalUtils.class);
+    private static final Logger LOG = LogManager.getLogger(DocumentSearchInternalUtils.class);
 
     private static final boolean CASE_SENSITIVE_DEFAULT = false;
 
