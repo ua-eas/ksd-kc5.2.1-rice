@@ -24,20 +24,20 @@
         <delete tableName="KRIM_ROLE_PERM_T">
             <where>perm_id in (select perm_id from KRIM_PERM_ATTR_DATA_T where attr_val = 'CLOS')</where>
         </delete>
-        <delete tableName="KRIM_PERM_T">
-            <where>perm_id in (select perm_id from KRIM_PERM_ATTR_DATA_T where attr_val = 'CLOS')</where>
-        </delete>
         <delete tableName="KRIM_PERM_ATTR_DATA_T">
             <where>attr_val = 'CLOS'</where>
+        </delete>
+        <delete tableName="KRIM_PERM_T">
+            <where>perm_id in (select perm_id from KRIM_PERM_ATTR_DATA_T where attr_val = 'CLOS')</where>
         </delete>
         <delete tableName="KRIM_ROLE_RSP_T">
             <where>rsp_id in (select rsp_id from KRIM_RSP_ATTR_DATA_T where attr_val = 'CLOS')</where>
         </delete>
-        <delete tableName="KRIM_RSP_T">
-            <where>rsp_id in (select rsp_id from KRIM_RSP_ATTR_DATA_T where attr_val = 'CLOS')</where>
-        </delete>
         <delete tableName="KRIM_RSP_ATTR_DATA_T">
             <where>attr_val = 'CLOS'</where>
+        </delete>
+        <delete tableName="KRIM_RSP_T">
+            <where>rsp_id in (select rsp_id from KRIM_RSP_ATTR_DATA_T where attr_val = 'CLOS')</where>
         </delete>
         <delete tableName="KREW_RTE_NODE_CFG_PARM_T">
             <where>rte_node_id in (select rte_node_id from KREW_RTE_NODE_T where doc_typ_id in
