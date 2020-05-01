@@ -21,7 +21,8 @@ import static org.apache.commons.lang.StringUtils.equalsIgnoreCase;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
 import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliationType;
 import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliationType.Builder;
@@ -36,7 +37,7 @@ import edu.arizona.kim.eds.UaEdsRecordFactory;
  */
 public class UaEntityAffiliationMapper extends UaBaseMapper<List<EntityAffiliation>> {
 
-	private static final Logger LOG = Logger.getLogger(UaEntityAffiliationMapper.class);
+	private static final Logger LOG = LogManager.getLogger(UaEntityAffiliationMapper.class);
 
 	@Override
 	List<EntityAffiliation> mapDtoFromContext(DirContextOperations context) {

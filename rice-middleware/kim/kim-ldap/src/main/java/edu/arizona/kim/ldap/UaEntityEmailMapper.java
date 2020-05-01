@@ -15,7 +15,8 @@
  */
 package edu.arizona.kim.ldap;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kim.api.identity.CodedAttribute;
 import org.kuali.rice.kim.api.identity.email.EntityEmail;
 import org.springframework.ldap.core.DirContextOperations;
@@ -23,12 +24,9 @@ import org.springframework.ldap.core.DirContextOperations;
 import edu.arizona.kim.eds.UaEdsRecord;
 import edu.arizona.kim.eds.UaEdsRecordFactory;
 
-/**
- * Created by shaloo & kosta on 8/20/15.
- */
-public class UaEntityEmailMapper extends UaBaseMapper<EntityEmail> {
 
-	private static final Logger LOG = Logger.getLogger(UaEntityEmailMapper.class);
+public class UaEntityEmailMapper extends UaBaseMapper<EntityEmail> {
+	private static final Logger LOG = LogManager.getLogger(UaEntityEmailMapper.class);
 
 	@Override
 	EntityEmail mapDtoFromContext(DirContextOperations context) {
