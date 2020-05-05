@@ -187,6 +187,11 @@
       <groupId>org.jasig.cas.client</groupId>
       <artifactId>cas-client-core</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.kuali.rice</groupId>
+      <version>${project.version}</version>
+      <artifactId>rice-kim-ldap</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
