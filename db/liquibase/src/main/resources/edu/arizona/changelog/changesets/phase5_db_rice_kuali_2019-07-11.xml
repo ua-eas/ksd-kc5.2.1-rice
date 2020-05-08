@@ -48,14 +48,14 @@
             <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
             <column name="ATTR_VAL" value="FALSE"/>
         </insert>
-        <insert tableName="KRIM_ROLE_PERM_T">
-            <column name="ROLE_PERM_ID" value="FINP-5694-RP1"/>
-            <column name="OBJ_ID" valueComputed="uuid()"/>
-            <column name="VER_NBR" valueNumeric="1"/>
-            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR' and ROLE_NM='Biller')"/>
-            <column name="PERM_ID" value="FINP-5694-P1"/>
-            <column name="ACTV_IND" value="Y"/>
-        </insert>
+<!--        <insert tableName="KRIM_ROLE_PERM_T">-->
+<!--            <column name="ROLE_PERM_ID" value="FINP-5694-RP1"/>-->
+<!--            <column name="OBJ_ID" valueComputed="uuid()"/>-->
+<!--            <column name="VER_NBR" valueNumeric="1"/>-->
+<!--            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR' and ROLE_NM='Biller')"/>-->
+<!--            <column name="PERM_ID" value="FINP-5694-P1"/>-->
+<!--            <column name="ACTV_IND" value="Y"/>-->
+<!--        </insert>-->
         <modifySql dbms="oracle">
             <replace replace="uuid()" with="sys_guid()"/>
         </modifySql>
