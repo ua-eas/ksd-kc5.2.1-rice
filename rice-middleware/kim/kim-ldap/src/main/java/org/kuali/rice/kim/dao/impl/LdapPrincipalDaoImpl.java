@@ -151,7 +151,7 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         }
         ;
 
-        LOG.info("Using filter ", filter.encode());
+        LOG.info("Using filter " + filter.encode());
 
         List retval = new ArrayList();
 
