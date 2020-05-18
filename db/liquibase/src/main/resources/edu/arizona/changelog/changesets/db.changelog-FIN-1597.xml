@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="FIN-1597-Remove-MessageProcessingJob-Trigger" author="Eric Lee">
+        <comment>
+            Delete trigger associated with org.kuali.rice.kcb.quartz.MessageProcessingJob that was removed by Kualico in rice 2.7.0
+        </comment>
+        <sql>
+            delete from RICE.KRSB_QRTZ_SIMPLE_TRIGGERS
+            where TRIGGER_NAME in (
+            select TRIGGER_NAME
+            from RICE.KRSB_QRTZ_TRIGGERS
+            where JOB_NAME in (
+            select JOB_NAME
+            from RICE.KRSB_QRTZ_JOB_DETAILS
+            where JOB_CLASS_NAME = 'org.kuali.rice.kcb.quartz.MessageProcessingJob'));
+
+            delete from RICE.KRSB_QRTZ_TRIGGERS
+            where JOB_NAME in (
+            select JOB_NAME
+            from RICE.KRSB_QRTZ_JOB_DETAILS
+            where JOB_CLASS_NAME = 'org.kuali.rice.kcb.quartz.MessageProcessingJob');
+
+            delete from RICE.KRSB_QRTZ_JOB_DETAILS
+            where JOB_CLASS_NAME = 'org.kuali.rice.kcb.quartz.MessageProcessingJob';
+        </sql>
+    </changeSet>
+</databaseChangeLog>
+
