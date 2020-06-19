@@ -29,7 +29,7 @@
     <project.encoding>UTF-8</project.encoding>
     <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
 
-    <project.java.version>8</project.java.version>
+    <project.java.version>11</project.java.version>
     <project.compiler.version>${project.java.version}</project.compiler.version>
     <project.compiler.release>${project.java.version}</project.compiler.release>
     <javadoc.doclint>none</javadoc.doclint>
