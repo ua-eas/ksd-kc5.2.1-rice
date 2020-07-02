@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="FIN-1629" author="hlo">
+        <comment>
+            FIN-1629: Update Parameter SHOW_BACK_DOOR_LOGIN_IND.
+        </comment>
+        <sql>            
+            UPDATE RICE.KRCR_PARM_T SET VAL = 'N' WHERE PARM_NM = 'SHOW_BACK_DOOR_LOGIN_IND';
+        </sql>
+        <rollback>
+            <sql>
+                UPDATE RICE.KRCR_PARM_T SET VAL = 'Y' WHERE PARM_NM = 'SHOW_BACK_DOOR_LOGIN_IND';
+            </sql>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>

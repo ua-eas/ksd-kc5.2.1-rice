@@ -27,7 +27,7 @@
   <include file="changesets/phase5_db_rice_kuali_2019-08-15.xml"/>
   <include file="changesets/2019_phase5_db_rice_FINP-6081.xml"/>
   <include file="changesets/db.changelog-FIN-1597.xml"/>
-
+<include file="changesets/FIN-1629-hlo-test.xml"/>
 
 
 
