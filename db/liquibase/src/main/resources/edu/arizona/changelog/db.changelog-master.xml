@@ -28,6 +28,7 @@
   <include file="changesets/2019_phase5_db_rice_FINP-6081.xml"/>
   <include file="changesets/db.changelog-FIN-1597.xml"/>
   <include file="changesets/db.changelog-FIN-1533.xml"/>
+  <include file="changesets/db.changelog-FIN-414.xml"/>
 
 
 
