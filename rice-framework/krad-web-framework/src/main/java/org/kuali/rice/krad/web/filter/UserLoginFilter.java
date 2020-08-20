@@ -100,7 +100,7 @@ public class UserLoginFilter implements Filter {
     /**
      * Checks if a user can be authenticated and if so establishes a UserSession for that user.
      */
-    private void establishUserSession(HttpServletRequest request) {
+    protected void establishUserSession(HttpServletRequest request) {
         if (!isUserSessionEstablished(request)) {
             String principalName = ((AuthenticationService) GlobalResourceLoader.getResourceLoader().getService(
                     new QName("kimAuthenticationService"))).getPrincipalName(request);
@@ -152,7 +152,7 @@ public class UserLoginFilter implements Filter {
     /**
      * gets the kuali session id from an array of cookies.  If a session id does not exist returns null.
      */
-    private String getKualiSessionId(final Cookie[] cookies) {
+    protected String getKualiSessionId(final Cookie[] cookies) {
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (KRADConstants.KUALI_SESSION_ID.equals(cookie.getName())) {
@@ -166,7 +166,7 @@ public class UserLoginFilter implements Filter {
     /**
      * establishes the backdoor user on the established user id if backdoor capabilities are valid.
      */
-    private void establishBackdoorUser(HttpServletRequest request) {
+    protected void establishBackdoorUser(HttpServletRequest request) {
         final String backdoor = request.getParameter(KRADConstants.BACKDOOR_PARAMETER);
         if (StringUtils.isNotBlank(backdoor)) {
             if (!getKualiConfigurationService().getPropertyValueAsString(KRADConstants.PROD_ENVIRONMENT_CODE_KEY)
@@ -184,11 +184,11 @@ public class UserLoginFilter implements Filter {
         }
     }
 
-    private void addToMDC(HttpServletRequest request) {
+    protected void addToMDC(HttpServletRequest request) {
         ThreadContext.put(MDC_USER, KRADUtils.getUserSessionFromRequest(request).getPrincipalName());
     }
 
-    private void removeFromMDC() {
+    protected void removeFromMDC() {
         ThreadContext.remove(MDC_USER);
     }
 
