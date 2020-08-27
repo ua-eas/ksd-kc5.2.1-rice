@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ class AbstractDataTransferObjectTest {
 
     private SampleDataTransferObject createDto() {
         List<String> values = [ "value1", "value2" ]
-        Map<String> attributes = [ attribute1:"attribute1Value", attribute2:"attribute2Value" ]
+        Map<String, String> attributes = [ attribute1:"attribute1Value", attribute2:"attribute2Value" ]
         return new SampleDataTransferObject("myName", values, attributes)
     }
 

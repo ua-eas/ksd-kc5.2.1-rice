@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,12 @@
  */
 package org.kuali.rice.krad.datadictionary.validation;
 
+import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.core.api.data.DataType;
+import org.kuali.rice.core.api.datetime.DateTimeService;
+import org.kuali.rice.krad.datadictionary.exception.AttributeValidationException;
+import org.kuali.rice.krad.uif.UifConstants;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Collection;
@@ -22,12 +28,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.core.api.data.DataType;
-import org.kuali.rice.core.api.datetime.DateTimeService;
-import org.kuali.rice.krad.datadictionary.exception.AttributeValidationException;
-import org.kuali.rice.krad.uif.UifConstants;
 
 /**
  * ValidationUtils provides static utility methods for validation processing

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.exception.RiceIllegalArgumentException;
 import org.kuali.rice.core.api.reflect.DataDefinition;
 import org.kuali.rice.kew.actions.ActionTakenEvent;
@@ -40,7 +41,7 @@ import org.kuali.rice.kim.api.identity.principal.Principal;
  */
 public class ActionInvocationQueueImpl implements ActionInvocationQueue {
 
-    private static final Logger LOG = Logger.getLogger(ActionInvocationQueueImpl.class);
+    private static final Logger LOG = LogManager.getLogger(ActionInvocationQueueImpl.class);
 
     @Override
     public void invokeAction(String principalId, String documentId, ActionInvocation invocation) {

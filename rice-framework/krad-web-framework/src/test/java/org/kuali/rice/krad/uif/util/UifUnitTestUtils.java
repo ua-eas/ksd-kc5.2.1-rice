@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,8 @@
  */
 package org.kuali.rice.krad.uif.util;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Properties;
-
-import javax.xml.namespace.QName;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -46,6 +40,12 @@ import org.springframework.web.context.support.StaticWebApplicationContext;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
+import javax.xml.namespace.QName;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Properties;
+
 /**
  * Utilities class for establishing a minimal environment for testing operations involving Uif
  * components.
@@ -53,7 +53,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public final class UifUnitTestUtils {
-    private final static Logger LOG = Logger.getLogger(UifUnitTestUtils.class);
+    private final static Logger LOG = LogManager.getLogger(UifUnitTestUtils.class);
 
     private final static ThreadLocal<Properties> TL_CONFIG_PROPERTIES = new ThreadLocal<Properties>();
 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,20 +15,21 @@
  */
 package org.kuali.rice.krad.datadictionary;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.krad.datadictionary.uif.UifDictionaryIndex;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.service.ModuleService;
 import org.kuali.rice.krad.uif.UifConstants;
 import org.kuali.rice.krad.uif.view.View;
 import org.springframework.beans.PropertyValues;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A DataDictionaryMapper that simply consults the statically initialized
@@ -37,7 +38,7 @@ import org.springframework.beans.PropertyValues;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class DataDictionaryIndexMapper implements DataDictionaryMapper {
-    private static final Logger LOG = Logger.getLogger(DataDictionaryIndexMapper.class);
+    private static final Logger LOG = LogManager.getLogger(DataDictionaryIndexMapper.class);
 
     /**
      * @see org.kuali.rice.krad.datadictionary.DataDictionaryMapper#getAllInactivationBlockingMetadatas(org.kuali.rice.krad.datadictionary.DataDictionaryIndex,

@@ -15,13 +15,12 @@
  */
 package org.kuali.rice.kim.ldap;
 
-import static org.apache.commons.lang.StringUtils.equalsIgnoreCase;
-import static org.apache.commons.lang.StringUtils.isBlank;
-import static org.kuali.rice.core.util.BufferedLogger.debug;
-
 import org.kuali.rice.kim.api.identity.CodedAttribute;
 import org.kuali.rice.kim.api.identity.phone.EntityPhone;
 import org.springframework.ldap.core.DirContextOperations;
+
+import static org.apache.commons.lang.StringUtils.equalsIgnoreCase;
+import static org.apache.commons.lang.StringUtils.isBlank;
 
 /**
  * 
@@ -43,13 +42,11 @@ public class EntityPhoneMapper extends BaseMapper<EntityPhone> {
         return mapBuilderFromContext(context, true);
     }
 
-    EntityPhone.Builder mapBuilderFromContext(DirContextOperations context, boolean isdefault) {        
+    EntityPhone.Builder mapBuilderFromContext(DirContextOperations context, boolean isdefault) {
         final EntityPhone.Builder builder = EntityPhone.Builder.create();
-        debug("Looking up attribute from context ", getConstants().getEmployeePhoneLdapProperty());
         final String pn = context.getStringAttribute(getConstants().getEmployeePhoneLdapProperty());
         
         if (isBlank(pn) || equalsIgnoreCase("NA", pn)) {
-            debug("Got nothing. Giving nothing back.");
             return null;
         }
         

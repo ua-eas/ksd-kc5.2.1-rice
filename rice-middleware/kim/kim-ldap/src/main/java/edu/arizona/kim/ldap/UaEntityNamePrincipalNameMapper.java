@@ -17,7 +17,8 @@ package edu.arizona.kim.ldap;
 
 import javax.naming.NamingException;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kim.api.identity.name.EntityName;
 import org.kuali.rice.kim.api.identity.principal.EntityNamePrincipalName;
 import org.springframework.ldap.core.ContextMapper;
@@ -31,7 +32,7 @@ import edu.arizona.kim.eds.UaEdsRecordFactory;
  */
 public class UaEntityNamePrincipalNameMapper extends UaBaseMapper<EntityNamePrincipalName> {
 
-	private static final Logger LOG = Logger.getLogger(UaEntityNamePrincipalNameMapper.class);
+	private static final Logger LOG = LogManager.getLogger(UaEntityNamePrincipalNameMapper.class);
 
 	private ContextMapper defaultNameMapper;
 

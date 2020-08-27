@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,17 +15,16 @@
  */
 package org.kuali.rice.krad.uif.freemarker;
 
-import java.util.Collections;
-
-import org.apache.log4j.Logger;
-import org.kuali.rice.krad.uif.component.Component;
-import org.kuali.rice.krad.uif.lifecycle.ViewLifecycle;
-import org.kuali.rice.krad.uif.lifecycle.ViewLifecyclePhase;
-import org.kuali.rice.krad.uif.lifecycle.ViewLifecycleTaskBase;
-
 import freemarker.core.Environment;
 import freemarker.core.Macro;
 import freemarker.template.TemplateModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.kuali.rice.krad.uif.component.Component;
+import org.kuali.rice.krad.uif.lifecycle.ViewLifecycle;
+import org.kuali.rice.krad.uif.lifecycle.ViewLifecycleTaskBase;
+
+import java.util.Collections;
 
 /**
  * Perform actual rendering on a component during the lifecycle.
@@ -34,7 +33,7 @@ import freemarker.template.TemplateModel;
  */
 public class RenderComponentTask extends ViewLifecycleTaskBase<Component> {
 
-    private static final Logger LOG = Logger.getLogger(RenderComponentTask.class);
+    private static final Logger LOG = LogManager.getLogger(RenderComponentTask.class);
 
     /**
      * Constructor.

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,9 @@
 package org.kuali.rice.kew.rule.service.impl;
 
 import org.apache.commons.lang.StringUtils;
-import org.jdom.Element;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jdom2.Element;
 import org.kuali.rice.core.api.impex.ExportDataSet;
 import org.kuali.rice.kew.exception.WorkflowServiceErrorException;
 import org.kuali.rice.kew.exception.WorkflowServiceErrorImpl;
@@ -44,8 +46,7 @@ import java.util.Map;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class RuleDelegationServiceImpl implements RuleDelegationService {
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
-			.getLogger(RuleDelegationServiceImpl.class);
+	private static final Logger LOG = LogManager.getLogger(RuleDelegationServiceImpl.class);
 	
 	private static final String XML_PARSE_ERROR = "general.error.parsexml";
 	

@@ -8,6 +8,8 @@ import java.sql.Statement;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,7 +20,7 @@ import edu.arizona.rice.kew.docsearch.dao.DocumentSearchResultsSizeDAO;
 public class DocumentSearchResultsSizeDAOJdbcImpl implements DocumentSearchResultsSizeDAO {
     private static final String DOC_SEARCH_GENERATOR_SQL_PREFIX = "Select * ";
     private static final String DOC_SEARCH_GENERATOR_REPLACEMENT_SQL_PREFIX = "Select count(*) ";
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentSearchResultsSizeDAOJdbcImpl.class);
+    private static final Logger LOG = LogManager.getLogger(DocumentSearchResultsSizeDAOJdbcImpl.class);
 
     private DataSource dataSource;
 

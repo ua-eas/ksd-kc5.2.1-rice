@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ public class ComponentLookupableHelperServiceImpl extends KualiLookupableHelperS
 
     private static final long serialVersionUID = -3978422770535345525L;
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ComponentLookupableHelperServiceImpl.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(ComponentLookupableHelperServiceImpl.class);
     
     private static final String ACTIVE = "active";
     private static final String CODE = "code";

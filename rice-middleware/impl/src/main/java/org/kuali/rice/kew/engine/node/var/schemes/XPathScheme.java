@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathVariableResolver;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.engine.RouteContext;
 import org.kuali.rice.kew.engine.node.BranchState;
 import org.kuali.rice.kew.engine.node.service.BranchService;
@@ -41,7 +42,7 @@ import org.xml.sax.InputSource;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class XPathScheme implements PropertyScheme {
-    private static final Logger LOG = Logger.getLogger(XPathScheme.class);
+    private static final Logger LOG = LogManager.getLogger(XPathScheme.class);
 
     public String getName() {
         return "xpath";

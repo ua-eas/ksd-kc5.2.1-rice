@@ -15,17 +15,16 @@
  */
 package org.kuali.rice.kim.ldap;
 
-import static java.util.Arrays.asList;
-import static org.kuali.rice.core.util.BufferedLogger.debug;
+import org.apache.commons.lang.StringUtils;
+import org.kuali.rice.coreservice.framework.parameter.ParameterService;
+import org.kuali.rice.kim.api.identity.principal.Principal;
+import org.springframework.ldap.core.DirContextOperations;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang.StringUtils;
-import org.kuali.rice.coreservice.framework.parameter.ParameterService;
-import org.kuali.rice.kim.api.identity.principal.Principal;
-import org.springframework.ldap.core.DirContextOperations;
+import static java.util.Arrays.asList;
 
 /**
  * 
@@ -45,7 +44,7 @@ public class PrincipalMapper extends BaseMapper<Principal> {
         final Principal.Builder person = Principal.Builder.create(principalName);
         
         if (entityId == null) {
-            throw new InvalidLdapEntityException("LDAP Search Results yielded an invalid result with attributes " 
+            throw new InvalidLdapEntityException("LDAP Search Results yielded an invalid result with attributes "
                                                  + context.getAttributes());
         }
         
@@ -88,7 +87,6 @@ public class PrincipalMapper extends BaseMapper<Principal> {
 
     protected Object getLdapValue(String kimAttribute) {
         Matcher matcher = getKimAttributeMatcher(kimAttribute);
-        debug("Does ", kimAttribute, " match? ", matcher.matches());
         if (!matcher.matches()) {
             return null;
         }
@@ -108,7 +106,6 @@ public class PrincipalMapper extends BaseMapper<Principal> {
                                                                         getConstants().getMappedParameterName());
 
         String regexStr = String.format("(%s|.*;%s)=([^=;]*).*", kimAttribute, kimAttribute);
-        debug("Matching KIM attribute with regex ", regexStr);
         Matcher retval = Pattern.compile(regexStr).matcher(mappedParamValue);
         
         if (!retval.matches()) {

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 package org.kuali.rice.kew.actions;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.coreservice.framework.CoreFrameworkServiceLocator;
 import org.kuali.rice.kew.actionrequest.ActionRequestFactory;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
@@ -49,7 +49,7 @@ import java.util.Set;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class DisapproveAction extends ActionTakenEvent {
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DisapproveAction.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(DisapproveAction.class);
 
     /**
      * @param rh RouteHeader for the document upon which the action is taken.
@@ -122,7 +122,7 @@ public class DisapproveAction extends ActionTakenEvent {
      * @throws org.kuali.rice.kew.api.exception.InvalidActionTakenException
      */
     public void recordAction() throws InvalidActionTakenException {
-        MDC.put("docId", getRouteHeader().getDocumentId());
+        ThreadContext.put("docId", getRouteHeader().getDocumentId());
         updateSearchableAttributesIfPossible();
 
         LOG.debug("Disapproving document : " + annotation);

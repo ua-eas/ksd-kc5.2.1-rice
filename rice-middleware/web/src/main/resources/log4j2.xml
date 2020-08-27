@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<log4j:Configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://jakarta.apache.org/log4j/" strict="true">
+    <Appenders>
+        <RollingFile name="logfile" fileName="${sys:LOG_DIR}/rice.log"
+                     filePattern="${sys:LOG_DIR}/rice.%d{yyyy-MM-dd}.log" immediateFlush="true">
+            <PatternLayout pattern="%d u:%X{user}/d:%X{docId} [%t] [%-5p] %c: %m%n"/>
+            <TimeBasedTriggeringPolicy interval="1"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.opensymphony" level="error"/>
+        <Logger name="event.org.springframework.ldap.core.LdapTemplate" level="error"/>
+        <Logger name="event.org.springframework.security.ldap.SpringSecurityAuthenticationSource" level="error"/>
+        <Logger name="org.apache.axis" level="error"/>
+        <Logger name="org.apache.catalina.session.ManagerBase" level="warn"/>
+        <Logger name="org.apache.commons.beanutils.BeanUtils" level="warn"/>
+        <Logger name="org.apache.commons.beanutils.ConvertUtils" level="warn"/>
+        <Logger name="org.apache.commons.digester.Digester" level="error"/>
+        <Logger name="org.apache.cxf.services" level="warn"/>
+        <Logger name="org.apache.jasper.compiler" level="warn"/>
+        <Logger name="org.apache.ojb.broker.core.PersistenceBrokerImpl" level="warn"/>
+        <Logger name="org.apache.ojb.broker.core.proxy.IndirectionHandler" level="error"/>
+        <Logger name="org.apache.ojb.broker" level="error"/>
+        <Logger name="org.apache.ojb" level="warn"/>
+        <Logger name="org.apache.struts" level="warn"/>
+        <Logger name="org.apache.struts.util.PropertyMessageResources" level="error"/>
+        <Logger name="org.apache.ws" level="error"/>
+        <Logger name="org.apache.xml" level="error"/>
+        <Logger name="org.displaytag" level="error"/>
+        <Logger name="org.enhydra.jdbc.xapool" level="fatal"/>
+        <Logger name="org.jasig.cas.client.authentication.AuthenticationFilter" level="error"/>
+        <Logger name="org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter" level="error"/>
+        <Logger name="org.jgroups.protocols" level="error"/>
+        <Logger name="org.kuali.rice.config.HierarchicalConfigParser" level="error"/>
+        <Logger name="org.kuali.rice.core.config.BaseConfig" level="warn"/>
+        <Logger name="org.kuali.rice.core.database.KualiTransactionInterceptor" level="warn"/>
+        <Logger name="org.kuali.rice.core.impl.config.property.JAXBConfigImpl" level="error"/>
+        <Logger name="org.kuali.rice.core.ojb.SqlGeneratorSuffixableImpl" level="warn"/>
+        <Logger name="org.kuali.rice.core.resourceloader.BaseResourceLoader" level="warn"/>
+        <Logger name="org.kuali.rice.core.resourceloader" level="warn"/>
+        <Logger name="org.kuali.rice.core.resourceloader.ResourceLoaderContainer" level="warn"/>
+        <Logger name="org.kuali.rice.kew.docsearch.dao.impl.DocumentSearchDAOJdbcImpl" level="warn"/>
+        <Logger name="org.kuali.rice.kew.docsearch.SearchableAttribute" level="warn"/>
+        <Logger name="org.kuali.rice.kew.service.impl.DocumentTypeResponsibilityTypeServiceImpl" level="warn"/>
+        <Logger name="org.kuali.rice.kew.service.KEWServiceLocator" level="warn"/>
+        <Logger name="org.kuali.rice.kew.util.PerformanceLogger" level="warn"/>
+        <Logger name="org.kuali.rice.kim.impl.permission.PermissionServiceImpl" level="warn"/>
+        <Logger name="org.kuali.rice.kim.service.KIMServiceLocator" level="warn"/>
+        <Logger name="org.kuali.rice.kns.datadictionary.DataDictionaryBuilder" level="warn"/>
+        <Logger name="org.kuali.rice.kns.datadictionary.DataDictionary" level="error"/>
+        <Logger name="org.kuali.rice.kns.datadictionary.ExternalizableAttributeDefinitionProxy" level="warn"/>
+        <Logger name="org.kuali.rice.kns.util.cache.MethodCacheNoCopyInterceptor" level="warn"/>
+        <Logger name="org.kuali.rice.kns.util.ObjectUtils" level="off"/>
+        <Logger name="org.kuali.rice.kns.util.properties.PropertyHolder" level="warn"/>
+        <Logger name="org.kuali.rice.kns.util.properties.PropertyTree" level="warn"/>
+        <Logger name="org.kuali.rice.kns.web.struts.pojo.PojoFormBase" level="warn"/>
+        <Logger name="org.kuali.rice.kns.web.struts.pojo.PojoPropertyUtilsBean" level="error"/>
+        <Logger name="org.kuali.rice.ksb.messaging.RemotedServiceRegistryImpl" level="warn"/>
+        <Logger name="org.kuali.rice.ksb.messaging.RemoteResourceServiceLocatorImpl" level="warn"/>
+        <Logger name="org.kuali.rice.ksb.messaging.RoutingTableDiffCalculator" level="error"/>
+        <Logger name="org.kuali.rice.ksb.messaging.ServiceDefinition" level="warn"/>
+        <Logger name="org.kuali.rice.resourceloader.BaseResourceLoader" level="warn"/>
+        <Logger name="org.kuali.rice.service.impl.DocumentServiceImpl" level="warn"/>
+        <Logger name="org.kuali.util.cache" level="error"/>
+        <Logger name="org.objectweb.jotm" level="warn"/>
+        <Logger name="org.quartz" level="warn"/>
+        <Logger name="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" level="warn"/>
+        <Logger name="org.springframework.aop.framework.Cglib2AopProxy" level="error"/>
+        <Logger name="org.springframework.aop.framework.JdkDynamicAopProxy" level="warn"/>
+        <Logger name="org.springframework.aop" level="error"/>
+        <Logger name="org.springframework.beans.factory" level="error"/>
+        <Logger name="org.springframework.beans" level="warn"/>
+        <Logger name="org.springframework.context" level="warn"/>
+        <Logger name="org.springframework.jdbc.datasource.DataSourceUtils" level="warn"/>
+        <Logger name="org.springframework.ldap.core.LdapTemplate" level="warn"/>
+        <Logger name="org.springframework.scheduling" level="warn"/>
+        <Logger name="org.springframework.scheduling.quartz.LocalDataSourceJobStore" level="warn"/>
+        <Logger name="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource" level="warn"/>
+        <Logger name="org.springframework.transaction.interceptor.TransactionAspectSupport" level="warn"/>
+        <Logger name="org.springframework.transaction.interceptor.TransactionInterceptor" level="warn"/>
+        <Logger name="org.springframework.transaction.jta" level="warn"/>
+        <Logger name="org.springframework.transaction.support" level="warn"/>
+        <Logger name="org.springframework.web.servlet.handler.AbstractUrlHandlerMapping" level="error"/>
+        <Logger name="org.springmodules.orm.ojb.PersistenceBrokerTemplate" level="warn"/>
+        <Logger name="uk.ltd.getahead.dwr" level="warn"/>
+        <Root level="info">
+            <AppenderRef ref="logfile"/>
+        </Root>
+    </Loggers>
+</log4j:Configuration>

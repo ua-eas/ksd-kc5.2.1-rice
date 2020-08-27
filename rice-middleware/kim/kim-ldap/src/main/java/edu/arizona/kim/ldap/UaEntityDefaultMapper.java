@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
 import org.kuali.rice.kim.api.identity.employment.EntityEmployment;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
@@ -12,7 +13,6 @@ import org.kuali.rice.kim.api.identity.external.EntityExternalIdentifier;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.identity.type.EntityTypeContactInfoDefault;
 import org.kuali.rice.kim.impl.KIMPropertyConstants;
-import org.kuali.rice.kim.ldap.InvalidLdapEntityException;
 import org.springframework.ldap.core.DirContextOperations;
 
 import edu.arizona.kim.eds.UaEdsRecord;
@@ -23,7 +23,7 @@ import edu.arizona.kim.eds.UaEdsRecordFactory;
  */
 public class UaEntityDefaultMapper extends UaBaseMapper<EntityDefault> {
 
-	private static final Logger LOG = Logger.getLogger(UaEntityDefaultMapper.class);
+	private static final Logger LOG = LogManager.getLogger(UaEntityDefaultMapper.class);
 
 	private UaEntityAffiliationMapper affiliationMapper;
 	private UaEntityTypeContactInfoDefaultMapper entityTypeContactInfoDefaultMapper;
@@ -50,7 +50,7 @@ public class UaEntityDefaultMapper extends UaBaseMapper<EntityDefault> {
 		final EntityDefault.Builder person = EntityDefault.Builder.create(entityId);
 
 		if (entityId == null) {
-			throw new InvalidLdapEntityException("LDAP Search Results yielded an invalid result with attributes " + context.getAttributes());
+			throw new RuntimeException("LDAP Search Results yielded an invalid result with attributes " + context.getAttributes());
 		}
 
 		person.setAffiliations(new ArrayList<EntityAffiliation.Builder>());

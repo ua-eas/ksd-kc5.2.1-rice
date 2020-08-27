@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 package org.kuali.rice.krad.uif.widget;
-
-import java.text.MessageFormat;
 
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
@@ -34,6 +32,8 @@ import org.kuali.rice.krad.uif.util.ComponentFactory;
 import org.kuali.rice.krad.uif.util.LifecycleElement;
 import org.kuali.rice.krad.uif.view.ExpressionEvaluator;
 
+import java.text.MessageFormat;
+
 /**
  * Widget that renders help on a component
  *
@@ -47,7 +47,7 @@ import org.kuali.rice.krad.uif.view.ExpressionEvaluator;
 public class Help extends WidgetBase {
 	private static final long serialVersionUID = -1514436681476297241L;
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(Help.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(Help.class);
 
     private Action helpAction;
     private HelpDefinition helpDefinition;

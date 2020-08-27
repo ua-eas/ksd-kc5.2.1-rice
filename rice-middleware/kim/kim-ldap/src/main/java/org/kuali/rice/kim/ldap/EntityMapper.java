@@ -15,11 +15,6 @@
  */
 package org.kuali.rice.kim.ldap;
 
-import static org.apache.commons.lang.StringUtils.contains;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
 import org.kuali.rice.kim.api.identity.employment.EntityEmployment;
@@ -29,6 +24,11 @@ import org.kuali.rice.kim.api.identity.name.EntityName;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.identity.type.EntityTypeContactInfo;
 import org.springframework.ldap.core.DirContextOperations;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.apache.commons.lang.StringUtils.contains;
 
 /**
  * 
@@ -56,7 +56,7 @@ public class EntityMapper extends BaseMapper<Entity> {
         person.setId(entityId);
         
         if (entityId == null) {
-            throw new InvalidLdapEntityException("LDAP Search Results yielded an invalid result with attributes " 
+            throw new InvalidLdapEntityException("LDAP Search Results yielded an invalid result with attributes "
                                                  + context.getAttributes());
         }
         

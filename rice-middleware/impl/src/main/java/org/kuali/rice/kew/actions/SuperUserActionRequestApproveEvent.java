@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.kuali.rice.kew.actions;
 
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.kew.actionrequest.ActionRequestFactory;
 import org.kuali.rice.kew.actionrequest.ActionRequestValue;
 import org.kuali.rice.kew.actionrequest.KimPrincipalRecipient;
@@ -53,7 +53,7 @@ public class SuperUserActionRequestApproveEvent extends SuperUserActionTakenEven
      */
     private static final String UNDEFINED_ACTION_TAKEN_CODE = null;
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SuperUserActionRequestApproveEvent.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(SuperUserActionRequestApproveEvent.class);
     private String actionRequestId;
 
     public SuperUserActionRequestApproveEvent(DocumentRouteHeaderValue routeHeader, PrincipalContract principal) {
@@ -105,7 +105,7 @@ public class SuperUserActionRequestApproveEvent extends SuperUserActionTakenEven
 
         this.setActionTaken();
 
-        MDC.put("docId", getRouteHeader().getDocumentId());
+        ThreadContext.put("docId", getRouteHeader().getDocumentId());
 
         LOG.debug("Super User Delegation Action on action request: " + annotation);
         KimPrincipalRecipient superUserRecipient = null;

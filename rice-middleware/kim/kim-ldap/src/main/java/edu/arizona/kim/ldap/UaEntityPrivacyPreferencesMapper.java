@@ -15,7 +15,8 @@
  */
 package edu.arizona.kim.ldap;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kim.api.identity.privacy.EntityPrivacyPreferences;
 import org.springframework.ldap.core.DirContextOperations;
 
@@ -27,7 +28,7 @@ import edu.arizona.kim.eds.UaEdsRecordFactory;
  */
 public class UaEntityPrivacyPreferencesMapper extends UaBaseMapper<EntityPrivacyPreferences> {
 
-	private static final Logger LOG = Logger.getLogger(UaEntityPrivacyPreferencesMapper.class);
+	private static final Logger LOG = LogManager.getLogger(UaEntityPrivacyPreferencesMapper.class);
 
 	@Override
 	EntityPrivacyPreferences mapDtoFromContext(DirContextOperations context) {

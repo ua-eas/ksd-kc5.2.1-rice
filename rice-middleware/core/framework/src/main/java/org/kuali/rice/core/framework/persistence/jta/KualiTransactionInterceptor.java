@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.core.framework.persistence.jta;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.interceptor.TransactionAttribute;
@@ -30,7 +31,7 @@ import org.springframework.transaction.support.DefaultTransactionStatus;
  */
 public class KualiTransactionInterceptor extends TransactionInterceptor {
 
-    private static final Logger LOG = Logger.getLogger(KualiTransactionInterceptor.class);
+    private static final Logger LOG = LogManager.getLogger(KualiTransactionInterceptor.class);
 	
 	@Override
     protected TransactionInfo createTransactionIfNecessary(PlatformTransactionManager tm, TransactionAttribute txAttr,
@@ -38,7 +39,7 @@ public class KualiTransactionInterceptor extends TransactionInterceptor {
         TransactionInfo txInfo = super.createTransactionIfNecessary(tm, txAttr, joinpointIdentification);
 
         // using INFO level since DEBUG level turns on the (somewhat misleading) log statements of the superclass
-        if (logger.isDebugEnabled()) {
+        if (LOG.isDebugEnabled()) {
             if (txInfo != null) {
                 TransactionStatus txStatus = txInfo.getTransactionStatus();
                 if (txStatus != null) {
@@ -68,7 +69,7 @@ public class KualiTransactionInterceptor extends TransactionInterceptor {
         }
 
         // using INFO level since DEBUG level turns on the (somewhat misleading) log statements of the superclass
-        if (logger.isDebugEnabled()) {
+        if (LOG.isDebugEnabled()) {
             if (txInfo != null) {
                 TransactionStatus txStatus = txInfo.getTransactionStatus();
                 if (txStatus != null) {
@@ -94,7 +95,7 @@ public class KualiTransactionInterceptor extends TransactionInterceptor {
     @Override
     protected void commitTransactionAfterReturning(TransactionInfo txInfo) {
         // using INFO level since DEBUG level turns on the (somewhat misleading) log statements of the superclass
-        if (logger.isDebugEnabled()) {
+        if (LOG.isDebugEnabled()) {
             if (txInfo != null) {
                 TransactionStatus txStatus = txInfo.getTransactionStatus();
                 if (txStatus != null) {

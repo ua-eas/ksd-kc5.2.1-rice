@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.kns.rule.event;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kns.rule.PromptBeforeValidation;
 import org.kuali.rice.krad.document.Document;
 import org.kuali.rice.krad.rules.rule.BusinessRule;
@@ -28,7 +29,7 @@ import org.kuali.rice.krad.rules.rule.event.DocumentEventBase;
  */
 @Deprecated
 public class PromptBeforeValidationEvent extends DocumentEventBase {
-    private static final Logger LOG = Logger.getLogger(PromptBeforeValidationEvent.class);
+    private static final Logger LOG = LogManager.getLogger(PromptBeforeValidationEvent.class);
 
     boolean performQuestion;
     String actionForwardName;

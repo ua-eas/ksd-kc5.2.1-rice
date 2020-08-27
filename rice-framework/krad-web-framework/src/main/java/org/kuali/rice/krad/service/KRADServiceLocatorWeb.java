@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import org.kuali.rice.krad.uif.service.ViewService;
 import org.kuali.rice.krad.uif.view.ExpressionEvaluatorFactory;
 import org.kuali.rice.krad.web.service.ModelAndViewService;
 import org.kuali.rice.krad.workflow.service.WorkflowDocumentService;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Service locator for the KRAD Web module

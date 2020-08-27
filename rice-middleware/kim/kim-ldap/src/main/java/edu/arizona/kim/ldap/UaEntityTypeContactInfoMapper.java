@@ -18,7 +18,8 @@ package edu.arizona.kim.ldap;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kim.api.identity.address.EntityAddress;
 import org.kuali.rice.kim.api.identity.email.EntityEmail;
 import org.kuali.rice.kim.api.identity.phone.EntityPhone;
@@ -29,12 +30,10 @@ import org.springframework.ldap.core.DirContextOperations;
 import edu.arizona.kim.eds.UaEdsRecord;
 import edu.arizona.kim.eds.UaEdsRecordFactory;
 
-/**
- * Created by shaloo & kosta on 8/20/15.
- */
+
 public class UaEntityTypeContactInfoMapper extends UaBaseMapper<EntityTypeContactInfo> {
 
-	private static final Logger LOG = Logger.getLogger(UaEntityTypeContactInfoMapper.class);
+	private static final Logger LOG = LogManager.getLogger(UaEntityTypeContactInfoMapper.class);
 
 	private UaEntityAddressMapper addressMapper;
 	private UaEntityPhoneMapper phoneMapper;

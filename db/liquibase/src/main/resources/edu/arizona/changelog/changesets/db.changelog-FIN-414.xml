@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="FIN-414-Correct-B2B-error-handling" author="sskinner">
+        <comment>
+            Set permission attr to consider edu.arizona version of B2BAction.
+        </comment>
+        <sql>
+            update KRIM_PERM_ATTR_DATA_T
+            set ATTR_VAL = 'edu.arizona.kfs.module.purap.web.struts.B2BAction'
+            where ATTR_VAL = 'org.kuali.kfs.module.purap.web.struts.B2BAction'
+        </sql>
+        <rollback>
+            <sql>
+                update KRIM_PERM_ATTR_DATA_T
+                set ATTR_VAL = 'org.kuali.kfs.module.purap.web.struts.B2BAction'
+                where ATTR_VAL = 'edu.arizona.kfs.module.purap.web.struts.B2BAction'
+            </sql>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

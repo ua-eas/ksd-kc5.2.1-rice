@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.property.ConfigurationService;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
 import org.kuali.rice.kim.api.KimConstants;
@@ -54,7 +55,7 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class IdentityArchiveServiceImpl implements IdentityArchiveService, InitializingBean, DisposableBean {
-	private static final Logger LOG = Logger.getLogger( IdentityArchiveServiceImpl.class );
+	private static final Logger LOG = LogManager.getLogger( IdentityArchiveServiceImpl.class );
 
 	protected DataObjectService dataObjectService;
 	protected ConfigurationService kualiConfigurationService;

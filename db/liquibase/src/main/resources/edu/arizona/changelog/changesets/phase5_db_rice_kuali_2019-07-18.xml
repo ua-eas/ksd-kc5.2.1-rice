@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+
+    The Kuali Financial System, a comprehensive financial management system for higher education.
+
+    Copyright 2005-2019 Kuali, Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd" logicalFilePath="org/kuali/rice/db/phase5/post-rel-2019-07-11.xml">
+    <changeSet id="FINP-5732_add_missing_kim_type_attributes" author="KFS701" context="bootstrap,demo,unit">
+        <insert tableName="KRIM_TYP_ATTR_T">
+            <column name="KIM_TYP_ATTR_ID" value="FINP-5561-TA1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="SORT_CD" value="a"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS' and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_TYP_ATTR_T">
+            <column name="KIM_TYP_ATTR_ID" value="FINP-5561-TA2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="SORT_CD" value="b"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS' and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <modifySql dbms="oracle">
+            <replace replace="uuid()" with="sys_guid()"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

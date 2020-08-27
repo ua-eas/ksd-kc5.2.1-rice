@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
 import org.kuali.rice.core.api.uif.RemotableAttributeError;
 import org.kuali.rice.core.impl.services.CoreImplServiceLocator;
@@ -45,7 +46,7 @@ import org.springframework.cache.CacheManager;
  *
  */
 public class AttributeValidationHelper {
-	private static final Logger LOG = Logger.getLogger(AttributeValidationHelper.class);
+	private static final Logger LOG = LogManager.getLogger(AttributeValidationHelper.class);
 
     private static final String DOCUMENT_PROPERTY_PREFIX = KRADConstants.DOCUMENT_PROPERTY_NAME + ".";
 

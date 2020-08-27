@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class SpringMetadataProviderImplTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		BasicConfigurator.configure();
-		org.apache.log4j.Logger.getLogger(SpringMetadataProviderImpl.class).setLevel(Level.DEBUG);
+		org.apache.logging.log4j.LogManager.getLogger(SpringMetadataProviderImpl.class);
 	}
 
 	@Before

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ import java.util.Map;
 @Transactional
 public class BusinessObjectDaoProxy implements BusinessObjectDao {
 
-	private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BusinessObjectDaoProxy.class);
+	private static org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(BusinessObjectDaoProxy.class);
 
 	private BusinessObjectDao businessObjectDaoOjb;
     private static KualiModuleService kualiModuleService;

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,14 @@
  */
 package org.kuali.rice.krad.uif.util;
 
+import org.kuali.rice.krad.datadictionary.Copyable;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import org.kuali.rice.krad.datadictionary.Copyable;
 
 /**
  * Map implementation for internal use by a lifecycle element.

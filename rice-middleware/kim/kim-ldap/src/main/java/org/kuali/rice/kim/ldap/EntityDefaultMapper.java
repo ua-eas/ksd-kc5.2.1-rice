@@ -15,8 +15,6 @@
  */
 package org.kuali.rice.kim.ldap;
 
-import java.util.ArrayList;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.kim.api.identity.affiliation.EntityAffiliation;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
@@ -24,6 +22,8 @@ import org.kuali.rice.kim.api.identity.external.EntityExternalIdentifier;
 import org.kuali.rice.kim.api.identity.principal.Principal;
 import org.kuali.rice.kim.api.identity.type.EntityTypeContactInfoDefault;
 import org.springframework.ldap.core.DirContextOperations;
+
+import java.util.ArrayList;
 
 /**
  * 
@@ -50,7 +50,7 @@ public class EntityDefaultMapper extends BaseMapper<EntityDefault> {
         final EntityDefault.Builder person = EntityDefault.Builder.create(entityId);
         
         if (entityId == null) {
-            throw new InvalidLdapEntityException("LDAP Search Results yielded an invalid result with attributes " 
+            throw new InvalidLdapEntityException("LDAP Search Results yielded an invalid result with attributes "
                                                  + context.getAttributes());
         }
         
@@ -73,7 +73,7 @@ public class EntityDefaultMapper extends BaseMapper<EntityDefault> {
         person.setEmployment(getEmploymentMapper().mapBuilderFromContext(context));
 
         person.setEntityId(entityId);
-        person.setPrincipals(new ArrayList<Principal.Builder>()); 
+        person.setPrincipals(new ArrayList<Principal.Builder>());
         //inactivate unless we find a matching affiliation
         person.setActive(true);
 

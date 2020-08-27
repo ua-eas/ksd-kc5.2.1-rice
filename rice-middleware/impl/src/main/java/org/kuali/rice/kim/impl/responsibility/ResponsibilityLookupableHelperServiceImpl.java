@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.kim.impl.responsibility;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.membership.MemberType;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kim.api.KimConstants;
@@ -44,7 +45,7 @@ import java.util.Properties;
 
 public class ResponsibilityLookupableHelperServiceImpl extends RoleMemberLookupableHelperServiceImpl {
 
-	private static final Logger LOG = Logger.getLogger( ResponsibilityLookupableHelperServiceImpl.class );
+	private static final Logger LOG = LogManager.getLogger( ResponsibilityLookupableHelperServiceImpl.class );
 	
 	private static final long serialVersionUID = -2882500971924192124L;
 	

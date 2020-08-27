@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,7 +88,7 @@ import static org.kuali.rice.core.api.impex.xml.XmlConstants.*;
  */
 public class DocumentTypeXmlParser {
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DocumentTypeXmlParser.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(DocumentTypeXmlParser.class);
 
     private static final String NEXT_NODE_EXP = "./@nextNode";
     private static final String PARENT_NEXT_NODE_EXP = "../@nextNode";
@@ -1349,8 +1349,6 @@ public class DocumentTypeXmlParser {
         } else if (((Boolean) getXPath().evaluate("./routeModule", node, XPathConstants.BOOLEAN)).booleanValue()) {
             routeNode.setRouteMethodName((String) getXPath().evaluate("./routeModule", node, XPathConstants.STRING));
             routeNode.setRouteMethodCode(KewApiConstants.ROUTE_LEVEL_ROUTE_MODULE);
-        } else if (((Boolean) getXPath().evaluate("./peopleFlows", node, XPathConstants.BOOLEAN)).booleanValue()) {
-            routeNode.setRouteMethodCode(KewApiConstants.ROUTE_LEVEL_PEOPLE_FLOW);
         } else if (((Boolean) getXPath().evaluate("./rulesEngine", node, XPathConstants.BOOLEAN)).booleanValue()) {
             // validate that the element has at least one of the two required attributes, XML schema does not provide a way for us to
             // check this so we must do so programatically

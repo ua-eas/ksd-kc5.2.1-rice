@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,15 @@
  */
 package org.kuali.rice.core.api.lifecycle;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class BaseCompositeLifecycle extends BaseLifecycle {
 
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(BaseCompositeLifecycle.class);
+	private static final Logger LOG = LogManager.getLogger(BaseCompositeLifecycle.class);
 
 	private List<Lifecycle> lifecycles;
 

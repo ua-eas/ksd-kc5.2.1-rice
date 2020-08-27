@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.kim.web.struts.action;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -52,7 +53,7 @@ import javax.xml.namespace.QName;
  */
 abstract public class IdentityManagementDocumentActionBase extends KualiTransactionalDocumentActionBase {
 
-    private static final Logger LOG = Logger.getLogger( IdentityManagementDocumentActionBase.class );
+    private static final Logger LOG = LogManager.getLogger( IdentityManagementDocumentActionBase.class );
 
 	protected static final String CHANGE_MEMBER_TYPE_CODE_METHOD_TO_CALL = "changeMemberTypeCode";
 	protected static final String CHANGE_NAMESPACE_METHOD_TO_CALL = "changeNamespace";

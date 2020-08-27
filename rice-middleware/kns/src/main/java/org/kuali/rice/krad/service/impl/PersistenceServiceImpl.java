@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.krad.bo.ExternalizableBusinessObject;
 import org.kuali.rice.krad.bo.PersistableBusinessObject;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
@@ -43,7 +44,7 @@ import org.springframework.util.CollectionUtils;
 @LegacyDataFramework
 public class PersistenceServiceImpl extends PersistenceServiceImplBase implements PersistenceService {
 
-	private static Logger LOG = Logger.getLogger(PersistenceServiceImpl.class);
+	private static Logger LOG = LogManager.getLogger(PersistenceServiceImpl.class);
 
     private KualiModuleService kualiModuleService;
 

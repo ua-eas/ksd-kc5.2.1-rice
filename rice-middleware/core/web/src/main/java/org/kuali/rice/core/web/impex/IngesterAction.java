@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -55,7 +56,7 @@ import org.kuali.rice.krad.util.KRADUtils;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class IngesterAction extends KualiAction {
-    private static final Logger LOG = Logger.getLogger(IngesterAction.class);
+    private static final Logger LOG = LogManager.getLogger(IngesterAction.class);
 
     @Override
 	public ActionForward execute(

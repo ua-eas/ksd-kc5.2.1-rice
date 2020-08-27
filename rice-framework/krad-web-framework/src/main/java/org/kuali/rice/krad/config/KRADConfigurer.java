@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import org.kuali.rice.krad.service.DataDictionaryService;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.SmartApplicationListener;
 
@@ -140,7 +139,7 @@ public class KRADConfigurer extends ModuleConfigurer implements SmartApplication
                         long start = System.currentTimeMillis();
                         LOG.info("Executing scheduled Data Dictionary component publishing...");
                         try {
-                            KRADServiceLocatorWeb.getDataDictionaryComponentPublisherService().publishAllComponents();
+//                            KRADServiceLocatorWeb.getDataDictionaryComponentPublisherService().publishAllComponents();
                         } catch (RuntimeException e) {
                             LOG.error("Failed to publish data dictionary components.", e);
                             throw e;

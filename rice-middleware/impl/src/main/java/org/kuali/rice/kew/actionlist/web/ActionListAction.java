@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ import java.util.*;
  */
 public class ActionListAction extends KualiAction {
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ActionListAction.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(ActionListAction.class);
     protected static final String MAX_ACTION_ITEM_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss.S";
 
     private static final String ACTION_LIST_KEY = "actionList";

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,10 @@
  */
 package org.kuali.rice.kew.routemodule;
 
-import org.apache.log4j.Logger;
-import org.jdom.Document;
-import org.jdom.Element;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jdom2.Document;
+import org.jdom2.Element;
 import org.kuali.rice.core.api.impex.xml.XmlConstants;
 import org.kuali.rice.core.api.reflect.ObjectDefinition;
 import org.kuali.rice.core.api.resourceloader.GlobalResourceLoader;
@@ -54,7 +55,7 @@ import java.util.List;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class InlineRequestsRouteModule extends FlexRMAdapter {
-    private static final Logger LOG = Logger.getLogger(InlineRequestsRouteModule.class);
+    private static final Logger LOG = LogManager.getLogger(InlineRequestsRouteModule.class);
 
     /**
      * This overridden method is used to decipher the inline xpath and responsibilities of a route node definition and use

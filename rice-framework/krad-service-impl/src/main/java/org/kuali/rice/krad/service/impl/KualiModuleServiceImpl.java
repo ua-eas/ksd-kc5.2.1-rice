@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -172,15 +172,9 @@ public class KualiModuleServiceImpl implements KualiModuleService, InitializingB
         if (documentClass.getName().startsWith("org.kuali.rice.krad")) {
             return KRADConstants.KNS_NAMESPACE;
         }
-        if (documentClass.getName().startsWith("org.kuali.rice.edl")) {
-            return "KR-EDL";
-        }
         if (documentClass.getName().startsWith("org.kuali.rice.kew")) {
             return "KR-WKFLW";
         }
-        if (documentClass.getName().startsWith("org.kuali.rice.edl")) {
-        	return "KR-WKFLW";
-    	}
         if (documentClass.getName().startsWith("org.kuali.rice.kim")) {
             return "KR-IDM";
         }

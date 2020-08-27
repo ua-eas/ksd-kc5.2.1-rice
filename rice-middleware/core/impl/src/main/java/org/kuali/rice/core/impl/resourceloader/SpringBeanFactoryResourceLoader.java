@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,12 @@
  */
 package org.kuali.rice.core.impl.resourceloader;
 
-import javax.xml.namespace.QName;
-
 import org.kuali.rice.core.framework.resourceloader.BaseResourceLoader;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
+
+import javax.xml.namespace.QName;
 
 /**
  * A ResourceLoader that is BeanFactoryAware and can be wired inside of Spring to provide

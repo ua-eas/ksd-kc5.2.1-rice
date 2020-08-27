@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,9 @@ package org.kuali.rice.kew.actions;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.jdom.input.DOMBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jdom2.input.DOMBuilder;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.core.api.util.xml.XmlHelper;
@@ -79,7 +80,7 @@ import java.util.Set;
  * @since 2.1
  */
 public class RecallAction extends ReturnToPreviousNodeAction {
-    private static final Logger LOG = Logger.getLogger(RecallAction.class);
+    private static final Logger LOG = LogManager.getLogger(RecallAction.class);
 
     protected final boolean cancel;
     protected final Collection<Recipient> notificationRecipients;
@@ -147,7 +148,7 @@ public class RecallAction extends ReturnToPreviousNodeAction {
                             } else {
                                 // parseResponsibilityNameAndType parses a single responsibility choice from a parent element
                                 // wrap the element with a parent so we can use this method
-                                org.jdom.Element parent = new org.jdom.Element("parent");
+                                org.jdom2.Element parent = new org.jdom2.Element("parent");
                                 parent.addContent(jdom.build((Element) e.cloneNode(true)).detach());
                                 toNotify.add(CommonXmlParser.parseResponsibilityNameAndType(parent).getRecipient());
                             }

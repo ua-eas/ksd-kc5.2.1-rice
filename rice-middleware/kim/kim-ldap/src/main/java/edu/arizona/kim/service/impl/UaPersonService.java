@@ -17,7 +17,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kim.api.identity.Person;
 import org.kuali.rice.kim.api.identity.entity.EntityDefault;
 import org.kuali.rice.kim.api.identity.principal.Principal;
@@ -28,7 +29,7 @@ import org.kuali.rice.kim.service.LdapIdentityService;
 
 // UAF-6.0 upgrade
 public class UaPersonService extends PersonServiceImpl {
-	private static Logger LOG = Logger.getLogger(UaPersonService.class);
+	private static final Logger LOG = LogManager.getLogger(UaPersonService.class);
 	private LdapIdentityService ldapIdentityService;
 
 	protected static final String EDS_ACTIVE_STATUS_KEY = "principals.active";

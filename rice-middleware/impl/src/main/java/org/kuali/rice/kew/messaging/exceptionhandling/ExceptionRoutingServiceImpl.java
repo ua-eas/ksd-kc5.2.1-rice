@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.ThreadContext;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.kew.actionitem.ActionItem;
 import org.kuali.rice.kew.actionrequest.ActionRequestFactory;
@@ -48,7 +48,7 @@ import org.kuali.rice.ksb.service.KSBServiceLocator;
 
 public class ExceptionRoutingServiceImpl implements WorkflowDocumentExceptionRoutingService {
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ExceptionRoutingServiceImpl.class);
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(ExceptionRoutingServiceImpl.class);
 
     public DocumentRouteHeaderValue placeInExceptionRouting(String errorMessage, PersistedMessageBO persistedMessage, String documentId) throws Exception {
  	 	RouteNodeInstance nodeInstance = null;
@@ -88,7 +88,7 @@ public class ExceptionRoutingServiceImpl implements WorkflowDocumentExceptionRou
     
     protected DocumentRouteHeaderValue placeInExceptionRouting(String errorMessage, RouteNodeInstance nodeInstance, PersistedMessageBO persistedMessage, RouteContext routeContext, DocumentRouteHeaderValue document, boolean invokePostProcessor) throws Exception {
     	String documentId = document.getDocumentId();
-        MDC.put("docId", documentId);
+        ThreadContext.put("docId", documentId);
         PerformanceLogger performanceLogger = new PerformanceLogger(documentId);
         try {
 
@@ -129,7 +129,7 @@ public class ExceptionRoutingServiceImpl implements WorkflowDocumentExceptionRou
             }
         } finally {
             performanceLogger.log("Time to generate exception request.");
-            MDC.remove("docId");
+            ThreadContext.remove("docId");
         }
 
         return document;

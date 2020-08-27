@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.krad.dao.impl;
 
 import java.sql.Timestamp;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.ojb.broker.query.Criteria;
 import org.apache.ojb.broker.query.QueryFactory;
 import org.kuali.rice.core.framework.persistence.ojb.dao.PlatformAwareDaoBaseOjb;
@@ -31,7 +32,7 @@ import org.springframework.dao.DataAccessException;
  * This class is the OJB implementation of the DocumentDao interface.
  */
 public class SessionDocumentDaoOjb extends PlatformAwareDaoBaseOjb implements SessionDocumentDao{
-    private static Logger LOG = Logger.getLogger(SessionDocumentDaoOjb.class);
+    private static Logger LOG = LogManager.getLogger(SessionDocumentDaoOjb.class);
     private BusinessObjectDao businessObjectDao;
     
 

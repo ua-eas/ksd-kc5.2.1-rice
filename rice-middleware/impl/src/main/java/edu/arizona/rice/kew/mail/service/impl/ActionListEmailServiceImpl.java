@@ -1,5 +1,7 @@
 package edu.arizona.rice.kew.mail.service.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.quartz.JobDetail;
 import org.quartz.SchedulerException;
 import org.quartz.impl.JobDetailImpl;
@@ -10,7 +12,7 @@ import org.quartz.impl.JobDetailImpl;
  * 2017-05-11 (ua-release-50)
  */
 public class ActionListEmailServiceImpl extends org.kuali.rice.kew.mail.service.impl.ActionListEmailServiceImpl {
-    private static org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ActionListEmailServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(ActionListEmailServiceImpl.class);
 
     @Override
     protected void addJobToScheduler(JobDetail jobDetail) throws SchedulerException {

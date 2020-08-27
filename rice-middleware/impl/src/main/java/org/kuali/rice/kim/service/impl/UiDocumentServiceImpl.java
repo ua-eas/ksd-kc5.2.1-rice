@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,8 @@ package org.kuali.rice.kim.service.impl;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 import org.kuali.rice.core.api.CoreApiServiceLocator;
 import org.kuali.rice.core.api.config.property.ConfigContext;
@@ -164,7 +165,7 @@ import java.util.Set;
  */
 @SuppressWarnings("deprecation")
 public class UiDocumentServiceImpl implements UiDocumentService {
-	private static final Logger LOG = Logger.getLogger(UiDocumentServiceImpl.class);
+	private static final Logger LOG = LogManager.getLogger(UiDocumentServiceImpl.class);
 	private static final String SHOW_BLANK_QUALIFIERS = "kim.show.blank.qualifiers";
 	private static final String KIM_IDENTITY_ARCHIVE_SERVICE = "kimIdentityArchiveService";
 

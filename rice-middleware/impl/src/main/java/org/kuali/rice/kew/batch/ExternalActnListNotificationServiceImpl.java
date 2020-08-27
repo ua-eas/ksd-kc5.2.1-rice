@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
  */
 package org.kuali.rice.kew.batch;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.actionitem.ActionItem;
 import org.kuali.rice.kew.api.KewApiConstants;
 import org.kuali.rice.kew.service.KEWServiceLocator;
@@ -32,8 +34,7 @@ import java.sql.Statement;
  */
 public class ExternalActnListNotificationServiceImpl implements ExternalActnListNotificationService {
 
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
-            .getLogger(ExternalActnListNotificationServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(ExternalActnListNotificationServiceImpl.class);
 
     private String password;
     private String url;

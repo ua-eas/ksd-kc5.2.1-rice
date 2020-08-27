@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.kns.web.struts.form;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.struts.action.ActionMapping;
 import org.kuali.rice.krad.exception.ExceptionIncident;
 import org.kuali.rice.krad.util.KRADConstants;
@@ -34,7 +35,7 @@ import java.util.Set;
 @Deprecated
 public class KualiExceptionIncidentForm extends KualiForm {
     private static final long serialVersionUID = 831951332440283401L;
-    private static Logger LOG=Logger.getLogger(KualiExceptionIncidentForm.class); 
+    private static Logger LOG = LogManager.getLogger(KualiExceptionIncidentForm.class);
     
     /**
      * The form properties that should be populated in order for the toMap() method to function properly.

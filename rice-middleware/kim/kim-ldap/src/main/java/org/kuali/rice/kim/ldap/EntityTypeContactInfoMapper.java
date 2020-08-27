@@ -15,17 +15,15 @@
  */
 package org.kuali.rice.kim.ldap;
 
-import static org.kuali.rice.core.util.BufferedLogger.debug;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.kuali.rice.kim.api.identity.address.EntityAddress;
 import org.kuali.rice.kim.api.identity.email.EntityEmail;
 import org.kuali.rice.kim.api.identity.phone.EntityPhone;
 import org.kuali.rice.kim.api.identity.type.EntityTypeContactInfo;
-import org.kuali.rice.kim.util.Constants;
 import org.springframework.ldap.core.DirContextOperations;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * 
@@ -47,7 +45,7 @@ public class EntityTypeContactInfoMapper extends BaseMapper<EntityTypeContactInf
         final String entityId       = (String) context.getStringAttribute(getConstants().getKimLdapIdProperty());
         final String entityTypeCode = (String ) getConstants().getPersonEntityTypeCode();
 
-        final EntityTypeContactInfo.Builder builder = EntityTypeContactInfo.Builder.create(entityId, entityTypeCode); 
+        final EntityTypeContactInfo.Builder builder = EntityTypeContactInfo.Builder.create(entityId, entityTypeCode);
         final EntityAddress.Builder address = getAddressMapper().mapBuilderFromContext(context);
         final List<EntityAddress.Builder> addresses = new ArrayList<EntityAddress.Builder>();
         addresses.add(address);
@@ -65,7 +63,6 @@ public class EntityTypeContactInfoMapper extends BaseMapper<EntityTypeContactInf
         builder.setAddresses(addresses);
         builder.setEmailAddresses(email);
         builder.setPhoneNumbers(phone);
-        debug("Created Entity Type with code ", builder.getEntityTypeCode());                
 
         return builder;
     }

@@ -16,7 +16,6 @@
 package org.kuali.rice.kim.ldap;
 
 import org.kuali.rice.kim.api.identity.type.EntityTypeContactInfoDefault;
-import org.kuali.rice.kim.util.Constants;
 import org.springframework.ldap.core.DirContextOperations;
 
 /**
@@ -36,7 +35,7 @@ public class EntityTypeContactInfoDefaultMapper extends BaseMapper<EntityTypeCon
     }
 
     EntityTypeContactInfoDefault.Builder mapBuilderFromContext(DirContextOperations context) {
-        final EntityTypeContactInfoDefault.Builder retval = EntityTypeContactInfoDefault.Builder.create(); 
+        final EntityTypeContactInfoDefault.Builder retval = EntityTypeContactInfoDefault.Builder.create();
         
         retval.setDefaultAddress(getAddressMapper().mapBuilderFromContext(context));
         retval.setDefaultPhoneNumber(getPhoneMapper().mapBuilderFromContext(context));

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.core.framework.config.property;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.property.Config;
 import org.kuali.rice.core.api.config.property.ConfigContext;
 import org.kuali.rice.core.api.util.ClasspathOrFileResourceLoader;
@@ -36,7 +37,7 @@ import java.util.Properties;
  */
 public abstract class AbstractBaseConfig implements org.kuali.rice.core.api.config.property.Config {
 
-    private static final Logger LOG = Logger.getLogger(AbstractBaseConfig.class);
+    private static final Logger LOG = LogManager.getLogger(AbstractBaseConfig.class);
 
     public abstract Object getObject(String key);
 
@@ -128,10 +129,6 @@ public abstract class AbstractBaseConfig implements org.kuali.rice.core.api.conf
         return getProperty(Config.DOCUMENT_LOCK_TIMEOUT);
     }
 
-    public String getEDLConfigLocation() {
-        return getProperty(Config.EDL_CONFIG_LOCATION);
-    }
-
     public String getEmailConfigurationPath() {
         return getProperty(org.kuali.rice.core.api.config.property.Config.EMAIL_SECURITY_PATH);
     }
@@ -194,10 +191,6 @@ public abstract class AbstractBaseConfig implements org.kuali.rice.core.api.conf
             val = getProperty(VERSION);
         }
         return val;
-    }
-
-    public String getKENBaseURL() {
-        return getProperty(Config.KEN_URL);
     }
 
     public String getKEWBaseURL() {

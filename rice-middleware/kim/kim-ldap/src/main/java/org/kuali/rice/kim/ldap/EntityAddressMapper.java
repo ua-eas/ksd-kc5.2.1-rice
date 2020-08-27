@@ -26,7 +26,7 @@ import org.springframework.ldap.core.DirContextOperations;
 public class EntityAddressMapper extends BaseMapper<EntityAddress> {
 	
 	@Override
-	EntityAddress mapDtoFromContext(DirContextOperations context) {
+    EntityAddress mapDtoFromContext(DirContextOperations context) {
 		return mapDtoFromContext(context, false);
 	}
 	
@@ -39,7 +39,7 @@ public class EntityAddressMapper extends BaseMapper<EntityAddress> {
         return mapBuilderFromContext(context, false);
     }
 
-    EntityAddress.Builder mapBuilderFromContext(DirContextOperations context, boolean isdefault) {        
+    EntityAddress.Builder mapBuilderFromContext(DirContextOperations context, boolean isdefault) {
         final EntityAddress.Builder builder = EntityAddress.Builder.create();
         final String line1              = context.getStringAttribute("employeePrimaryDeptName");
         final String line2              = context.getStringAttribute("employeePoBox");

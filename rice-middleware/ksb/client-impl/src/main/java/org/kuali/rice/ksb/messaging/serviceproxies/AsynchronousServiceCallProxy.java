@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
 package org.kuali.rice.ksb.messaging.serviceproxies;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.exception.RiceRuntimeException;
 import org.kuali.rice.core.api.util.ClassLoaderUtils;
 import org.kuali.rice.core.api.util.ContextClassLoaderProxy;
@@ -43,7 +44,7 @@ import java.util.List;
  */
 public class AsynchronousServiceCallProxy extends BaseInvocationHandler implements TargetedInvocationHandler {
 
-    private static final Logger LOG = Logger.getLogger(AsynchronousServiceCallProxy.class);
+    private static final Logger LOG = LogManager.getLogger(AsynchronousServiceCallProxy.class);
 
     private AsynchronousCallback callback;
 

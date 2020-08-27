@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,12 @@
 package org.kuali.rice.core.impl.datetime;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DurationFormatUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
-import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.kuali.rice.core.api.CoreConstants;
 import org.kuali.rice.core.api.config.property.ConfigContext;
+import org.kuali.rice.core.api.datetime.DateTimeService;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.sql.Time;

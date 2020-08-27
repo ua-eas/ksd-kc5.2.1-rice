@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,6 @@
  */
 package org.kuali.rice.krad.uif.lifecycle;
 
-import java.io.Serializable;
-import java.text.MessageFormat;
-
 import org.apache.commons.lang.StringUtils;
 import org.kuali.rice.krad.messages.MessageService;
 import org.kuali.rice.krad.service.KRADServiceLocatorWeb;
@@ -30,6 +27,9 @@ import org.kuali.rice.krad.util.GlobalVariables;
 import org.kuali.rice.krad.util.GrowlMessage;
 import org.kuali.rice.krad.util.KRADConstants;
 import org.kuali.rice.krad.util.MessageMap;
+
+import java.io.Serializable;
+import java.text.MessageFormat;
 
 /**
  * @author Kuali Rice Team (rice.collab@kuali.org)

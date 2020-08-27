@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,8 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.persistence.internal.jpa.querydef.PathImpl;
 import org.kuali.rice.core.api.criteria.PropertyPath;
 import org.kuali.rice.core.api.criteria.QueryByCriteria;
@@ -383,7 +384,7 @@ class NativeJpaQueryTranslator extends QueryTranslatorBase<NativeJpaQueryTransla
 				tempCriteria = createCriteria(Class.forName(value.getDataType()));
 			} catch (ClassNotFoundException e) {
 				// unable to find the type - ignore and attempt to resolve path without special context
-				Logger.getLogger(this.getClass()).error(
+				LogManager.getLogger(this.getClass()).error(
 						"Unable to find data type " + value.getDataType()
 								+ ".  Falling back to the base root for the query: " + criteria.root.getJavaType());
 			}

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@ import org.kuali.rice.krad.data.metadata.DataObjectCollection;
 import org.kuali.rice.krad.data.metadata.DataObjectMetadata;
 import org.kuali.rice.krad.data.metadata.DataObjectRelationship;
 import org.kuali.rice.krad.data.metadata.MetadataChild;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.PropertyAccessor;
 import org.springframework.beans.PropertyAccessorUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -73,7 +73,7 @@ import java.util.Set;
 */
 public class ReferenceLinker {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ReferenceLinker.class);
+    private static final Logger LOG = LogManager.getLogger(ReferenceLinker.class);
 
     private DataObjectService dataObjectService;
 

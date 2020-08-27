@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.config.ConfigurationException;
 import org.kuali.rice.coreservice.api.CoreServiceApiServiceLocator;
 import org.kuali.rice.coreservice.api.component.Component;
@@ -46,7 +47,7 @@ import org.kuali.rice.krad.util.KRADUtils;
  */
 public class DataDictionaryComponentPublisherServiceImpl implements DataDictionaryComponentPublisherService {
 
-    private static final Logger LOG = Logger.getLogger(DataDictionaryComponentPublisherServiceImpl.class);
+    private static final Logger LOG = LogManager.getLogger(DataDictionaryComponentPublisherServiceImpl.class);
 
     private static final String DEFAULT_COMPONENT_SET_ID_PREFIX = "DD:";
 

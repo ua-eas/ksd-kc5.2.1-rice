@@ -1,0 +1,276 @@
+<?xml version="1.0"?>
+<!--
+
+    The Kuali Financial System, a comprehensive financial management system for higher education.
+
+    Copyright 2005-2019 Kuali, Inc.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd" logicalFilePath="org/kuali/rice/db/phase5/post-rel-2019-06-06.xml">
+    <changeSet id="FINP-5640" author="KFS701" context="bootstrap,demo,unit">
+        <delete tableName="KRIM_ROLE_PERM_T">
+            <where>perm_id in (select perm_id from KRIM_PERM_ATTR_DATA_T where attr_val = 'CLOS')</where>
+        </delete>
+        <delete tableName="KRIM_PERM_ATTR_DATA_T">
+            <where>attr_val = 'CLOS'</where>
+        </delete>
+        <delete tableName="KRIM_PERM_T">
+            <where>perm_id in (select perm_id from KRIM_PERM_ATTR_DATA_T where attr_val = 'CLOS')</where>
+        </delete>
+        <delete tableName="KRIM_ROLE_RSP_T">
+            <where>rsp_id in (select rsp_id from KRIM_RSP_ATTR_DATA_T where attr_val = 'CLOS')</where>
+        </delete>
+        <delete tableName="KRIM_RSP_ATTR_DATA_T">
+            <where>attr_val = 'CLOS'</where>
+        </delete>
+        <delete tableName="KRIM_RSP_T">
+            <where>rsp_id in (select rsp_id from KRIM_RSP_ATTR_DATA_T where attr_val = 'CLOS')</where>
+        </delete>
+        <delete tableName="KREW_RTE_NODE_CFG_PARM_T">
+            <where>rte_node_id in (select rte_node_id from KREW_RTE_NODE_T where doc_typ_id in
+                (select doc_typ_id from KREW_DOC_TYP_T where doc_typ_nm = 'CLOS'))</where>
+        </delete>
+        <delete tableName="KREW_RTE_NODE_T">
+            <where>doc_typ_Id in (select doc_typ_id from KREW_DOC_TYP_T where doc_typ_nm = 'CLOS')</where>
+        </delete>
+        <delete tableName="KREW_DOC_TYP_PROC_T">
+            <where>doc_typ_id in (select doc_typ_id from KREW_DOC_TYP_T where doc_typ_nm = 'CLOS')</where>
+        </delete>
+        <delete tableName="KREW_DOC_TYP_T">
+            <where>doc_typ_nm = 'CLOS'</where>
+        </delete>
+    </changeSet>
+    <changeSet id="FINP-5561" author="KFS701" context="bootstrap,demo,unit">
+        <insert tableName="KRIM_TYP_T">
+            <column name="KIM_TYP_ID" value="FINP-5561-KT1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="NM" value="Financial System Document Type &amp; Existing Records Only"/>
+            <column name="SRVC_NM" value="{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService"/>
+            <column name="ACTV_IND" value="Y"/>
+            <column name="NMSPC_CD" value="KFS-SYS"/>
+        </insert>
+        <insert tableName="KRIM_PERM_TMPL_T">
+            <column name="PERM_TMPL_ID" value="FINP-5561-PT1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="NMSPC_CD" value="KFS-SYS"/>
+            <column name="NM" value="Create / Maintain Record(s)"/>
+            <column name="DESC_TXT" value="null"/>
+            <column name="KIM_TYP_ID" value="FINP-5561-KT1"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-5561-P1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t                 where nmspc_cd = 'KFS-SYS' and nm = 'Create / Maintain Record(s)')"/>
+            <column name="NMSPC_CD" value="KFS-SYS"/>
+            <column name="NM" value="Create / Maintain Record(s) FSSM FALSE"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5561-P1A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5561-P1"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'                 and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t                 where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="FSSM"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5561-P1A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5561-P1"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'                 and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t                 where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ATTR_VAL" value="FALSE"/>
+        </insert>
+<!--        <insert tableName="KRIM_ROLE_PERM_T">-->
+<!--            <column name="ROLE_PERM_ID" value="FINP-5561-RP1"/>-->
+<!--            <column name="OBJ_ID" valueComputed="uuid()"/>-->
+<!--            <column name="VER_NBR" valueNumeric="1"/>-->
+<!--            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS'                 and ROLE_NM='Manager')"/>-->
+<!--            <column name="PERM_ID" value="FINP-5561-P1"/>-->
+<!--            <column name="ACTV_IND" value="Y"/>-->
+<!--        </insert>-->
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-5561-P2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t                 where nmspc_cd = 'KFS-SYS' and nm = 'Create / Maintain Record(s)')"/>
+            <column name="NMSPC_CD" value="KFS-SYS"/>
+            <column name="NM" value="Create / Maintain Record(s) KFS FALSE"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5561-P2A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5561-P2"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'                 and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t                 where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="KFS"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5561-P2A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5561-P2"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'                 and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t                 where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ATTR_VAL" value="FALSE"/>
+        </insert>
+<!--        <insert tableName="KRIM_ROLE_PERM_T">-->
+<!--            <column name="ROLE_PERM_ID" value="FINP-5561-RP2"/>-->
+<!--            <column name="OBJ_ID" valueComputed="uuid()"/>-->
+<!--            <column name="VER_NBR" valueNumeric="1"/>-->
+<!--            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS'                 and ROLE_NM='User')"/>-->
+<!--            <column name="PERM_ID" value="FINP-5561-P2"/>-->
+<!--            <column name="ACTV_IND" value="Y"/>-->
+<!--        </insert>-->
+        <modifySql dbms="oracle">
+            <replace replace="uuid()" with="sys_guid()"/>
+        </modifySql>
+    </changeSet>
+    <changeSet id="FINP-5507" author="KFS701" context="bootstrap,demo,unit">
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-5507-P1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t             where nmspc_cd = 'KFS-SYS' and nm = 'Create / Maintain Record(s)')"/>
+            <column name="NMSPC_CD" value="KFS-SYS"/>
+            <column name="NM" value="Create / Maintain Record(s) OOPT FALSE"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5507-P1A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5507-P1"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'             and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t             where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="OOPT"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5507-P1A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5507-P1"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'             and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t             where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ATTR_VAL" value="FALSE"/>
+        </insert>
+<!--        <insert tableName="KRIM_ROLE_PERM_T">-->
+<!--            <column name="ROLE_PERM_ID" value="FINP-5507-RP1"/>-->
+<!--            <column name="OBJ_ID" valueComputed="uuid()"/>-->
+<!--            <column name="VER_NBR" valueNumeric="1"/>-->
+<!--            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR'             and ROLE_NM='Processor')"/>-->
+<!--            <column name="PERM_ID" value="FINP-5507-P1"/>-->
+<!--            <column name="ACTV_IND" value="Y"/>-->
+<!--        </insert>-->
+<!--        <insert tableName="KRIM_ROLE_PERM_T">-->
+<!--            <column name="ROLE_PERM_ID" value="FINP-5507-RP2"/>-->
+<!--            <column name="OBJ_ID" valueComputed="uuid()"/>-->
+<!--            <column name="VER_NBR" valueNumeric="1"/>-->
+<!--            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-SYS'             and ROLE_NM='Accounts Receivable Manager')"/>-->
+<!--            <column name="PERM_ID" value="FINP-5507-P1"/>-->
+<!--            <column name="ACTV_IND" value="Y"/>-->
+<!--        </insert>-->
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-5507-P2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t             where nmspc_cd = 'KFS-SYS' and nm = 'Create / Maintain Record(s)')"/>
+            <column name="NMSPC_CD" value="KFS-SYS"/>
+            <column name="NM" value="Create / Maintain Record(s) OOPT TRUE"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5507-P2A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5507-P2"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'             and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t             where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="OOPT"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5507-P2A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5507-P2"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'             and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t             where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ATTR_VAL" value="TRUE"/>
+        </insert>
+<!--        <insert tableName="KRIM_ROLE_PERM_T">-->
+<!--            <column name="ROLE_PERM_ID" value="FINP-5507-RP3"/>-->
+<!--            <column name="OBJ_ID" valueComputed="uuid()"/>-->
+<!--            <column name="VER_NBR" valueNumeric="1"/>-->
+<!--            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR'             and ROLE_NM='Biller')"/>-->
+<!--            <column name="PERM_ID" value="FINP-5507-P2"/>-->
+<!--            <column name="ACTV_IND" value="Y"/>-->
+<!--        </insert>-->
+        <insert tableName="KRIM_PERM_T">
+            <column name="PERM_ID" value="FINP-5507-P3"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t             where nmspc_cd = 'KFS-SYS' and nm = 'Create / Maintain Record(s)')"/>
+            <column name="NMSPC_CD" value="KFS-SYS"/>
+            <column name="NM" value="Create / Maintain Record(s) OADF FALSE"/>
+            <column name="ACTV_IND" value="Y"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5507-P3A1"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5507-P3"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'             and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t             where nmspc_cd = 'KR-WKFLW' and nm = 'documentTypeName')"/>
+            <column name="ATTR_VAL" value="OADF"/>
+        </insert>
+        <insert tableName="KRIM_PERM_ATTR_DATA_T">
+            <column name="ATTR_DATA_ID" value="FINP-5507-P3A2"/>
+            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="VER_NBR" valueNumeric="1"/>
+            <column name="PERM_ID" value="FINP-5507-P3"/>
+            <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KFS-SYS'             and srvc_nm = '{http://kfs.kuali.org/kfs/v5_0}financialSystemDocumentTypeAndExistingRecordsOnlyPermissionTypeService')"/>
+            <column name="KIM_ATTR_DEFN_ID" valueComputed="(select kim_attr_defn_id from krim_attr_defn_t             where nmspc_cd = 'KR-NS' and nm = 'existingRecordsOnly')"/>
+            <column name="ATTR_VAL" value="FALSE"/>
+        </insert>
+<!--        <insert tableName="KRIM_ROLE_PERM_T">-->
+<!--            <column name="ROLE_PERM_ID" value="FINP-5507-RP4"/>-->
+<!--            <column name="OBJ_ID" valueComputed="uuid()"/>-->
+<!--            <column name="VER_NBR" valueNumeric="1"/>-->
+<!--            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR'             and ROLE_NM='Processor')"/>-->
+<!--            <column name="PERM_ID" value="FINP-5507-P3"/>-->
+<!--            <column name="ACTV_IND" value="Y"/>-->
+<!--        </insert>-->
+<!--        <insert tableName="KRIM_ROLE_PERM_T">-->
+<!--            <column name="ROLE_PERM_ID" value="FINP-5507-RP5"/>-->
+<!--            <column name="OBJ_ID" valueComputed="uuid()"/>-->
+<!--            <column name="VER_NBR" valueNumeric="1"/>-->
+<!--            <column name="ROLE_ID" valueComputed="(select ROLE_ID from krim_role_t where NMSPC_CD='KFS-AR'             and ROLE_NM='Biller')"/>-->
+<!--            <column name="PERM_ID" value="FINP-5507-P3"/>-->
+<!--            <column name="ACTV_IND" value="Y"/>-->
+<!--        </insert>-->
+        <modifySql dbms="oracle">
+            <replace replace="uuid()" with="sys_guid()"/>
+        </modifySql>
+    </changeSet>
+</databaseChangeLog>

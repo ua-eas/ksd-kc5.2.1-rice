@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.kuali.rice.ksb.impl.bus.LocalService
 import org.kuali.rice.ksb.impl.bus.RemoteService
 
 class ServiceRegistryDiffCalculatorImplTest {
-    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(ServiceRegistryDiffCalculatorImplTest.class)
+    private static final org.apache.logging.log4j.Logger LOG = org.apache.logging.log4j.LogManager.getLogger(ServiceRegistryDiffCalculatorImplTest.class)
 	private static final String LOCALHOST_IP = "localhost"
 	private static final String TEST1_NAMESPACE = "TEST1"
 	private static final String TEST1_INSTANCE_ID = "${TEST1_NAMESPACE}-${LOCALHOST_IP}";

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.core.api.util.ClassLoaderUtils;
 import org.kuali.rice.krad.data.metadata.DataObjectMetadata;
 import org.kuali.rice.krad.data.metadata.impl.DataObjectMetadataImpl;
@@ -39,8 +41,7 @@ import org.springframework.core.io.DefaultResourceLoader;
  * 
  */
 public class SpringMetadataProviderImpl extends MetadataProviderBase {
-	private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger
-			.getLogger(SpringMetadataProviderImpl.class);
+	private static final Logger LOG = LogManager.getLogger(SpringMetadataProviderImpl.class);
 
     /**
      * The locations of the bean resources.

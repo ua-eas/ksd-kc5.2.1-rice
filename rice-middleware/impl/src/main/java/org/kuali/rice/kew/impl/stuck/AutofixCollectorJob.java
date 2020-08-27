@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@ import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  */
 public class AutofixCollectorJob implements Job {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AutofixCollectorJob.class);
+    private static final Logger LOG = LogManager.getLogger(AutofixCollectorJob.class);
     private static final int PARTITION_SIZE = 50;
     private static final String AUTOFIX_JOB_KEY_PREFIX = "Autofix Documents Job - ";
 

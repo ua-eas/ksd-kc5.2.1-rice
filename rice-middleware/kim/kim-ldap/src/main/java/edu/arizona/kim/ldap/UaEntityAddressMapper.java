@@ -1,6 +1,7 @@
 package edu.arizona.kim.ldap;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kim.api.identity.CodedAttribute;
 import org.kuali.rice.kim.api.identity.address.EntityAddress;
 import org.springframework.ldap.core.DirContextOperations;
@@ -13,7 +14,7 @@ import edu.arizona.kim.eds.UaEdsRecordFactory;
  */
 public class UaEntityAddressMapper extends UaBaseMapper<EntityAddress> {
 
-	private static final Logger LOG = Logger.getLogger(UaEntityAddressMapper.class);
+	private static final Logger LOG = LogManager.getLogger(UaEntityAddressMapper.class);
 
 	@Override
 	EntityAddress mapDtoFromContext(DirContextOperations context) {

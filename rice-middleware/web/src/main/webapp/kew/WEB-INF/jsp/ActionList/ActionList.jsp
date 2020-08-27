@@ -1,6 +1,6 @@
 <%--
 
-    Copyright 2005-2018 The Kuali Foundation
+    Copyright 2005-2019 The Kuali Foundation
 
     Licensed under the Educational Community License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -265,7 +265,6 @@
                                             <display:table class="datatable-100" cellpadding="2" cellspacing="0"
                                                            name="actionListPage" pagesize="${preferences.pageSize}"
                                                            export="true" id="result" htmlId="row"
-                                                           decorator="org.kuali.rice.kew.actionlist.web.ActionListDecorator"
                                                            excludedParams="*" requestURI="${actionListURI}">
                                                 <display:setProperty name="export.banner" value="" />
                                                 <display:setProperty name="css.tr.even" value="actionlist_anyRow" />

@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,8 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.apache.commons.collections.MapUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.ksb.api.registry.ServiceInfo;
 import org.kuali.rice.ksb.api.registry.ServiceRegistry;
 import org.kuali.rice.ksb.impl.bus.LocalService;
@@ -38,7 +39,7 @@ import org.kuali.rice.ksb.impl.bus.RemoteService;
  */
 public class ServiceRegistryDiffCalculatorImpl implements ServiceRegistryDiffCalculator {
 
-	private static final Logger LOG = Logger.getLogger(ServiceRegistryDiffCalculatorImpl.class);
+	private static final Logger LOG = LogManager.getLogger(ServiceRegistryDiffCalculatorImpl.class);
 	
 	private ServiceRegistry serviceRegistry;
 	

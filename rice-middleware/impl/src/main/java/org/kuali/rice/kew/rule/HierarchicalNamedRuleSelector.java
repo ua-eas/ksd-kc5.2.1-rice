@@ -1,5 +1,5 @@
 /**
- * Copyright 2005-2018 The Kuali Foundation
+ * Copyright 2005-2019 The Kuali Foundation
  *
  * Licensed under the Educational Community License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,8 @@
  */
 package org.kuali.rice.kew.rule;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kuali.rice.kew.engine.RouteContext;
 import org.kuali.rice.kew.engine.node.RouteNodeInstance;
 import org.kuali.rice.kew.engine.node.hierarchyrouting.HierarchyRoutingNode;
@@ -41,7 +42,7 @@ import java.util.Map;
  * @author Kuali Rice Team (rice.collab@kuali.org)
  */
 public class HierarchicalNamedRuleSelector extends NamedRuleSelector {
-    private static final Logger LOG = Logger.getLogger(HierarchicalNamedRuleSelector.class);
+    private static final Logger LOG = LogManager.getLogger(HierarchicalNamedRuleSelector.class);
     @Override
     protected String getName(RouteContext context, DocumentRouteHeaderValue routeHeader, RouteNodeInstance nodeInstance,
             String selectionCriterion, Timestamp effectiveDate) {
