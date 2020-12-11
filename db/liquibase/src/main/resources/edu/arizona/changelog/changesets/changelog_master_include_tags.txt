@@ -1,5 +1,0 @@
-<include file="changesets/2020_phase5_db_rice_FINP-6210.xml"/>
-<include file="changesets/2020_phase5_db_rice_FINP-6323.xml"/>
-<include file="changesets/2020_phase5_db_rice_FINP-6455.xml"/>
-<include file="changesets/2020_phase5_db_rice_FINP-6789.xml"/>
-<include file="changesets/2020_phase5_db_rice_kim.xml"/>
