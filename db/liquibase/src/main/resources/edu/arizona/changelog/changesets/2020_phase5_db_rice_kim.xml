@@ -26,7 +26,7 @@
     <changeSet id="FINI-7413_remove_rice_idm_initiate" author="KFS701" context="bootstrap, demo">
         <insert tableName="KRIM_PERM_T">
             <column name="PERM_ID" value="rice-IDM-P1"/>
-            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
             <column name="VER_NBR" valueNumeric="1"/>
             <column name="PERM_TMPL_ID" valueComputed="(select perm_tmpl_id from krim_perm_tmpl_t
                     where nmspc_cd = 'KR-SYS' and nm = 'Initiate Document')"/>
@@ -36,7 +36,7 @@
         </insert>
         <insert tableName="KRIM_PERM_ATTR_DATA_T">
             <column name="ATTR_DATA_ID" value="rice-IDM-PA1"/>
-            <column name="OBJ_ID" valueComputed="uuid()"/>
+            <column name="OBJ_ID" valueComputed="sys_guid()"/>
             <column name="VER_NBR" valueNumeric="1"/>
             <column name="PERM_ID" value="rice-IDM-P1"/>
             <column name="KIM_TYP_ID" valueComputed="(select kim_typ_id from krim_typ_t where nmspc_cd = 'KR-SYS'
@@ -47,11 +47,11 @@
         </insert>
     </changeSet>
 
-    <changeSet id="FINP-6582_update_nmspc" author="KFS701" context="demo">
-        <update tableName="KRIM_PERM_T">
-            <column name="NMSPC_CD" value="KR-SYS"/>
-            <where>PERM_ID='rice-IDM-P1'</where>
-        </update>
-    </changeSet>
+<!--    <changeSet id="FINP-6582_update_nmspc" author="KFS701" context="demo">-->
+<!--        <update tableName="KRIM_PERM_T">-->
+<!--            <column name="NMSPC_CD" value="KR-SYS"/>-->
+<!--            <where>PERM_ID='rice-IDM-P1'</where>-->
+<!--        </update>-->
+<!--    </changeSet>-->
 
 </databaseChangeLog>
