@@ -211,6 +211,7 @@
       <property name="parameterService" ref="rice.kim.ldap.import.parameterService" />
       <property name="kimConstants"     ref="kimConstants" />
       <property name="edsConstants"     ref="edsConstants" />
+        <property name="timeLimit" value="${ldap.query.time.limit}"/>
 
       <property name="contextMappers">
         <map>

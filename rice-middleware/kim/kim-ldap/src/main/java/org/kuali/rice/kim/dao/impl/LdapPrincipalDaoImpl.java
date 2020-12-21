@@ -63,9 +63,8 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
     protected UaEdsConstants edsConstants;
     protected LdapTemplate template;
     protected ParameterService parameterService;
-
-
     protected Map<String, ContextMapper> contextMappers;
+    protected int timeLimit;
 
     public LdapPrincipalDaoImpl() {
     }
@@ -175,6 +174,7 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         SearchControls retval = new SearchControls();
         retval.setCountLimit(getSearchResultsLimit(PersonImpl.class).longValue());
         retval.setSearchScope(SearchControls.SUBTREE_SCOPE);
+        retval.setTimeLimit(getTimeLimit());
         return retval;
     }
 
@@ -526,5 +526,13 @@ public class LdapPrincipalDaoImpl implements LdapPrincipalDao {
         public CustomContextMapperCallbackHandler(ContextMapper mapper) {
             super(mapper);
         }
+    }
+
+    public int getTimeLimit() {
+        return timeLimit;
+    }
+
+    public void setTimeLimit(int timeLimit) {
+        this.timeLimit = timeLimit;
     }
 }
