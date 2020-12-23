@@ -29,6 +29,11 @@
   <include file="changesets/db.changelog-FIN-1597.xml"/>
   <include file="changesets/db.changelog-FIN-1533.xml"/>
   <include file="changesets/db.changelog-FIN-414.xml"/>
+  <include file="changesets/2020_phase5_db_rice_FINP-6210.xml"/>
+  <include file="changesets/2020_phase5_db_rice_kim.xml"/>
+  <include file="changesets/2020_phase5_db_rice_FINP-6455.xml"/>
+  <include file="changesets/2020_phase5_db_rice_FINP-6789.xml"/>
+
 
 
 
