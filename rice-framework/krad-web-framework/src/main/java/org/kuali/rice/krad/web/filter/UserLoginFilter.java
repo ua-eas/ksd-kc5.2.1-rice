@@ -144,7 +144,9 @@ public class UserLoginFilter implements Filter {
         String kualiSessionId = this.getKualiSessionId(request.getCookies());
         if (kualiSessionId == null) {
             kualiSessionId = UUID.randomUUID().toString();
-            response.addCookie(new Cookie(KRADConstants.KUALI_SESSION_ID, kualiSessionId));
+            Cookie cookie = new Cookie(KRADConstants.KUALI_SESSION_ID, kualiSessionId);
+            cookie.setSecure(true);
+            response.addCookie(cookie);
         }
         KRADUtils.getUserSessionFromRequest(request).setKualiSessionId(kualiSessionId);
     }
