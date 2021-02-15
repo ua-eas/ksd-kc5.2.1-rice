@@ -4,9 +4,13 @@
                      xsi:schemaLocation="http://jakarta.apache.org/log4j/" strict="true">
     <Appenders>
         <RollingFile name="logfile" fileName="${sys:LOG_DIR}/rice.log"
-                     filePattern="${sys:LOG_DIR}/rice.log-%d{yyyyMMdd}.gz" immediateFlush="true">
+                     filePattern="${sys:LOG_DIR}/rice.log-%d{yyyyMMdd}-%i.gz" immediateFlush="true">
             <PatternLayout pattern="%d u:%X{user}/d:%X{docId} [%t] [%-5p] %c: %m%n"/>
-            <TimeBasedTriggeringPolicy interval="1"/>
+            <Policies>
+                <OnStartupTriggeringPolicy minSize="0"/>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
         </RollingFile>
     </Appenders>
     <Loggers>
