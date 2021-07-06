@@ -962,6 +962,9 @@ public class WebUtils {
     }
 
 	public static String sanitizeBackLocation(String backLocation) {
+    	//FIN-2251 Prevent xss
+		backLocation = StringEscapeUtils.escapeHtml(backLocation);
+
 		if(StringUtils.isBlank(backLocation)) {
 			return backLocation;
 		}
