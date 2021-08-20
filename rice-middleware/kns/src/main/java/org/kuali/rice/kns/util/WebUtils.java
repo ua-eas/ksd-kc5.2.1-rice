@@ -962,6 +962,12 @@ public class WebUtils {
     }
 
 	public static String sanitizeBackLocation(String backLocation) {
+
+		//FIN-2291 UA fix to prevent cross site scripting
+		if(StringUtils.isNotBlank(backLocation)){
+			backLocation = StringEscapeUtils.escapeHtml(backLocation);
+		}
+
 		if(StringUtils.isBlank(backLocation)) {
 			return backLocation;
 		}
