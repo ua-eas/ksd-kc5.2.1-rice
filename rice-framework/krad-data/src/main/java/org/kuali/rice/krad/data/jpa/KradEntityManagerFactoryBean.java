@@ -422,6 +422,16 @@ public class KradEntityManagerFactoryBean implements FactoryBean<EntityManagerFa
         return internalFactoryBean.getNativeEntityManagerFactory();
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EntityManager createNativeEntityManager(Map<?, ?> properties) {
+        return internalFactoryBean.createNativeEntityManager(properties);
+    }
+
+
     /**
      * {@inheritDoc}
      */
@@ -808,6 +818,9 @@ public class KradEntityManagerFactoryBean implements FactoryBean<EntityManagerFa
         // this allows us to add our own internal post processor to the list)
         this.persistenceUnitPostProcessors = new ArrayList<PersistenceUnitPostProcessor>(Arrays.asList(postProcessors));
     }
+
+
+
 
     /**
      * A {@link PersistenceUnitPostProcessor} to handle {@link Converter} annotations.

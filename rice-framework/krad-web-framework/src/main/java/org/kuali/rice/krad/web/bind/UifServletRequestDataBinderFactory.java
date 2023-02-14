@@ -42,7 +42,7 @@ public class UifServletRequestDataBinderFactory extends ServletRequestDataBinder
 
     @Override
     protected ServletRequestDataBinder createBinderInstance(Object target, String objectName,
-            NativeWebRequest request) {
+            NativeWebRequest request) throws Exception {
         if (target != null) {
             // only override for UifFormBase models so that non KRAD spring MVC
             // can be used in same dispatcher servlet.
