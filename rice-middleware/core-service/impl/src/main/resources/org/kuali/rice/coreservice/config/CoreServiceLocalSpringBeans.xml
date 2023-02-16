@@ -102,12 +102,12 @@
     <property name="xmlImpexRegistry" ref="rice.coreService.import.xmlImpexRegistry" />
     <property name="xmlLoadersToRegister">
       <list>
-        <ref local="styleXmlLoader" />
+        <ref bean="styleXmlLoader" />
       </list>
     </property>
     <property name="xmlExportersToRegister">
       <list>
-        <ref local="styleXmlExporter" />
+        <ref bean="styleXmlExporter" />
       </list>
     </property>
   </bean>

@@ -57,7 +57,7 @@
 
   <bean id="docTypeLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
     <property name="lookupableHelperService">
-      <ref local="docTypeLookupHelperService" />
+      <ref bean="docTypeLookupHelperService" />
     </property>
   </bean>
 
@@ -77,7 +77,7 @@
 
   <bean id="documentSearchCriteriaBoLookupable" class="org.kuali.rice.kns.lookup.KualiLookupableImpl" scope="prototype">
     <property name="lookupableHelperService">
-      <ref local="documentSearchCriteriaBoLookupableHelperService" />
+      <ref bean="documentSearchCriteriaBoLookupableHelperService" />
     </property>
     <property name="extraOnLoad" value="storeCurrentDocTypeNameOnLoad()"/>
   </bean>

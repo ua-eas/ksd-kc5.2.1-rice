@@ -53,10 +53,10 @@
 
   <bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager" lazy-init="true">
     <property name="userTransaction">
-      <ref local="userTransaction"/>
+      <ref bean="userTransaction"/>
     </property>
     <property name="transactionManager">
-      <ref local="jtaTransactionManager"/>
+      <ref bean="jtaTransactionManager"/>
     </property>
   </bean>
 

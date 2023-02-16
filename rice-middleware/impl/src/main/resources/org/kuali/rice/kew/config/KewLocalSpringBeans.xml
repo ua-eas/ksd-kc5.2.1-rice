@@ -131,23 +131,23 @@
 
     <property name="xmlLoadersToRegister">
       <list>
-        <ref local="enUserXmlService"/>
-        <ref local="enRuleAttributeService"/>
-        <ref local="enGroupXmlService"/>
-        <ref local="enRuleTemplateService"/>
-        <ref local="enDocumentTypeService"/>
-        <ref local="enRuleServiceInternal"/>
-        <ref local="enRuleDelegationService"/>
+        <ref bean="enUserXmlService"/>
+        <ref bean="enRuleAttributeService"/>
+        <ref bean="enGroupXmlService"/>
+        <ref bean="enRuleTemplateService"/>
+        <ref bean="enDocumentTypeService"/>
+        <ref bean="enRuleServiceInternal"/>
+        <ref bean="enRuleDelegationService"/>
       </list>
     </property>
     <property name="xmlExportersToRegister">
       <list>
-        <ref local="enRuleAttributeService"/>
-        <ref local="enGroupXmlService"/>
-        <ref local="enRuleTemplateService"/>
-        <ref local="enDocumentTypeService"/>
-        <ref local="enRuleServiceInternal"/>
-        <ref local="enRuleDelegationService"/>
+        <ref bean="enRuleAttributeService"/>
+        <ref bean="enGroupXmlService"/>
+        <ref bean="enRuleTemplateService"/>
+        <ref bean="enDocumentTypeService"/>
+        <ref bean="enRuleServiceInternal"/>
+        <ref bean="enRuleDelegationService"/>
       </list>
     </property>
   </bean>
