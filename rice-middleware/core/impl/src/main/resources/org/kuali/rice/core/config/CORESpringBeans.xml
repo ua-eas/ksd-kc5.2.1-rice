@@ -33,7 +33,7 @@
     </property>
     <property name="beanNames">
       <list>
-        <idref local="xmlDigesterService"/>
+        <idref bean="xmlDigesterService"/>
       </list>
     </property>
   </bean>
