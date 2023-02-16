@@ -116,6 +116,30 @@
           <groupId>org.glassfish.hk2.external</groupId>
           <artifactId>javax.inject</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>jakarta.activation</groupId>
+          <artifactId>jakarta.activation-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.sun.activation</groupId>
+          <artifactId>jakarta.activation</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jakarta.annotation</groupId>
+          <artifactId>jakarta.annotation-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jakarta.xml.bind</groupId>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>jakarta.ws.rs</groupId>
+          <artifactId>jakarta.ws.rs-api</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.glassfish.hk2.external</groupId>
+          <artifactId>jakarta.inject</artifactId>
+        </exclusion>
       </exclusions>
 
     </dependency>
