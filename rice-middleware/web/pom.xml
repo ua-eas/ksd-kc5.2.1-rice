@@ -105,7 +105,7 @@
           <artifactId>hk2-api</artifactId>
         </exclusion>
         <exclusion>
-          <groupId>org.glassfish.hk2,external</groupId>
+          <groupId>org.glassfish.hk2.external</groupId>
           <artifactId>javax.inject</artifactId>
         </exclusion>
         <exclusion>
@@ -215,6 +215,27 @@
       <groupId>org.kuali.rice</groupId>
       <version>${project.version}</version>
       <artifactId>rice-kim-ldap</artifactId>
+    </dependency>
+    <!-- Explicitly add these four deps to prevent older versions from being resolved and pulled in -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-crypto</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-ldap</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.ldap</groupId>
+      <artifactId>spring-ldap-core</artifactId>
+      <version>${spring.ldap.version}</version>
     </dependency>
   </dependencies>
 

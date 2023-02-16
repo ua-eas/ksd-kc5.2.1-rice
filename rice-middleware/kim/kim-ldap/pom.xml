@@ -15,7 +15,8 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
   <name>Rice LDAP Connector</name>
   <modelVersion>4.0.0</modelVersion>
   <parent>
@@ -24,10 +25,6 @@
     <version>2.7.0.1-ua-release61-SNAPSHOT</version>
   </parent>
   <artifactId>rice-kim-ldap</artifactId>
-
-  <properties>
-    <spring.ldap.version>2.3.2.RELEASE</spring.ldap.version>
-  </properties>
 
   <dependencies>
     <dependency>
@@ -40,6 +37,16 @@
           <groupId>commons-logging</groupId>
         </exclusion>
       </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-crypto</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+      <version>5.3.24</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
