@@ -194,14 +194,14 @@
     </property>
     <property name="beanNames">
       <list>
-        <idref local="enStatsService"/>
-        <idref local="enNoteService"/>
-        <idref local="rice.kew.groupMembershipChangeQueue"/>
-        <idref local="enActionListEmailService"/>
-        <idref local="enQuickLinksService"/>
-        <idref local="rice.kew.noteService"/>
-        <idref local="rice.kew.kewTypeRepositoryService"/>
-        <idref local="rice.kew.stuckDocumentService"/>
+        <idref bean="enStatsService"/>
+        <idref bean="enNoteService"/>
+        <idref bean="rice.kew.groupMembershipChangeQueue"/>
+        <idref bean="enActionListEmailService"/>
+        <idref bean="enQuickLinksService"/>
+        <idref bean="rice.kew.noteService"/>
+        <idref bean="rice.kew.kewTypeRepositoryService"/>
+        <idref bean="rice.kew.stuckDocumentService"/>
       </list>
     </property>
   </bean>

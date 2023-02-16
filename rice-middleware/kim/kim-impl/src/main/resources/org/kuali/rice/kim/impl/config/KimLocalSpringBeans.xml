@@ -57,9 +57,9 @@
     </property>
     <property name="beanNames">
       <list>
-        <idref local="kimCacheDistributionQueue" />
-        <idref local="kimDistributedCacheManager" />
-        <idref local="kimDataIntegrityService" />
+        <idref bean="kimCacheDistributionQueue" />
+        <idref bean="kimDistributedCacheManager" />
+        <idref bean="kimDataIntegrityService" />
       </list>
     </property>
   </bean>

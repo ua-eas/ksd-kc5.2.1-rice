@@ -17,50 +17,17 @@
 
 -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-       xmlns:p="http://www.springframework.org/schema/p" 
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:beans="http://www.springframework.org/schema/beans"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-       xmlns:jee="http://www.springframework.org/schema/jee"
-       xmlns:jms="http://www.springframework.org/schema/jms"
-       xmlns:lang="http://www.springframework.org/schema/lang"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:oxm="http://www.springframework.org/schema/oxm"
-       xmlns:task="http://www.springframework.org/schema/task"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/aop
-                           http://www.springframework.org/schema/aop/spring-aop.xsd
-                           http://www.springframework.org/schema/beans
-                           http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/context
-                           http://www.springframework.org/schema/context/spring-context.xsd
-                           http://www.springframework.org/schema/jdbc
-                           http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-                           http://www.springframework.org/schema/jee
-                           http://www.springframework.org/schema/jee/spring-jee.xsd
-                           http://www.springframework.org/schema/jms
-                           http://www.springframework.org/schema/jms/spring-jms.xsd
-                           http://www.springframework.org/schema/lang
-                           http://www.springframework.org/schema/lang/spring-lang.xsd
-                           http://www.springframework.org/schema/mvc
-                           http://www.springframework.org/schema/mvc/spring-mvc.xsd
-                           http://www.springframework.org/schema/oxm
-                           http://www.springframework.org/schema/oxm/spring-oxm.xsd
-                           http://www.springframework.org/schema/task
-                           http://www.springframework.org/schema/task/spring-task.xsd
-                           http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx.xsd
-                           http://www.springframework.org/schema/util
-                           http://www.springframework.org/schema/util/spring-util.xsd">
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Import Dependencies -->
 	<import resource="classpath:org/kuali/rice/core/CommonSpringBeans.xml" />
 	<import resource="classpath:org/kuali/rice/ksb/config/KsbServiceBusClientSpringBeans.xml" />
 
-	<bean id="rice.ksb.messageDataSource" class="org.kuali.rice.core.framework.persistence.jdbc.datasource.PrimaryDataSourceFactoryBean" lazy-init="true" scope="singleton">
+	<bean id="rice.ksb.messageDataSource"
+		  class="org.kuali.rice.core.framework.persistence.jdbc.datasource.PrimaryDataSourceFactoryBean"
+		  lazy-init="true">
     <!--
        See KULRICE-6574: Some KSB beans not defined unless message persistence turned on.
        The forceLazy property was added to allow the datasource to be created with a lazy proxy
@@ -85,7 +52,9 @@
 		<property name="serverDataSource" value="false"/>
 	</bean>
 
-	<bean id="rice.ksb.messageNonTransactionalDataSource" class="org.kuali.rice.core.framework.persistence.jdbc.datasource.PrimaryDataSourceFactoryBean" lazy-init="true"  scope="singleton">
+	<bean id="rice.ksb.messageNonTransactionalDataSource"
+		  class="org.kuali.rice.core.framework.persistence.jdbc.datasource.PrimaryDataSourceFactoryBean"
+		  lazy-init="true">
     <!--
        See comment on rice.ksb.messageDataSource above forceLazy, KULRICE-6574
     -->
@@ -136,9 +105,9 @@
 		</property>
 		<property name="beanNames">
 			<list>
-				<idref local="rice.ksb.messageQueueService" />
-				<idref local="rice.ksb.exceptionMessagingService" />
-				<idref local="rice.ksb.scheduler" />
+				<idref bean="rice.ksb.messageQueueService" />
+				<idref bean="rice.ksb.exceptionMessagingService" />
+				<idref bean="rice.ksb.scheduler" />
 			</list>
 		</property>
 	</bean>
