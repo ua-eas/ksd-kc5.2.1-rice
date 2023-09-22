@@ -49,7 +49,8 @@
     <asm.group.string>org.ow2.asm</asm.group.string>
     <asm.version>7.1</asm.version>
     <aspectj.version>1.9.2</aspectj.version>
-    <bcprov.version>1.57</bcprov.version>
+    <bcprov.version>1.70</bcprov.version>
+    <bcutil.version>1.70</bcutil.version>
     <bitronix.version>2.1.4</bitronix.version>
     <bytebuddy.version>1.9.10</bytebuddy.version>
     <closure.version>v20170423</closure.version>
@@ -2134,6 +2135,12 @@
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcprov-jdk15on</artifactId>
         <version>${bcprov.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcutil-jdk15on</artifactId>
+        <version>${bcutil.version}</version>
       </dependency>
 
       <dependency>
