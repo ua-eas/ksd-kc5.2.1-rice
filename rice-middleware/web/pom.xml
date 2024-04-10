@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice-middleware</artifactId>
-    <version>2.7.0.1-ua-release63</version>
+    <version>2.7.0.1-ua-release64-SNAPSHOT</version>
   </parent>
   <artifactId>rice-web</artifactId>
   <packaging>war</packaging>
