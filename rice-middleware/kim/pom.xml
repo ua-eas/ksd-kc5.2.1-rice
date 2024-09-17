@@ -33,35 +33,4 @@
         <module>kim-framework</module>
         <module>kim-ldap</module>
     </modules>
-
-  <!-- section added for testing -->
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <overlays>
-            <overlay>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>rice-web</artifactId>
-              <includes>
-                <include>WEB-INF/web.xml</include>
-              </includes>
-              <filtered>true</filtered>
-            </overlay>
-            <overlay>
-              <groupId>${project.groupId}</groupId>
-              <artifactId>rice-web</artifactId>
-              <filtered>false</filtered>
-              <excludes>
-                <exclude>WEB-INF/web.xml</exclude>
-              </excludes>
-            </overlay>
-          </overlays>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
 </project>
