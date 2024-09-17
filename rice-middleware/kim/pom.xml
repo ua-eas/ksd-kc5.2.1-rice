@@ -26,7 +26,7 @@
     </parent>
     <artifactId>rice-kim</artifactId>
 
-    <packaging>war</packaging> <!--changed from pom for testing-->
+    <packaging>pom</packaging>
     <modules>
         <module>kim-api</module>
         <module>kim-impl</module>
