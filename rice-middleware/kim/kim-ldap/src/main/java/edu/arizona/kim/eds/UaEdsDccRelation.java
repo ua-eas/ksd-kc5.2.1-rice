@@ -61,7 +61,8 @@ public class UaEdsDccRelation {
 	private String endDate;
 
 	public UaEdsDccRelation(final String dccRelationRecordString) {
-		String[] tokens = dccRelationRecordString.split(DCC_RELATION_DELIM);
+		// The split's '-1' forces keeping trailing empty fields
+		String[] tokens = dccRelationRecordString.split(DCC_RELATION_DELIM, -1);
 		setTitle(tokens[0]);
 		setType(tokens[1]);
 		setDeptCode(tokens[2]);
