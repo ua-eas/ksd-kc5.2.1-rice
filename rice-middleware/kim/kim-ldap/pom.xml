@@ -21,7 +21,7 @@
   <parent>
     <groupId>org.kuali.rice</groupId>
     <artifactId>rice-kim</artifactId>
-    <version>2.7.0.1-ua-release65-SNAPSHOT</version>
+    <version>2.7.0.1-ua-release66-SNAPSHOT</version>
   </parent>
   <artifactId>rice-kim-ldap</artifactId>
 
@@ -135,5 +135,11 @@
       <artifactId>rice-impl</artifactId>
       <version>${project.version}</version>
     </dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.13.1</version>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
 </project>
