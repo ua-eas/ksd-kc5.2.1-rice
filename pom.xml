@@ -2650,7 +2650,7 @@
     <repository>
       <id>deployment</id>
       <name>Internal Releases</name>
-      <url>https://kfs.ua-uits-kuali-nonprod.arizona.edu/nexus/content/repositories/releases/</url>
+      <url>https://ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/kfs-releases/</url>
     </repository>
     <snapshotRepository>
       <id>deployment</id>
