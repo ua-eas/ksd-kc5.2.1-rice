@@ -2655,7 +2655,7 @@
     <snapshotRepository>
       <id>deployment</id>
       <name>Internal Releases</name>
-            <url>https://ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/hlo-snapshots-test/</url>
+            <url>https://hlo-ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/hlo-snapshots-test/</url>
 <!--      <url>https://ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/kfs-snapshots/</url> -->
     </snapshotRepository>
   </distributionManagement>
