@@ -2650,14 +2650,12 @@
     <repository>
       <id>deployment</id>
       <name>Internal Releases</name>
-      <url>https://hlo-ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/hlo-releases-test/</url>
-<!--      <url>https://ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/kfs-releases/</url> -->
+      <url>https://ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/releases/</url>
     </repository>
     <snapshotRepository>
       <id>deployment</id>
       <name>Internal Snapshots</name>
-            <url>https://hlo-ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/hlo-snapshots-test/</url>
-<!--      <url>https://ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/kfs-snapshots/</url> -->
+      <url>https://ua-kuali-397167497055.d.codeartifact.us-west-2.amazonaws.com/maven/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
