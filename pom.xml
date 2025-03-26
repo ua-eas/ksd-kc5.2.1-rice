@@ -2650,12 +2650,12 @@
     <repository>
       <id>deployment</id>
       <name>Internal Releases</name>
-      <url>https://nexus-test.ua-uits-kuali-nonprod.arizona.edu/repository/releases/</url>
+      <url>https://nexus-v3.ua-uits-kuali-nonprod.arizona.edu/repository/releases/</url>
     </repository>
     <snapshotRepository>
       <id>deployment</id>
       <name>Internal Snapshots</name>
-      <url>https://nexus-test.ua-uits-kuali-nonprod.arizona.edu/repository/snapshots/</url>
+      <url>https://nexus-v3.ua-uits-kuali-nonprod.arizona.edu/repository/snapshots/</url>
     </snapshotRepository>
   </distributionManagement>
 
